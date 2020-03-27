@@ -15,9 +15,9 @@ public class Tower {
         Enemy target = null;
         Double dist = null;
         for(Enemy e : enemies){
-            if (target == null | this.centre.distance(e.getOrigin) < dist){
+            if (target == null | this.centre.distance(e.getOrigin()) < dist){
                 target = e;
-                dist = this.centre.distance(e.getOrigin);
+                dist = this.centre.distance(e.getOrigin());
             }
         }
         return target;
