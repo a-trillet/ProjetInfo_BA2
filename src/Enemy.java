@@ -20,12 +20,13 @@ public class Enemy implements Killable {
     public void hurt(Bullet bullet) {
         this.lifePoints -= bullet.getDamage();
         if(this.lifePoints <= 0){
-            this.die();
+            this.die(bullet.getMotherTower());
         }
     }
 
     @Override
-    public void die() {
+    public void die(Tower killer) {
         this.alive = false;
+        killer.targetIsDead(this);
     }
 }

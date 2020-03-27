@@ -7,6 +7,7 @@ public class Bullet {
     protected double damage;
     protected double range;   // distance jusqu'à laquelle on est touché quand la bullet explose
     protected ArrayList<Enemy> enemies;
+    protected Tower motherTower;
 
     public Bullet(){} // constructeur à faire
 
@@ -19,5 +20,6 @@ public class Bullet {
             }
         }
     }
+    public Tower getMotherTower(){return motherTower;}
 
 }
