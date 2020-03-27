@@ -3,7 +3,7 @@ public class Enemy implements Killable {
     protected boolean alive = true;
     protected double lifePoints = 0;
     protected double maxLifePoints = 0;
-
+/// idée, une case qui affiche les stat du derniere objet sur lequel on a cliqué, exemple: on clique sur un ennemi et on voit sa vie, sa vélocité,... dans cette case, pareil pour les tours
 
 
     public Enemy( Point origin, double life){
@@ -12,9 +12,7 @@ public class Enemy implements Killable {
         this.maxLifePoints = life;
     }
 
-    public Point getOrigin(){
-        return this.origin;
-    }
+    public Point getOrigin(){ return this.origin; }
 
     @Override
     public void hurt(Bullet bullet) {
