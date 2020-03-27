@@ -3,9 +3,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Tower {
-    private int frequency = 50;
-    private Point centre;
-    private ArrayList<Enemy>enemies = new ArrayList<Enemy>();
+    protected int frequency = 50;
+    protected Point centre;
+    protected ArrayList<Enemy>enemies = new ArrayList<Enemy>();
+    protected double range;
+    protected Enemy targetedEnemy;
 
     public Tower(Point origin){
         this.centre = origin;

@@ -8,7 +8,7 @@ public class Bullet {
     protected double range;   // distance jusqu'à laquelle on est touché quand la bullet explose
     protected ArrayList<Enemy> enemies;
 
-    public Bullet(){} // constructeur
+    public Bullet(){} // constructeur à faire
 
     public double getDamage(){return damage;}
 

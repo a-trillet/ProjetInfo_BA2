@@ -1,8 +1,8 @@
 public class Enemy implements Killable {
     protected Point origin;
-    boolean alive = true;
-    double lifePoints = 0;
-    double maxLifePoints = 0;
+    protected boolean alive = true;
+    protected double lifePoints = 0;
+    protected double maxLifePoints = 0;
 
 
 
