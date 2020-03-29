@@ -29,7 +29,7 @@ public class Tower {
         }
         return target;
     }
-    public void targetIsDead(Enemy e){
+    public void targetIsDead(Enemy enemy){
         numberOfKill += 1;      // modifiable selon valeur du mob
         targetEnemy = selectTarget();   // change la cible quand le mob meurt( ou sort de la range: RAJOUTER autre part)
     }
