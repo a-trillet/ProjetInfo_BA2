@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Enemy implements Killable {
     protected Point origin;
     protected boolean alive = true;
@@ -23,8 +25,10 @@ public class Enemy implements Killable {
     }
 
     @Override
-    public void die(Tower killer) {
+    public void die(ArrayList<Tower>killers) {
         this.alive = false;
+        for(Tower killer:killers){
         killer.targetIsDead(this);
+        }
     }
 }
