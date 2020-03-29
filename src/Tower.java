@@ -14,7 +14,7 @@ public class Tower {
         this.centre = origin;
     }
 
-    private Enemy selectTarget(){   //Cette fonction renvoit l'ennemi en range le plus proche du centre de la tour
+    private Enemy selectTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour
         Enemy target = null;
         Double dist = null;
         for(Enemy e : enemies){
@@ -23,6 +23,9 @@ public class Tower {
                 target = e;
                 dist = sepa;
             }
+        }
+        if (target != null ){
+        target.addTargetingTower(this);
         }
         return target;
     }

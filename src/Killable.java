@@ -1,6 +1,8 @@
+import java.util.ArrayList;
+
 public interface Killable {
 
 
     void hurt(Bullet bullet);
-    void die(Tower killer);
+    void die();
 }
