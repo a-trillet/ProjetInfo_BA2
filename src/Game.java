@@ -12,7 +12,7 @@ public class Game extends Application {
 
     Stage window;
     Scene scene1, scene2;
-    public int difficulty = 3; //// A CHANGER ABSOLUMENT, JUSTE UN TEST
+    public int difficulty = 2; //// A CHANGER ABSOLUMENT, JUSTE UN TEST
 
 
     public static void main(String[] args)  {
@@ -60,10 +60,11 @@ public class Game extends Application {
             closeProgram();
         });
         window.show();
+
     }
 
     private void closeProgram(){
-        Boolean answer = ConfirmBox.display("Warning", "Are you sure you want to exit?");
+        boolean answer = ConfirmBox.display("Warning", "Are you sure you want to exit?");
         if (answer){
             window.close();
         }
