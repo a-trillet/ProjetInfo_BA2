@@ -33,4 +33,10 @@ public class Tower {
         numberOfKill += 1;      // modifiable selon valeur du mob
         targetEnemy = selectTarget();   // change la cible quand le mob meurt( ou sort de la range: RAJOUTER autre part)
     }
+
+
+
+    public Point getCentre(){
+        return centre;
+    }
 }

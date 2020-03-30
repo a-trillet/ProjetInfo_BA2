@@ -2,14 +2,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Bullet {
-    protected double speed;
-    protected Point centre; // coordonnée
-    protected double damage;
-    protected double range;   // distance jusqu'à laquelle on est touché quand la bullet explose
-    protected ArrayList<Enemy> enemies;
-    protected Tower motherTower;
+    private double speed;  // choisir si vient de la tour ou meme vitesse pour tt les balles
+    private Point centre; // coordonnée
+    private double damage;
+    private double range;   // distance jusqu'à laquelle on est touché quand la bullet explose
+    private ArrayList<Enemy> enemies;
+    private Tower motherTower;
+    private Point targetPoint;  // point d'arriver de la balle
 
-    public Bullet(){} // constructeur à faire
+    public Bullet(double damage, Tower t, double range, Point targetPoint){
+        this.damage=damage;
+        this.motherTower=t;
+        this.centre=t.getCentre();
+        this.range=range;
+        this.targetPoint=targetPoint; //ajouter fonction dans tower pour donner la position de la cible
+    } // on peut ajouter speed si différent pour chaque tour
 
     public double getDamage(){return damage;}
 
