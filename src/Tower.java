@@ -25,7 +25,7 @@ public class Tower {
             }
         }
         if (target != null ){
-        target.addTargetingTower(this);
+            target.addTargetingTower(this);
         }
         return target;
     }

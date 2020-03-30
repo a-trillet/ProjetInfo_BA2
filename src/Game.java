@@ -9,9 +9,10 @@ import javafx.stage.Stage;
 
 public class Game extends Application {
 
+
     Stage window;
     Scene scene1, scene2;
-    public int hearts = 3; //// A CHANGER ABSOLUMENT, JUSTE UN TEST
+    public int difficulty = 3; //// A CHANGER ABSOLUMENT, JUSTE UN TEST
 
 
     public static void main(String[] args)  {
@@ -29,6 +30,8 @@ public class Game extends Application {
         Button startButton = new Button("Start Game");
         startButton.setOnAction(e -> window.setScene(scene2));
 
+
+
         //Layout 1 - children are laid ou in vertical column
         VBox layout1 = new VBox(20);
         layout1.getChildren().addAll(label1,startButton);
@@ -41,7 +44,8 @@ public class Game extends Application {
 
         // Button setting
         Button settingButton = new Button("Settings");
-        settingButton.setOnAction(e -> ParameterWindow.display("Setting box","Modify preferences here..."));
+        settingButton.setOnAction(e -> {
+              difficulty =  ParameterWindow.display("Setting box","Modify preferences here...");});
 
         //Layout 2
         VBox layout2 = new VBox();
@@ -51,7 +55,18 @@ public class Game extends Application {
 
         window.setScene(scene1);
         window.setTitle("Cool Name To Be Inserted Here!!!");
+        window.setOnCloseRequest(e -> {
+            e.consume();
+            closeProgram();
+        });
         window.show();
+    }
+
+    private void closeProgram(){
+        Boolean answer = ConfirmBox.display("Warning", "Are you sure you want to exit?");
+        if (answer){
+            window.close();
+        }
     }
 
 
