@@ -27,8 +27,7 @@ public class Enemy implements Killable {
         }
     }
 
-    @Override
-    public void die() {     //prévient toutes les tourelles qui le vise qu'il est mort
+    private void die() {     //prévient toutes les tourelles qui le vise qu'il est mort
         this.alive = false;
         for(Tower killer: targetingTowers){
         killer.targetIsDead(this);
