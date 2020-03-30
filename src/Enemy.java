@@ -3,11 +3,11 @@ import org.w3c.dom.html.HTMLAreaElement;
 import java.util.ArrayList;
 
 public class Enemy implements Killable {
-    protected Point origin;
-    protected boolean alive = true;
-    protected double lifePoints = 0;
-    protected double maxLifePoints = 0;
-    protected ArrayList<Tower> targetingTowers = new ArrayList<Tower>(); // les tours qui le cible actuelement
+    private Point origin;
+    private boolean alive = true;
+    private double lifePoints = 0;
+    private double maxLifePoints = 0;
+    private ArrayList<Tower> targetingTowers = new ArrayList<Tower>(); // les tours qui le cible actuelement
 /// idée, une case qui affiche les stat du derniere objet sur lequel on a cliqué, exemple: on clique sur un ennemi et on voit sa vie, sa vélocité,... dans cette case, pareil pour les tours
 
 
