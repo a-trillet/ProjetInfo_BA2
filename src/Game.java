@@ -59,6 +59,7 @@ public class Game extends Application {
             e.consume();
             closeProgram();
         });
+
         window.show();
 
     }
