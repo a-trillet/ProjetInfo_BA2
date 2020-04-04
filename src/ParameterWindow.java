@@ -8,7 +8,7 @@ import javafx.stage.*;
   /// pas definitif, juste un test de deuxieme fenetre
 public class ParameterWindow {
 
-      public static int display(String title, String message){ // message peut diférer si on change les parametrtre depuis le muenu ou le jeu par exemple,: avant de commencer la partie, choisissez les parametre
+      public static int display(String title, String message, int difficulty){ // message peut diférer si on change les parametrtre depuis le muenu ou le jeu par exemple,: avant de commencer la partie, choisissez les parametre
         Stage parameterWindow = new Stage();                    // peut aussi etre fait dans la meme window avec une nouvelle scene. donc à discuter. MAis cette classe peut se renommer display parameter ou un brol du genre
 
         parameterWindow.initModality(Modality.APPLICATION_MODAL); // empeche de toucher à la fenetre de base avant d'avoir coupé cette page . utile pendant qu'on change les parametres
@@ -28,7 +28,7 @@ public class ParameterWindow {
                 "Hard",
                 "Insane"
         );
-        difficultySelection.setValue("Normal");
+        difficultySelection.setValue(difficultyString(difficulty));
 
 
 
@@ -44,6 +44,25 @@ public class ParameterWindow {
 
 
         return getDifficulty(difficultySelection);
+    }
+    private static String difficultyString(int diff){
+      String difficulty = "";
+      switch(diff) {
+        case 1 :
+          difficulty = "Easy";
+          break;
+        case 2:
+          difficulty = "Normal";
+          break;
+        case 3:
+          difficulty = "Hard";
+          break;
+        case  4 :
+          difficulty = "Insane";
+          break;
+      }
+      return difficulty;
+
     }
     private static int getDifficulty(ComboBox<String> difficultySelection){
       String difficultee = difficultySelection.getValue();

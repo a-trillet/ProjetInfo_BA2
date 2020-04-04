@@ -14,7 +14,6 @@ public class Game extends Application {
     Scene scene1, scene2;
     public int difficulty = 2; //// A CHANGER ABSOLUMENT, JUSTE UN TEST
 
-
     public static void main(String[] args)  {
         launch(args);
     }
@@ -45,7 +44,7 @@ public class Game extends Application {
         // Button setting
         Button settingButton = new Button("Settings");
         settingButton.setOnAction(e -> {
-              difficulty =  ParameterWindow.display("Setting box","Modify preferences here...");});
+              difficulty =  ParameterWindow.display("Setting box","Modify preferences here...", difficulty);});
 
         //Layout 2
         VBox layout2 = new VBox();
