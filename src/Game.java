@@ -3,6 +3,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -11,8 +12,12 @@ public class Game extends Application {
 
 
     Stage window;
-    Scene scene1, scene2;
+    Scene scene1, scene2, scene3;
+    public static Drawing map= new Drawing();
     public int difficulty = 2; //// A CHANGER ABSOLUMENT, JUSTE UN TEST
+
+
+
 
     public static void main(String[] args)  {
         launch(args);
@@ -52,7 +57,16 @@ public class Game extends Application {
         layout2.setAlignment(Pos.CENTER);
         scene2 = new Scene(layout2, 600, 300);
 
-        window.setScene(scene1);
+        // Layout 3 jeu
+        BorderPane borderPane = new BorderPane();
+        map.draw(new Point(0,0));// à enlever
+        VBox menu = new VBox(); //
+        menu.getChildren().add(menuButton);
+        borderPane.setCenter(map);
+        borderPane.setRight(menu);
+        scene3 =new Scene(borderPane,600,400);
+
+        window.setScene(scene3);
         window.setTitle("Cool Name To Be Inserted Here!!!");
         window.setOnCloseRequest(e -> {
             e.consume();
@@ -69,6 +83,9 @@ public class Game extends Application {
             window.close();
         }
     }
+
+
+
 
 
 
