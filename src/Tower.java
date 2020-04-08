@@ -5,7 +5,7 @@ import java.util.List;
 public class Tower {
     private int frequency = 50;
     private Point centre;
-    private double level;
+    private int level;
     private ArrayList<Enemy>enemies = new ArrayList<Enemy>();
     private double range;
     private Enemy targetEnemy;
