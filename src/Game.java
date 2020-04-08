@@ -50,10 +50,15 @@ public class Game extends Application {
         Button settingButton = new Button("Settings");
         settingButton.setOnAction(e -> {
               difficulty =  ParameterWindow.display("Setting box","Modify preferences here...", difficulty);});
+        //Button play
+        Button playButton = new Button("Play");
+        playButton.setOnAction(e->{
+            window.setScene(scene3);
+        });
 
         //Layout 2
         VBox layout2 = new VBox();
-        layout2.getChildren().addAll(menuButton, settingButton);
+        layout2.getChildren().addAll(menuButton, settingButton, playButton);
         layout2.setAlignment(Pos.CENTER);
         scene2 = new Scene(layout2, 600, 300);
 
@@ -66,7 +71,7 @@ public class Game extends Application {
         borderPane.setRight(menu);
         scene3 =new Scene(borderPane,600,400);
 
-        window.setScene(scene3);
+        window.setScene(scene1);
         window.setTitle("Cool Name To Be Inserted Here!!!");
         window.setOnCloseRequest(e -> {
             e.consume();
