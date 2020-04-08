@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Tower {
     private int frequency = 50;
+    private int cost;
     private Point centre;
     private int level;
     private ArrayList<Enemy>enemies = new ArrayList<Enemy>();
@@ -11,9 +12,12 @@ public class Tower {
     private Enemy targetEnemy;
     private int numberOfKill;  //l'idée serait de permettre  l'amélioration des tourelles
                             //que si elle a suffisament tué( + possibilité de rajouter une valeur à chaque classe de ennemi)
-    public Tower(Point origin){
+
+
+    public Tower(Point origin, Drawing drawing){
         this.centre = origin;
         level=1;
+        drawing.draw(origin);
     }
 
     private Enemy selectTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour
