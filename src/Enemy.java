@@ -8,7 +8,7 @@ public class Enemy implements Killable {
     private double lifePoints = 0;
     private double maxLifePoints = 0;
     private ArrayList<Tower> targetingTowers = new ArrayList<Tower>(); // les tours qui le cible actuelement
-/// idée, une case qui affiche les stat du derniere objet sur lequel on a cliqué, exemple: on clique sur un ennemi et on voit sa vie, sa vélocité,... dans cette case, pareil pour les tours
+/// idée, une case qui affiche les stats du derniere objet sur lequel on a cliqué, exemple: on clique sur un ennemi et on voit sa vie, sa vélocité,... dans cette case, pareil pour les tours
 
 
     public Enemy( Point origin, double life){

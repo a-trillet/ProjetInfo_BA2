@@ -23,7 +23,7 @@ public class Bullet {
     public double getDamage(){return damage;}
 
     public void explode(){      //hurt les ennemis dont l'origine est dans la range de la bullet
-        for(Enemy e : enemies){
+        for(Enemy e : enemies){                                //pt un truc à optimiser ici plus tard
             if( this.centre.distance(e.getOrigin()) <= range){
                 e.hurt(this);
             }
