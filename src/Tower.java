@@ -7,7 +7,7 @@ public class Tower {
     private int cost;
     private Point centre;
     private int level;
-    private ArrayList<Enemy>enemies = new ArrayList<Enemy>();
+    private ArrayList<Enemy>enemies = new ArrayList<Enemy>(); //à supprimer
     private double range;
     private Enemy targetEnemy;
     private int numberOfKill;  //l'idée serait de permettre  l'amélioration des tourelles
@@ -40,8 +40,14 @@ public class Tower {
     }
 
 
-
+    public boolean isOn(Point p){
+        boolean res= false;
+        if (p.distance(this.centre)<30){res=true;}  //On peut modifier pour pouvoir cliquer sur tt la carré
+        return res;
+    }
     public Point getCentre(){
         return centre;
     }
+
+
 }

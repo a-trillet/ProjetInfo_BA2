@@ -11,10 +11,11 @@ public class Drawing extends Pane  {
         super();
     }
 
-    public void draw(Point centre){
+    public void drawSquare(Point centre){
         square.setX(centre.getX()-15);
         square.setY(centre.getY()-15);
         this.getChildren().add(square);
 }
+
 
 }

@@ -3,9 +3,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Game extends Application {
@@ -13,7 +15,7 @@ public class Game extends Application {
 
     Stage window;
     Scene scene1, scene2, scene3;
-    public static Drawing map= new Drawing();
+    public static Drawing drawing= new Drawing();
     public int difficulty = 2; //// A CHANGER ABSOLUMENT, JUSTE UN TEST
 
 
@@ -64,7 +66,10 @@ public class Game extends Application {
 
         // Layout 3 jeu
         BorderPane borderPane = new BorderPane();
-        map.draw(new Point(0,0));// à enlever
+        StackPane map = new StackPane(); // permet de supperposer les différents éléments de la map (image, tours,..)
+        drawing.drawSquare(new Point(100,100));// à enlever
+
+        map.getChildren().addAll(drawing);
         VBox menu = new VBox(); //
         menu.getChildren().add(menuButton);
         borderPane.setCenter(map);
