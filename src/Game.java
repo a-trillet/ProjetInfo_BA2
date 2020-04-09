@@ -15,7 +15,7 @@ public class Game extends Application {
 
     Stage window;
     Scene scene1, scene2, scene3;
-    public static Drawing drawing= new Drawing();
+
 
 
 
@@ -63,17 +63,10 @@ public class Game extends Application {
         layout2.setAlignment(Pos.CENTER);
         scene2 = new Scene(layout2, 600, 300);
 
-        // Layout 3 jeu
-        BorderPane borderPane = new BorderPane();
-        StackPane map = new StackPane(); // permet de supperposer les différents éléments de la map (image, tours,..)
-        drawing.drawSquare(new Point(100,100));// à enlever
 
-        map.getChildren().addAll(drawing);
-        VBox menu = new VBox(); //
-        menu.getChildren().add(menuButton);
-        borderPane.setCenter(map);
-        borderPane.setRight(menu);
-        scene3 =new Scene(borderPane,600,400);
+
+        PlayScreen playscreen = new PlayScreen();
+        scene3 =new Scene(playscreen.sceneView(),600,400);
 
         window.setScene(scene1);
         window.setTitle("Cool Name To Be Inserted Here!!!");
