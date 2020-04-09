@@ -18,7 +18,6 @@ public class Game extends Application {
     Stage window;
     Scene scene1, scene2, scene3;
     public static Drawing drawing= new Drawing();
-    public int difficulty = 2; //// A CHANGER ABSOLUMENT, JUSTE UN TEST
 
 
 
@@ -53,7 +52,7 @@ public class Game extends Application {
         // Button setting
         Button settingButton = new Button("Settings");
         settingButton.setOnAction(e -> {
-              difficulty =  ParameterWindow.display("Setting box","Modify preferences here...", difficulty);});
+              ParameterWindow.display("Setting box","Modify preferences here...");});
         //Button play
         Button playButton = new Button("Play");
         playButton.setOnAction(e->{

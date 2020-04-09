@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 
 public interface MapClickable {
-    //à voir si utile
 
-
+    boolean isOn(Point point);
+    Point getCentre();
+    Info getInfo();
 }

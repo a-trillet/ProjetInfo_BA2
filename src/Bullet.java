@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static java.lang.Math.*;
 
@@ -24,7 +23,7 @@ public class Bullet {
 
     public void explode(){      //hurt les ennemis dont l'origine est dans la range de la bullet
         for(Enemy e : enemies){
-            if( this.centre.distance(e.getOrigin()) <= range){
+            if( this.centre.distance(e.getCentre()) <= range){
                 e.hurt(this);
             }
         }

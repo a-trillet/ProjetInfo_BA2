@@ -2,8 +2,9 @@ import org.w3c.dom.html.HTMLAreaElement;
 
 import java.util.ArrayList;
 
-public class Enemy implements Killable {
+public class Enemy implements Killable, MapClickable {
     private Point origin;
+    private int speed;
     private boolean alive = true;
     private double lifePoints = 0;
     private double maxLifePoints = 0;
@@ -17,7 +18,12 @@ public class Enemy implements Killable {
         this.maxLifePoints = life;
     }
 
-    public Point getOrigin(){ return this.origin; }
+    public Point getCentre(){ return this.origin; }
+
+    @Override
+    public Info getInfo() {
+        return new InfoEnemy(this);
+    }
 
     @Override
     public void hurt(Bullet bullet) {
@@ -36,5 +42,23 @@ public class Enemy implements Killable {
 
     public void addTargetingTower(Tower tower){
         this.targetingTowers.add(tower);
+    }
+
+    @Override
+    public boolean isOn(Point p){
+        boolean res= false;
+        if (p.distance(this.origin)<30){res=true;}  //On peut modifier pour pouvoir cliquer sur tt la carré
+        return res;
+    }
+    public int getSpeed() {
+        return speed;
+    }
+
+    public double getLifePoints() {
+        return lifePoints;
+    }
+
+    public double getMaxLifePoints() {
+        return maxLifePoints;
     }
 }
