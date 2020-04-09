@@ -1,10 +1,12 @@
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -60,7 +62,7 @@ public class Game extends Application {
 
         //Layout 2
         VBox layout2 = new VBox();
-        layout2.getChildren().addAll(menuButton, settingButton, playButton);
+        layout2.getChildren().addAll(playButton,settingButton,menuButton);
         layout2.setAlignment(Pos.CENTER);
         scene2 = new Scene(layout2, 600, 300);
 
@@ -70,13 +72,22 @@ public class Game extends Application {
         drawing.drawSquare(new Point(100,100));// à enlever
 
         map.getChildren().addAll(drawing);
-        VBox menu = new VBox(); //
-        menu.getChildren().add(menuButton);
-        borderPane.setCenter(map);
-        borderPane.setRight(menu);
-        scene3 =new Scene(borderPane,600,400);
+        GridPane shop = new GridPane();
+        shop.setPadding(new Insets(10,10,10,10));
+        shop.setVgap(8);
+        shop.setHgap(10);
+        Button fireTowerButton = new Button("fire tower");
+        GridPane.setConstraints(fireTowerButton,0,0);
+        Button iceTowerButton = new Button("ice tower");
+        GridPane.setConstraints(iceTowerButton,1,0);
+        shop.getChildren().addAll(fireTowerButton,iceTowerButton);
 
-        window.setScene(scene1);
+
+        borderPane.setCenter(map);
+        borderPane.setRight(shop);
+        scene3 =new Scene(borderPane,1000,500);
+
+        window.setScene(scene3);
         window.setTitle("Cool Name To Be Inserted Here!!!");
         window.setOnCloseRequest(e -> {
             e.consume();
