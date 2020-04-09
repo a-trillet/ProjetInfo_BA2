@@ -3,6 +3,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Tower {
+    private enum type {Fire}
+
     private int frequency = 50;
     private int cost;
     private Point centre;
@@ -11,7 +13,7 @@ public class Tower {
     private double range;
     private Enemy targetEnemy;
     private int numberOfKill;  //l'idée serait de permettre  l'amélioration des tourelles
-                            //que si elle a suffisament tué( + possibilité de rajouter une valeur à chaque classe de ennemi)
+                                // que si elle a suffisament tué( + possibilité de rajouter une valeur à chaque classe de ennemi)
 
 
     public Tower(Point origin){
@@ -22,7 +24,7 @@ public class Tower {
     private Enemy selectTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour
         Enemy target = null;
         Double dist = null;
-        for(Enemy e : enemies){
+        for(Enemy e : Player.getPlayer().getEnemiesOnMap()){
             double sepa = this.centre.distance(e.getOrigin());
             if ((target == null || sepa < dist) && sepa <= this.range ) {
                 target = e;
@@ -48,6 +50,8 @@ public class Tower {
     public Point getCentre(){
         return centre;
     }
+
+    public void upgrade(){ level += 1; }   // + retirer argent selon cout de upgrade qui appartiendrait à fire tower. + changer stats damages,...
 
 
 }
