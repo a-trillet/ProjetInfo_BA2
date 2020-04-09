@@ -44,5 +44,8 @@ public class Player {
     public void addGold(int amount){
         gold += amount;
     }
+    public void setDifficulty(int diff){
+        difficulty = diff;
+    }
 
 }
