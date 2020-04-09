@@ -1,5 +1,9 @@
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 
 import java.util.ArrayList;
 
@@ -7,10 +11,12 @@ public class MapClickListener implements EventHandler<MouseEvent> {
 
 
     private MapClickable currentSelection =  null;
+    public BorderPane borderPane;
 
 
-    public MapClickListener (){
+    public MapClickListener (BorderPane borderPane){
         super();
+        this.borderPane = borderPane;
     }
 
     public void MousePressed(MouseEvent e){
@@ -44,7 +50,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         if(mouseEvent.getEventType() == MouseEvent.MOUSE_CLICKED){
             currentSelection = clickedOn(mouseEvent);
             if (currentSelection == null){
-                //displayShop;
+                PlayScreen.displayShop();
             }
             else {
                 displayInfo(currentSelection.getInfo()); //(+cercle de range ,..)
@@ -52,5 +58,13 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         }
 
     }
+    private void displayInfo(Info info){
+        Label label = new Label("coucou");
+        VBox infoBox = new VBox();
+        infoBox.getChildren().addAll(label);
+        borderPane.setRight(infoBox);
+    }
+
+
 
 }

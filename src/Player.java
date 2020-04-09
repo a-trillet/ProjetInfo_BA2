@@ -47,5 +47,8 @@ public class Player {
     public void setDifficulty(int diff){
         difficulty = diff;
     }
+    public void addTower(Tower tower){
+        towerList.add(tower);
+    }
 
 }
