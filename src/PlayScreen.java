@@ -8,6 +8,8 @@ import javafx.scene.paint.Color;
 public class PlayScreen {
     public static Drawing drawing= new Drawing();
     private static BorderPane borderPane = new BorderPane();
+    public static String towerType = null;
+
 
     public BorderPane sceneView(){
         Tower towerTest = new Tower(new Point(100,100));// test tower
@@ -21,6 +23,14 @@ public class PlayScreen {
         drawing.drawSquare(towerTest.getCentre());//  dessin test tower, rectangle rouge
         map.getChildren().addAll(drawing);
         map.setBackground(new Background(new BackgroundFill(Color.rgb(40, 40, 40), CornerRadii.EMPTY, Insets.EMPTY)));
+        drawing.setOnMouseClicked(e->
+        {if (towerType!=null)
+            {new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));
+        }
+        }
+        );
+
+
 
 
         //le shop

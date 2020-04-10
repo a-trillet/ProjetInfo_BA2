@@ -4,7 +4,7 @@ import javafx.scene.shape.Rectangle;
 
 public class Drawing extends Pane  {
     private Color color = new Color(1,0,0,1);
-    private javafx.scene.shape.Rectangle square = new Rectangle(30,30,color);
+    private javafx.scene.shape.Rectangle square ;
 
 
     public Drawing(){
@@ -12,6 +12,7 @@ public class Drawing extends Pane  {
     }
 
     public void drawSquare(Point centre){
+        square= new Rectangle(30,30,color);
         square.setX(centre.getX()-15);
         square.setY(centre.getY()-15);
         this.getChildren().add(square);

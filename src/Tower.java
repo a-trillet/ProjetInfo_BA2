@@ -5,11 +5,11 @@ public class Tower implements MapClickable {
 
 
     private int frequency = 50;
-    private int cost;
 
 
 
     private int[] upgradeCost = {50,100,200};
+    private static int cost;
     private Point centre;
 
 
@@ -81,7 +81,8 @@ public class Tower implements MapClickable {
     public int getFrequency() {
         return frequency;
     }
-    public int getCost() {
+
+    public static int getCost() {
         return cost;
     }
 
@@ -104,6 +105,8 @@ public class Tower implements MapClickable {
     public int getUpgradeCost() {
         return upgradeCost[level-1];
     }
+
+
 
 
 }
