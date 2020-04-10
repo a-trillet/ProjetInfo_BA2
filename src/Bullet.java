@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static java.lang.Math.*;
 
@@ -19,11 +20,14 @@ public class Bullet {
         this.targetPoint=targetPoint; //ajouter fonction dans tower pour donner la position de la cible
     } // on peut ajouter speed si différent pour chaque tour
 
-    public double getDamage(){return damage;}
+    public double getDamage(){
+       double damage = this.damage;
+       return damage;
+    }
 
     public void explode(){      //hurt les ennemis dont l'origine est dans la range de la bullet
         for(Enemy e : enemies){
-            if( this.centre.distance(e.getCentre()) <= range){
+            if( this.centre.distance(e.getCentre()) <= range){ // où get origin?
                 e.hurt(this);
             }
         }
@@ -34,8 +38,8 @@ public class Bullet {
         double dist = targetPoint.distance(this.motherTower.getCentre());
         int deltaX = (int) (this.targetPoint.getX()- this.motherTower.getCentre().getX()); // Attention mettre des propreties pour ne pas modifier X et Y indépendament (fonction de modification),
         int deltaY = (int) (this.targetPoint.getY()- this.motherTower.getCentre().getY()); // heuu sauf que ca pose un probleme si le chemin est vertical ou horizontal, mais plus rapide en général
-        double speed_x = this.speed * deltaX / dist;
-        double speed_y = this.speed * deltaY / dist;
+        double speed_x = speed * deltaX / dist;
+        double speed_y = speed * deltaY / dist;
         int dx = (int)round(time*speed_x);
         int dy = (int)round(time*speed_y);
         if (abs(this.targetPoint.getY()-this.centre.getY()) > abs(dy) && abs(this.targetPoint.getX()-this.centre.getX()) > abs(dx) ) {
