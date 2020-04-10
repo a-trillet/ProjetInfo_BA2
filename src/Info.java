@@ -1,4 +1,4 @@
-public class Info {
+public abstract class Info {
     private MapClickable object;
 
 
@@ -8,6 +8,7 @@ public class Info {
         this.object = object;
 
     }
+    public abstract String listString();
 
     public MapClickable getObject() {
         return object;

@@ -11,4 +11,9 @@ public class InfoEnemy extends Info {
         this.life = enemy.getLifePoints();
         this.lifeMax = enemy.getMaxLifePoints();
     }
+
+    @Override
+    public String listString() {
+        return null;
+    }
 }

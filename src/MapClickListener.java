@@ -1,11 +1,12 @@
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MapClickListener implements EventHandler<MouseEvent> {
 
@@ -59,9 +60,35 @@ public class MapClickListener implements EventHandler<MouseEvent> {
 
     }
     private void displayInfo(Info info){
-        Label label = new Label("coucou");
-        VBox infoBox = new VBox();
-        infoBox.getChildren().addAll(label);
+        String infos = info.listString();
+        GridPane infoBox = new GridPane();
+        infoBox.setPrefWidth(200);
+        infoBox.setPadding(new Insets(10,10,10,10));
+        infoBox.setVgap(8);
+        infoBox.setHgap(10);
+
+        if (currentSelection instanceof Tower){
+            if(((Tower)currentSelection).getLevel()<3){
+                Button upgradeButton = new Button("Upgrade for" + ((Tower)currentSelection).getUpgradeCost());
+                upgradeButton.setOnAction(e -> ((Tower) currentSelection).upgrade()); ///essayer de recuperer le message de upgrade(pas assez de gold) dans un label + mettre a jour en remmttant display
+                GridPane.setConstraints(upgradeButton,0,6);
+                infoBox.getChildren().addAll(upgradeButton);
+            }
+            else{Button upgradeButton = new Button("Maxed");
+                GridPane.setConstraints(upgradeButton,0,6);
+                infoBox.getChildren().addAll(upgradeButton);
+            }
+
+
+        }
+        Button shopButton = new Button("Shop");
+        shopButton.setOnAction(e ->PlayScreen.displayShop());
+        GridPane.setConstraints(shopButton,0,8);
+
+        Label label = new Label(infos);
+        GridPane.setConstraints(label, 0,0);
+
+        infoBox.getChildren().addAll(label, shopButton);
         borderPane.setRight(infoBox);
     }
 
