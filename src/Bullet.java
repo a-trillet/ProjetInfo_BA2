@@ -20,11 +20,14 @@ public class Bullet {
         this.targetPoint=targetPoint; //ajouter fonction dans tower pour donner la position de la cible
     } // on peut ajouter speed si différent pour chaque tour
 
-    public double getDamage(){return damage;}
+    public double getDamage(){
+       double damage = this.damage;
+       return damage;
+    }
 
     public void explode(){      //hurt les ennemis dont l'origine est dans la range de la bullet
         for(Enemy e : enemies){
-            if( this.centre.distance(e.getOrigin()) <= range){
+            if( this.centre.distance(e.getCentre()) <= range){ // où get origin?
                 e.hurt(this);
             }
         }
