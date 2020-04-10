@@ -30,6 +30,8 @@ public class Game extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         window = stage;
+        System.out.println("Hello");
+        System.out.println(FireTower.getCost());
 
         Label label1 = new Label("Let's choose between viruses goblins and meteors");
 

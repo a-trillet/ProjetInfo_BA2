@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Player {
-    private static int gold = 0;
+    private static int gold = 10000;//à changer
     private static int lifePoints;
     private static ArrayList<Enemy> enemiesOnMap = new ArrayList<>();
     private static ArrayList<Tower> towerList = new ArrayList<>();

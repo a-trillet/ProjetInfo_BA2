@@ -5,7 +5,7 @@ public class Tower implements MapClickable {
 
 
     private int frequency = 50;
-    private int cost;
+    private static int cost;
     private Point centre;
 
 
@@ -70,7 +70,8 @@ public class Tower implements MapClickable {
     public int getFrequency() {
         return frequency;
     }
-    public int getCost() {
+
+    public static int getCost() {
         return cost;
     }
 
@@ -89,6 +90,8 @@ public class Tower implements MapClickable {
     public int getNumberOfKill() {
         return numberOfKill;
     }
+
+
 
 
 }
