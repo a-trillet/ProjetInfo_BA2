@@ -8,17 +8,13 @@ import javafx.stage.*;
   /// pas definitif, juste un test de deuxieme fenetre
 public class ParameterWindow {
 
-      public static int display(String title, String message, int difficulty){ // message peut diférer si on change les parametrtre depuis le muenu ou le jeu par exemple,: avant de commencer la partie, choisissez les parametre
+      public static void display(String title, String message){ // message peut diférer si on change les parametrtre depuis le muenu ou le jeu par exemple,: avant de commencer la partie, choisissez les parametre
         Stage parameterWindow = new Stage();                    // peut aussi etre fait dans la meme window avec une nouvelle scene. donc à discuter. MAis cette classe peut se renommer display parameter ou un brol du genre
 
         parameterWindow.initModality(Modality.APPLICATION_MODAL); // empeche de toucher à la fenetre de base avant d'avoir coupé cette page . utile pendant qu'on change les parametres
         parameterWindow.setTitle(title);
         parameterWindow.setMinWidth(300);
 
-        Label label = new Label();
-        label.setText(message);
-        Button closeButton = new Button("Apply and close");
-        closeButton.setOnAction(e -> parameterWindow.close());
 
         // creation bouton sélection de difficulté
         ComboBox<String> difficultySelection = new ComboBox<String>();
@@ -28,8 +24,15 @@ public class ParameterWindow {
                 "Hard",
                 "Insane"
         );
-        difficultySelection.setValue(difficultyString(difficulty));
+        difficultySelection.setValue(difficultyString(Player.getPlayer().getDifficulty()));
 
+
+        Label label = new Label();
+        label.setText(message);
+        Button closeButton = new Button("Apply and close");
+        closeButton.setOnAction(e -> {
+                  Player.getPlayer().setDifficulty(getDifficulty(difficultySelection));
+                  parameterWindow.close();});
 
 
 
@@ -38,12 +41,11 @@ public class ParameterWindow {
         layout.getChildren().addAll(label,closeButton, difficultySelection);
         layout.setAlignment(Pos.CENTER);
 
+
         Scene scene = new Scene(layout, 400, 300);
         parameterWindow.setScene(scene);
         parameterWindow.showAndWait();
 
-
-        return getDifficulty(difficultySelection);
     }
     private static String difficultyString(int diff){
       String difficulty = "";

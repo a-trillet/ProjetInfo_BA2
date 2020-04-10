@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public interface MapClickable {
 
-    public void handle();
-    public Boolean isOn();
+    boolean isOn(Point point);
+    Point getCentre();
+    Info getInfo();
 }
