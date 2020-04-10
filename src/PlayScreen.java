@@ -13,6 +13,8 @@ public class PlayScreen {
     public static String towerType = null;
 
 
+
+
     public BorderPane sceneView(){
         Tower towerTest = new Tower(new Point(100,100));// test tower
         Player.getPlayer().addTower(towerTest);
@@ -24,12 +26,8 @@ public class PlayScreen {
 
         drawing.drawSquare(towerTest.getCentre());//  dessin test tower, rectangle rouge
         map.getChildren().addAll(drawing);
-        drawing.setOnMouseClicked(e->
-        {if (towerType!=null)
-            {new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));
-        }
-        }
-        );
+        drawing.setOnMouseClicked(e->{if (towerType!=null){new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));}});
+        //drawing.setOnMouseReleased(new TowerButtonListener(drawing));
 
 
 
@@ -55,9 +53,14 @@ public class PlayScreen {
 
         Button fireTowerButton = new Button("fire tower");
         fireTowerButton.setOnMouseClicked(e->towerType="FIRE");
+        //TowerButtonListener firelistener = new TowerButtonListener(drawing);
+        //firelistener.setS("FIRE");
+        //fireTowerButton.setOnMousePressed(firelistener);
+
         GridPane.setConstraints(fireTowerButton,0,0);
 
         Button iceTowerButton = new Button("ice tower");
+        iceTowerButton.setOnMouseClicked(e->towerType="ICE");
         GridPane.setConstraints(iceTowerButton,1,0);
 
         shop.getChildren().addAll(fireTowerButton,iceTowerButton);

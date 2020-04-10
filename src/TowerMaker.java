@@ -19,7 +19,6 @@ public class TowerMaker {
             //}
 
         }
-        else{System.out.println("raté");}
     }
         private boolean CheckTowerOk(Tower to){
             boolean res = false;
