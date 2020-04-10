@@ -70,12 +70,14 @@ public class Tower implements MapClickable {
     }
 
     public String upgrade(){
+        String messageUpgrade;
         if (Player.getPlayer().getGold() >= getUpgradeCost()){
             level += 1;
             Player.getPlayer().addGold(-getUpgradeCost());
-            return "Upgraded";
+            messageUpgrade = "Upgraded";
         }
-        else{ return "You don't have enough money";}
+        else{ messageUpgrade = "You don't have enough money";}
+        return messageUpgrade;
     }   // + retirer argent selon cout de upgrade qui appartiendrait à fire tower. + changer stats damages,...
 
     public int getFrequency() {

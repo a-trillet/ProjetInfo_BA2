@@ -18,15 +18,12 @@ public class PlayScreen {
 
 
     public BorderPane sceneView(){
-        Tower towerTest = new Tower(new Point(100,100));// test tower
-        Player.getPlayer().addTower(towerTest);
 
 
 
         //La map
-        StackPane map = new StackPane(); // permet de supperposer les différents éléments de la map (image, tours,..)
+        MapPane map = new MapPane(); // permet de supperposer les différents éléments de la map (image, tours,..)
 
-        drawing.drawSquare(towerTest.getCentre());//  dessin test tower, rectangle rouge
         map.getChildren().addAll(drawing);
         drawing.setOnMouseClicked(e->{if (towerType!=null){new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));}});
         //drawing.setOnMouseReleased(new TowerButtonListener(drawing));
@@ -70,6 +67,7 @@ public class PlayScreen {
         shop.getChildren().addAll(fireTowerButton,iceTowerButton);
         borderPane.setRight(shop);
     }
+
 
 
 

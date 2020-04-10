@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Player {
     private static int gold = 700;
@@ -9,6 +10,10 @@ public class Player {
     private static Player instance = null; // pour qu'on ne puisse construire qu'un seul objet player, si on veut avoir des parties sauvergardée, il suffira de créer un fonction charger, qui puisera dans un fichier et completera le profil
     private static final int[] startingLives = {20, 18, 16, 15};
     private static final int startingGold = 100;
+    private static int wave = 1;
+    private static final ArrayList<LinkedList<Enemy>> enemyWaves = loadWaveFile("");
+    private static  LinkedList<Enemy> currentEnemyQueue = enemyWaves.get(wave);
+
 
     public static synchronized Player getPlayer(){
         if(instance == null){
@@ -18,6 +23,11 @@ public class Player {
     }
     public void loadProfile( String saveFile){}    // futur alternative à reset
 
+    private static ArrayList<LinkedList<Enemy>> loadWaveFile(String file){
+        ArrayList<LinkedList<Enemy>> waves = new ArrayList<LinkedList<Enemy>>();
+
+        return new ArrayList<>();
+    }
     public void reset(){                            // (re)initialisation de la partie, à completer en remettant vagues à 0,ect; si on veut vraiment pouvoir reset, plutot la completer  faire dans une autre fonction
         lifePoints = startingLives[difficulty-1];
         gold = startingGold;
@@ -50,5 +60,5 @@ public class Player {
     public void addTower(Tower tower){
         towerList.add(tower);
     }
-
+    public void nextWave(){wave++;}
 }
