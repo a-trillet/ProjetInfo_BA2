@@ -70,7 +70,10 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         if (currentSelection instanceof Tower){
             if(((Tower)currentSelection).getLevel()<3){
                 Button upgradeButton = new Button("Upgrade for" + ((Tower)currentSelection).getUpgradeCost());
-                upgradeButton.setOnAction(e -> ((Tower) currentSelection).upgrade()); ///essayer de recuperer le message de upgrade(pas assez de gold) dans un label + mettre a jour en remmttant display
+                upgradeButton.setOnAction(e ->{
+                    ((Tower) currentSelection).upgrade();
+                    displayInfo(currentSelection.getInfo());
+                }); ///essayer de recuperer le message de upgrade(pas assez de gold) dans un label + mettre a jour en remmttant display
                 GridPane.setConstraints(upgradeButton,0,6);
                 infoBox.getChildren().addAll(upgradeButton);
             }
