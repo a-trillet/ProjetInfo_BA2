@@ -5,6 +5,10 @@ public class Tower implements MapClickable {
 
 
     private int frequency = 50;
+
+
+
+    private int[] upgradeCost = {50,100,200};
     private static int cost;
     private Point centre;
 
@@ -62,10 +66,17 @@ public class Tower implements MapClickable {
 
     @Override
     public Info getInfo() {
-        return new Info(this);
+        return new InfoTower(this);
     }
 
-    public void upgrade(){ level += 1; }   // + retirer argent selon cout de upgrade qui appartiendrait à fire tower. + changer stats damages,...
+    public String upgrade(){
+        if (Player.getPlayer().getGold() >= getUpgradeCost()){
+            level += 1;
+            Player.getPlayer().addGold(-getUpgradeCost());
+            return "Upgraded";
+        }
+        else{ return "You don't have enough money";}
+    }   // + retirer argent selon cout de upgrade qui appartiendrait à fire tower. + changer stats damages,...
 
     public int getFrequency() {
         return frequency;
@@ -89,6 +100,10 @@ public class Tower implements MapClickable {
 
     public int getNumberOfKill() {
         return numberOfKill;
+    }
+
+    public int getUpgradeCost() {
+        return upgradeCost[level-1];
     }
 
 

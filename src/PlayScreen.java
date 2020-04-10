@@ -6,6 +6,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 public class PlayScreen {
     public static Drawing drawing= new Drawing();
@@ -28,6 +30,9 @@ public class PlayScreen {
         map.getChildren().addAll(drawing);
         drawing.setOnMouseClicked(e->{if (towerType!=null){new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));}});
         //drawing.setOnMouseReleased(new TowerButtonListener(drawing));
+        map.setBackground(new Background(new BackgroundFill(Color.rgb(40, 40, 40), CornerRadii.EMPTY, Insets.EMPTY)));
+        drawing.setOnMouseClicked(e->
+
 
 
 
@@ -60,7 +65,6 @@ public class PlayScreen {
         GridPane.setConstraints(fireTowerButton,0,0);
 
         Button iceTowerButton = new Button("ice tower");
-        iceTowerButton.setOnMouseClicked(e->towerType="ICE");
         GridPane.setConstraints(iceTowerButton,1,0);
 
         shop.getChildren().addAll(fireTowerButton,iceTowerButton);
