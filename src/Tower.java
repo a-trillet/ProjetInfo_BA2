@@ -7,59 +7,60 @@ public class Tower implements MapClickable {
     private int frequency = 50;
 
 
-
-    private int[] upgradeCost = {50,100,200};
+    private int[] upgradeCost = {50, 100, 200};
     private static int cost;
     private Point centre;
 
 
-    private int damage = 37; // changer pour le mettre dans bullet
+    private double damage = 10;
     private int level = 1;
-    private ArrayList<Enemy>enemies = new ArrayList<Enemy>(); //à supprimer
+    private ArrayList<Enemy> enemies = new ArrayList<Enemy>(); //à supprimer
     private double range = 250;
     private Enemy targetEnemy;
 
 
-
     private int numberOfKill;  //l'idée serait de permettre  l'amélioration des tourelles
-                                // que si elle a suffisament tué( + possibilité de rajouter une valeur à chaque classe de ennemi)
+    // que si elle a suffisament tué( + possibilité de rajouter une valeur à chaque classe de ennemi)
 
 
-    public Tower(Point origin){
+    public Tower(Point origin) {
         this.centre = origin;
-        level=1;
+        level = 1;
     }
 
 
-    private Enemy selectTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour
+    private Enemy selectTarget() {   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour
         Enemy target = null;
         Double dist = null;
-        for(Enemy e : Player.getPlayer().getEnemiesOnMap()){
+        for (Enemy e : Player.getPlayer().getEnemiesOnMap()) {
             double sepa = this.centre.distance(e.getCentre());
-            if ((target == null || sepa < dist) && sepa <= this.range ) {
+            if ((target == null || sepa < dist) && sepa <= this.range) {
                 target = e;
                 dist = sepa;
             }
         }
-        if (target != null ){
+        if (target != null) {
             target.addTargetingTower(this);
         }
         return target;
     }
-    public void targetIsDead(Enemy enemi){
+
+    public void targetIsDead(Enemy enemi) {
         numberOfKill += 1;      // modifiable selon valeur du mob
         targetEnemy = selectTarget();   // change la cible quand le mob meurt( ou sort de la range: RAJOUTER autre part)
     }
 
 
-    public boolean isOn(Point p){
-        boolean res= false;
-        if (p.distance(this.centre)<30){res=true;}  //On peut modifier pour pouvoir cliquer sur tt la carré
+    public boolean isOn(Point p) {
+        boolean res = false;
+        if (p.distance(this.centre) < 30) {
+            res = true;
+        }  //On peut modifier pour pouvoir cliquer sur tt la carré
         return res;
     }
 
     @Override
-    public Point getCentre(){
+    public Point getCentre() {
         return centre;
     }
 
@@ -69,13 +70,14 @@ public class Tower implements MapClickable {
         return new InfoTower(this);
     }
 
-    public String upgrade(){
-        if (Player.getPlayer().getGold() >= getUpgradeCost()){
+    public String upgrade() {
+        if (Player.getPlayer().getGold() >= getUpgradeCost()) {
             level += 1;
             Player.getPlayer().addGold(-getUpgradeCost());
             return "Upgraded";
+        } else {
+            return "You don't have enough money, don't suck dick for free";
         }
-        else{ return "You don't have enough money";}
     }   // + retirer argent selon cout de upgrade qui appartiendrait à fire tower. + changer stats damages,...
 
     public int getFrequency() {
@@ -86,7 +88,8 @@ public class Tower implements MapClickable {
         return cost;
     }
 
-    public int getDamage() {
+    public double getDamage() {
+        double damage = this.damage;
         return damage;
     }
 
@@ -103,8 +106,11 @@ public class Tower implements MapClickable {
     }
 
     public int getUpgradeCost() {
-        return upgradeCost[level-1];
+        return upgradeCost[level - 1];
     }
+
+
+
 
 
 

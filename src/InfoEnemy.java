@@ -21,4 +21,4 @@ public class InfoEnemy extends Info {
 
         return strType+"\n" + strLife+"\n" + strLifeMax+"\n" + strSpeed;
     }
-}
+}//je repush
