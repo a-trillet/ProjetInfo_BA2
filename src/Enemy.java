@@ -3,13 +3,13 @@ import org.w3c.dom.html.HTMLAreaElement;
 import java.util.ArrayList;
 
 public class Enemy implements Killable, MapClickable {
+    public enum direction {LEFT , RIGHT, UP, DOWN}
     private Point origin;
-    private int speed;
-    private boolean alive = true;
+    private int speed = 10;
+    private boolean alive = false;
     private double lifePoints = 0;
     private double maxLifePoints = 0;
     private ArrayList<Tower> targetingTowers = new ArrayList<Tower>(); // les tours qui le cible actuelement
-/// idée, une case qui affiche les stats du derniere objet sur lequel on a cliqué, exemple: on clique sur un ennemi et on voit sa vie, sa vélocité,... dans cette case, pareil pour les tours
 
 
     public Enemy( Point origin, double life){
@@ -32,6 +32,7 @@ public class Enemy implements Killable, MapClickable {
             this.die();
         }
     }
+    public void setAlive(){alive = true;}
 
     private void die() {     //prévient toutes les tourelles qui le vise qu'il est mort
         this.alive = false;

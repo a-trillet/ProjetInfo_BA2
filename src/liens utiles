@@ -9,3 +9,14 @@
 
 " project java librairies bizarres"
     https://github.com/callumdmay/java-tower-defense/blob/master/src/game/Game.java
+
+
+    Pour l'attaque
+    	public void attackCritters(){
+    		for(Tower t: towerList){
+    			if(t.getTargetCritter()!= null &&t.canAttack()){
+    				attackCritter(t);
+    				t.setTimeOfLastAttack(System.currentTimeMillis());
+    			}
+    		}
+    	}

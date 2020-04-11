@@ -31,6 +31,8 @@ public class Game extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
+
         window = stage;
         System.out.println("Hello");
         System.out.println(FireTower.getCost());

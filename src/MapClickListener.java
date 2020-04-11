@@ -52,6 +52,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
             currentSelection = clickedOn(mouseEvent);
             if (currentSelection == null){
                 PlayScreen.displayShop();
+                System.out.println(mouseEvent.getX()+"      "+mouseEvent.getY());           // test coord souris
             }
             else {
                 displayInfo(currentSelection.getInfo(),""); //(+cercle de range ,..)

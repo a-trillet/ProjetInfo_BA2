@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-public class PlayScreen {
+public class PlayScreen{
     public static Drawing drawing= new Drawing();
     private static BorderPane borderPane = new BorderPane();
     public static String towerType = null;
@@ -64,9 +64,20 @@ public class PlayScreen {
         Button iceTowerButton = new Button("ice tower");
         GridPane.setConstraints(iceTowerButton,1,0);
 
-        shop.getChildren().addAll(fireTowerButton,iceTowerButton);
+        Button nextWave = new Button("Next Wave");
+        GridPane.setConstraints(nextWave, 0,7);
+        nextWave.setOnAction(e -> {
+            EnemyFactory.nextWave();
+        });
+
+        shop.getChildren().addAll(fireTowerButton,iceTowerButton, nextWave);
         borderPane.setRight(shop);
     }
+    public void update(){
+        Player p = Player.getPlayer();
+
+    }
+
 
 
 
