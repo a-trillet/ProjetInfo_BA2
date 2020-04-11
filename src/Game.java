@@ -19,7 +19,7 @@ public class Game extends Application {
 
     Stage window;
     Scene scene1, scene2, scene3;
-    public static Drawing drawing= new Drawing();
+    //public static Drawing drawing= new Drawing();
 
 
 
@@ -83,6 +83,7 @@ public class Game extends Application {
         });
 
         window.show();
+        Enemy e =new Enemy(new Point(30,30),50);
 
     }
 

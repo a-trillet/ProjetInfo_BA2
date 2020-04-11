@@ -1,21 +1,33 @@
-import org.w3c.dom.html.HTMLAreaElement;
+import javafx.scene.paint.Color;
 
+
+import java.awt.*;
 import java.util.ArrayList;
 
-public class Enemy implements Killable, MapClickable {
-    public enum direction {LEFT , RIGHT, UP, DOWN}
+public class Enemy implements Killable, MapClickable, Runnable {
+    static int LEFT = 1;
+    static int RIGHT = 2;
+    static int UP = 3;
+    static int DOWN = 4;
+    private int direction=2;
     private Point origin;
     private int speed = 10;
     private boolean alive = false;
     private double lifePoints = 0;
     private double maxLifePoints = 0;
     private ArrayList<Tower> targetingTowers = new ArrayList<Tower>(); // les tours qui le cible actuelement
+    private Thread t;
+    private javafx.scene.shape.Circle c;
 
 
     public Enemy( Point origin, double life){
         this.origin = origin;
         this.lifePoints = life;
         this.maxLifePoints = life;
+        t = new Thread(this);
+        t.start();
+        c= new javafx.scene.shape.Circle(0,40,10,new Color(0,0,1,0.4));
+        PlayScreen.drawing.draw(this,c);
     }
 
     public Point getCentre(){ return this.origin; }
@@ -62,4 +74,45 @@ public class Enemy implements Killable, MapClickable {
     public double getMaxLifePoints() {
         return maxLifePoints;
     }
+
+
+    public void move(){
+        if(direction == UP)
+        {
+            origin.setY(origin.getY() - 1);
+        }
+        else if(direction == DOWN)
+        {
+            origin.setY(origin.getY() + 1);
+        }
+        else if(direction == LEFT)
+        {
+            origin.setX(origin.getY() - 1);
+        }
+        else if(direction==RIGHT) {
+            this.origin.setX(origin.getX() + 1);
+        }
+    }
+
+
+    public void update(){
+        c.setCenterX(this.origin.getX());
+        c.setCenterY(this.origin.getY());
+    }
+
+    @Override
+    public void run() {
+
+        while(true){
+        this.move();
+        try {
+            Thread.sleep(20);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }}
+
+
+    }
 }
+
+

@@ -11,7 +11,7 @@ public class Player {
     private static final int[] startingLives = {20, 18, 16, 15};
     private static final int startingGold = 100;
     private static int wave = 0;
-    private static EnemyFactory enemyFactory = new EnemyFactory(difficulty, MapPane.getEntryPoint());
+    private static EnemyFactory enemyFactory= new EnemyFactory(difficulty, MapPane.getEntryPoint());
 
 
     public static synchronized Player getPlayer() {
