@@ -14,6 +14,11 @@ public class InfoEnemy extends Info {
 
     @Override
     public String listString() {
-        return null;
+        String strType = "Enemy of type: "+ enemyType;
+        String strLife = "Life: "+ life;
+        String strLifeMax = "Life Max: " + lifeMax;
+        String strSpeed = "Speed: " + speed;
+
+        return strType+"\n" + strLife+"\n" + strLifeMax+"\n" + strSpeed;
     }
 }

@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 public class InfoTower extends  Info{
     //infos pour les tours
-    private int damage;
+    private double damage;
     private int level;
     private int frequency;
     private double range;
     private String towerType; // à faire
+
 
     public InfoTower(Tower tower){
         super(tower);
