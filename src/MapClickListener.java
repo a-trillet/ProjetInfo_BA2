@@ -54,12 +54,12 @@ public class MapClickListener implements EventHandler<MouseEvent> {
                 PlayScreen.displayShop();
             }
             else {
-                displayInfo(currentSelection.getInfo()); //(+cercle de range ,..)
+                displayInfo(currentSelection.getInfo(),""); //(+cercle de range ,..)
             }
         }
 
     }
-    private void displayInfo(Info info){
+    private void displayInfo(Info info,String messUpgrade){
         String infos = info.listString();
         GridPane infoBox = new GridPane();
         infoBox.setPrefWidth(200);
@@ -67,17 +67,21 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         infoBox.setVgap(8);
         infoBox.setHgap(10);
 
+
+        Label messageUpgrade = new Label(messUpgrade);
+        GridPane.setConstraints(messageUpgrade,0,7);
         if (currentSelection instanceof Tower){
             if(((Tower)currentSelection).getLevel()<3){
                 Button upgradeButton = new Button("Upgrade for" + ((Tower)currentSelection).getUpgradeCost());
                 upgradeButton.setOnAction(e ->{
-                    ((Tower) currentSelection).upgrade();
-                    displayInfo(currentSelection.getInfo());
-                }); ///essayer de recuperer le message de upgrade(pas assez de gold) dans un label + mettre a jour en remmttant display
+                    messageUpgrade.setText(((Tower) currentSelection).upgrade());
+                    displayInfo(currentSelection.getInfo(),messageUpgrade.getText());
+                });
                 GridPane.setConstraints(upgradeButton,0,6);
                 infoBox.getChildren().addAll(upgradeButton);
             }
             else{Button upgradeButton = new Button("Maxed");
+                upgradeButton.setOnAction(e -> messageUpgrade.setText("This tower is at max level"));
                 GridPane.setConstraints(upgradeButton,0,6);
                 infoBox.getChildren().addAll(upgradeButton);
             }
@@ -91,7 +95,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         Label label = new Label(infos);
         GridPane.setConstraints(label, 0,0);
 
-        infoBox.getChildren().addAll(label, shopButton);
+        infoBox.getChildren().addAll(label, shopButton, messageUpgrade);
         borderPane.setRight(infoBox);
     }
 

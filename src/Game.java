@@ -12,6 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import static java.lang.Integer.sum;
+
 public class Game extends Application {
 
 
