@@ -25,9 +25,9 @@ public class Enemy implements Killable, MapClickable, Runnable {
         this.lifePoints = life;
         this.maxLifePoints = life;
         t = new Thread(this);
-        t.start();
         c= new javafx.scene.shape.Circle(0,40,10,new Color(0,0,1,0.4));
         PlayScreen.drawing.draw(this,c);
+
     }
 
     public Point getCentre(){ return this.origin; }
@@ -44,7 +44,11 @@ public class Enemy implements Killable, MapClickable, Runnable {
             this.die();
         }
     }
-    public void setAlive(){alive = true;}
+    public void setAlive(){
+
+        this.alive = true;
+        this.t.start();
+    }
 
     private void die() {     //prévient toutes les tourelles qui le vise qu'il est mort
         this.alive = false;
@@ -102,17 +106,22 @@ public class Enemy implements Killable, MapClickable, Runnable {
 
     @Override
     public void run() {
-
-        while(true){
-        this.move();
-        try {
-            Thread.sleep(20);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }}
-
-
+        System.out.println("X: "+ this.getCentre().getX()+"enemy object run");
+        while (alive) {
+            this.move();
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            //if(isOn(Point endPoint))
+            if (origin.getX() > 600) {
+                alive = false;
+                //this.remove();
+            }
+        }
     }
+
 }
 
 

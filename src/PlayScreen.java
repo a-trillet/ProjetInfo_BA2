@@ -67,7 +67,7 @@ public class PlayScreen{
         Button nextWave = new Button("Next Wave");
         GridPane.setConstraints(nextWave, 0,7);
         nextWave.setOnAction(e -> {
-            EnemyFactory.nextWave();
+            Player.getEnemyFactory().nextWave();
         });
 
         shop.getChildren().addAll(fireTowerButton,iceTowerButton, nextWave);

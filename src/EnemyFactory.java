@@ -3,12 +3,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 public class EnemyFactory implements Runnable {
-    private static Thread thread;
 
 
     public EnemyFactory(int diff, Point entry){
         loadEnemyWaves(diff, entry);
-        this.thread = new Thread(this);
+
 
     }
 
@@ -57,10 +56,12 @@ public class EnemyFactory implements Runnable {
     };
     private static final int[][][] wavesDifficulties = {easyWaves, normalWaves, hardWaves, insaneWaves};
 
-    private static LinkedList<Enemy> createWave(int wave, int diff, Point entry){                                   //// ATTENTION index out of bound 6 array
+    private static LinkedList<Enemy> createWave(int wave, int diff, Point entryPoint){                                   //// ATTENTION index out of bound 6 array
         LinkedList<Enemy> waveList = new LinkedList<>();
+
         for (int j = 0 ; j<3; j++){                                            //car seulement 3 types de monstres pour le moment
             for(int i = 1; i <= wavesDifficulties[diff-1][wave-1][j]; i++){
+                Point entry = new Point(entryPoint.getX(),entryPoint.getY());
                 switch(j){
                     case 0 : {
                         waveList.add(new NormalEnemy(entry));
@@ -88,9 +89,7 @@ public class EnemyFactory implements Runnable {
 
     private static boolean waveInProgress = false;
 
-    private
-
-    static void  loadEnemyWaves(int difficulty, Point entry){
+    private static void  loadEnemyWaves(int difficulty, Point entry){
         ArrayList<LinkedList<Enemy>> enemyWaves = new ArrayList<>();
         for (int i =1; i <= wavesDifficulties[difficulty-1].length ; i++){
             LinkedList<Enemy> wave = createWave(i, difficulty, entry);
@@ -100,18 +99,19 @@ public class EnemyFactory implements Runnable {
         allWaves = enemyWaves;
 
     }
-    public static void nextWave(){
-        if(Player.getWave() <allWaves.size()) {
+    public  void nextWave(){
+        if(Player.getWave() <allWaves.size() && !waveInProgress) {
             Player p = Player.getPlayer();
             activeWave = allWaves.get(Player.getWave());
             Player.getPlayer().nextWave();
             System.out.println("Wave " + Player.getWave());
             waveInProgress = true;                                      //je sais plus pourquoi j'en avait besoin
-            launchEnemy();
+            launchWave();
 
         }
     }
-    public static void launchEnemy(){
+    public void launchWave(){
+        Thread thread = new Thread(this);
         thread.start();
     }
 
@@ -121,13 +121,14 @@ public class EnemyFactory implements Runnable {
 
             for(int indice = 0; indice <=activeWave.size();indice++) {
                 Thread.sleep(1000);            //a faire diminuer quand la wave augmente
-                System.out.println("ennemi..."+indice);      //test
+
                 if (indice == activeWave.size()) {
                     waveInProgress = false;
                     System.out.println("fin de vague");
                 } else {
-
+                    System.out.println("ennemi speed..."+activeWave.get(indice).getLifePoints()+": enemyfactoryrun");      //test
                     activeWave.get(indice).setAlive();
+
                     Player.getPlayer().addEnemy(activeWave.get(indice));
                 }
             }

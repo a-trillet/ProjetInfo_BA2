@@ -1,8 +1,8 @@
 public class BigEnemy extends Enemy{
-    private static double MaxLife = 150;
+    private static double maxLife = 150;
 
     public BigEnemy(Point origin) {
-        super(origin, MaxLife);
+        super(origin, maxLife);
     }
 }
 
