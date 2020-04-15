@@ -97,6 +97,9 @@ public class Enemy implements Killable, MapClickable, Runnable {
             this.origin.setX(origin.getX() + 1);
         }
     }
+    private void reachEndPoint(){
+        alive = false;
+    }
 
 
     public void update(){
@@ -114,10 +117,13 @@ public class Enemy implements Killable, MapClickable, Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            //if(isOn(Point endPoint))
-            if (origin.getX() > 600) {
-                alive = false;
-                //this.remove();
+
+            if (origin.getX() > 600) {             // temporaire
+                direction = 4;
+            }
+            if (isOn(MapPane.getEndPoint())){
+                reachEndPoint();         //met alive false, Comment retirer le carré?
+
             }
         }
     }

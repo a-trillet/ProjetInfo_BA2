@@ -6,12 +6,13 @@ public class Player {
     private static int lifePoints;
     private static ArrayList<Enemy> enemiesOnMap = new ArrayList<>();
     private static ArrayList<Tower> towerList = new ArrayList<>();
-    private static int difficulty = 2;
+    private static int difficulty = 1;
     private static Player instance = null; // pour qu'on ne puisse construire qu'un seul objet player, si on veut avoir des parties sauvergardée, il suffira de créer un fonction charger, qui puisera dans un fichier et completera le profil
     private static final int[] startingLives = {20, 18, 16, 15};
     private static final int startingGold = 100;
     private static int wave = 0;
-    private static EnemyFactory enemyFactory= new EnemyFactory(difficulty, MapPane.getEntryPoint());
+    private static EnemyFactory enemyFactory = new EnemyFactory(difficulty,MapPane.getEntryPoint());
+
 
 
     public static synchronized Player getPlayer() {
@@ -55,10 +56,13 @@ public class Player {
 
     public void decreaseLife(int dmg) {
         lifePoints -= dmg;
+        PlayScreen.drawing.changeGoldLives(gold,lifePoints, startingLives[difficulty], wave); /// modifie le compteur de vie
     }
 
     public void addGold(int amount) {
         gold += amount;
+        PlayScreen.drawing.changeGoldLives(gold,lifePoints, startingLives[difficulty], wave);
+
     }
 
     public void setDifficulty(int diff) {
@@ -71,6 +75,7 @@ public class Player {
 
     public void nextWave() {
         wave++;
+        PlayScreen.drawing.changeGoldLives(gold,lifePoints, startingLives[difficulty], wave);
     }
 
     public static int getLifePoints() {
@@ -84,7 +89,10 @@ public class Player {
     public static EnemyFactory getEnemyFactory() {
         return enemyFactory;
     }
+
     public void addEnemy(Enemy e){
         enemiesOnMap.add(e);
     }
+
+    public int getMaxLives(){ return startingLives[difficulty];}
 }

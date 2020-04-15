@@ -29,6 +29,7 @@ public class PlayScreen{
         //drawing.setOnMouseReleased(new TowerButtonListener(drawing));
         map.setBackground(new Background(new BackgroundFill(Color.rgb(40, 40, 40), CornerRadii.EMPTY, Insets.EMPTY)));
         drawing.setOnMouseClicked(e->{if (towerType!=null){new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));}});
+        drawing.drawLifeGold();
 
 
 

@@ -105,10 +105,10 @@ public class EnemyFactory implements Runnable {
             activeWave = allWaves.get(Player.getWave());
             Player.getPlayer().nextWave();
             System.out.println("Wave " + Player.getWave());
-            waveInProgress = true;                                      //je sais plus pourquoi j'en avait besoin
+            waveInProgress = true;
             launchWave();
-
         }
+        else{ System.out.println("A wave is already in progress or it is the last one");}
     }
     public void launchWave(){
         Thread thread = new Thread(this);
@@ -124,7 +124,7 @@ public class EnemyFactory implements Runnable {
 
                 if (indice == activeWave.size()) {
                     waveInProgress = false;
-                    System.out.println("fin de vague");
+                    System.out.println("fin de vague");                //faire en label
                 } else {
                     System.out.println("ennemi speed..."+activeWave.get(indice).getLifePoints()+": enemyfactoryrun");      //test
                     activeWave.get(indice).setAlive();
