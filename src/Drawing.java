@@ -51,6 +51,8 @@ public class Drawing extends Pane  {
 
     }
     public void changeGoldLives(int gold, int life, int maxLife, int wave){
+        //permet la modification d'un element java fx depuis un thread (pour decrease life)
+        // !!! ne pas utiliser dans des gros boulots de loop, car peut planter. ici, c'est juste un label changé toutes les seconde donc on s'en fout je crois
 
         Platform.runLater(new Runnable() {
             @Override public void run() {

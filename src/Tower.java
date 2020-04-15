@@ -71,8 +71,9 @@ public class Tower implements MapClickable {
     public String upgrade(){
         String messageUpgrade;
         if (Player.getPlayer().getGold() >= getUpgradeCost()){
-            level += 1;
+
             Player.getPlayer().addGold(-getUpgradeCost());
+            level += 1;
             messageUpgrade = "Upgraded";
         }
         else{ messageUpgrade = "You don't have enough money";}
@@ -88,7 +89,6 @@ public class Tower implements MapClickable {
     }
 
     public double getDamage() {
-        double damage = this.damage;
         return damage;
     }
 
