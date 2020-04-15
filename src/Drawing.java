@@ -1,5 +1,6 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -50,7 +51,13 @@ public class Drawing extends Pane  {
 
     }
     public void changeGoldLives(int gold, int life, int maxLife, int wave){
-        labelGold.setText("Gold : "+gold+"\nLives : "+life+"/"+maxLife+"\nWave :"+wave);
+
+        Platform.runLater(new Runnable() {
+            @Override public void run() {
+                labelGold.setText("Gold : "+gold+"\nLives : "+life+"/"+maxLife+"\nWave :"+wave);
+            }
+        });
+
 
     }
 

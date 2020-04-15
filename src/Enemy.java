@@ -18,6 +18,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
     private ArrayList<Tower> targetingTowers = new ArrayList<Tower>(); // les tours qui le cible actuelement
     private Thread t;
     private javafx.scene.shape.Circle c;
+    private int cbdevieretireeaplayersiarrivealafin;
 
 
     public Enemy( Point origin, double life){
@@ -99,6 +100,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
     }
     private void reachEndPoint(){
         alive = false;
+        Player.getPlayer().decreaseLife(1);
     }
 
 
