@@ -55,7 +55,7 @@ public class Drawing extends Pane  {
         // !!! ne pas utiliser dans des gros boulots de loop, car peut planter. ici, c'est juste un label changé toutes les seconde donc on s'en fout je crois
 
         Platform.runLater(new Runnable() {
-            @Override public void run() {
+            @Override public void run() {                                  //trouver alternative !!!!!!!!!!!!!!!!!
                 labelGold.setText("Gold : "+gold+"\nLives : "+life+"/"+maxLife+"\nWave :"+wave);
             }
         });

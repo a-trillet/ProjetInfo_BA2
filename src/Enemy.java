@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.scene.paint.Color;
 
 
@@ -59,7 +60,13 @@ public class Enemy implements Killable, MapClickable, Runnable {
     //retire le cercle et retire de ennemies on map dans Player
     private void die() {
         this.alive = false;
-        //PlayScreen.drawing.getChildren().remove(c);
+        //on peut pas toucher à des element javafx depuis un autre thread
+        Platform.runLater(new Runnable() {
+            @Override public void run() {
+                PlayScreen.drawing.getChildren().remove(c);
+            }
+        });
+
         Player.getPlayer().getEnemiesOnMap().remove(this);
 
     }
@@ -123,7 +130,18 @@ public class Enemy implements Killable, MapClickable, Runnable {
         if(this.lifePoints <= 0){
             this.killed();
         }
-    }
+        //met à jour display info display info
+        if (PlayScreen.mapClickListener.getCurrentSelection() == this) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    PlayScreen.mapClickListener.displayInfo("");
+                }
+            });
+        }
+
+        }
+
 
     @Override
     public void run() {

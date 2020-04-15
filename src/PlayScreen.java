@@ -13,6 +13,7 @@ public class PlayScreen{
     public static Drawing drawing= new Drawing();
     private static BorderPane borderPane = new BorderPane();
     public static String towerType = null;
+    public static MapClickListener mapClickListener = new MapClickListener(borderPane);
 
 
 
@@ -43,8 +44,7 @@ public class PlayScreen{
         borderPane.setCenter(map);
 
         // listenners
-        map.setOnMouseClicked(new MapClickListener(borderPane));
-
+        map.setOnMouseClicked(mapClickListener);
 
         return borderPane;
     }

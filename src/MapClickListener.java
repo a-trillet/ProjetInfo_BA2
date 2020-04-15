@@ -13,6 +13,9 @@ public class MapClickListener implements EventHandler<MouseEvent> {
 
     private MapClickable currentSelection =  null;
     public BorderPane borderPane;
+    public MapClickable getCurrentSelection(){
+        return currentSelection;
+    }
 
 
     public MapClickListener (BorderPane borderPane){
@@ -55,12 +58,15 @@ public class MapClickListener implements EventHandler<MouseEvent> {
                 System.out.println(mouseEvent.getX()+"      "+mouseEvent.getY());           // test coord souris
             }
             else {
-                displayInfo(currentSelection.getInfo(),""); //(+cercle de range ,..)
+                displayInfo("");
             }
         }
 
     }
-    private void displayInfo(Info info,String messUpgrade){
+
+    //affiche les information et bouton upgrade
+    public void displayInfo(String messUpgrade){     ///+cercle range
+        Info info = currentSelection.getInfo();
         String infos = info.listString();
         GridPane infoBox = new GridPane();
         infoBox.setPrefWidth(200);
@@ -69,14 +75,14 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         infoBox.setHgap(10);
 
 
-        Label messageUpgrade = new Label(messUpgrade);
+        Label messageUpgrade = new Label(messUpgrade);    //mess uprgrade supprimable mais bon alz
         GridPane.setConstraints(messageUpgrade,0,7);
         if (currentSelection instanceof Tower){
             if(((Tower)currentSelection).getLevel()<=3){
                 Button upgradeButton = new Button("Upgrade for" + ((Tower)currentSelection).getUpgradeCost());
                 upgradeButton.setOnAction(e ->{
                     messageUpgrade.setText(((Tower) currentSelection).upgrade());
-                    displayInfo(currentSelection.getInfo(),messageUpgrade.getText());
+                    displayInfo(messageUpgrade.getText());
                 });
                 GridPane.setConstraints(upgradeButton,0,6);
                 infoBox.getChildren().addAll(upgradeButton);
