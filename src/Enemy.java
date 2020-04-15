@@ -11,7 +11,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
     static int DOWN = 4;
     private int direction=2;
     private Point origin;
-    private int speed = 10;
+    private double speed = 10;
     private boolean alive = false;
     private double lifePoints = 0;
     private double maxLifePoints = 0;
@@ -40,10 +40,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
 
     @Override
     public void hurt(Bullet bullet) {
-        this.lifePoints -= bullet.getDamage();
-        if(this.lifePoints <= 0){
-            this.die();
-        }
+        decreaseLife(bullet.getDamage());
     }
     public void setAlive(){
 
@@ -51,11 +48,20 @@ public class Enemy implements Killable, MapClickable, Runnable {
         this.t.start();
     }
 
-    private void die() {     //prévient toutes les tourelles qui le vise qu'il est mort
-        this.alive = false;
+    //prévient toutes les tourelles qui le vise qu'il est mort + die()
+    private void killed(){
+        die();
         for(Tower killer: targetingTowers){
-        killer.targetIsDead(this);
+            killer.targetIsDead(this);
         }
+    }
+
+    //retire le cercle et retire de ennemies on map dans Player
+    private void die() {
+        this.alive = false;
+        //PlayScreen.drawing.getChildren().remove(c);
+        Player.getPlayer().getEnemiesOnMap().remove(this);
+
     }
 
     public void addTargetingTower(Tower tower){
@@ -68,7 +74,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
         if (p.distance(this.origin)<30){res=true;}  //On peut modifier pour pouvoir cliquer sur tt la carré
         return res;
     }
-    public int getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
@@ -84,29 +90,39 @@ public class Enemy implements Killable, MapClickable, Runnable {
     public void move(){
         if(direction == UP)
         {
-            origin.setY(origin.getY() - 1);
+            origin.setY(origin.getY() - (speed/10));
         }
         else if(direction == DOWN)
         {
-            origin.setY(origin.getY() + 1);
+            origin.setY(origin.getY() + (speed/10));
         }
         else if(direction == LEFT)
         {
-            origin.setX(origin.getY() - 1);
+            origin.setX(origin.getY() - (speed/10));
         }
         else if(direction==RIGHT) {
-            this.origin.setX(origin.getX() + 1);
+            this.origin.setX(origin.getX() + (speed/10));
         }
     }
     private void reachEndPoint(){
         alive = false;
         Player.getPlayer().decreaseLife(1);
+        Player.getPlayer().getEnemiesOnMap().remove(this);
     }
 
 
     public void update(){
         c.setCenterX(this.origin.getX());
         c.setCenterY(this.origin.getY());
+    }
+    public boolean isAlive(){
+        return alive;
+    }
+    public void decreaseLife(double dmg){
+        lifePoints -= dmg;
+        if(this.lifePoints <= 0){
+            this.killed();
+        }
     }
 
     @Override

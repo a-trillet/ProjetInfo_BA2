@@ -35,7 +35,6 @@ public class Game extends Application {
 
         window = stage;
         System.out.println("Hello");
-        System.out.println(FireTower.getCost());
 
         Label label1 = new Label("Let's choose between viruses goblins and meteors");
 

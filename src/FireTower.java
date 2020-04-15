@@ -6,7 +6,7 @@ public class FireTower extends Tower{
         
     }
 
-    public static int getCost() {
+    public int getCost() {
         return cost;
     }
 }

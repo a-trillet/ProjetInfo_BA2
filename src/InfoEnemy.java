@@ -1,3 +1,5 @@
+import static java.lang.Math.round;
+
 public class InfoEnemy extends Info {
     //info pour les enemis
     private int speed;
@@ -7,7 +9,7 @@ public class InfoEnemy extends Info {
 
     public InfoEnemy(Enemy enemy){
         super(enemy);
-        this.speed = enemy.getSpeed();
+        this.speed = (int)round(enemy.getSpeed());
         this.life = enemy.getLifePoints();
         this.lifeMax = enemy.getMaxLifePoints();
     }

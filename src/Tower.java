@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
-public class Tower implements MapClickable {
+public class Tower implements MapClickable, Runnable {
+
     private enum type {Fire}
 
 
@@ -15,18 +16,22 @@ public class Tower implements MapClickable {
     private double damage = 10;
     private int level = 1;
     private ArrayList<Enemy>enemies = new ArrayList<Enemy>(); //à supprimer
-    private double range = 250;
-    private Enemy targetEnemy;
+    private double range = 150;
+    private Enemy targetEnemy = null;
+    private boolean active = true;
+    private int reloadTime = 500;
 
 
 
     private int numberOfKill;  //l'idée serait de permettre  l'amélioration des tourelles
                                 // que si elle a suffisament tué( + possibilité de rajouter une valeur à chaque classe de ennemi)
-
+    private Thread thread = new Thread(this);
 
     public Tower(Point origin){
         this.centre = origin;
         level = 1;
+        thread.start();
+
     }
 
 
@@ -47,7 +52,7 @@ public class Tower implements MapClickable {
     }
     public void targetIsDead(Enemy enemi){
         numberOfKill += 1;      // modifiable selon valeur du mob
-        targetEnemy = selectTarget();   // change la cible quand le mob meurt( ou sort de la range: RAJOUTER autre part)
+        //targetEnemy = selectTarget();   // change la cible quand le mob meurt( ou sort de la range: RAJOUTER autre part)
     }
 
 
@@ -106,6 +111,37 @@ public class Tower implements MapClickable {
 
     public int getUpgradeCost() {
         return upgradeCost[level-1];
+    }
+
+    public void shoot(){
+    }
+
+    @Override
+    public void run() {
+        while(active) {
+            if (targetEnemy == null || this.centre.distance(targetEnemy.getCentre()) > range || !targetEnemy.isAlive() ) {
+                targetEnemy = selectTarget();
+            }
+            if (targetEnemy != null) {
+                //shoot();
+                targetEnemy.decreaseLife(damage);
+                System.out.println("shoot"+targetEnemy.getCentre().getY());
+                try {
+                    Thread.sleep(reloadTime);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            // c'est pour pas attendre une seconde si on a pas tiré, et que le run ne fasse pas buger le programme avec un while (true) sans sleep
+            else {
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 
 
