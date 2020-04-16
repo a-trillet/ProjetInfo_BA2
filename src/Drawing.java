@@ -19,7 +19,6 @@ import java.util.ArrayList;
 public class Drawing extends Pane  {
     private Color color = new Color(1,0,0,1);
     private javafx.scene.shape.Rectangle square ;
-    private ArrayList<Enemy> enemies = new ArrayList<>();
     private Label labelGold;
 
 
@@ -29,7 +28,7 @@ public class Drawing extends Pane  {
 
             @Override
             public void handle(ActionEvent event) {
-                for (Enemy e : enemies) {
+                for (Enemy e : Player.getPlayer().getEnemiesOnMap()) {
                     e.update();
                 }
 
@@ -70,7 +69,6 @@ public class Drawing extends Pane  {
         this.getChildren().add(square);
     }
     public void draw(Enemy enemy,Shape shape){ // peut etre modifié
-        enemies.add(enemy);
         this.getChildren().add(shape);
     }
 
