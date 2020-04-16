@@ -17,7 +17,6 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Drawing extends Pane  {
-    private Color color = new Color(1,0,0,1);
     private javafx.scene.shape.Rectangle square ;
     private Label labelGold;
 
@@ -62,7 +61,7 @@ public class Drawing extends Pane  {
 
     }
 
-    public void drawSquare(Point centre) {
+    public void drawSquare(Point centre,Color color) {
         square = new Rectangle(30, 30, color);
         square.setX(centre.getX() - 15);
         square.setY(centre.getY() - 15);

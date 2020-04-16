@@ -63,6 +63,7 @@ public class PlayScreen{
         GridPane.setConstraints(fireTowerButton,0,0);
 
         Button iceTowerButton = new Button("ice tower");
+        iceTowerButton.setOnMouseClicked(e->towerType="ICE");
         GridPane.setConstraints(iceTowerButton,1,0);
 
         Button nextWave = new Button("Next Wave");
