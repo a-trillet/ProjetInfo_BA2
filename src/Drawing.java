@@ -67,7 +67,7 @@ public class Drawing extends Pane  {
         square.setY(centre.getY() - 15);
         this.getChildren().add(square);
     }
-    public void draw(Enemy enemy,Shape shape){ // peut etre modifié
+    public void draw(Shape shape){ // peut etre modifié
         this.getChildren().add(shape);
     }
 

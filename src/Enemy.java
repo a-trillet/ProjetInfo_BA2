@@ -1,8 +1,5 @@
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
-
-
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Enemy implements Killable, MapClickable, Runnable {
@@ -47,12 +44,11 @@ public class Enemy implements Killable, MapClickable, Runnable {
     }
 
     public void setAlive(){
-        Enemy e = this;
         this.alive = true;
         this.t.start();
         Platform.runLater(new Runnable() {
             @Override public void run() {
-                PlayScreen.drawing.draw(e,c);
+                PlayScreen.drawing.draw(c);
             }
         });
 

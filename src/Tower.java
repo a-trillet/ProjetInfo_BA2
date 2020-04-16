@@ -19,6 +19,7 @@ public class Tower implements MapClickable, Runnable {
     private Enemy targetEnemy = null;
     private boolean active = true;
     private int reloadTime = 500;
+    private int bulletrange=100;
 
 
 
@@ -114,6 +115,7 @@ public class Tower implements MapClickable, Runnable {
     }
 
     public void shoot(){
+        Bullet bullet =new Bullet(damage,this,bulletrange,targetEnemy.getCentre(),centre);
     }
 
     @Override
@@ -123,8 +125,8 @@ public class Tower implements MapClickable, Runnable {
                 targetEnemy = selectTarget();
             }
             if (targetEnemy != null) {
-                //shoot();
-                targetEnemy.decreaseLife(damage);
+                shoot();
+               // targetEnemy.decreaseLife(damage);
                 System.out.println("shoot"+targetEnemy.getCentre().getY());
                 try {
                     Thread.sleep(reloadTime);
