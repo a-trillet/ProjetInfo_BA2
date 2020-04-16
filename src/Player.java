@@ -9,7 +9,7 @@ public class Player {
     private static int difficulty = 1;
     private static Player instance = null; // pour qu'on ne puisse construire qu'un seul objet player, si on veut avoir des parties sauvergardée, il suffira de créer un fonction charger, qui puisera dans un fichier et completera le profil
     private static final int[] startingLives = {20, 18, 16, 15};
-    private static final int startingGold = 500;
+    private static final int startingGold = 300;
     private static int wave = 0;
     private static EnemyFactory enemyFactory;
 

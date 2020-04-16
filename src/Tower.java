@@ -15,7 +15,6 @@ public class Tower implements MapClickable, Runnable {
 
     private double damage = 10;
     private int level = 1;
-    private ArrayList<Enemy>enemies = new ArrayList<Enemy>(); //à supprimer
     private double range = 150;
     private Enemy targetEnemy = null;
     private boolean active = true;

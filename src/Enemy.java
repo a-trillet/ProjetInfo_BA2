@@ -19,16 +19,18 @@ public class Enemy implements Killable, MapClickable, Runnable {
     private ArrayList<Tower> targetingTowers = new ArrayList<Tower>(); // les tours qui le cible actuelement
     private Thread t;
     private javafx.scene.shape.Circle c;
-    private int cbdevieretireeaplayersiarrivealafin;
+    private int cbdDeVieRetireraPlayerSiArriveaLaFin;     ///à faire
+    private int reward = 10;
 
 
-    public Enemy( Point origin, double life){
+    public Enemy( Point origin, double life, int reward){
         this.origin = origin;
         this.lifePoints = life;
         this.maxLifePoints = life;
         t = new Thread(this);
         c= new javafx.scene.shape.Circle(0,40,10,new Color(0,0,1,0.4));
-        PlayScreen.drawing.draw(this,c);
+        this.reward = reward;
+
 
     }
 
@@ -43,15 +45,23 @@ public class Enemy implements Killable, MapClickable, Runnable {
     public void hurt(Bullet bullet) {
         decreaseLife(bullet.getDamage());
     }
-    public void setAlive(){
 
+    public void setAlive(){
+        Enemy e = this;
         this.alive = true;
         this.t.start();
+        Platform.runLater(new Runnable() {
+            @Override public void run() {
+                PlayScreen.drawing.draw(e,c);
+            }
+        });
+
     }
 
     //prévient toutes les tourelles qui le vise qu'il est mort + die()
     private void killed(){
         die();
+        Player.getPlayer().addGold(reward);
         for(Tower killer: targetingTowers){
             killer.targetIsDead(this);
         }
@@ -111,10 +121,11 @@ public class Enemy implements Killable, MapClickable, Runnable {
             this.origin.setX(origin.getX() + (speed/10));
         }
     }
+
     private void reachEndPoint(){
-        alive = false;
+        die();
         Player.getPlayer().decreaseLife(1);
-        Player.getPlayer().getEnemiesOnMap().remove(this);
+
     }
 
 
@@ -158,7 +169,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
                 direction = 4;
             }
             if (isOn(MapPane.getEndPoint())){
-                reachEndPoint();         //met alive false, Comment retirer le carré?
+                reachEndPoint();
 
             }
         }

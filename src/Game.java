@@ -82,7 +82,6 @@ public class Game extends Application {
         });
 
         window.show();
-        Enemy e =new Enemy(new Point(30,30),50);
 
     }
 
