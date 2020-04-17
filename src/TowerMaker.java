@@ -16,6 +16,14 @@ public class TowerMaker {
                 t= new IceTower(p);
                 color =new Color(0,0.1,1,0.7);
                 break;
+            case "BASIC":
+                t = new BasicTower(p);
+                color = new Color(0, 1,0,1);
+                break;
+            case "SNIPER":
+                t = new SniperTower(p);
+                color = new Color(1,0,1,0.3);
+                break;
         }
         PlayScreen.towerType = null;
         if (t != null && CheckTowerOk(t)) {
