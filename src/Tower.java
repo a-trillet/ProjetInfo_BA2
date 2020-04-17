@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Tower implements MapClickable, Runnable {
 
-    private enum type {Fire, Ice, Sniper}
+    private enum type {Basic, Fire, Ice, Sniper}
 
 
     private int frequency = 50;
@@ -15,11 +15,15 @@ public class Tower implements MapClickable, Runnable {
 
     private double damage = 10;
     private int level = 1;
-    private double range = 150;
+    private static int levelMax = 3;
+    protected double range;
     private Enemy targetEnemy = null;
     private boolean active = true;
     private int reloadTime = 500;
     private int bulletrange=100;
+
+    private double uprgradeBase = 1.0;      // vont servir à augmenter le range et damage
+    private double upgradeMultiplier = 1.2; //
 
 
 
@@ -76,13 +80,19 @@ public class Tower implements MapClickable, Runnable {
 
     public String upgrade(){
         String messageUpgrade;
-        if (Player.getPlayer().getGold() >= getUpgradeCost()){
+        if (level <= levelMax) {
+            if (Player.getPlayer().getGold() >= getUpgradeCost()) {
 
-            Player.getPlayer().addGold(-getUpgradeCost());
-            level += 1;
-            messageUpgrade = "Upgraded";
+                Player.getPlayer().addGold(-getUpgradeCost());
+                level += 1;
+                messageUpgrade = "Upgraded";
+            } else {
+                messageUpgrade = "You don't have enough money";
+            }
         }
-        else{ messageUpgrade = "You don't have enough money";}
+        else {
+            messageUpgrade = "Level is maximal";
+        }
         return messageUpgrade;
     }   // + retirer argent selon cout de upgrade qui appartiendrait à fire tower. + changer stats damages,...
 
