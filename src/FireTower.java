@@ -1,11 +1,17 @@
 public class FireTower extends Tower{
 
-    private static int fireTowercost=100;
-    private  static  double newRange = 100;
+    private static int fireTowerCost = 150;
+    private static  double newRange = 200;
+    private static  double newDamage = 25;
+    private static int newReloadTime = 1500;
+    private static int newBuletRange = 200;
 
     public FireTower(Point originPoint){
-        super(originPoint,fireTowercost); //prc utilisé ds arg de Tower()
+        super(originPoint,fireTowerCost); //prc utilisé ds arg de Tower()
         this.range = newRange;
+        this.damage = newDamage;
+        this.reloadTime = newReloadTime;
+        this.bulletrange = newBuletRange;
         
     }
 

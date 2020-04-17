@@ -13,17 +13,17 @@ public class Tower implements MapClickable, Runnable {
     private Point centre;
 
 
-    private double damage = 10;
+    protected double damage;
     private int level = 1;
     private static int levelMax = 3;
     protected double range;
     private Enemy targetEnemy = null;
     private boolean active = true;
-    private int reloadTime = 500;
-    private int bulletrange=100;
+    protected int reloadTime;
+    protected int bulletrange;
 
     private double uprgradeBase = 1.0;      // vont servir à augmenter le range et damage
-    private double upgradeMultiplier = 1.2; //
+    private double upgradeMultiplier = 0.5; //
 
 
 
@@ -105,7 +105,7 @@ public class Tower implements MapClickable, Runnable {
     }
 
     public double getDamage() {
-        return damage;
+        return (damage*(uprgradeBase + (level-1)*upgradeMultiplier  ));
     }
 
     public int getLevel() {
@@ -113,7 +113,7 @@ public class Tower implements MapClickable, Runnable {
     }
 
     public double getRange() {
-        return range;
+        return (range *(uprgradeBase + (level-1)*upgradeMultiplier)  ); //à chaque level le range est mult par 1.5 puis 2
     }
 
     public int getNumberOfKill() {
