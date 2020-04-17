@@ -1,8 +1,8 @@
 public class FireTower extends Tower{
 
-    private static int firecost=20;
+    private static int fireTowercost=100;
     public FireTower(Point originPoint){
-        super(originPoint,firecost);
+        super(originPoint,fireTowercost);
         
     }
 

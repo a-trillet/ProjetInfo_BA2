@@ -1,7 +1,7 @@
 public class IceTower extends Tower {
 
-    private static int icecost = 4;
+    private static int iceTowercost = 100;
     public IceTower(Point origin) {
-        super(origin,icecost);
+        super(origin,iceTowercost);
     }
 }

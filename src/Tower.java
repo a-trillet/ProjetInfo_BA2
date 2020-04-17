@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Tower implements MapClickable, Runnable {
 
-    private enum type {Fire}
+    private enum type {Fire, Ice, Sniper}
 
 
     private int frequency = 50;
