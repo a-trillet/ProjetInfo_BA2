@@ -2,7 +2,8 @@ import java.util.ArrayList;
 
 public class Tower implements MapClickable, Runnable {
 
-    private enum type {Basic, Fire, Ice, Sniper}
+    //private enum type {BASIC, FIRE, ICE, SNIPER}
+    protected String towerType;
 
 
     private int frequency = 50;
@@ -122,6 +123,10 @@ public class Tower implements MapClickable, Runnable {
 
     public int getUpgradeCost() {
         return upgradeCost[level-1];
+    }
+
+    public String getTowerType(){
+        return this.towerType;
     }
 
     public void shoot(){

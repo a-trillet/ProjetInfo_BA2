@@ -5,6 +5,7 @@ public class SniperTower extends  Tower {
     private static  double newDamage = 10000; //comme ça ça headshot
     private static int newReloadTime = 5000;
     private static int newBuletRange = 30; //parfois loupe son coup mais jsp si ça correspond bien
+    private String type = "Sniper tower";
 
     public SniperTower(Point origin){
         super(origin, snipeTowercost);
@@ -12,5 +13,6 @@ public class SniperTower extends  Tower {
         this.damage = newDamage;
         this.reloadTime = newReloadTime;
         this.bulletrange = newBuletRange;
+        this.towerType = type;
     }
 }

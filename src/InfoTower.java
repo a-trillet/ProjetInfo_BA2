@@ -11,17 +11,19 @@ public class InfoTower extends  Info{
     private String towerType; // à faire
 
 
-    public InfoTower(Tower tower){
+    public InfoTower(Tower tower) {
         super(tower);
         this.damage = tower.getDamage();   /// changer pour bullet type
         this.level = tower.getLevel();
         this.frequency = tower.getFrequency();
         this.range = tower.getRange();
-    }
+        this.towerType = tower.getTowerType();
 
+
+    }
     @Override
     public String listString() {
-        String strType = "Tower of type: ...";
+        String strType = "Tower type: "+towerType;
         String strLevel = "Level : "+ level;
         String strDamage = "Damage : "+ damage;
         String strFrequency = "Frequency : "+ frequency;

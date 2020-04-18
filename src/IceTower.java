@@ -6,6 +6,7 @@ public class IceTower extends Tower {
     private static int newReloadTime = 1500;
     private static int newBuletRange = 200;
     //ajouter freeze
+    private String type = "Ice tower";
 
     public IceTower(Point origin) {
         super(origin,iceTowercost);
@@ -13,6 +14,6 @@ public class IceTower extends Tower {
         this.damage = newDamage;
         this.reloadTime = newReloadTime;
         this.bulletrange = newBuletRange;
-
+        this.towerType = type;
     }
 }
