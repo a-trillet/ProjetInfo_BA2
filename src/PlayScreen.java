@@ -54,22 +54,22 @@ public class PlayScreen{
         shop.setVgap(8);
         shop.setHgap(10);
 
-        Button basicTowerButton = new Button("basic tower");
+        Button basicTowerButton = new Button("Basic tower");
         basicTowerButton.setOnMouseClicked(e-> towerType = "BASIC");
         GridPane.setConstraints(basicTowerButton,0,0);
 
-        Button iceTowerButton = new Button("ice tower");
+        Button iceTowerButton = new Button("Ice tower");
         iceTowerButton.setOnMouseClicked(e->towerType="ICE");
         GridPane.setConstraints(iceTowerButton,1,0);
 
-        Button fireTowerButton = new Button("fire tower");
+        Button fireTowerButton = new Button("Fire tower");
         fireTowerButton.setOnMouseClicked(e->towerType="FIRE");
         //TowerButtonListener firelistener = new TowerButtonListener(drawing);
         //firelistener.setS("FIRE");
         //fireTowerButton.setOnMousePressed(firelistener);
         GridPane.setConstraints(fireTowerButton,0,1);
 
-        Button sniperTowerButton = new Button("sniper Tower");
+        Button sniperTowerButton = new Button("Sniper Tower");
         sniperTowerButton.setOnMouseClicked((e-> towerType = "SNIPER"));
         GridPane.setConstraints(sniperTowerButton,1,1);
 
