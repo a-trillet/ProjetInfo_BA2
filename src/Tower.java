@@ -15,7 +15,7 @@ public class Tower implements MapClickable, Runnable {
 
 
     protected double damage;
-    private int level = 1;
+    private int level;
     private static int levelMax = 3;
     protected double range;
     private Enemy targetEnemy = null;

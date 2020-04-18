@@ -14,19 +14,20 @@ public class PlayScreen{
     private static BorderPane borderPane = new BorderPane();
     public static String towerType = null;
     public static MapClickListener mapClickListener = new MapClickListener(borderPane);
+    //public static  TowerButtonListener towerButtonListener = new TowerButtonListener(drawing);
 
 
 
 
     public BorderPane sceneView(){
 
-
+        //tM = new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));
 
         //La map
         MapPane map = new MapPane(); // permet de supperposer les différents éléments de la map (image, tours,..)
 
         map.getChildren().addAll(drawing);
-        drawing.setOnMouseClicked(e->{if (towerType!=null){new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));}});
+        //drawing.setOnMouseClicked(e->{if (towerType!=null){new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));}});
         //drawing.setOnMouseReleased(new TowerButtonListener(drawing));
         map.setBackground(new Background(new BackgroundFill(Color.rgb(40, 40, 40), CornerRadii.EMPTY, Insets.EMPTY)));
         drawing.setOnMouseClicked(e->{if (towerType!=null){new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));}});
@@ -54,9 +55,18 @@ public class PlayScreen{
         shop.setVgap(8);
         shop.setHgap(10);
 
+        Label msgError = new Label("You don't have enough money");
+
         Button basicTowerButton = new Button("Basic tower");
         basicTowerButton.setOnMouseClicked(e-> towerType = "BASIC");
+        //basicTowerButton.setOnMouseClicked(towerButtonListener);
+
+
+
+
         GridPane.setConstraints(basicTowerButton,0,0);
+
+
 
         Button iceTowerButton = new Button("Ice tower");
         iceTowerButton.setOnMouseClicked(e->towerType="ICE");
@@ -72,7 +82,6 @@ public class PlayScreen{
         Button sniperTowerButton = new Button("Sniper Tower");
         sniperTowerButton.setOnMouseClicked((e-> towerType = "SNIPER"));
         GridPane.setConstraints(sniperTowerButton,1,1);
-
 
 
 

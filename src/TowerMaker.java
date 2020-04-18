@@ -34,11 +34,13 @@ public class TowerMaker {
             //tower commence à tirer  / peut etre apas nécessaire
 
             //}
-
         }
+
+
+
     }
 
-    private boolean CheckTowerOk(Tower to) {
+    public boolean CheckTowerOk(Tower to) {
         boolean res = false;
         if (Player.getPlayer().getGold() >= to.getCost()) {
             res = true;
