@@ -5,6 +5,7 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -13,26 +14,33 @@ import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 import javafx.scene.control.Label;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Drawing extends Pane  {
     private javafx.scene.shape.Rectangle square ;
     private Label labelGold;
+    private ArrayList<Bullet> bullets=new ArrayList<>();
 
 
     public Drawing(){
         super();
-        Timeline timer = new Timeline(new KeyFrame(Duration.millis(50), new EventHandler<ActionEvent>() {
+        Timeline timer = new Timeline(new KeyFrame(Duration.millis(20), new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
                 for (Enemy e : Player.getPlayer().getEnemiesOnMap()) {
                     e.update();
                 }
-
-            }
-        }));
+                //for (Tower t: Player.getPlayer().getTowerList()){t.update(); }
+                for (Bullet b : bullets) {
+                    if (b.getAlive()) {
+                        b.update();
+                    }
+                    else {
+                        //bullets.remove(b);
+                    }
+                }
+            }}));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
     }
@@ -67,9 +75,15 @@ public class Drawing extends Pane  {
         square.setY(centre.getY() - 15);
         this.getChildren().add(square);
     }
-    public void draw(Shape shape){ // peut etre modifié
+    public void draw(Node shape){ // peut etre modifié
         this.getChildren().add(shape);
     }
+    public void drawbullet(Bullet bullet){
+        this.getChildren().add(bullet.getShape());
+        bullets.add(bullet);
+    }
+    public ArrayList<Bullet> getBullets(){return bullets;}
+
 
 
         }

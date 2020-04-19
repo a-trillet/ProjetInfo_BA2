@@ -12,6 +12,7 @@ public class Player {
     private static final int startingGold = 300;
     private static int wave = 0;
     private static EnemyFactory enemyFactory;
+    private static ArrayList<Bullet> bullets=new ArrayList<>();
 
     public Player(){
         reset();
@@ -44,6 +45,14 @@ public class Player {
 
     public ArrayList<Tower> getTowerList() {
         return towerList;
+    }
+
+    public ArrayList<Bullet> getBullets(){return bullets;}
+
+    public void addbullet(Bullet bullet){bullets.add(bullet);}
+
+    public void removebullet(Bullet bullet){
+        bullets.remove(bullet);
     }
 
     public int getLives() {
@@ -99,4 +108,6 @@ public class Player {
     }
 
     public int getMaxLives(){ return startingLives[difficulty-1];}
+
+
 }

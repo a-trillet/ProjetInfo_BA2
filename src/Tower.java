@@ -1,3 +1,5 @@
+import javafx.application.Platform;
+
 import java.util.ArrayList;
 
 public class Tower implements MapClickable, Runnable {
@@ -130,7 +132,13 @@ public class Tower implements MapClickable, Runnable {
     }
 
     public void shoot(){
-        Bullet bullet =new Bullet(damage,this,bulletrange,targetEnemy.getCentre(),centre);
+        Tower t = this;
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                PlayScreen.drawing.drawbullet(new Bullet(damage,t,bulletrange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
+            }
+        });
     }
 
     @Override
