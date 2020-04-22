@@ -108,12 +108,16 @@ public class MapClickListener implements EventHandler<MouseEvent> {
 
     public void displayShop(){
         GridPane shop = new GridPane();
+        String messError = new String("You don't have enough money");
+        shop.setPrefWidth(200);
         shop.setPadding(new Insets(10,10,10,10));
         shop.setVgap(8);
         shop.setHgap(10);
 
+
         Label msgError = new Label();
-        String messError = new String("You don't have enough money");
+        GridPane.setConstraints(msgError,0,7);
+
         Button basicTowerButton = new Button("Basic tower");
         basicTowerButton.setOnMouseClicked(e-> PlayScreen.towerType = "BASIC");          //manque un truc pour lier tM et le button
         basicTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < BasicTower.getCost()){msgError.setText(messError);}});
@@ -134,13 +138,13 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         sniperTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < SniperTower.getCost()){msgError.setText(messError);}});
         GridPane.setConstraints(sniperTowerButton,1,1);
 
+
         Button nextWave = new Button("Next Wave");
-        GridPane.setConstraints(nextWave, 0,7);
+        GridPane.setConstraints(nextWave, 0,9);
         nextWave.setOnAction(e -> {
             Player.getEnemyFactory().nextWave();
         });
 
-        GridPane.setConstraints(msgError,0,2);
 
 
 
