@@ -4,7 +4,7 @@ public class BasicTower extends Tower {
     private static  double newRange = 75;
     private static  double newDamage = 10;
     private static int newReloadTime = 500;
-    private static int newBuletRange = 100;
+    private static int newBulletRange = 100;
     private String type = "Basic tower";
 
     public BasicTower(Point origin){
@@ -13,7 +13,8 @@ public class BasicTower extends Tower {
         this.range = newRange;
         this.damage = newDamage;
         this.reloadTime = newReloadTime;
-        this.bulletrange = newBuletRange;
+        this.bulletRange = newBulletRange;
         this.towerType = type;
     }
 }
+

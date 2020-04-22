@@ -59,7 +59,6 @@ public class MapClickListener implements EventHandler<MouseEvent> {
             }
             else {
                 displayInfo("");
-                displayShop();
             }
         }
 
@@ -114,24 +113,25 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         shop.setHgap(10);
 
         Label msgError = new Label();
+        String messError = new String("You don't have enough money");
         Button basicTowerButton = new Button("Basic tower");
         basicTowerButton.setOnMouseClicked(e-> PlayScreen.towerType = "BASIC");          //manque un truc pour lier tM et le button
-        basicTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < 100){msgError.setText("You don't have enough money");}});
+        basicTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < BasicTower.getCost()){msgError.setText(messError);}});
         GridPane.setConstraints(basicTowerButton,0,0);
 
         Button iceTowerButton = new Button("Ice tower");
         iceTowerButton.setOnMouseClicked(e->PlayScreen.towerType="ICE");
-        iceTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < 150){msgError.setText("You don't have enough money");}});
+        iceTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < IceTower.getCost()){msgError.setText(messError);}});
         GridPane.setConstraints(iceTowerButton,1,0);
 
         Button fireTowerButton = new Button("Fire tower");
         fireTowerButton.setOnMouseClicked(e->PlayScreen.towerType="FIRE");
-        fireTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < 150){msgError.setText("You don't have enough money");}});
+        fireTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < FireTower.getCost()){msgError.setText(messError);}});
         GridPane.setConstraints(fireTowerButton,0,1);
 
         Button sniperTowerButton = new Button("Sniper Tower");
         sniperTowerButton.setOnMouseClicked((e-> PlayScreen.towerType = "SNIPER"));
-        sniperTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < 1000){msgError.setText("You don't have enough money");}});
+        sniperTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < SniperTower.getCost()){msgError.setText(messError);}});
         GridPane.setConstraints(sniperTowerButton,1,1);
 
         Button nextWave = new Button("Next Wave");
@@ -140,7 +140,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
             Player.getEnemyFactory().nextWave();
         });
 
-        GridPane.setConstraints(msgError,0,5);
+        GridPane.setConstraints(msgError,0,2);
 
 
 

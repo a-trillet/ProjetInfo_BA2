@@ -12,19 +12,18 @@ public class Tower implements MapClickable, Runnable {
 
 
     private int[] upgradeCost = {50, 100, 200};
-    protected int cost;
     private Point centre;
-
-
-    protected double damage;
     private int level;
     private static int levelMax = 3;
-    protected double range;
     private Enemy targetEnemy = null;
-    private boolean active = true;
-    protected int reloadTime;
-    protected int bulletrange;
 
+    protected static int cost;
+    protected double damage;
+    protected double range;
+    protected int reloadTime;
+    protected int bulletRange;
+
+    private boolean active = true;
     private double uprgradeBase = 1.0;      // vont servir à augmenter le range et damage
     private double upgradeMultiplier = 0.5; //
 
@@ -102,7 +101,7 @@ public class Tower implements MapClickable, Runnable {
         return frequency;
     }
 
-    public int  getCost() {
+    public static int  getCost() {
         return cost;
     }
 
@@ -135,7 +134,7 @@ public class Tower implements MapClickable, Runnable {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                PlayScreen.drawing.drawbullet(new Bullet(damage,t,bulletrange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
+                PlayScreen.drawing.drawbullet(new Bullet(damage,t,bulletRange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
             }
         });
     }
