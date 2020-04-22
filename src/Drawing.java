@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class Drawing extends Pane  {
     private javafx.scene.shape.Rectangle square ;
     private Label labelGold;
-    public static ArrayList<Bullet> bullets=new ArrayList<>();
+    private static ArrayList<Bullet> bullets=new ArrayList<>();
 
 
     public Drawing(){
@@ -31,10 +31,11 @@ public class Drawing extends Pane  {
                 for (Enemy e : Player.getPlayer().getEnemiesOnMap()) {
                     e.update();
                 }
-                //for (Tower t: Player.getPlayer().getTowerList()){t.update(); }
                 for (Bullet b : bullets) {
                         b.update();
                 }
+                Player player=Player.getPlayer();
+                labelGold.setText("Gold : "+player.getGold()+"\nLives : "+player.getLives()+"/"+player.getMaxLives()+"\nWave :"+player.getWave());
             }}));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
@@ -48,18 +49,6 @@ public class Drawing extends Pane  {
 
 
         this.getChildren().add(labelGold);
-
-
-    }
-    public void changeGoldLives(int gold, int life, int maxLife, int wave){
-        //permet la modification d'un element java fx depuis un thread (pour decrease life)
-        // !!! ne pas utiliser dans des gros boulots de loop, car peut planter. ici, c'est juste un label changé toutes les seconde donc on s'en fout je crois
-
-        Platform.runLater(new Runnable() {
-            @Override public void run() {                                  //trouver alternative !!!!!!!!!!!!!!!!!
-                labelGold.setText("Gold : "+gold+"\nLives : "+life+"/"+maxLife+"\nWave :"+wave);
-            }
-        });
 
 
     }

@@ -69,13 +69,13 @@ public class Bullet implements Runnable {
         }
         else {
             alive = false;
+            this.explode();
             Platform.runLater(new Runnable() {
                 @Override public void run() {
                     PlayScreen.drawing.getChildren().remove(circle);
                 }
             });
             PlayScreen.drawing.getBullets().remove(this);
-            this.explode();
         }
         }
 

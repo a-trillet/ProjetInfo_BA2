@@ -4,7 +4,7 @@ public class BasicTower extends Tower {
     private static  double newRange = 75;
     private static  double newDamage = 10;
     private static int newReloadTime = 500;
-    private static int newBulletRange = 100;
+    private static int newBulletRange = 10;
     private String type = "Basic tower";
 
     public BasicTower(Point origin){

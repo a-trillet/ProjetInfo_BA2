@@ -69,12 +69,10 @@ public class Player {
 
     public void decreaseLife(int dmg) {
         lifePoints -= dmg;
-        PlayScreen.drawing.changeGoldLives(gold,lifePoints, startingLives[difficulty-1], wave);/// modifie le compteur de vie
     }
 
     public void addGold(int amount) {
         gold += amount;
-        PlayScreen.drawing.changeGoldLives(gold,lifePoints, startingLives[difficulty-1], wave);
 
     }
 
@@ -88,7 +86,6 @@ public class Player {
 
     public void nextWave() {
         wave++;
-        PlayScreen.drawing.changeGoldLives(gold,lifePoints, startingLives[difficulty-1], wave);
     }
 
     public static int getLifePoints() {
@@ -108,6 +105,7 @@ public class Player {
     }
 
     public int getMaxLives(){ return startingLives[difficulty-1];}
+
 
 
 }
