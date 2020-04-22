@@ -8,7 +8,8 @@ public class BasicTower extends Tower {
     private String type = "Basic tower";
 
     public BasicTower(Point origin){
-        super(origin, basicTowerCost);
+        super(origin);
+        this.cost = basicTowerCost;
         this.range = newRange;
         this.damage = newDamage;
         this.reloadTime = newReloadTime;

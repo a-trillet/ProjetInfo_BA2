@@ -21,7 +21,7 @@ public class PlayScreen{
 
     public BorderPane sceneView(){
 
-        //tM = new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));
+
 
         //La map
         MapPane map = new MapPane(); // permet de supperposer les différents éléments de la map (image, tours,..)
@@ -39,10 +39,9 @@ public class PlayScreen{
 
         //le shop
 
+        mapClickListener.displayShop();
         //Info
 
-        //displayShop();
-        mapClickListener.displayShop();
         borderPane.setCenter(map);
 
         // listenners

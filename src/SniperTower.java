@@ -8,7 +8,8 @@ public class SniperTower extends  Tower {
     private String type = "Sniper tower";
 
     public SniperTower(Point origin){
-        super(origin, snipeTowercost);
+        super(origin);
+        this.cost = snipeTowercost;
         this.range = newRange;
         this.damage = newDamage;
         this.reloadTime = newReloadTime;

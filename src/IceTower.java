@@ -9,7 +9,8 @@ public class IceTower extends Tower {
     private String type = "Ice tower";
 
     public IceTower(Point origin) {
-        super(origin,iceTowercost);
+        super(origin);
+        this.cost = iceTowercost;
         this.range = newRange;
         this.damage = newDamage;
         this.reloadTime = newReloadTime;

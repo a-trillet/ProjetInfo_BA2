@@ -8,7 +8,8 @@ public class FireTower extends Tower{
     private String type = "Fire tower";
 
     public FireTower(Point originPoint){
-        super(originPoint,fireTowerCost); //prc utilisé ds arg de Tower()
+        super(originPoint);
+        this.cost = fireTowerCost;
         this.range = newRange;
         this.damage = newDamage;
         this.reloadTime = newReloadTime;

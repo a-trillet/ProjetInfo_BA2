@@ -12,7 +12,7 @@ public class Tower implements MapClickable, Runnable {
 
 
     private int[] upgradeCost = {50, 100, 200};
-    private int cost;
+    protected int cost;
     private Point centre;
 
 
@@ -34,9 +34,8 @@ public class Tower implements MapClickable, Runnable {
                                 // que si elle a suffisament tué( + possibilité de rajouter une valeur à chaque classe de ennemi)
     private Thread thread = new Thread(this);
 
-    public Tower(Point origin, int cost){
+    public Tower(Point origin){
         this.centre = origin;
-        this.cost=cost;
         level = 1;
         thread.start();
 
