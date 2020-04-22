@@ -17,4 +17,7 @@ public class IceTower extends Tower {
         this.bulletRange = newBulletRange;
         this.towerType = type;
     }
+    public static int getNewCost(){
+        return iceTowercost;
+    }
 }

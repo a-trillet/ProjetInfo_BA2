@@ -1,6 +1,6 @@
 public class FireTower extends Tower{
 
-    private static int fireTowerCost = 150;
+    private static int fireTowerCost = 1500;
     private static  double newRange = 200;
     private static  double newDamage = 25;
     private static int newReloadTime = 1500;
@@ -16,6 +16,9 @@ public class FireTower extends Tower{
         this.bulletRange = newBulletRange;
         this.towerType = type;
 
+    }
+    public static int getNewCost(){
+        return fireTowerCost;
     }
 
 

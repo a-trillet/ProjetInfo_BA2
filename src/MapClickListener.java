@@ -119,23 +119,24 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         GridPane.setConstraints(msgError,0,7);
 
         Button basicTowerButton = new Button("Basic tower");
-        basicTowerButton.setOnMouseClicked(e-> PlayScreen.towerType = "BASIC");          //manque un truc pour lier tM et le button
-        basicTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < BasicTower.getCost()){msgError.setText(messError);}});
+        basicTowerButton.setOnMouseClicked(e-> PlayScreen.towerType = "BASIC");
+        basicTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < BasicTower.getNewCost()){msgError.setText(messError);}});
         GridPane.setConstraints(basicTowerButton,0,0);
 
         Button iceTowerButton = new Button("Ice tower");
         iceTowerButton.setOnMouseClicked(e->PlayScreen.towerType="ICE");
-        iceTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < IceTower.getCost()){msgError.setText(messError);}});
+        iceTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < IceTower.getNewCost()){msgError.setText(messError);}});
         GridPane.setConstraints(iceTowerButton,1,0);
 
         Button fireTowerButton = new Button("Fire tower");
-        fireTowerButton.setOnMouseClicked(e->PlayScreen.towerType="FIRE");
-        fireTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < FireTower.getCost()){msgError.setText(messError);}});
+        //fireTowerButton.setOnMouseClicked(e->PlayScreen.towerType="FIRE");
+        fireTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < FireTower.getNewCost()){msgError.setText(messError);}});
+        System.out.println("prix"+FireTower.getNewCost());  //prob : il donne d'abord la valeur initiale à firecost
         GridPane.setConstraints(fireTowerButton,0,1);
 
         Button sniperTowerButton = new Button("Sniper Tower");
         sniperTowerButton.setOnMouseClicked((e-> PlayScreen.towerType = "SNIPER"));
-        sniperTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < SniperTower.getCost()){msgError.setText(messError);}});
+        sniperTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < SniperTower.getNewCost()){msgError.setText(messError);}});
         GridPane.setConstraints(sniperTowerButton,1,1);
 
 
