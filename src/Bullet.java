@@ -51,12 +51,13 @@ public class Bullet implements Runnable {
         return damage;
     }
 
-    public void explode() {
-        for (Enemy e : Player.getPlayer().getEnemiesOnMap()) {
-            if (centre.distance(e.getCentre()) <= range) {
-                e.hurt(this);
-                if (freezeBullet){
-                    e.freeze();   // permet d'envoyer a enemy que: e est bien frozen, fixe un demarrage et une durée
+    public void explode() {      //hurt les ennemis dont l'origine est dans la range de la bullet
+        for(int i=0; i<Player.getPlayer().getEnemiesOnMap().size(); i++){
+            Enemy enemy=Player.getPlayer().getEnemiesOnMap().get(i);
+            if(enemy.getCentre().distance(this.centre)<range) {
+                enemy.hurt(this);
+                if (freezeBullet) {
+                    enemy.freeze(); // permet d'envoyer a enemy que: e est bien frozen, fixe un demarrage et une durée
                 }
             }
         }

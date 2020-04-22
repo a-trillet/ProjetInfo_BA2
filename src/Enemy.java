@@ -86,7 +86,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
             }
         });
 
-        //Player.getPlayer().getEnemiesOnMap().remove(this);
+        Player.getPlayer().getEnemiesOnMap().remove(this);
 
     }
 
