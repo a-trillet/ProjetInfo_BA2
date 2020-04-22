@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Tower implements MapClickable, Runnable {
 
-    //private enum type {BASIC, FIRE, ICE, SNIPER}
     protected String towerType;
 
 

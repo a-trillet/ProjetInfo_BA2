@@ -18,6 +18,9 @@ public class Enemy implements Killable, MapClickable, Runnable {
     private javafx.scene.shape.Circle c;
     private int cbdDeVieRetireraPlayerSiArriveaLaFin;     ///à faire
     private int reward = 10;
+    private boolean frozen = false;
+    private double freezeStartTime;
+    private double freezeDuration;
 
 
     public Enemy( Point origin, double life, int reward){
@@ -41,6 +44,16 @@ public class Enemy implements Killable, MapClickable, Runnable {
     @Override
     public void hurt(Bullet bullet) {
         decreaseLife(bullet.getDamage());
+
+    }
+
+    public void freeze(){
+        this.frozen = true;
+        freezeStartTime = System.currentTimeMillis(); //peut voir ça comme heure de démarrage
+        freezeDuration = IceTower.getFreezeTime();
+    }
+    public void unFreeze(){
+        this.frozen = false;
     }
 
     public void setAlive(){
@@ -88,7 +101,12 @@ public class Enemy implements Killable, MapClickable, Runnable {
         return res;
     }
     public double getSpeed() {
-        return speed;
+        if (frozen){
+            return 0;
+        }
+        else{
+            return speed;
+        }
     }
 
     public double getLifePoints() {
@@ -103,18 +121,21 @@ public class Enemy implements Killable, MapClickable, Runnable {
     public void move(){
         if(direction == UP)
         {
-            origin.setY(origin.getY() - (speed/10));
+            origin.setY(origin.getY() - (getSpeed()/10));
         }
         else if(direction == DOWN)
         {
-            origin.setY(origin.getY() + (speed/10));
+            origin.setY(origin.getY() + (getSpeed()/10));
         }
         else if(direction == LEFT)
         {
-            origin.setX(origin.getY() - (speed/10));
+            origin.setX(origin.getY() - (getSpeed()/10));
         }
         else if(direction==RIGHT) {
-            this.origin.setX(origin.getX() + (speed/10));
+            this.origin.setX(origin.getX() + (getSpeed()/10));
+        }
+        if (frozen && freezeDuration < System.currentTimeMillis()-freezeStartTime){  //freezetime et freeze duration assocé à tt les eemis frozen
+            unFreeze();
         }
     }
 
