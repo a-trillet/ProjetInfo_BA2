@@ -54,11 +54,13 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         if(mouseEvent.getEventType() == MouseEvent.MOUSE_CLICKED){
             currentSelection = clickedOn(mouseEvent);
             if (currentSelection == null){
-                PlayScreen.displayShop();
+              //  PlayScreen.displayShop();   //remplacer par le truc montrant shop normalement juste displayshop();
+                displayShop();
                 System.out.println(mouseEvent.getX()+"      "+mouseEvent.getY());           // test coord souris
             }
             else {
                 displayInfo("");
+                displayShop();
             }
         }
 
@@ -96,7 +98,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
 
         }
         Button shopButton = new Button("Shop");
-        shopButton.setOnAction(e ->PlayScreen.displayShop());
+        shopButton.setOnAction(e -> displayShop());
         GridPane.setConstraints(shopButton,0,8);
 
         Label label = new Label(infos);
@@ -106,6 +108,49 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         borderPane.setRight(infoBox);
     }
 
+    public void displayShop(){
+        GridPane shop = new GridPane();
+        shop.setPadding(new Insets(10,10,10,10));
+        shop.setVgap(8);
+        shop.setHgap(10);
 
+        Label msgError = new Label();
+        Button basicTowerButton = new Button("Basic tower");
+        basicTowerButton.setOnMouseClicked(e-> PlayScreen.towerType = "BASIC");          //manque un truc pour lier tM et le button
+        basicTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < 100){msgError.setText("You don't have enough money");}});
+        GridPane.setConstraints(basicTowerButton,0,0);
+
+        Button iceTowerButton = new Button("Ice tower");
+        iceTowerButton.setOnMouseClicked(e->PlayScreen.towerType="ICE");
+        iceTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < 150){msgError.setText("You don't have enough money");}});
+        GridPane.setConstraints(iceTowerButton,1,0);
+
+        Button fireTowerButton = new Button("Fire tower");
+        fireTowerButton.setOnMouseClicked(e->PlayScreen.towerType="FIRE");
+        fireTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < 150){msgError.setText("You don't have enough money");}});
+        GridPane.setConstraints(fireTowerButton,0,1);
+
+        Button sniperTowerButton = new Button("Sniper Tower");
+        sniperTowerButton.setOnMouseClicked((e-> PlayScreen.towerType = "SNIPER"));
+        sniperTowerButton.setOnAction(e -> {if (Player.getPlayer().getGold() < 1000){msgError.setText("You don't have enough money");}});
+        GridPane.setConstraints(sniperTowerButton,1,1);
+
+        Button nextWave = new Button("Next Wave");
+        GridPane.setConstraints(nextWave, 0,7);
+        nextWave.setOnAction(e -> {
+            Player.getEnemyFactory().nextWave();
+        });
+
+        GridPane.setConstraints(msgError,0,5);
+
+
+
+        shop.getChildren().addAll(basicTowerButton, iceTowerButton, fireTowerButton, sniperTowerButton, nextWave, msgError);
+        borderPane.setRight(shop);
+
+
+
+
+    }
 
 }

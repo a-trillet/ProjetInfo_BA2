@@ -14,7 +14,7 @@ public class PlayScreen{
     private static BorderPane borderPane = new BorderPane();
     public static String towerType = null;
     public static MapClickListener mapClickListener = new MapClickListener(borderPane);
-    //public static  TowerButtonListener towerButtonListener = new TowerButtonListener(drawing);
+    public static  TowerButtonListener towerButtonListener = new TowerButtonListener(drawing);
 
 
 
@@ -41,7 +41,8 @@ public class PlayScreen{
 
         //Info
 
-        displayShop();
+        //displayShop();
+        mapClickListener.displayShop();
         borderPane.setCenter(map);
 
         // listenners
@@ -49,53 +50,9 @@ public class PlayScreen{
 
         return borderPane;
     }
-    public static void displayShop(){
-        GridPane shop = new GridPane();
-        shop.setPadding(new Insets(10,10,10,10));
-        shop.setVgap(8);
-        shop.setHgap(10);
 
-        Label msgError = new Label("You don't have enough money");
-
-        Button basicTowerButton = new Button("Basic tower");
-        basicTowerButton.setOnMouseClicked(e-> towerType = "BASIC");
-        //basicTowerButton.setOnMouseClicked(towerButtonListener);
-
-
-
-
-        GridPane.setConstraints(basicTowerButton,0,0);
-
-
-
-        Button iceTowerButton = new Button("Ice tower");
-        iceTowerButton.setOnMouseClicked(e->towerType="ICE");
-        GridPane.setConstraints(iceTowerButton,1,0);
-
-        Button fireTowerButton = new Button("Fire tower");
-        fireTowerButton.setOnMouseClicked(e->towerType="FIRE");
-        //TowerButtonListener firelistener = new TowerButtonListener(drawing);
-        //firelistener.setS("FIRE");
-        //fireTowerButton.setOnMousePressed(firelistener);
-        GridPane.setConstraints(fireTowerButton,0,1);
-
-        Button sniperTowerButton = new Button("Sniper Tower");
-        sniperTowerButton.setOnMouseClicked((e-> towerType = "SNIPER"));
-        GridPane.setConstraints(sniperTowerButton,1,1);
-
-
-
-
-        Button nextWave = new Button("Next Wave");
-        GridPane.setConstraints(nextWave, 0,7);
-        nextWave.setOnAction(e -> {
-            Player.getEnemyFactory().nextWave();
-        });
-
-        shop.getChildren().addAll(basicTowerButton,iceTowerButton,fireTowerButton,sniperTowerButton, nextWave);
-        borderPane.setRight(shop);
-    }
     public void update(){
+
         Player p = Player.getPlayer();
 
     }

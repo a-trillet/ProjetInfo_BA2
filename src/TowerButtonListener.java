@@ -6,7 +6,8 @@ public class TowerButtonListener implements EventHandler<MouseEvent> {
 
     Drawing drawing;
     static String towerType=null;
-    private String s=null;
+    private String s =null;
+    public TowerMaker tM;
 
 
     public TowerButtonListener(Drawing d){
@@ -20,7 +21,9 @@ public class TowerButtonListener implements EventHandler<MouseEvent> {
 
     public void mouseReleased(MouseEvent e) {
         System.out.println("OK");
+        //tM = new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));
         new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));
+
     }
 
     @Override
