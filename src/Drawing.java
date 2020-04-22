@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class Drawing extends Pane  {
     private javafx.scene.shape.Rectangle square ;
     private Label labelGold;
-    private ArrayList<Bullet> bullets=new ArrayList<>();
+    public static ArrayList<Bullet> bullets=new ArrayList<>();
 
 
     public Drawing(){
@@ -33,12 +33,7 @@ public class Drawing extends Pane  {
                 }
                 //for (Tower t: Player.getPlayer().getTowerList()){t.update(); }
                 for (Bullet b : bullets) {
-                    if (b.getAlive()) {
                         b.update();
-                    }
-                    else {
-                        //bullets.remove(b);
-                    }
                 }
             }}));
         timer.setCycleCount(Timeline.INDEFINITE);
