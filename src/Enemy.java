@@ -47,10 +47,10 @@ public class Enemy implements Killable, MapClickable, Runnable {
 
     }
 
-    public void freeze(){
+    public void freeze(Tower t){    //freeze(tower t)?
         this.frozen = true;
         freezeStartTime = System.currentTimeMillis(); //peut voir ça comme heure de démarrage
-        freezeDuration = IceTower.getFreezeTime();
+        freezeDuration = t.getFreezeTime();
     }
     public void unFreeze(){
         this.frozen = false;

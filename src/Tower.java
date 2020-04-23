@@ -21,6 +21,7 @@ public class Tower implements MapClickable, Runnable {
     protected double range;
     protected int reloadTime;
     protected int bulletRange;
+    protected int freezeTime;
 
     private boolean active = true;
     private double uprgradeBase = 1.0;      // vont servir à augmenter le range et damage
@@ -114,6 +115,10 @@ public class Tower implements MapClickable, Runnable {
 
     public double getRange() {
         return (range *(uprgradeBase + (level-1)*upgradeMultiplier)  ); //à chaque level le range est mult par 1.5 puis 2
+    }
+
+    public double getFreezeTime(){
+        return (freezeTime*(uprgradeBase + (level-1)*upgradeMultiplier) );
     }
 
     public int getNumberOfKill() {
