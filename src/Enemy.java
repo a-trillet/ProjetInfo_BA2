@@ -9,18 +9,22 @@ public class Enemy implements Killable, MapClickable, Runnable {
     static int DOWN = 4;
     private int direction=2;
     private Point origin;
-    private double speed = 10;
+    private String enemyType;
+
     private boolean alive = false;
     private double lifePoints = 0;
-    private double maxLifePoints = 0;
     private ArrayList<Tower> targetingTowers = new ArrayList<Tower>(); // les tours qui le cible actuelement
     private Thread t;
     private javafx.scene.shape.Circle c;
-    private int cbdDeVieRetireraPlayerSiArriveaLaFin;     ///à faire
-    private int reward = 10;
     private boolean frozen = false;
     private double freezeStartTime;
     private double freezeDuration;
+
+    //attriuts venant des s-classe
+    protected double speed = 10;
+    protected double maxLifePoints = 0;
+    protected int reward = 10;
+    protected int power;     //cbdDeVieRetireraPlayerSiArriveaLaFin
 
 
     public Enemy( Point origin, double life, int reward){
@@ -32,6 +36,10 @@ public class Enemy implements Killable, MapClickable, Runnable {
         this.reward = reward;
 
 
+    }
+
+    public String getEnemyType(){
+        return enemyType;
     }
 
     public Point getCentre(){ return this.origin; }

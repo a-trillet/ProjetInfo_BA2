@@ -23,7 +23,7 @@ public class InfoTower extends  Info{
     }
     @Override
     public String listString() {
-        String strType = "Tower type: "+towerType;
+        String strType = "Tower type : "+towerType;
         String strLevel = "Level : "+ level;
         String strDamage = "Damage : "+ damage;
         String strFrequency = "Frequency : "+ frequency;
