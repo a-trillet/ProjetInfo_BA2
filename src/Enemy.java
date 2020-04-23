@@ -9,18 +9,22 @@ public class Enemy implements Killable, MapClickable, Runnable {
     static int DOWN = 4;
     private int direction=2;
     private Point origin;
-    private double speed = 10;
+
     private boolean alive = false;
     private double lifePoints = 0;
-    private double maxLifePoints = 0;
     private ArrayList<Tower> targetingTowers = new ArrayList<Tower>(); // les tours qui le cible actuelement
     private Thread t;
     private javafx.scene.shape.Circle c;
-    private int cbdDeVieRetireraPlayerSiArriveaLaFin;     ///à faire
-    private int reward = 10;
     private boolean frozen = false;
     private double freezeStartTime;
     private double freezeDuration;
+
+    //attributs venant des s-classe
+    protected String enemyType;
+    protected double enemySpeed;
+    protected double maxLifePoints;
+    protected int reward;
+    protected int enemyPower;     //cbdDeVieRetireraPlayerSiArriveaLaFin
 
 
     public Enemy( Point origin, double life, int reward){
@@ -32,6 +36,14 @@ public class Enemy implements Killable, MapClickable, Runnable {
         this.reward = reward;
 
 
+    }
+
+    public String getEnemyType(){
+        return enemyType;
+    }
+
+    public int getEnemyPower(){
+        return enemyPower;
     }
 
     public Point getCentre(){ return this.origin; }
@@ -105,9 +117,10 @@ public class Enemy implements Killable, MapClickable, Runnable {
             return 0;
         }
         else{
-            return speed;
+            return enemySpeed;
         }
     }
+
 
     public double getLifePoints() {
         return lifePoints;
@@ -139,9 +152,9 @@ public class Enemy implements Killable, MapClickable, Runnable {
         }
     }
 
-    private void reachEndPoint(){
+    private void reachEndPoint(Enemy enemy){
         die();
-        Player.getPlayer().decreaseLife(1);
+        Player.getPlayer().decreaseLife(enemy.getEnemyPower());
 
     }
 
@@ -186,12 +199,15 @@ public class Enemy implements Killable, MapClickable, Runnable {
                 direction = 4;
             }
             if (isOn(MapPane.getEndPoint())){
-                reachEndPoint();
+                reachEndPoint(this);
 
             }
         }
     }
 
+    public int getReward() {
+        return reward;
+    }
 }
 
 

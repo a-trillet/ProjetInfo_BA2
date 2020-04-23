@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class Tower implements MapClickable, Runnable {
 
-    protected String towerType;
-
 
     private int frequency = 50;
 
@@ -16,6 +14,7 @@ public class Tower implements MapClickable, Runnable {
     private static int levelMax = 3;
     private Enemy targetEnemy = null;
 
+    protected String towerType;
     protected static int cost;
     protected double damage;
     protected double range;
