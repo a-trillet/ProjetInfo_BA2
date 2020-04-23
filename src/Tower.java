@@ -35,9 +35,9 @@ public class Tower implements MapClickable, Runnable {
     public Tower(Point origin){
         this.centre = origin;
         level = 1;
-        thread.start();
-
     }
+    public void SetActive(){
+        thread.start();}
 
 
     private Enemy selectTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour

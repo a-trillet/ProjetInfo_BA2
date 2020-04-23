@@ -4,9 +4,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class MapClickListener implements EventHandler<MouseEvent> {
 
@@ -21,10 +22,6 @@ public class MapClickListener implements EventHandler<MouseEvent> {
     public MapClickListener (BorderPane borderPane){
         super();
         this.borderPane = borderPane;
-    }
-
-    public void MousePressed(MouseEvent e){
-
     }
 
     private MapClickable clickedOn(MouseEvent e){    // retourne le mapclickable sur lequel on a cliqué
