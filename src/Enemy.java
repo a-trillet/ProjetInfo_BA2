@@ -9,7 +9,6 @@ public class Enemy implements Killable, MapClickable, Runnable {
     static int DOWN = 4;
     private int direction=2;
     private Point origin;
-    private String enemyType;
 
     private boolean alive = false;
     private double lifePoints = 0;
@@ -20,11 +19,12 @@ public class Enemy implements Killable, MapClickable, Runnable {
     private double freezeStartTime;
     private double freezeDuration;
 
-    //attriuts venant des s-classe
-    protected double speed = 10;
-    protected double maxLifePoints = 0;
-    protected int reward = 10;
-    protected int power;     //cbdDeVieRetireraPlayerSiArriveaLaFin
+    //attributs venant des s-classe
+    protected String enemyType;
+    protected double enemySpeed;
+    protected double maxLifePoints;
+    protected int reward;
+    protected int enemyPower;     //cbdDeVieRetireraPlayerSiArriveaLaFin
 
 
     public Enemy( Point origin, double life, int reward){
@@ -40,6 +40,10 @@ public class Enemy implements Killable, MapClickable, Runnable {
 
     public String getEnemyType(){
         return enemyType;
+    }
+
+    public int getEnemyPower(){
+        return enemyPower;
     }
 
     public Point getCentre(){ return this.origin; }
@@ -113,9 +117,10 @@ public class Enemy implements Killable, MapClickable, Runnable {
             return 0;
         }
         else{
-            return speed;
+            return enemySpeed;
         }
     }
+
 
     public double getLifePoints() {
         return lifePoints;
@@ -147,9 +152,9 @@ public class Enemy implements Killable, MapClickable, Runnable {
         }
     }
 
-    private void reachEndPoint(){
+    private void reachEndPoint(Enemy enemy){
         die();
-        Player.getPlayer().decreaseLife(1);
+        Player.getPlayer().decreaseLife(enemy.getEnemyPower());
 
     }
 
@@ -194,12 +199,15 @@ public class Enemy implements Killable, MapClickable, Runnable {
                 direction = 4;
             }
             if (isOn(MapPane.getEndPoint())){
-                reachEndPoint();
+                reachEndPoint(this);
 
             }
         }
     }
 
+    public int getReward() {
+        return reward;
+    }
 }
 
 

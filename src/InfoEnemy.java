@@ -6,6 +6,8 @@ public class InfoEnemy extends Info {
     private double life;
     private double lifeMax;
     private String enemyType;
+    private int power;
+    private int reward;
 
     public InfoEnemy(Enemy enemy){
         super(enemy);
@@ -13,14 +15,18 @@ public class InfoEnemy extends Info {
         this.life = enemy.getLifePoints();
         this.lifeMax = enemy.getMaxLifePoints();
         this.enemyType = enemy.getEnemyType();
+        this.power = enemy.getEnemyPower();
+        this.reward = enemy.getReward();
     }
 
     @Override
     public String listString() {
-        String strType = "Enemy of type : "+ enemyType;
-        String strLife = "Life : "+ life;
+        String strType = "Enemy of type : " + enemyType;
+        String strLife = "Life : " + life;
         String strLifeMax = "Life Max : " + lifeMax;
         String strSpeed = "Speed : " + speed;
+        String strPower = "Power : " + power;
+        String strReward = "Reward : " + reward;
 
         return strType+"\n" + strLife+"\n" + strLifeMax+"\n" + strSpeed;
     }
