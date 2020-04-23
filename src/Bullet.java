@@ -57,7 +57,7 @@ public class Bullet implements Runnable {
             if(enemy.getCentre().distance(this.centre)<range) {
                 enemy.hurt(this);
                 if (freezeBullet) {
-                    enemy.freeze(); // permet d'envoyer a enemy que: e est bien frozen, fixe un demarrage et une durée
+                    enemy.freeze(this.motherTower); // trouve le tps de freeze associé à la tour qui emet la bullet ,permet d'envoyer a enemy que: e est bien frozen, fixe un demarrage et une durée
                 }
             }
         }
