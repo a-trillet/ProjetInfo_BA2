@@ -8,6 +8,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class PlayScreen{
     public static Drawing drawing= new Drawing();
@@ -45,6 +47,14 @@ public class PlayScreen{
 
         // listenners
         map.setOnMouseClicked(mapClickListener);
+
+
+        //intégration d'images test (je savais pas ou mettre)
+        final ImageView selectedImage = new ImageView();
+        Image image1 = new Image(PlayScreen.class.getResourceAsStream("AntoineBg.jpg"));
+        selectedImage.setImage(image1);
+
+
 
         return borderPane;
     }
