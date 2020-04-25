@@ -143,7 +143,17 @@ public class Enemy implements Killable, MapClickable, Runnable {
 
             }
         }
-
+        else if(direction == LEFT)
+        {
+            origin.setX(origin.getY() - (getSpeed()/10));
+        }
+        else if(direction==RIGHT) {
+            this.origin.setX(origin.getX() + (getSpeed()/10));
+        }
+        if (frozen && freezeDuration < System.currentTimeMillis()-freezeStartTime){  //freezetime et freeze duration assocé à tt les eemis frozen
+            unFreeze();
+        }
+    }
 
     private void reachEndPoint(){
         this.die();
