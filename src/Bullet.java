@@ -70,7 +70,7 @@ public class Bullet implements Runnable {
     public void move() {
         double dist = targetPoint.distance(this.motherTower.getCentre());
         int deltaX = (int) (this.targetPoint.getX() - this.motherTower.getCentre().getX()); // Attention mettre des propreties pour ne pas modifier X et Y indépendament (fonction de modification),
-        int deltaY = (int) (this.targetPoint.getY() - this.motherTower.getCentre().getY()); // heuu sauf que ca pose un probleme si le chemin est vertical ou horizontal, mais plus rapide en général
+        int deltaY = (int) (this.targetPoint.getY() - this.motherTower.getCentre().getY());
         double speed_x = speed * deltaX / dist;
         double speed_y = speed * deltaY / dist;
         int dx = (int) round(speed_x);

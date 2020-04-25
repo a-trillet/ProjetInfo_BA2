@@ -15,7 +15,7 @@ public class PlayScreen{
     public static String towerType = null;
     public static MapClickListener mapClickListener = new MapClickListener(borderPane);
     public static  TowerButtonListener towerButtonListener = new TowerButtonListener(drawing);
-
+    public static MapPane map = new MapPane(); // permet de supperposer les différents éléments de la map (image, tours,..)
 
 
     public BorderPane sceneView(){
@@ -23,7 +23,6 @@ public class PlayScreen{
 
 
         //La map
-        MapPane map = new MapPane(); // permet de supperposer les différents éléments de la map (image, tours,..)
 
         map.getChildren().addAll(drawing);
         //drawing.setOnMouseClicked(e->{if (towerType!=null){new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));}});

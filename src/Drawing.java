@@ -9,8 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
+import javafx.scene.shape.*;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.scene.control.Label;
 
@@ -62,10 +62,39 @@ public class Drawing extends Pane  {
     public void draw(Node shape){ // peut etre modifié
         this.getChildren().add(shape);
     }
+
     public void drawbullet(Bullet bullet){
         this.getChildren().add(bullet.getShape());
         bullets.add(bullet);
     }
+
+    public void drawRoute(ArrayList<Point> route){
+        //crée une suite de ligne, permet de faire des arcs de cercles ect facilement
+        Path path = new Path();
+        path.setStroke(Color.WHITE);
+
+
+        MoveTo moveTo = new MoveTo();
+        moveTo.setX(route.get(0).getX());
+        moveTo.setY(route.get(0).getY());
+        path.getElements().add(moveTo);
+
+        int it = 0;
+
+        for (Point point : route){
+            if( it !=0) {
+                LineTo lineTo = new LineTo();
+                lineTo.setX(point.getX());
+                lineTo.setY(point.getY());
+
+                path.getElements().add(lineTo);
+            }
+            it++;
+        }
+        this.getChildren().add(path);
+
+    }
+
     public ArrayList<Bullet> getBullets(){return bullets;}
 
 

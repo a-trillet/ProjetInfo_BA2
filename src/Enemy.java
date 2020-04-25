@@ -2,13 +2,19 @@ import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import java.util.ArrayList;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.round;
+
 public class Enemy implements Killable, MapClickable, Runnable {
     static int LEFT = 1;
     static int RIGHT = 2;
     static int UP = 3;
     static int DOWN = 4;
-    private int direction=2;
+    private int direction = 2;
     private Point origin;
+    private ArrayList<Point> route = PlayScreen.map.getMainRoute();
+    private Point targetPoint = route.get(0);
+    private Point lastTurnPoint;
 
     private boolean alive = false;
     private double lifePoints = 0;
@@ -112,6 +118,12 @@ public class Enemy implements Killable, MapClickable, Runnable {
         if (p.distance(this.origin)<30){res=true;}  //On peut modifier pour pouvoir cliquer sur tt la carré
         return res;
     }
+    public boolean isOnTurnPoint(Point p){
+        boolean res= false;
+        if (p.distance(this.origin)<1){res=true;}  //On peut modifier pour pouvoir cliquer sur tt la carré
+        return res;
+    }
+
     public double getSpeed() {
         if (frozen){
             return 0;
@@ -132,21 +144,21 @@ public class Enemy implements Killable, MapClickable, Runnable {
 
 
     public void move(){
-        if(direction == UP)
-        {
-            origin.setY(origin.getY() - (getSpeed()/10));
+
+        if (isOnTurnPoint(targetPoint)){
+            lastTurnPoint = targetPoint;
+            targetPoint = route.get(route.indexOf(targetPoint)+1);
         }
-        else if(direction == DOWN)
-        {
-            origin.setY(origin.getY() + (getSpeed()/10));
-        }
-        else if(direction == LEFT)
-        {
-            origin.setX(origin.getY() - (getSpeed()/10));
-        }
-        else if(direction==RIGHT) {
-            this.origin.setX(origin.getX() + (getSpeed()/10));
-        }
+
+        double dist = targetPoint.distance(this.lastTurnPoint);
+        int deltaX = (int) (this.targetPoint.getX() - this.lastTurnPoint.getX());
+        int deltaY = (int) (this.targetPoint.getY() - this.lastTurnPoint.getY());
+
+            double dx = enemySpeed / 15 * deltaX / dist;
+            double dy = enemySpeed / 15 * deltaY / dist;
+            origin.setX(origin.getX() + dx);
+            origin.setY(origin.getY() + dy);
+
         if (frozen && freezeDuration < System.currentTimeMillis()-freezeStartTime){  //freezetime et freeze duration assocé à tt les eemis frozen
             unFreeze();
         }
@@ -190,14 +202,11 @@ public class Enemy implements Killable, MapClickable, Runnable {
         while (alive) {
             this.move();
             try {
-                Thread.sleep(20);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            if (origin.getX() > 600) {             // temporaire
-                direction = 4;
-            }
             if (isOn(MapPane.getEndPoint())){
                 reachEndPoint(this);
 
