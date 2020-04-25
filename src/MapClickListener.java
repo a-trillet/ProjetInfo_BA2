@@ -2,6 +2,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -147,9 +149,17 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         });
 
 
+        //intégration d'images test (je savais pas ou mettre)
+        Image image = new Image(getClass().getResourceAsStream("AntoineBg.jpg"));//que qd photo ds répertoire courant
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(35);
+        imageView.setFitHeight(47);
+        GridPane.setConstraints(imageView, 0,6);
 
 
-        shop.getChildren().addAll(basicTowerButton, iceTowerButton, fireTowerButton, sniperTowerButton, nextWave, msgError, prix);
+
+
+        shop.getChildren().addAll(basicTowerButton, iceTowerButton, fireTowerButton, sniperTowerButton, nextWave, msgError, prix,imageView);
         borderPane.setRight(shop);
 
 

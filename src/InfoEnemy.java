@@ -1,4 +1,7 @@
+import javax.swing.*;
+
 import static java.lang.Math.round;
+
 
 public class InfoEnemy extends Info {
     //info pour les enemis
@@ -31,3 +34,4 @@ public class InfoEnemy extends Info {
         return strType+"\n" + strLife+"\n" + strLifeMax+"\n" + strSpeed;
     }
 }
+
