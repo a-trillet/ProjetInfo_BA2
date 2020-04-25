@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class NormalEnemy extends Enemy {
 
     private static double maxLife = 50;
@@ -7,8 +9,8 @@ public class NormalEnemy extends Enemy {
     private static int power = 1;  //plus ils sont puissant plus il te nique
 
 
-    public NormalEnemy(Point centre){
-        super(centre, maxLife, reward);
+    public NormalEnemy(ArrayList<Point>trackPoints){
+        super(trackPoints, maxLife, reward,speed);
         this.enemyType = type;
         this.enemyPower = power;
         this.enemySpeed = speed;

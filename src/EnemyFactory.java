@@ -58,21 +58,24 @@ public class EnemyFactory implements Runnable {
 
     private static LinkedList<Enemy> createWave(int wave, int diff, Point entryPoint){                                   //// ATTENTION index out of bound 6 array
         LinkedList<Enemy> waveList = new LinkedList<>();
+        ArrayList<Point>trackPoints=new ArrayList<>();
+        trackPoints.add(entryPoint);
+        trackPoints.add(new Point(300,300));
+        trackPoints.add(new Point(600,100));
 
         for (int j = 0 ; j<3; j++){                                            //car seulement 3 types de monstres pour le moment
             for(int i = 1; i <= wavesDifficulties[diff-1][wave-1][j]; i++){
-                Point entry = new Point(entryPoint.getX(),entryPoint.getY());
                 switch(j){
                     case 0 : {
-                        waveList.add(new NormalEnemy(entry));
+                        waveList.add(new NormalEnemy(trackPoints));
                         break;
                     }
                     case 1 : {
-                        waveList.add(new FastEnemy(entry));
+                        waveList.add(new FastEnemy(trackPoints));
                         break;
                     }
                     case 2 : {
-                        waveList.add(new BigEnemy(entry));
+                        waveList.add(new BigEnemy(trackPoints));
                         break;
                     }
                     default: {System.out.println("le programme tente de créer autre chose que 0 1 2");}
@@ -128,6 +131,7 @@ public class EnemyFactory implements Runnable {
                 } else {
                     System.out.println("ennemi speed..."+activeWave.get(indice).getLifePoints()+": enemyfactoryrun");      //test
                     activeWave.get(indice).setAlive();
+
 
                     Player.getPlayer().addEnemy(activeWave.get(indice));
                 }

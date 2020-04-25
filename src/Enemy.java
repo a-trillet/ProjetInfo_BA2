@@ -2,17 +2,19 @@ import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import java.util.ArrayList;
 
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+
 public class Enemy implements Killable, MapClickable, Runnable {
-    static int LEFT = 1;
-    static int RIGHT = 2;
-    static int UP = 3;
-    static int DOWN = 4;
-    private int direction=2;
+    private ArrayList<Point> trackPoints;
+    private int nextPoint=1;
     private Point origin;
+    private double angle;
+    private double speed;
 
     private boolean alive = false;
-    private double lifePoints = 0;
-    private ArrayList<Tower> targetingTowers = new ArrayList<Tower>(); // les tours qui le cible actuelement
+    private double lifePoints;
+    private ArrayList<Tower> targetingTowers = new ArrayList<>(); // les tours qui le cible actuelement
     private Thread t;
     private javafx.scene.shape.Circle c;
     private boolean frozen = false;
@@ -27,13 +29,17 @@ public class Enemy implements Killable, MapClickable, Runnable {
     protected int enemyPower;     //cbdDeVieRetireraPlayerSiArriveaLaFin
 
 
-    public Enemy( Point origin, double life, int reward){
-        this.origin = origin;
+    public Enemy(ArrayList<Point> trackPoints, double life, int reward, double speed){
+        this.trackPoints=trackPoints;   //liste de points par lesquels l'ennemi passe (point de changement de direction)
+        System.out.println(trackPoints);
+        this.origin = new Point(trackPoints.get(0).getX(),trackPoints.get(0).getY());
+        //this.trackPoints.remove(0);
+        this.speed=speed;
         this.lifePoints = life;
         this.maxLifePoints = life;
+        this.reward = reward;
         t = new Thread(this);
         c= new javafx.scene.shape.Circle(0,40,10,new Color(0,0,1,0.4));
-        this.reward = reward;
 
 
     }
@@ -71,11 +77,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
     public void setAlive(){
         this.alive = true;
         this.t.start();
-        Platform.runLater(new Runnable() {
-            @Override public void run() {
-                PlayScreen.drawing.draw(c);
-            }
-        });
+        Platform.runLater(() -> PlayScreen.drawing.draw(c));
 
     }
 
@@ -92,12 +94,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
     private void die() {
         this.alive = false;
         //on peut pas toucher à des element javafx depuis un autre thread
-        Platform.runLater(new Runnable() {
-            @Override public void run() {
-                PlayScreen.drawing.getChildren().remove(c);
-            }
-        });
-
+        Platform.runLater(() -> PlayScreen.drawing.getChildren().remove(c));
         Player.getPlayer().getEnemiesOnMap().remove(this);
 
     }
@@ -112,6 +109,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
         if (p.distance(this.origin)<30){res=true;}  //On peut modifier pour pouvoir cliquer sur tt la carré
         return res;
     }
+
     public double getSpeed() {
         if (frozen){
             return 0;
@@ -132,29 +130,24 @@ public class Enemy implements Killable, MapClickable, Runnable {
 
 
     public void move(){
-        if(direction == UP)
-        {
-            origin.setY(origin.getY() - (getSpeed()/10));
-        }
-        else if(direction == DOWN)
-        {
-            origin.setY(origin.getY() + (getSpeed()/10));
-        }
-        else if(direction == LEFT)
-        {
-            origin.setX(origin.getY() - (getSpeed()/10));
-        }
-        else if(direction==RIGHT) {
-            this.origin.setX(origin.getX() + (getSpeed()/10));
-        }
-        if (frozen && freezeDuration < System.currentTimeMillis()-freezeStartTime){  //freezetime et freeze duration assocé à tt les eemis frozen
-            unFreeze();
-        }
-    }
+        Point objectif=trackPoints.get(nextPoint);
+        if (origin.distance(objectif)>speed){
+            angle=Math.atan((objectif.getY()-origin.getY())/(objectif.getX()-origin.getX()));
+            origin.setX(origin.getX()+speed*cos(angle));
+            origin.setY(origin.getY()+speed*sin(angle));}
+        else{
+            origin.setX(objectif.getX());
+            origin.setY(objectif.getY());
+            if (trackPoints.size()-1>nextPoint){nextPoint++;}
+            else {reachEndPoint();}
 
-    private void reachEndPoint(Enemy enemy){
-        die();
-        Player.getPlayer().decreaseLife(enemy.getEnemyPower());
+            }
+        }
+
+
+    private void reachEndPoint(){
+        this.die();
+        Player.getPlayer().decreaseLife(this.getEnemyPower());
 
     }
 
@@ -173,12 +166,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
         }
         //met à jour display info display info
         if (PlayScreen.mapClickListener.getCurrentSelection() == this) {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    PlayScreen.mapClickListener.displayInfo("");
-                }
-            });
+            Platform.runLater(() -> PlayScreen.mapClickListener.displayInfo(""));
         }
 
         }
@@ -188,20 +176,16 @@ public class Enemy implements Killable, MapClickable, Runnable {
     public void run() {
         System.out.println("X: "+ this.getCentre().getX()+"enemy object run");
         while (alive) {
-            this.move();
+            if (frozen && freezeDuration < System.currentTimeMillis()-freezeStartTime){  //freezetime et freeze duration assocé à tt les eemis frozen
+                unFreeze();
+            }
+            if (!frozen){this.move();}  //bouge uniquement si pas freeze
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            if (origin.getX() > 600) {             // temporaire
-                direction = 4;
-            }
-            if (isOn(MapPane.getEndPoint())){
-                reachEndPoint(this);
-
-            }
         }
     }
 

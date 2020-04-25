@@ -150,16 +150,16 @@ public class MapClickListener implements EventHandler<MouseEvent> {
 
 
         //intégration d'images test (je savais pas ou mettre)
-        Image image = new Image(getClass().getResourceAsStream("AntoineBg.jpg"));//que qd photo ds répertoire courant
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(35);
-        imageView.setFitHeight(47);
-        GridPane.setConstraints(imageView, 0,6);
+        //Image image = new Image(getClass().getResourceAsStream("AntoineBg.jpg"));//que qd photo ds répertoire courant
+        //ImageView imageView = new ImageView(image);
+        //imageView.setFitWidth(35);
+        //imageView.setFitHeight(47);
+        //GridPane.setConstraints(imageView, 0,6);
 
 
 
 
-        shop.getChildren().addAll(basicTowerButton, iceTowerButton, fireTowerButton, sniperTowerButton, nextWave, msgError, prix,imageView);
+        shop.getChildren().addAll(basicTowerButton, iceTowerButton, fireTowerButton, sniperTowerButton, nextWave, msgError, prix);
         borderPane.setRight(shop);
 
 

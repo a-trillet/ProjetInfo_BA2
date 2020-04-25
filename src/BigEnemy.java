@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class BigEnemy extends Enemy{
     private static double maxLife = 150;
     private static int reward = 50;
@@ -5,8 +7,8 @@ public class BigEnemy extends Enemy{
     private static int speed = 7;
     private static int power = 3;
 
-    public BigEnemy(Point origin) {
-        super(origin, maxLife, reward);
+    public BigEnemy(ArrayList<Point> trackPoints) {
+        super(trackPoints, maxLife, reward,speed);
         this.enemyType = type;
         this.enemyPower = power;
         this.enemySpeed = speed;
