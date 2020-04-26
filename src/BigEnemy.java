@@ -8,7 +8,7 @@ public class BigEnemy extends Enemy{
     private static int power = 3;
 
     public BigEnemy(ArrayList<Point> trackPoints) {
-        super(trackPoints, maxLife, reward,speed);
+        super(trackPoints, maxLife, reward);
         this.enemyType = type;
         this.enemyPower = power;
         this.enemySpeed = speed;

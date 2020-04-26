@@ -5,8 +5,8 @@ import java.util.LinkedList;
 public class EnemyFactory implements Runnable {
 
 
-    public EnemyFactory(int diff, Point entry){
-        loadEnemyWaves(diff, entry);
+    public EnemyFactory(int diff, ArrayList<Point>trackPoint){
+        loadEnemyWaves(diff, trackPoint);
 
 
     }
@@ -56,12 +56,9 @@ public class EnemyFactory implements Runnable {
     };
     private static final int[][][] wavesDifficulties = {easyWaves, normalWaves, hardWaves, insaneWaves};
 
-    private static LinkedList<Enemy> createWave(int wave, int diff, Point entryPoint){                                   //// ATTENTION index out of bound 6 array
+    private static LinkedList<Enemy> createWave(int wave, int diff, ArrayList<Point>trackPoints){                                   //// ATTENTION index out of bound 6 array
         LinkedList<Enemy> waveList = new LinkedList<>();
-        ArrayList<Point>trackPoints=new ArrayList<>();
-        trackPoints.add(entryPoint);
-        trackPoints.add(new Point(300,300));
-        trackPoints.add(new Point(600,100));
+
 
         for (int j = 0 ; j<3; j++){                                            //car seulement 3 types de monstres pour le moment
             for(int i = 1; i <= wavesDifficulties[diff-1][wave-1][j]; i++){
@@ -92,10 +89,10 @@ public class EnemyFactory implements Runnable {
 
     private static boolean waveInProgress = false;
 
-    private static void  loadEnemyWaves(int difficulty, Point entry){
+    private static void  loadEnemyWaves(int difficulty,ArrayList<Point>trackPoint){
         ArrayList<LinkedList<Enemy>> enemyWaves = new ArrayList<>();
         for (int i =1; i <= wavesDifficulties[difficulty-1].length ; i++){
-            LinkedList<Enemy> wave = createWave(i, difficulty, entry);
+            LinkedList<Enemy> wave = createWave(i, difficulty,trackPoint);
             Collections.shuffle(wave);
             enemyWaves.add(wave);
         }

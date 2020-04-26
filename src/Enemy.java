@@ -2,15 +2,14 @@ import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import java.util.ArrayList;
 
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
+import static java.lang.Math.*;
+import static java.lang.Math.atan2;
 
 public class Enemy implements Killable, MapClickable, Runnable {
     private ArrayList<Point> trackPoints;
     private int nextPoint=1;
     private Point origin;
     private double angle;
-    private double speed;
 
     private boolean alive = false;
     private double lifePoints;
@@ -29,12 +28,10 @@ public class Enemy implements Killable, MapClickable, Runnable {
     protected int enemyPower;     //cbdDeVieRetireraPlayerSiArriveaLaFin
 
 
-    public Enemy(ArrayList<Point> trackPoints, double life, int reward, double speed){
+    public Enemy(ArrayList<Point> trackPoints, double life, int reward){
         this.trackPoints=trackPoints;   //liste de points par lesquels l'ennemi passe (point de changement de direction)
         System.out.println(trackPoints);
         this.origin = new Point(trackPoints.get(0).getX(),trackPoints.get(0).getY());
-        //this.trackPoints.remove(0);
-        this.speed=speed;
         this.lifePoints = life;
         this.maxLifePoints = life;
         this.reward = reward;
@@ -130,30 +127,31 @@ public class Enemy implements Killable, MapClickable, Runnable {
 
 
     public void move(){
-        Point objectif=trackPoints.get(nextPoint);
-        if (origin.distance(objectif)>speed){
-            angle=Math.atan((objectif.getY()-origin.getY())/(objectif.getX()-origin.getX()));
-            origin.setX(origin.getX()+speed*cos(angle));
-            origin.setY(origin.getY()+speed*sin(angle));}
+        if (origin.distance(trackPoints.get(nextPoint))>enemySpeed){
+
+            double dist = trackPoints.get(nextPoint).distance(trackPoints.get(nextPoint-1));
+            int deltaX = (int) (this.trackPoints.get(nextPoint).getX() - this.trackPoints.get(nextPoint-1).getX());
+            int deltaY = (int) (this.trackPoints.get(nextPoint).getY() - this.trackPoints.get(nextPoint-1).getY());
+
+            double dx = enemySpeed / 15 * deltaX / dist;
+            double dy = enemySpeed / 15 * deltaY / dist;
+            origin.setX(origin.getX() + dx);
+            origin.setY(origin.getY() + dy);
+
+
+        }
         else{
-            origin.setX(objectif.getX());
-            origin.setY(objectif.getY());
-            if (trackPoints.size()-1>nextPoint){nextPoint++;}
-            else {reachEndPoint();}
+            origin.setX(trackPoints.get(nextPoint).getX());
+            origin.setY(trackPoints.get(nextPoint).getY());
+            if (trackPoints.size()-1>nextPoint){
+                nextPoint++;
+
 
             }
+            else {reachEndPoint();}
+            }
         }
-        else if(direction == LEFT)
-        {
-            origin.setX(origin.getY() - (getSpeed()/10));
-        }
-        else if(direction==RIGHT) {
-            this.origin.setX(origin.getX() + (getSpeed()/10));
-        }
-        if (frozen && freezeDuration < System.currentTimeMillis()-freezeStartTime){  //freezetime et freeze duration assocé à tt les eemis frozen
-            unFreeze();
-        }
-    }
+
 
     private void reachEndPoint(){
         this.die();

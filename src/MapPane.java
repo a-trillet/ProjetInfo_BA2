@@ -15,8 +15,8 @@ public class MapPane extends StackPane {
     }
 
     private ArrayList<ArrayList<Point>> allRoutes = new ArrayList<>();                                   //Path et Track existe en javafx, considérer path pour afficher le chemin
-    private ArrayList<Point> mainRoute;       //utile tant qu'on a pas de classe chemin qui envoie les points a enemi
-    public ArrayList<Point> getMainRoute(){return mainRoute;}
+    private static ArrayList<Point> mainRoute;       //utile tant qu'on a pas de classe chemin qui envoie les points a enemi
+    public static ArrayList<Point> getMainRoute(){return mainRoute;}
 
     private int[][] easyTrack= {
             {60,50},
