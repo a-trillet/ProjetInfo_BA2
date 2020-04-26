@@ -35,7 +35,7 @@ public class Player {
         gold = startingGold;
         towerList = new ArrayList<>();
         enemiesOnMap = new ArrayList<>();
-        enemyFactory = new EnemyFactory(difficulty, MapPane.getEntryPoint());
+        enemyFactory = new EnemyFactory(difficulty, MapPane.getMainRoute());
 
     }
 

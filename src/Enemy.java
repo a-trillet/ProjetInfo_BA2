@@ -2,23 +2,18 @@ import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import java.util.ArrayList;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.round;
+import static java.lang.Math.*;
+import static java.lang.Math.atan2;
 
 public class Enemy implements Killable, MapClickable, Runnable {
-    static int LEFT = 1;
-    static int RIGHT = 2;
-    static int UP = 3;
-    static int DOWN = 4;
-    private int direction = 2;
+    private ArrayList<Point> trackPoints;
+    private int nextPoint=1;
     private Point origin;
-    private ArrayList<Point> route = PlayScreen.map.getMainRoute();
-    private Point targetPoint = route.get(0);
-    private Point lastTurnPoint;
+    private double angle;
 
     private boolean alive = false;
-    private double lifePoints = 0;
-    private ArrayList<Tower> targetingTowers = new ArrayList<Tower>(); // les tours qui le cible actuelement
+    private double lifePoints;
+    private ArrayList<Tower> targetingTowers = new ArrayList<>(); // les tours qui le cible actuelement
     private Thread t;
     private javafx.scene.shape.Circle c;
     private boolean frozen = false;
@@ -33,13 +28,15 @@ public class Enemy implements Killable, MapClickable, Runnable {
     protected int enemyPower;     //cbdDeVieRetireraPlayerSiArriveaLaFin
 
 
-    public Enemy( Point origin, double life, int reward){
-        this.origin = origin;
+    public Enemy(ArrayList<Point> trackPoints, double life, int reward){
+        this.trackPoints=trackPoints;   //liste de points par lesquels l'ennemi passe (point de changement de direction)
+        System.out.println(trackPoints);
+        this.origin = new Point(trackPoints.get(0).getX(),trackPoints.get(0).getY());
         this.lifePoints = life;
         this.maxLifePoints = life;
+        this.reward = reward;
         t = new Thread(this);
         c= new javafx.scene.shape.Circle(0,40,10,new Color(0,0,1,0.4));
-        this.reward = reward;
 
 
     }
@@ -77,11 +74,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
     public void setAlive(){
         this.alive = true;
         this.t.start();
-        Platform.runLater(new Runnable() {
-            @Override public void run() {
-                PlayScreen.drawing.draw(c);
-            }
-        });
+        Platform.runLater(() -> PlayScreen.drawing.draw(c));
 
     }
 
@@ -98,12 +91,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
     private void die() {
         this.alive = false;
         //on peut pas toucher à des element javafx depuis un autre thread
-        Platform.runLater(new Runnable() {
-            @Override public void run() {
-                PlayScreen.drawing.getChildren().remove(c);
-            }
-        });
-
+        Platform.runLater(() -> PlayScreen.drawing.getChildren().remove(c));
         Player.getPlayer().getEnemiesOnMap().remove(this);
 
     }
@@ -116,11 +104,6 @@ public class Enemy implements Killable, MapClickable, Runnable {
     public boolean isOn(Point p){
         boolean res= false;
         if (p.distance(this.origin)<30){res=true;}  //On peut modifier pour pouvoir cliquer sur tt la carré
-        return res;
-    }
-    public boolean isOnTurnPoint(Point p){
-        boolean res= false;
-        if (p.distance(this.origin)<1){res=true;}  //On peut modifier pour pouvoir cliquer sur tt la carré
         return res;
     }
 
@@ -144,29 +127,35 @@ public class Enemy implements Killable, MapClickable, Runnable {
 
 
     public void move(){
+        if (origin.distance(trackPoints.get(nextPoint))>enemySpeed){
 
-        if (isOnTurnPoint(targetPoint)){
-            lastTurnPoint = targetPoint;
-            targetPoint = route.get(route.indexOf(targetPoint)+1);
-        }
-
-        double dist = targetPoint.distance(this.lastTurnPoint);
-        int deltaX = (int) (this.targetPoint.getX() - this.lastTurnPoint.getX());
-        int deltaY = (int) (this.targetPoint.getY() - this.lastTurnPoint.getY());
+            double dist = trackPoints.get(nextPoint).distance(trackPoints.get(nextPoint-1));
+            int deltaX = (int) (this.trackPoints.get(nextPoint).getX() - this.trackPoints.get(nextPoint-1).getX());
+            int deltaY = (int) (this.trackPoints.get(nextPoint).getY() - this.trackPoints.get(nextPoint-1).getY());
 
             double dx = enemySpeed / 15 * deltaX / dist;
             double dy = enemySpeed / 15 * deltaY / dist;
             origin.setX(origin.getX() + dx);
             origin.setY(origin.getY() + dy);
 
-        if (frozen && freezeDuration < System.currentTimeMillis()-freezeStartTime){  //freezetime et freeze duration assocé à tt les eemis frozen
-            unFreeze();
-        }
-    }
 
-    private void reachEndPoint(Enemy enemy){
-        die();
-        Player.getPlayer().decreaseLife(enemy.getEnemyPower());
+        }
+        else{
+            origin.setX(trackPoints.get(nextPoint).getX());
+            origin.setY(trackPoints.get(nextPoint).getY());
+            if (trackPoints.size()-1>nextPoint){
+                nextPoint++;
+
+
+            }
+            else {reachEndPoint();}
+            }
+        }
+
+
+    private void reachEndPoint(){
+        this.die();
+        Player.getPlayer().decreaseLife(this.getEnemyPower());
 
     }
 
@@ -185,12 +174,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
         }
         //met à jour display info display info
         if (PlayScreen.mapClickListener.getCurrentSelection() == this) {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    PlayScreen.mapClickListener.displayInfo("");
-                }
-            });
+            Platform.runLater(() -> PlayScreen.mapClickListener.displayInfo(""));
         }
 
         }
@@ -200,17 +184,16 @@ public class Enemy implements Killable, MapClickable, Runnable {
     public void run() {
         System.out.println("X: "+ this.getCentre().getX()+"enemy object run");
         while (alive) {
-            this.move();
+            if (frozen && freezeDuration < System.currentTimeMillis()-freezeStartTime){  //freezetime et freeze duration assocé à tt les eemis frozen
+                unFreeze();
+            }
+            if (!frozen){this.move();}  //bouge uniquement si pas freeze
             try {
-                Thread.sleep(10);
+                Thread.sleep(20);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            if (isOn(MapPane.getEndPoint())){
-                reachEndPoint(this);
-
-            }
         }
     }
 

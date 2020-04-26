@@ -48,10 +48,10 @@ public class PlayScreen{
         map.setOnMouseClicked(mapClickListener);
 
 
-        /*intégration d'images test (je savais pas ou mettre)
-        final ImageView selectedImage = new ImageView();
-        Image image1 = new Image(PlayScreen.class.getResourceAsStream("AntoineBg.jpg"));
-        selectedImage.setImage(image1);*/
+        //intégration d'images test (je savais pas ou mettre)
+        //final ImageView selectedImage = new ImageView();
+        //Image image1 = new Image(PlayScreen.class.getResourceAsStream("AntoineBg.jpg"));
+        //selectedImage.setImage(image1);
 
 
 
