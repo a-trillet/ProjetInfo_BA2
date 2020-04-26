@@ -28,14 +28,13 @@ public class Drawing extends Pane  {
 
             @Override
             public void handle(ActionEvent event) {
-                for (Enemy e : Player.getPlayer().getEnemiesOnMap()) {
+                for (Enemy e : Player.getEnemiesOnMap()) {
                     e.update();
                 }
                 for (Bullet b : bullets) {
                         b.update();
                 }
-                Player player=Player.getPlayer();
-                labelGold.setText("Gold : "+player.getGold()+"\nLives : "+player.getLives()+"/"+player.getMaxLives()+"\nWave :"+player.getWave());
+                //labelGold.setText("Gold : "+Player.getGold()+"\nLives : "+Player.getLives()+"/"+Player.getMaxLives()+"\nWave :"+Player.getWave());
             }}));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
@@ -45,7 +44,7 @@ public class Drawing extends Pane  {
         labelGold = new Label();
         labelGold.relocate(20,400);
         labelGold.setTextFill(Color.web("FBF5FF"));
-        Player.getPlayer().addGold(0);
+        Player.addGold(0);
 
 
         this.getChildren().add(labelGold);

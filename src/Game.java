@@ -71,8 +71,11 @@ public class Game extends Application {
         scene2 = new Scene(layout2, 600, 300);
 
         //Layout 3
+        Player player=new Player();
+
         PlayScreen playscreen = new PlayScreen();
         scene3 =new Scene(playscreen.sceneView(),1000,500);
+
 
         window.setScene(scene3);
         window.setTitle("Cool Name To Be Inserted Here!!!");

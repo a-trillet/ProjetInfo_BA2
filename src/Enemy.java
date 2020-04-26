@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import static java.lang.Math.*;
 import static java.lang.Math.atan2;
 
-public class Enemy implements Killable, MapClickable, Runnable {
+public class Enemy implements Killable, MapClickable, Moveable, Runnable {
     private ArrayList<Point> trackPoints;
     private int nextPoint=1;
     private Point origin;
@@ -30,7 +30,6 @@ public class Enemy implements Killable, MapClickable, Runnable {
 
     public Enemy(ArrayList<Point> trackPoints, double life, int reward){
         this.trackPoints=trackPoints;   //liste de points par lesquels l'ennemi passe (point de changement de direction)
-        System.out.println(trackPoints);
         this.origin = new Point(trackPoints.get(0).getX(),trackPoints.get(0).getY());
         this.lifePoints = life;
         this.maxLifePoints = life;
@@ -81,7 +80,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
     //prévient toutes les tourelles qui le vise qu'il est mort + die()
     private void killed(){
         die();
-        Player.getPlayer().addGold(reward);
+        Player.addGold(reward);
         for(Tower killer: targetingTowers){
             killer.targetIsDead(this);
         }
@@ -92,7 +91,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
         this.alive = false;
         //on peut pas toucher à des element javafx depuis un autre thread
         Platform.runLater(() -> PlayScreen.drawing.getChildren().remove(c));
-        Player.getPlayer().getEnemiesOnMap().remove(this);
+        Player.getEnemiesOnMap().remove(this);
 
     }
 
@@ -127,8 +126,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
 
 
     public void move(){
-        if (origin.distance(trackPoints.get(nextPoint))>enemySpeed){
-
+        if (origin.distance(trackPoints.get(nextPoint))>enemySpeed/15){
             double dist = trackPoints.get(nextPoint).distance(trackPoints.get(nextPoint-1));
             int deltaX = (int) (this.trackPoints.get(nextPoint).getX() - this.trackPoints.get(nextPoint-1).getX());
             int deltaY = (int) (this.trackPoints.get(nextPoint).getY() - this.trackPoints.get(nextPoint-1).getY());
@@ -137,6 +135,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
             double dy = enemySpeed / 15 * deltaY / dist;
             origin.setX(origin.getX() + dx);
             origin.setY(origin.getY() + dy);
+
 
 
         }
@@ -155,7 +154,7 @@ public class Enemy implements Killable, MapClickable, Runnable {
 
     private void reachEndPoint(){
         this.die();
-        Player.getPlayer().decreaseLife(this.getEnemyPower());
+        Player.decreaseLife(this.getEnemyPower());
 
     }
 
