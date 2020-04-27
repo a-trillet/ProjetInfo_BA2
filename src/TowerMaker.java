@@ -27,9 +27,9 @@ public class TowerMaker {
         }
         PlayScreen.towerType = null;
         if (t != null && CheckTowerOk(t)) {
-            Player.addTower(t);
+            Game.player.addTower(t);
             drawing.drawSquare(p,color);
-            Player.addGold(-t.getCost());  //peut etre à bouger
+            Game.player.addGold(-t.getCost());  //peut etre à bouger
             t.SetActive();//tower commence à tirer
 
             //}
@@ -41,10 +41,10 @@ public class TowerMaker {
 
     public boolean CheckTowerOk(Tower to) {
         boolean res = false;
-        if (Player.getGold() >= to.getCost()) {
+        if (Game.player.getGold() >= to.getCost()) {
             res = true;
         }
-        for (Tower tower : Player.getTowerList()){
+        for (Tower tower : Game.player.getTowerList()){
             if (tower.isOn(to.getCentre())) {
                 res = false;
             }}

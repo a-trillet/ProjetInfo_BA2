@@ -1,21 +1,25 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class Player {
-    private static int gold = 700;
-    private static int lifePoints;
-    private static ArrayList<Enemy> enemiesOnMap = new ArrayList<>();
-    private static ArrayList<Tower> towerList = new ArrayList<>();
-    private static int difficulty = 1;
-    private static Player instance = null; // pour qu'on ne puisse construire qu'un seul objet player, si on veut avoir des parties sauvergardée, il suffira de créer un fonction charger, qui puisera dans un fichier et completera le profil
-    private static final int[] startingLives = {20, 18, 16, 15};
-    private static final int startingGold = 300;
-    private static int wave = 0;
-    private static EnemyFactory enemyFactory;
-    private static ArrayList<Bullet> bullets=new ArrayList<>();
+public class Player implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private String name = "john";
+    private  int gold = 700;
+    private  int lifePoints;
+    private  ArrayList<Enemy> enemiesOnMap = new ArrayList<>();
+    private  ArrayList<Tower> towerList = new ArrayList<>();
+    private  int difficulty = 1;
+    private  final int[] startingLives = {20, 18, 16, 15};
+    private  final int startingGold = 300;
+    private  int wave = 0;
+    private  EnemyFactory enemyFactory;
+    private  ArrayList<Bullet> bullets=new ArrayList<>();
 
     public Player(){
-        reset();
+        PlayScreen.drawing.drawLifeGold();
+        new MapPane();
+
     }
 
 
@@ -30,76 +34,82 @@ public class Player {
         new MapPane();
         ArrayList<ArrayList<Point>> a =new ArrayList<>();
         enemyFactory = new EnemyFactory(difficulty, MapPane.getAllRoutes());
-
+        PlayScreen.drawing.drawLifeGold();
 
     }
 
-    public static ArrayList<Enemy> getEnemiesOnMap() {
+    public ArrayList<Enemy> getEnemiesOnMap() {
         return enemiesOnMap;
     }
 
-    public static ArrayList<Tower> getTowerList() {
+    public ArrayList<Tower> getTowerList() {
         return towerList;
     }
 
-    public static ArrayList<Bullet> getBullets(){return bullets;}
+    public ArrayList<Bullet> getBullets(){return bullets;}
 
-    public static void addbullet(Bullet bullet){bullets.add(bullet);}
+    public void addbullet(Bullet bullet){bullets.add(bullet);}
 
-    public static void removebullet(Bullet bullet){
+    public void removebullet(Bullet bullet){
         bullets.remove(bullet);
     }
 
-    public static int getLives() {
+    public int getLives() {
         return lifePoints;
-    }    // ATTENTION obligé de faire Player.getPlayer().getLives pour créer un nouveau joueur, mais comme il est static on s'en fout on, accede à la classe directement , d'ou la méthode static getPlayer
+    }
 
-    public static int getGold() {
+    public int getGold() {
         return gold;
     }
 
-    public static int getDifficulty() {
+    public int getDifficulty() {
         return difficulty;
     }
 
-    public static void decreaseLife(int dmg) {
+    public void decreaseLife(int dmg) {
         lifePoints -= dmg;
+        PlayScreen.drawing.drawLifeGold();
     }
 
-    public static void addGold(int amount) {
+    public void addGold(int amount) {
         gold += amount;
+        PlayScreen.drawing.drawLifeGold();
 
     }
 
-    public static void setDifficulty(int diff) {
+    public void setDifficulty(int diff) {
         difficulty = diff;
     }
 
-    public static void addTower(Tower tower) {
+    public void addTower(Tower tower) {
         towerList.add(tower);
     }
 
-    public static void nextWave() {
+    public void nextWave() {
         wave++;
+        PlayScreen.drawing.drawLifeGold();
     }
 
-    public static int getLifePoints() {
+    public int getLifePoints() {
         return lifePoints;
     }
 
-    public static int getWave() {
+    public int getWave() {
         return wave;
     }
 
-    public static EnemyFactory getEnemyFactory() {
+    public EnemyFactory getEnemyFactory() {
         return enemyFactory;
     }
 
-    public static void addEnemy(Enemy e){
+    public void addEnemy(Enemy e){
         enemiesOnMap.add(e);
+
     }
 
-    public static int getMaxLives(){ return startingLives[difficulty-1];}
+    public int getMaxLives(){ return startingLives[difficulty-1];}
+    public String getName(){return name;}
+    public void setName(String name){this.name = name;}
 
 
 
