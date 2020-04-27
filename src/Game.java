@@ -77,6 +77,7 @@ public class Game extends Application {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
+                    PlayScreen.drawing.drawLifeGold();
                     fileString = "Game" + ii + ".sav";// permet de savoir le nom  du fichier dans lequel save et qu'il soit associable a un bouton
                     window.setScene(scene3);
                 });
