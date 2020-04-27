@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.Random;
 
 public class EnemyFactory implements Runnable {
 
 
-    public EnemyFactory(int diff, ArrayList<Point>trackPoint){
-        loadEnemyWaves(diff, trackPoint);
+    public EnemyFactory(int diff, ArrayList<ArrayList<Point>>allroutes){
+        loadEnemyWaves(diff,allroutes);
 
 
     }
@@ -56,23 +57,25 @@ public class EnemyFactory implements Runnable {
     };
     private static final int[][][] wavesDifficulties = {easyWaves, normalWaves, hardWaves, insaneWaves};
 
-    private static LinkedList<Enemy> createWave(int wave, int diff, ArrayList<Point>trackPoints){                                   //// ATTENTION index out of bound 6 array
+    private static LinkedList<Enemy> createWave(int wave, int diff, ArrayList<ArrayList<Point>>allroute){                                   //// ATTENTION index out of bound 6 array
         LinkedList<Enemy> waveList = new LinkedList<>();
 
 
         for (int j = 0 ; j<3; j++){                                            //car seulement 3 types de monstres pour le moment
             for(int i = 1; i <= wavesDifficulties[diff-1][wave-1][j]; i++){
+                Random r =new Random();
+
                 switch(j){
                     case 0 : {
-                        waveList.add(new NormalEnemy(trackPoints));
+                        waveList.add(new NormalEnemy(allroute.get(r.nextInt(allroute.size()))));
                         break;
                     }
                     case 1 : {
-                        waveList.add(new FastEnemy(trackPoints));
+                        waveList.add(new FastEnemy(allroute.get(r.nextInt(allroute.size()))));
                         break;
                     }
                     case 2 : {
-                        waveList.add(new BigEnemy(trackPoints));
+                        waveList.add(new BigEnemy(allroute.get(r.nextInt(allroute.size()))));
                         break;
                     }
                     default: {System.out.println("le programme tente de créer autre chose que 0 1 2");}
@@ -89,10 +92,10 @@ public class EnemyFactory implements Runnable {
 
     private static boolean waveInProgress = false;
 
-    private static void  loadEnemyWaves(int difficulty,ArrayList<Point>trackPoint){
+    private static void  loadEnemyWaves(int difficulty,ArrayList<ArrayList<Point>> allroutes){
         ArrayList<LinkedList<Enemy>> enemyWaves = new ArrayList<>();
         for (int i =1; i <= wavesDifficulties[difficulty-1].length ; i++){
-            LinkedList<Enemy> wave = createWave(i, difficulty,trackPoint);
+            LinkedList<Enemy> wave = createWave(i, difficulty,allroutes);
             Collections.shuffle(wave);
             enemyWaves.add(wave);
         }
@@ -101,9 +104,9 @@ public class EnemyFactory implements Runnable {
     }
     public  void nextWave(){
         if(Player.getWave() <allWaves.size() && !waveInProgress) {
-            Player p = Player.getPlayer();
+
             activeWave = allWaves.get(Player.getWave());
-            Player.getPlayer().nextWave();
+            Player.nextWave();
             System.out.println("Wave " + Player.getWave());
             waveInProgress = true;
             launchWave();
@@ -130,7 +133,7 @@ public class EnemyFactory implements Runnable {
                     activeWave.get(indice).setAlive();
 
 
-                    Player.getPlayer().addEnemy(activeWave.get(indice));
+                    Player.addEnemy(activeWave.get(indice));
                 }
             }
         } catch (InterruptedException e) {

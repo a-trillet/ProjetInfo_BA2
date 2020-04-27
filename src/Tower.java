@@ -43,7 +43,7 @@ public class Tower implements MapClickable, Runnable {
     private Enemy selectTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour
         Enemy target = null;
         Double dist = null;
-        for (Enemy e : Player.getPlayer().getEnemiesOnMap()) {
+        for (Enemy e : Player.getEnemiesOnMap()) {
             double sepa = this.centre.distance(e.getCentre());
             if ((target == null || sepa < dist) && sepa <= this.range) {
                 target = e;
@@ -81,9 +81,9 @@ public class Tower implements MapClickable, Runnable {
     public String upgrade(){
         String messageUpgrade;
         if (level <= levelMax) {
-            if (Player.getPlayer().getGold() >= getUpgradeCost()) {
+            if (Player.getGold() >= getUpgradeCost()) {
 
-                Player.getPlayer().addGold(-getUpgradeCost());
+                Player.addGold(-getUpgradeCost());
                 level += 1;
                 messageUpgrade = "Upgraded";
             } else {
