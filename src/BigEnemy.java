@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class BigEnemy extends Enemy{
+public class BigEnemy extends Enemy {
     private static double maxLife = 150;
     private static int reward = 50;
     private static String type = "Big enemy";

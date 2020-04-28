@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Random;
 
-public class EnemyFactory implements Runnable {
-
+public class EnemyFactory implements Runnable, Serializable {
+    private static final long serialVersionUID = 1L;
 
     public EnemyFactory(int diff){
         loadEnemyWaves(diff);
@@ -103,11 +104,11 @@ public class EnemyFactory implements Runnable {
 
     }
     public  void nextWave(){
-        if(Player.getWave() <allWaves.size() && !waveInProgress) {
+        if(Game.player.getWave() <allWaves.size() && !waveInProgress) {
 
-            activeWave = allWaves.get(Player.getWave());
-            Player.nextWave();
-            System.out.println("Wave " + Player.getWave());
+            activeWave = allWaves.get(Game.player.getWave());
+            Game.player.nextWave();
+            System.out.println("Wave " + Game.player.getWave());
             waveInProgress = true;
             launchWave();
         }
@@ -133,7 +134,7 @@ public class EnemyFactory implements Runnable {
                     activeWave.get(indice).setAlive();
 
 
-                    Player.addEnemy(activeWave.get(indice));
+                    Game.player.addEnemy(activeWave.get(indice));
                 }
             }
         } catch (InterruptedException e) {

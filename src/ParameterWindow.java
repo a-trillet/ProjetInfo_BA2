@@ -24,14 +24,15 @@ public class ParameterWindow {
                 "Hard",
                 "Insane"
         );
-        difficultySelection.setValue(difficultyString(Player.getDifficulty()));
+        difficultySelection.setValue(difficultyString(Game.player.getDifficulty()));
 
 
         Label label = new Label();
         label.setText(message);
         Button closeButton = new Button("Apply and close");
         closeButton.setOnAction(e -> {
-                  Player.setDifficulty(getDifficulty(difficultySelection));
+                  Game.player.setDifficulty(getDifficulty(difficultySelection));
+                  Game.player.reset();
                   parameterWindow.close();});
 
 

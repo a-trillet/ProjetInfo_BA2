@@ -1,8 +1,11 @@
 import javafx.application.Platform;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Tower implements MapClickable, Runnable {
+public class Tower implements MapClickable, Runnable, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
 
     private int frequency = 50;
@@ -43,7 +46,7 @@ public class Tower implements MapClickable, Runnable {
     private Enemy selectTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour
         Enemy target = null;
         Double dist = null;
-        for (Enemy e : Player.getEnemiesOnMap()) {
+        for (Enemy e : Game.player.getEnemiesOnMap()) {
             double sepa = this.centre.distance(e.getCentre());
             if ((target == null || sepa < dist) && sepa <= this.range) {
                 target = e;
@@ -81,9 +84,9 @@ public class Tower implements MapClickable, Runnable {
     public String upgrade(){
         String messageUpgrade;
         if (level <= levelMax) {
-            if (Player.getGold() >= getUpgradeCost()) {
+            if (Game.player.getGold() >= getUpgradeCost()) {
 
-                Player.addGold(-getUpgradeCost());
+                Game.player.addGold(-getUpgradeCost());
                 level += 1;
                 messageUpgrade = "Upgraded";
             } else {

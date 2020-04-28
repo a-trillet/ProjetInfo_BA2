@@ -18,36 +18,34 @@ import java.util.ArrayList;
 
 public class Drawing extends Pane  {
     private javafx.scene.shape.Rectangle square ;
-    private Label labelGold;
+    private Label labelGold = new Label();
     private static ArrayList<Bullet> bullets=new ArrayList<>();
 
 
     public Drawing(){
         super();
+        this.getChildren().add(labelGold);
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(20), new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                for (Enemy e : Player.getEnemiesOnMap()) {
+                for (Enemy e : Game.player.getEnemiesOnMap()) {
                     e.update();
                 }
                 for (Bullet b : bullets) {
                         b.update();
                 }
-                //labelGold.setText("Gold : "+Player.getGold()+"\nLives : "+Player.getLives()+"/"+Player.getMaxLives()+"\nWave :"+Player.getWave());
+                //labelGold.setText("Gold : "+Game.player.getGold()+"\nLives : "+Game.player.getLives()+"/"+Game.player.getMaxLives()+"\nWave :"+Game.player.getWave());
             }}));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
     }
     public void drawLifeGold(){
-
-        labelGold = new Label();
-        labelGold.relocate(20,400);
-        labelGold.setTextFill(Color.web("FBF5FF"));
-        Player.addGold(0);
-
-
-        this.getChildren().add(labelGold);
+        Platform.runLater(() -> {
+            labelGold.relocate(20,400);
+            labelGold.setTextFill(Color.web("FBF5FF"));
+            labelGold.setText("Gold : "+Game.player.getGold()+"\nLives : "+Game.player.getLives()+"/"+Game.player.getMaxLives()+"\nWave :"+Game.player.getWave());
+        });
 
 
     }

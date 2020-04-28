@@ -1,7 +1,10 @@
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
-public class Point {
+import java.io.Serializable;
+
+public class Point implements Serializable {
+    private static final long serialVersionUID = 1L;
     public DoubleProperty x = new SimpleDoubleProperty();
     public DoubleProperty y = new SimpleDoubleProperty();
 

@@ -1,11 +1,14 @@
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import static java.lang.Math.*;
 import static java.lang.Math.atan2;
 
-public class Enemy implements Killable, MapClickable, Moveable, Runnable {
+public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serializable {
+    private static final long serialVersionUID = 1L;
     private ArrayList<Point> trackPoints;
     private int nextPoint=1;
     private Point origin;
@@ -15,7 +18,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable {
     private double lifePoints;
     private ArrayList<Tower> targetingTowers = new ArrayList<>(); // les tours qui le cible actuelement
     private Thread t;
-    private javafx.scene.shape.Circle c;
+    private transient javafx.scene.shape.Circle c;
     private boolean frozen = false;
     private double freezeStartTime;
     private double freezeDuration;
@@ -80,7 +83,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable {
     //prévient toutes les tourelles qui le vise qu'il est mort + die()
     private void killed(){
         die();
-        Player.addGold(reward);
+        Game.player.addGold(reward);
         for(Tower killer: targetingTowers){
             killer.targetIsDead(this);
         }
@@ -91,7 +94,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable {
         this.alive = false;
         //on peut pas toucher à des element javafx depuis un autre thread
         Platform.runLater(() -> PlayScreen.drawing.getChildren().remove(c));
-        Player.getEnemiesOnMap().remove(this);
+        Game.player.getEnemiesOnMap().remove(this);
 
     }
 
@@ -154,7 +157,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable {
 
     private void reachEndPoint(){
         this.die();
-        Player.decreaseLife(this.getEnemyPower());
+        Game.player.decreaseLife(this.getEnemyPower());
 
     }
 

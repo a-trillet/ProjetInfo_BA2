@@ -3,10 +3,11 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
 
+import java.io.Serializable;
 
 import static java.lang.Math.*;
 
-public class Bullet implements Runnable {
+public class Bullet implements Runnable, Serializable {
     private double speed=10;  // choisir si vient de la tour ou meme vitesse pour tt les balles
     private Point centre; // coordonnée
     private double damage;
@@ -52,8 +53,8 @@ public class Bullet implements Runnable {
     }
 
     public void explode() {      //hurt les ennemis dont l'origine est dans la range de la bullet
-        for(int i=0; i<Player.getEnemiesOnMap().size(); i++){
-            Enemy enemy=Player.getEnemiesOnMap().get(i);
+        for(int i=0; i<Game.player.getEnemiesOnMap().size(); i++){
+            Enemy enemy=Game.player.getEnemiesOnMap().get(i);
             if(enemy.getCentre().distance(this.centre)<range) {
                 enemy.hurt(this);
                 if (freezeBullet) {
