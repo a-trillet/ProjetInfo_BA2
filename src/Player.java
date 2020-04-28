@@ -28,8 +28,7 @@ public class Player {
         towerList = new ArrayList<>();
         enemiesOnMap = new ArrayList<>();
         new MapPane();
-        ArrayList<ArrayList<Point>> a =new ArrayList<>();
-        enemyFactory = new EnemyFactory(difficulty, MapPane.getAllRoutes());
+        enemyFactory = new EnemyFactory(difficulty);
 
 
     }

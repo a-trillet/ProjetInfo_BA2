@@ -6,8 +6,8 @@ import java.util.Random;
 public class EnemyFactory implements Runnable {
 
 
-    public EnemyFactory(int diff, ArrayList<ArrayList<Point>>allroutes){
-        loadEnemyWaves(diff,allroutes);
+    public EnemyFactory(int diff){
+        loadEnemyWaves(diff);
 
 
     }
@@ -92,10 +92,10 @@ public class EnemyFactory implements Runnable {
 
     private static boolean waveInProgress = false;
 
-    private static void  loadEnemyWaves(int difficulty,ArrayList<ArrayList<Point>> allroutes){
+    private static void  loadEnemyWaves(int difficulty){
         ArrayList<LinkedList<Enemy>> enemyWaves = new ArrayList<>();
         for (int i =1; i <= wavesDifficulties[difficulty-1].length ; i++){
-            LinkedList<Enemy> wave = createWave(i, difficulty,allroutes);
+            LinkedList<Enemy> wave = createWave(i, difficulty,MapPane.getAllRoutes());
             Collections.shuffle(wave);
             enemyWaves.add(wave);
         }
