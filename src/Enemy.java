@@ -144,7 +144,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
         }
         else{
             origin.setX(trackPoints.get(nextPoint).getX());
-            origin.setY(trackPoints.get(nextPoint).getY());
+            origin.setY(trackPoints.get(nextPoint).getY());  //nextpoint c'est un int qui definit l'endroitde la liste ou l'element  est un point qu 'il va atteindre
             if (trackPoints.size()-1>nextPoint){
                 nextPoint++;
 
