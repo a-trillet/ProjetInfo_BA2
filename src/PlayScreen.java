@@ -31,11 +31,17 @@ public class PlayScreen{
         //drawing.setOnMouseReleased(new TowerButtonListener(drawing));
         map.setBackground(new Background(new BackgroundFill(Color.rgb(40, 40, 40), CornerRadii.EMPTY, Insets.EMPTY)));
         drawing.setOnMouseClicked(e->{
-            if ( towerType!=null && MapPane.isOn(new Point(e.getX(),e.getY())) ){
-                new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));
+            if ( towerType!=null ){
+                if (MapPane.isOn(new Point(e.getX(),e.getY()))){
+                    new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));
+                    System.out.println("normalement la ça dessine tower");
+                }
+                else {
+                    System.out.println("trop proche du chemin");
+                }
             }
             else {
-                //inserer label pour "on ne peut placer les tower sur le chemin"
+                System.out.println("towertype = null");
             }
         });
         drawing.drawLifeGold();

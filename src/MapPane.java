@@ -1,6 +1,7 @@
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import java.math.*;
 
 import java.util.ArrayList;
 
@@ -19,15 +20,18 @@ public class MapPane {
 
     public static ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
 
-    private int[][][] easyTrack= {{
+    private int[][][] easyTrack= {
+            {
             {60,50},
-            {380,50},
+            {380,50},               //route 1
             {300,420},
-            {670,420}},{
+            {670,420}
+            },
+            {
             {60,50},
-            {80,300},
+            {80,300},               //route 2
             {670,420},
-    }
+            }
     };
 
     public MapPane(){
@@ -60,8 +64,62 @@ public class MapPane {
 
     }
 
-    public static boolean isOn(Point point){       // renvoi true si point est trop proche du chemin ! fait en fct des dimensions des carrés des tower
-        return true;
+    public static boolean isOn(Point point){       // renvoi false si point est trop proche du chemin ! fait en fct des dimensions des carrés des tower
+        boolean bol = true;
+        double x_C = point.getX();
+        double y_C = point.getY();
+        int nombreRoutes = allRoutes.size();
+        System.out.println("le isOn s'active");
+        System.out.println(nombreRoutes);
+        double distMinimale = 30 / Math.pow(2, 0.5);      //demi-hypothénuse des carrés des tower
+
+        for ( int i = 0; i<= allRoutes.size()-1; i++){            //applique ce qui suit à chaque route (i =0,1)
+            boolean testBreak = false;
+
+            System.out.println("le 1er for s'active ");
+
+
+            for ( int j = 0; j <= allRoutes.get(i).size()-2; j++) {     // -2 car comme ça fait le calcul autant de fois qu'il y a de points-1 (càd autant qu'il y a de segment) (j =0,1,2 qd i = 0)
+
+                System.out.println("le 2er for s'active ");
+                double x_A = allRoutes.get(i).get(j).getX();
+                double y_A = allRoutes.get(i).get(j).getY();
+                double x_B = allRoutes.get(i).get(j + 1).getX();
+                double y_B = allRoutes.get(i).get(j + 1).getY();
+                if (((x_C < x_A && x_C < x_B) || (x_C > x_A && x_C > x_B)) && ((y_C < y_A && y_C < y_B) || (y_C > y_A && y_C > y_B))) {       //le point C ne se trouve pas entre les points A et B
+                    System.out.println("cas ou le point la plus proche ne se trouve pas sur le chemin ");
+                    double distAC = Math.pow((Math.pow((x_C - x_A), 2) + Math.pow((y_C - y_A), 2)), 0.5);
+                    double distBC = Math.pow((Math.pow((x_C - x_B), 2) + Math.pow((y_C - y_B), 2)), 0.5);
+                    if (distAC <= distMinimale || distBC <= distMinimale) {
+                        System.out.println("trop proche d'un des points");
+                        testBreak = true;
+                        break;
+                    }
+                }
+                else {
+                    System.out.println(" cas ou le point est entre les points ");
+                    //calcul du point d'intersection                    remarque : le point d'intersection est le point du chemin le plus proche de tower
+                    double a = (y_A - y_B) / (x_A - x_B);
+                    double x_I = (a * x_A + y_C - y_A + x_C / a) / (a + 1 / a);
+                    double y_I = a * (x_I - x_A) + y_A;
+                    //calcul de la distance entre I et centre de la tower
+                    double dist = Math.pow((Math.pow((x_C - x_I), 2) + Math.pow((y_C - y_I), 2)), 0.5);
+
+                    if (dist <= distMinimale) {
+                        System.out.println("trop proche de la route");
+                        bol = false;
+                        testBreak = true;
+                        System.out.println("le 2 eme for va s'arreter");
+                        break;
+                    }
+                }
+                if (testBreak) {
+                    System.out.println("le 1 er for va s'arreter");
+                    break;
+                }
+            }
+        }
+        return bol;
     }
 
 
