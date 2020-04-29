@@ -12,13 +12,14 @@ public class MapPane {
     public static ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
 
     private int[][][] easyTrack= {{
-            {60,50},
-            {380,50},
-            {300,420},
-            {670,420}},{
-            {60,50},
-            {80,300},
-            {670,420},
+            {50,50},
+            {300,50},
+            {300,400},
+            {550,400}},{
+            {50,400},
+            {50,200},
+            {550,200},
+            {550,50}
     }
     };
 
