@@ -14,7 +14,6 @@ public class Player implements Serializable {
     private  final int startingGold = 300;
     private  int wave = 0;
     private  EnemyFactory enemyFactory;
-    private  ArrayList<Bullet> bullets=new ArrayList<>();
 
     public Player(){
         PlayScreen.drawing.drawLifeGold();
@@ -45,14 +44,6 @@ public class Player implements Serializable {
         return towerList;
     }
 
-    public ArrayList<Bullet> getBullets(){return bullets;}
-
-    public void addbullet(Bullet bullet){bullets.add(bullet);}
-
-    public void removebullet(Bullet bullet){
-        bullets.remove(bullet);
-    }
-
     public int getLives() {
         return lifePoints;
     }
@@ -68,6 +59,7 @@ public class Player implements Serializable {
     public void decreaseLife(int dmg) {
         lifePoints -= dmg;
         PlayScreen.drawing.drawLifeGold();
+        //if (lifePoints<=0){lose()}
     }
 
     public void addGold(int amount) {
