@@ -16,6 +16,7 @@ public class MapPane {
 
     private static ArrayList<ArrayList<Point>> allRoutes = new ArrayList<>();                //Path et Track existe en javafx, considérer path pour afficher le chemin
     private static ArrayList<Point> mainRoute;       //utile tant qu'on a pas de classe chemin qui envoie les points a enemi
+
     public static ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
 
     private int[][][] easyTrack= {{
@@ -57,6 +58,10 @@ public class MapPane {
              allRoutes.add(route);
          }
 
+    }
+
+    public static boolean isOn(Point point){       // renvoi true si point est trop proche du chemin ! fait en fct des dimensions des carrés des tower
+        return true;
     }
 
 
