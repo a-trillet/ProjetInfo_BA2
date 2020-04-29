@@ -20,24 +20,24 @@ public class MapPane {
 
     public static ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
 
-    private int[][][] easyTrack= {
-            {
-            {60,50},
-            {380,50},               //route 1
-            {300,420},
-            {670,420}
-            },
-            {
-            {60,50},
-            {80,300},               //route 2
-            {670,420},
-            }
+    private int[][][] easyTrack= {{
+            {50,50},
+            {300,50},
+            {300,400},
+            {550,400}},{
+            {50,400},
+            {50,200},
+            {550,200},
+            {550,50}
+    }
     };
 
     public MapPane(){
         loadRoute(easyTrack);  /// changer par un fichier
         for (ArrayList<Point> track : allRoutes) {
             PlayScreen.drawing.drawRoute(track);
+            PlayScreen.drawing.drawSquare(track.get(0),Color.web("483576"));
+            PlayScreen.drawing.drawSquare(track.get(track.size()-1),Color.web("483576"));
         }
         mainRoute = allRoutes.get(0);
         endPoint = mainRoute.get(mainRoute.size()-1);
