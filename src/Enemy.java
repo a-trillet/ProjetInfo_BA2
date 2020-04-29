@@ -4,8 +4,6 @@ import javafx.scene.paint.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import static java.lang.Math.*;
-import static java.lang.Math.atan2;
 
 public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serializable {
     private static final long serialVersionUID = 1L;
@@ -202,6 +200,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
     public int getReward() {
         return reward;
     }
+
 }
 
 

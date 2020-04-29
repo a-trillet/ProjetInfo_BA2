@@ -4,7 +4,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
-public class MapPane extends StackPane {
+public class MapPane {
     private static Point entryPoint;
     public static Point getEntryPoint(){return entryPoint;}
 
@@ -19,12 +19,15 @@ public class MapPane extends StackPane {
 
     public static ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
 
-    private int[][] easyTrack= {
+    private int[][][] easyTrack= {{
             {60,50},
             {380,50},
             {300,420},
+            {670,420}},{
+            {60,50},
+            {80,300},
             {670,420},
-
+    }
     };
 
     public MapPane(){
@@ -46,13 +49,14 @@ public class MapPane extends StackPane {
         PlayScreen.drawing.getChildren().addAll(entrySquare, exitSquare);
 
     }
-    private void loadRoute(int[][] track){       //lira un fichier, à changer, ou bien créer fonction fichier to int [][] "read track" et garder les tracks par défaut dans le code comme fait là
-         ArrayList<Point> route = new ArrayList<>();
-         for ( int[] point : track ){
-             route.add(new Point(point[0],point[1]));
+    private void loadRoute(int[][][] alltracks){       //lira un fichier, à changer, ou bien créer fonction fichier to int [][] "read track" et garder les tracks par défaut dans le code comme fait là
+         for (int [][] track : alltracks) {
+             ArrayList<Point> route = new ArrayList<>();
+             for (int[] point : track) {
+                 route.add(new Point(point[0], point[1]));
+             }
+             allRoutes.add(route);
          }
-         allRoutes.add(route);
-
 
     }
 
