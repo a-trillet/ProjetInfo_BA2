@@ -1,4 +1,5 @@
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
 import java.io.Serializable;
@@ -74,7 +75,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
     public void setAlive(){
         this.alive = true;
         this.t.start();
-        Platform.runLater(() -> PlayScreen.drawing.draw(c));
+        Platform.runLater(() -> PlayScreen.drawing.draw(this));
 
     }
 
@@ -91,7 +92,8 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
     private void die() {
         this.alive = false;
         //on peut pas toucher à des element javafx depuis un autre thread
-        Platform.runLater(() -> PlayScreen.drawing.getChildren().remove(c));
+
+        //Platform.runLater(() -> PlayScreen.drawing.getChildren().remove(Moveable));
         Game.player.getEnemiesOnMap().remove(this);
 
     }
@@ -152,6 +154,11 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
             }
         }
 
+    @Override
+    public Node getShape() {
+        return c;
+    }
+
 
     private void reachEndPoint(){
         this.die();
@@ -161,8 +168,11 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
 
 
     public void update(){
-        c.setCenterX(this.origin.getX());
-        c.setCenterY(this.origin.getY());
+        if (alive) {
+            c.setCenterX(this.origin.getX());
+            c.setCenterY(this.origin.getY());
+        }
+        else {PlayScreen.drawing.removeMoveable(this);}
     }
     public boolean isAlive(){
         return alive;
