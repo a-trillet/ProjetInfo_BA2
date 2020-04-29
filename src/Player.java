@@ -17,7 +17,7 @@ public class Player implements Serializable {
 
     public Player(){
         PlayScreen.drawing.drawLifeGold();
-        new MapPane();
+        new MapPane(difficulty);
 
     }
 
@@ -30,7 +30,6 @@ public class Player implements Serializable {
         gold = startingGold;
         towerList = new ArrayList<>();
         enemiesOnMap = new ArrayList<>();
-        new MapPane();
         enemyFactory = new EnemyFactory(difficulty);
         PlayScreen.drawing.drawLifeGold();
 

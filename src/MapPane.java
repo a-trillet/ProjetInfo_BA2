@@ -6,18 +6,9 @@ import java.math.*;
 import java.util.ArrayList;
 
 public class MapPane {
-    private static Point entryPoint;
-    public static Point getEntryPoint(){return entryPoint;}
 
 
-    private static Point endPoint;
-    public static Point getEndPoint() {
-        return endPoint;
-    }
-
-    private static ArrayList<ArrayList<Point>> allRoutes = new ArrayList<>();                //Path et Track existe en javafx, considérer path pour afficher le chemin
-    private static ArrayList<Point> mainRoute;       //utile tant qu'on a pas de classe chemin qui envoie les points a enemi
-
+    private static ArrayList<ArrayList<Point>> allRoutes=new ArrayList<>() ;                //Path et Track existe en javafx, considérer path pour afficher le chemin
     public static ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
 
     private int[][][] easyTrack= {{
@@ -32,25 +23,15 @@ public class MapPane {
     }
     };
 
-    public MapPane(){
+    public MapPane(int difficulty){
         loadRoute(easyTrack);  /// changer par un fichier
         for (ArrayList<Point> track : allRoutes) {
             PlayScreen.drawing.drawRoute(track);
             PlayScreen.drawing.drawSquare(track.get(0),Color.web("483576"));
             PlayScreen.drawing.drawSquare(track.get(track.size()-1),Color.web("483576"));
         }
-        mainRoute = allRoutes.get(0);
-        endPoint = mainRoute.get(mainRoute.size()-1);
-        Rectangle exitSquare = new Rectangle(36, 36, Color.web("483576"));
-        exitSquare.setX(endPoint.getX()-18);
-        exitSquare.setY(endPoint.getY()-18);
 
-        entryPoint = mainRoute.get(0);
-        Rectangle entrySquare = new Rectangle(36, 36, Color.web("483576"));
-        entrySquare.setX(entryPoint.getX()-18);
-        entrySquare.setY(entryPoint.getY()-18);
 
-        PlayScreen.drawing.getChildren().addAll(entrySquare, exitSquare);
 
     }
     private void loadRoute(int[][][] alltracks){       //lira un fichier, à changer, ou bien créer fonction fichier to int [][] "read track" et garder les tracks par défaut dans le code comme fait là
@@ -70,7 +51,6 @@ public class MapPane {
         double y_C = point.getY();
         int nombreRoutes = allRoutes.size();
         System.out.println("le isOn s'active");
-        System.out.println(nombreRoutes);
         System.out.println(allRoutes);
         double distMinimale = 30 / Math.pow(2, 0.5);      //demi-hypothénuse des carrés des tower
 
