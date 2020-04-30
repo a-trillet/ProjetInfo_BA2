@@ -2,8 +2,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -76,18 +75,19 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         infoBox.setHgap(10);
 
         //cercle de range
-        double range = 0;
-        Color color = new Color(0,0,0,0);
-        double x = 0;
-        double y = 0;
-        Point centre = new Point(x,y);
+
         if (info instanceof InfoTower){
-            range = ((InfoTower) info).getRange();
-            centre = ((InfoTower) info).getCentre();
-            color = ((InfoTower) info).getColor();
+            Circle circle=new Circle();
+            circle.setRadius(((InfoTower) info).getRange());
+            Point centre = ((InfoTower) info).getCentre();
+            circle.setCenterY(centre.getY());
+            circle.setCenterX(centre.getX());
+            circle.setStroke(((InfoTower) info).getColor());
+            circle.setFill(Color.TRANSPARENT);
+            PlayScreen.drawing.getChildren().add(circle);
 
         }
-        PlayScreen.drawing.drawCircle(centre, color, range);
+
 
 
 
