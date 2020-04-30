@@ -51,7 +51,7 @@ public class PlayScreen{
 
         mapClickListener.displayShop();
         //Info
-        mapClickListener.setDrawing(drawing);
+
 
         borderPane.setCenter(map);
 

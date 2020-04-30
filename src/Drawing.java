@@ -53,11 +53,8 @@ public class Drawing extends Pane  {
         this.getChildren().add(square);
     }
 
-    public void drawCircle(Point centre, Color color, double radius){
-        circle = new Circle(centre.getX(), centre.getY(), radius, color);
-        //circle.setStroke(color);
-        //circle.setFill(Color.TRANSPARENT);
-    }
+
+
     public void draw(Moveable moveable){ // peut etre modifié
         moveables.add(moveable);
         this.getChildren().add(moveable.getShape());

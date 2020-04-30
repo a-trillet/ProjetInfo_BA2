@@ -15,6 +15,9 @@ public class MapClickListener implements EventHandler<MouseEvent> {
 
     private MapClickable currentSelection =  null;
     public BorderPane borderPane;
+    Circle circle = new Circle();
+
+
     public MapClickable getCurrentSelection(){
         return currentSelection;
     }
@@ -53,7 +56,8 @@ public class MapClickListener implements EventHandler<MouseEvent> {
             currentSelection = clickedOn(mouseEvent);
             if (currentSelection == null){
                 displayShop();
-                System.out.println(mouseEvent.getX()+"      "+mouseEvent.getY());           // test coord souris
+                System.out.println(mouseEvent.getX()+"      "+mouseEvent.getY());          // test coord souris
+                PlayScreen.drawing.getChildren().remove(circle);
             }
             else {
                 displayInfo("");
@@ -77,7 +81,6 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         //cercle de range
 
         if (info instanceof InfoTower){
-            Circle circle=new Circle();
             circle.setRadius(((InfoTower) info).getRange());
             Point centre = ((InfoTower) info).getCentre();
             circle.setCenterY(centre.getY());
@@ -85,6 +88,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
             circle.setStroke(((InfoTower) info).getColor());
             circle.setFill(Color.TRANSPARENT);
             PlayScreen.drawing.getChildren().add(circle);
+
 
         }
 
