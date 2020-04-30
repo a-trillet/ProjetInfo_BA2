@@ -39,8 +39,10 @@ public class Tower implements MapClickable, Runnable, Serializable {
         this.centre = origin;
         level = 1;
     }
+
     public void SetActive(){
-        thread.start();}
+        thread.start();
+    }
 
 
     private Enemy selectTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour
@@ -65,10 +67,9 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
 
     public boolean isOn(Point p){
-        boolean res= false;
-        if (p.distance(this.centre)<30){res=true;}  //On peut modifier pour pouvoir cliquer sur tt la carré
-        return res;
-    }
+        return (centre.getY() -15< p.getY() && centre.getY() + 15 > p.getY() && centre.getX() -15< p.getX() && centre.getX() + 15 > p.getX());
+        }
+
 
     @Override
     public Point getCentre(){
