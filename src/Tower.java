@@ -50,7 +50,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
         Double dist = null;
         for (Enemy e : Game.player.getEnemiesOnMap()) {
             double sepa = this.centre.distance(e.getCentre());
-            if ((target == null || sepa < dist) && sepa <= this.range) {
+            if ((target == null || sepa < dist) && sepa <= this.getRange()) {
                 target = e;
                 dist = sepa;
             }
