@@ -138,10 +138,12 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     public void shoot(){
         Tower t = this;
+        double degats = this.getDamage();
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                PlayScreen.drawing.draw(new Bullet(damage,t,bulletRange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
+
+                PlayScreen.drawing.draw(new Bullet(degats,t,bulletRange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
             }
         });
     }
@@ -149,7 +151,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     @Override
     public void run() {
         while(active) {
-            if (targetEnemy == null || this.centre.distance(targetEnemy.getCentre()) > range || !targetEnemy.isAlive() ) {
+            if (targetEnemy == null || this.centre.distance(targetEnemy.getCentre()) > this.getRange() || !targetEnemy.isAlive() ) {
                 targetEnemy = selectTarget();
             }
             if (targetEnemy != null) {
