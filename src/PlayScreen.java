@@ -32,12 +32,7 @@ public class PlayScreen{
         map.setBackground(new Background(new BackgroundFill(Color.rgb(40, 40, 40), CornerRadii.EMPTY, Insets.EMPTY)));
         drawing.setOnMouseClicked(e->{
             if ( towerType!=null ){
-                if (MapPane.isOn(new Point(e.getX(),e.getY()))){
                     new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));
-                }
-                else {
-                    System.out.println("trop proche du chemin");
-                }
             }
 
         });

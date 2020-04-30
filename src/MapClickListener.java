@@ -85,7 +85,6 @@ public class MapClickListener implements EventHandler<MouseEvent> {
             circle.setStroke(((InfoTower) info).getColor());
             circle.setFill(Color.TRANSPARENT);
             PlayScreen.drawing.getChildren().add(circle);
-
         }
 
 
