@@ -25,7 +25,6 @@ public class TowerMaker {
                 color = new Color(1,0,1,0.3);
                 break;
         }
-        PlayScreen.towerType = null;
         if (t != null && CheckTowerOk(t)) {
             Game.player.addTower(t);
             drawing.drawSquare(p,color);

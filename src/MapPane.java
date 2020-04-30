@@ -46,7 +46,6 @@ public class MapPane {
         boolean bol = true;
         double x_C = point.getX();
         double y_C = point.getY();
-        int nombreRoutes = allRoutes.size();
         double distMinimale = 30 / Math.pow(2, 0.5);      //demi-hypothénuse des carrés des tower
 
         for ( int i = 0; i<= allRoutes.size()-1; i++){            //applique ce qui suit à chaque route (i =0,1)
@@ -99,6 +98,7 @@ public class MapPane {
         }
         return bol;
     }
+    public static void addRoutes(ArrayList<ArrayList<Point>> newallroutes){allRoutes=newallroutes;System.out.println(allRoutes);}
 
 
 }

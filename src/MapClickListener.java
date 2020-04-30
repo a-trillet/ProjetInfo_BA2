@@ -14,8 +14,8 @@ public class MapClickListener implements EventHandler<MouseEvent> {
 
 
     private MapClickable currentSelection =  null;
-    public BorderPane borderPane;
-    Circle circle = new Circle();
+    private BorderPane borderPane;
+    private Circle circle = new Circle();
 
 
     public MapClickable getCurrentSelection(){

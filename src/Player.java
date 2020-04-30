@@ -17,8 +17,6 @@ public class Player implements Serializable {
 
     public Player(){
         PlayScreen.drawing.drawLifeGold();
-        new MapPane(difficulty);
-
     }
 
 
