@@ -49,7 +49,7 @@ public class InfoTower extends  Info {
     ;
 
     public Color getColor() {
-        Color color = new Color(0, 0, 0, 0);
+        Color color = new Color(1, 1, 1,1 );
         switch (towerType) {
             case "Ice tower":
                 color = new Color(0, 0.1, 1, 0.7);

@@ -13,17 +13,21 @@ import java.util.ArrayList;
 
 public class MapClickListener implements EventHandler<MouseEvent> {
 
-
     private MapClickable currentSelection =  null;
     public BorderPane borderPane;
     public MapClickable getCurrentSelection(){
         return currentSelection;
     }
+    private  Drawing drawing;
 
 
     public MapClickListener (BorderPane borderPane){
         super();
         this.borderPane = borderPane;
+    }
+
+    public void setDrawing(Drawing drawing){
+        this.drawing = drawing;
     }
 
     private MapClickable clickedOn(MouseEvent e){    // retourne le mapclickable sur lequel on a cliqué
@@ -76,10 +80,10 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         infoBox.setHgap(10);
 
         //cercle de range
-        double range = 0;
-        Color color = new Color(0,0,0,0);
-        double x = 0;
-        double y = 0;
+        double range = 100;
+        Color color = new Color(1,1,1,1);
+        double x = 50;
+        double y = 50;
         Point centre = new Point(x,y);
         if (info instanceof InfoTower){
             range = ((InfoTower) info).getRange();
@@ -87,7 +91,8 @@ public class MapClickListener implements EventHandler<MouseEvent> {
             color = ((InfoTower) info).getColor();
 
         }
-        PlayScreen.drawing.drawCircle(centre, color, range);
+        drawing.drawCircle(centre, color, range);
+       // PlayScreen.map.getChildren().add(PlayScreen.drawing);
 
 
 
@@ -178,6 +183,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
 
         shop.getChildren().addAll(basicTowerButton, iceTowerButton, fireTowerButton, sniperTowerButton, nextWave, msgError, prix);
         borderPane.setRight(shop);
+
 
 
 
