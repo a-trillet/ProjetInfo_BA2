@@ -86,9 +86,9 @@ public class Tower implements MapClickable, Runnable, Serializable {
         String messageUpgrade;
         if (level <= levelMax) {
             if (Game.player.getGold() >= getUpgradeCost()) {
-
                 Game.player.addGold(-getUpgradeCost());
                 level += 1;
+
                 messageUpgrade = "Upgraded";
             } else {
                 messageUpgrade = "You don't have enough money";
@@ -109,7 +109,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     }
 
     public double getDamage() {
-        return (damage*(uprgradeBase + (level-1)*upgradeMultiplier  ));
+        return (levelMax);
     }
 
     public int getLevel() {

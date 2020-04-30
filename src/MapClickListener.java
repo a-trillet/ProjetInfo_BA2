@@ -26,6 +26,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
     public MapClickListener (BorderPane borderPane){
         super();
         this.borderPane = borderPane;
+        PlayScreen.drawing.getChildren().add(circle);
     }
 
     private MapClickable clickedOn(MouseEvent e){    // retourne le mapclickable sur lequel on a cliqué
@@ -54,10 +55,10 @@ public class MapClickListener implements EventHandler<MouseEvent> {
     public void handle(MouseEvent mouseEvent){
         if(mouseEvent.getEventType() == MouseEvent.MOUSE_CLICKED){
             currentSelection = clickedOn(mouseEvent);
+            circle.setStroke(Color.TRANSPARENT);
             if (currentSelection == null){
                 displayShop();
                 System.out.println(mouseEvent.getX()+"      "+mouseEvent.getY());          // test coord souris
-                PlayScreen.drawing.getChildren().remove(circle);
             }
             else {
                 displayInfo("");
@@ -80,14 +81,13 @@ public class MapClickListener implements EventHandler<MouseEvent> {
 
         //cercle de range
 
-        if (info instanceof InfoTower){
+        if (info instanceof InfoTower){ //dessine le cercle de Range
             circle.setRadius(((InfoTower) info).getRange());
             Point centre = ((InfoTower) info).getCentre();
             circle.setCenterY(centre.getY());
             circle.setCenterX(centre.getX());
             circle.setStroke(((InfoTower) info).getColor());
             circle.setFill(Color.TRANSPARENT);
-            PlayScreen.drawing.getChildren().add(circle);
         }
 
 
