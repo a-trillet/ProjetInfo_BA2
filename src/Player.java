@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -7,26 +10,27 @@ public class Player implements Serializable {
     private String name = "john";
     private  int gold = 700;
     private  int lifePoints;
-    private  ArrayList<Enemy> enemiesOnMap = new ArrayList<>();
-    private  ArrayList<Tower> towerList = new ArrayList<>();
+    private  ArrayList<Enemy> enemiesOnMap = new ArrayList<>();    //creer load methode pour transient
+    private  transient ArrayList<Tower> towerList = new ArrayList<>();
     private  int difficulty = 1;
     private  final int[] startingLives = {20, 18, 16, 15};
     private  final int startingGold = 300;
     private  int wave = 0;
     private  EnemyFactory enemyFactory;
-    private  ArrayList<Bullet> bullets=new ArrayList<>();
+    private  transient ArrayList<Bullet> bullets=new ArrayList<>();
+    public Tower newTower;
 
     public Player(){
         PlayScreen.drawing.drawLifeGold();
         new MapPane();
-
+        enemyFactory = new EnemyFactory(difficulty);
+        enemiesOnMap = new ArrayList<>();//test
+        towerList = new ArrayList<>();//test
+        newTower= new FireTower(new Point(200,100));
     }
 
 
-    public void loadProfile(String saveFile) {
-    }    // futur alternative à reset
-
-    public void reset() {                            // (re)initialisation de la partie, à completer en remettant vagues à 0,ect; si on veut vraiment pouvoir reset, plutot la completer  faire dans une autre fonction
+    public void reset() {
         lifePoints = startingLives[difficulty - 1];
         gold = startingGold;
         towerList = new ArrayList<>();
@@ -109,6 +113,11 @@ public class Player implements Serializable {
     public int getMaxLives(){ return startingLives[difficulty-1];}
     public String getName(){return name;}
     public void setName(String name){this.name = name;}
+
+
+
+
+
 
 
 

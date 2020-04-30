@@ -1,3 +1,5 @@
+import javafx.scene.paint.Color;
+
 public class BasicTower extends Tower {
 
     private static  int basicTowerCost = 100;

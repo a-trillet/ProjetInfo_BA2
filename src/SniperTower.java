@@ -1,3 +1,5 @@
+import javafx.scene.paint.Color;
+
 public class SniperTower extends  Tower {
 
     private static int sniperTowercost = 1000;

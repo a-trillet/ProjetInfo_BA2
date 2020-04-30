@@ -16,12 +16,13 @@ import static java.lang.Integer.sum;
 
 public class Game extends Application {
 
-
+    PlayScreen playscreen = new PlayScreen();
     Stage window;
     Scene scene1, scene2, scene3;
     //public static Drawing drawing= new Drawing();
     public static Player player= new Player();
     public static String fileString;
+
 
 
 
@@ -73,7 +74,8 @@ public class Game extends Application {
                 save1.setText("Game"+ii+".sav");
                 save1.setOnMouseClicked(e-> {
                     try {
-                        load("Game"+ii+".sav");
+                        player.reset();// temporaire
+                        load1("Game"+ii+".sav");
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
@@ -95,10 +97,12 @@ public class Game extends Application {
 
 
 
+        // Layout 2.5 choix des options avant de lancer sa game, plus sauvergarder les choix
+
 
         //Layout 3
 
-        PlayScreen playscreen = new PlayScreen();
+
         scene3 =new Scene(playscreen.sceneView(),1000,500);
 
 
@@ -117,19 +121,35 @@ public class Game extends Application {
         boolean answer = ConfirmBox.display("Warning", "Are you sure you want to exit?");
         if (answer){
             window.close();
-            try {
-                save();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
+    }
+    public static void save1() throws Exception{
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileString));
+        oos.writeObject(player.newTower);
+        //oos.writeObject();
+        oos.close();
+        System.out.println("Saving"+player.newTower.getCentre().getX());
+    }
+    public void load1(String filename) throws Exception{
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename));
+        System.out.println("Loading");
+        try {
+            player.newTower = (Tower) ois.readObject();
+            System.out.println("Object loaded: " + player.newTower.getTowerType()+ player.newTower.getCentre().getX());
+        } catch (ClassNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ois.close();
     }
     public static void save() throws Exception{
 
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileString));
         oos.writeObject(player);
         //oos.writeObject();
-        oos.flush();
         oos.close();
         System.out.println("Saving");
     }

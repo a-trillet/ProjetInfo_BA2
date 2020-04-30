@@ -1,6 +1,8 @@
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -17,7 +19,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
     private boolean alive = false;
     private double lifePoints;
     private ArrayList<Tower> targetingTowers = new ArrayList<>(); // les tours qui le cible actuelement
-    private Thread t;
+    private transient Thread t;
     private transient javafx.scene.shape.Circle c;
     private boolean frozen = false;
     private double freezeStartTime;
@@ -61,7 +63,6 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
     @Override
     public void hurt(Bullet bullet) {
         decreaseLife(bullet.getDamage());
-
     }
 
     public void freeze(Tower t){    //freeze(tower t)?
@@ -75,8 +76,9 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
 
     public void setAlive(){
         this.alive = true;
-        this.t.start();
+        t.start();
         Platform.runLater(() -> PlayScreen.drawing.draw(c));
+        Game.player.addEnemy(this);
 
     }
 
@@ -202,6 +204,15 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
     public int getReward() {
         return reward;
     }
+
+    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
+    {
+        aInputStream.defaultReadObject();
+        c= new javafx.scene.shape.Circle(0,40,10,new Color(0,0,1,0.4));
+        t = new Thread(this);
+        this.setAlive();
+    }
 }
+
 
 
