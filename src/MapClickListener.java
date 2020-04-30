@@ -65,11 +65,6 @@ public class MapClickListener implements EventHandler<MouseEvent> {
 
     //affiche les information et bouton upgrade
     public void displayInfo(String messUpgrade){
-        double range = 0;
-        Color color = new Color(0,0,0,0);
-        double x = 0;
-        double y = 0;
-        Point centre = new Point(x,y);
         Info info = currentSelection.getInfo();
 
 
@@ -81,11 +76,15 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         infoBox.setHgap(10);
 
         //cercle de range
+        double range = 0;
+        Color color = new Color(0,0,0,0);
+        double x = 0;
+        double y = 0;
+        Point centre = new Point(x,y);
         if (info instanceof InfoTower){
             range = ((InfoTower) info).getRange();
             centre = ((InfoTower) info).getCentre();
             color = ((InfoTower) info).getColor();
-            System.out.println("ça s'effectue");
 
         }
         PlayScreen.drawing.drawCircle(centre, color, range);
