@@ -81,6 +81,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         //cercle de range
 
         if (info instanceof InfoTower){
+            Circle circle=new Circle();
             circle.setRadius(((InfoTower) info).getRange());
             Point centre = ((InfoTower) info).getCentre();
             circle.setCenterY(centre.getY());
@@ -88,8 +89,6 @@ public class MapClickListener implements EventHandler<MouseEvent> {
             circle.setStroke(((InfoTower) info).getColor());
             circle.setFill(Color.TRANSPARENT);
             PlayScreen.drawing.getChildren().add(circle);
-
-
         }
 
 

@@ -26,7 +26,7 @@ public class PlayScreen{
 
         //La map
 
-
+        map.getChildren().addAll(drawing);
         //drawing.setOnMouseClicked(e->{if (towerType!=null){new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));}});
         //drawing.setOnMouseReleased(new TowerButtonListener(drawing));
         map.setBackground(new Background(new BackgroundFill(Color.rgb(40, 40, 40), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -52,7 +52,6 @@ public class PlayScreen{
         mapClickListener.displayShop();
         //Info
 
-
         borderPane.setCenter(map);
 
         // listenners
@@ -64,7 +63,7 @@ public class PlayScreen{
         //Image image1 = new Image(PlayScreen.class.getResourceAsStream("AntoineBg.jpg"));
         //selectedImage.setImage(image1);
 
-        map.getChildren().addAll(drawing);
+
 
         return borderPane;
     }

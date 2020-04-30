@@ -40,14 +40,18 @@ public class TowerMaker {
     }
 
     public boolean CheckTowerOk(Tower to) {
-        boolean res = false;
-        if (Game.player.getGold() >= to.getCost()) {
-            res = true;
+        boolean res = true;
+        if (Game.player.getGold() < to.getCost()) {  //vérifie si le player a assez d'argent
+            res = false;
         }
-        for (Tower tower : Game.player.getTowerList()){
+        for (Tower tower : Game.player.getTowerList()){ //vérifie si la tour touche d'autre tours
             if (tower.isOn(to.getCentre())) {
                 res = false;
             }}
+        if (!MapPane.isOn(to.getCentre())){ //vérifie si la tour touche le chemin
+            res=false;
+            System.out.println("trop proche du chemin");
+        }
         return res;
     }
 }
