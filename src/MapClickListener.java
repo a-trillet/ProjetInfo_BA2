@@ -64,14 +64,32 @@ public class MapClickListener implements EventHandler<MouseEvent> {
     }
 
     //affiche les information et bouton upgrade
-    public void displayInfo(String messUpgrade){     ///+cercle range
+    public void displayInfo(String messUpgrade){
+        double range = 0;
+        Color color = new Color(0,0,0,0);
+        double x = 0;
+        double y = 0;
+        Point centre = new Point(x,y);
         Info info = currentSelection.getInfo();
+
+
         String infos = info.listString();
         GridPane infoBox = new GridPane();
         infoBox.setPrefWidth(200);
         infoBox.setPadding(new Insets(10,10,10,10));
         infoBox.setVgap(8);
         infoBox.setHgap(10);
+
+        //cercle de range
+        if (info instanceof InfoTower){
+            range = ((InfoTower) info).getRange();
+            centre = ((InfoTower) info).getCentre();
+            color = ((InfoTower) info).getColor();
+            System.out.println("ça s'effectue");
+
+        }
+        PlayScreen.drawing.drawCircle(centre, color, range);
+
 
 
         Label messageUpgrade = new Label(messUpgrade);    //mess uprgrade supprimable mais bon alz

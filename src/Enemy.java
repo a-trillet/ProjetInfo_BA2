@@ -39,7 +39,6 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
         t = new Thread(this);
         c= new javafx.scene.shape.Circle(0,40,10,new Color(0,0,1,0.4));
 
-
     }
 
     public String getEnemyType(){

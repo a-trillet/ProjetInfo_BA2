@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 public class Drawing extends Pane  {
     private javafx.scene.shape.Rectangle square ;
+    private javafx.scene.shape.Circle circle;
     private Label labelGold = new Label();
     private ArrayList<Moveable> moveables=new ArrayList<>();
 
@@ -50,6 +51,12 @@ public class Drawing extends Pane  {
         square.setX(centre.getX() - 15);
         square.setY(centre.getY() - 15);
         this.getChildren().add(square);
+    }
+
+    public void drawCircle(Point centre, Color color, double radius){
+        circle = new Circle(centre.getX(), centre.getY(), radius);
+        circle.setStroke(color);
+        circle.setFill(Color.TRANSPARENT);
     }
     public void draw(Moveable moveable){ // peut etre modifié
         moveables.add(moveable);
