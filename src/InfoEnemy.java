@@ -12,9 +12,9 @@ public class InfoEnemy extends Info {
     private int power;
     private int reward;
 
-    public InfoEnemy(Enemy enemy){
+    public InfoEnemy(Enemy enemy) {
         super(enemy);
-        this.speed = (int)round(enemy.getSpeed());
+        this.speed = (int) round(enemy.getSpeed());
         this.life = enemy.getLifePoints();
         this.lifeMax = enemy.getMaxLifePoints();
         this.enemyType = enemy.getEnemyType();
@@ -31,7 +31,8 @@ public class InfoEnemy extends Info {
         String strPower = "Power : " + power;
         String strReward = "Reward : " + reward;
 
-        return strType+"\n" + strLife+"\n" + strLifeMax+"\n" + strSpeed;
+        return strType + "\n" + strLife + "\n" + strLifeMax + "\n" + strSpeed;
     }
-}
 
+
+}

@@ -18,8 +18,9 @@ import java.util.ArrayList;
 
 public class Drawing extends Pane  {
     private javafx.scene.shape.Rectangle square ;
+    private javafx.scene.shape.Circle circle;
     private Label labelGold = new Label();
-    private static ArrayList<Bullet> bullets=new ArrayList<>();
+    private ArrayList<Moveable> moveables=new ArrayList<>();
 
 
     public Drawing(){
@@ -29,12 +30,7 @@ public class Drawing extends Pane  {
 
             @Override
             public void handle(ActionEvent event) {
-                for (Enemy e : Game.player.getEnemiesOnMap()) {
-                    e.update();
-                }
-                for (Bullet b : bullets) {
-                        b.update();
-                }
+                for(int i =0;i< moveables.size();i++){moveables.get(i).update();}
                 //labelGold.setText("Gold : "+Game.player.getGold()+"\nLives : "+Game.player.getLives()+"/"+Game.player.getMaxLives()+"\nWave :"+Game.player.getWave());
             }}));
         timer.setCycleCount(Timeline.INDEFINITE);
@@ -56,14 +52,16 @@ public class Drawing extends Pane  {
         square.setY(centre.getY() - 15);
         this.getChildren().add(square);
     }
-    public void draw(Node shape){ // peut etre modifié
-        this.getChildren().add(shape);
+
+
+
+    public void draw(Moveable moveable){ // peut etre modifié
+        moveables.add(moveable);
+        this.getChildren().add(moveable.getShape());
     }
 
-    public void drawbullet(Bullet bullet){
-        this.getChildren().add(bullet.getShape());
-        bullets.add(bullet);
-    }
+
+
 
     public void drawRoute(ArrayList<Point> route){
         //crée une suite de ligne, permet de faire des arcs de cercles ect facilement
@@ -92,8 +90,10 @@ public class Drawing extends Pane  {
 
     }
 
-    public ArrayList<Bullet> getBullets(){return bullets;}
-
+    public void removeMoveable(Moveable moveable){
+        moveables.remove(moveable);
+        this.getChildren().remove(moveable.getShape());
+    }
 
 
         }

@@ -2,8 +2,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -15,7 +14,10 @@ public class MapClickListener implements EventHandler<MouseEvent> {
 
 
     private MapClickable currentSelection =  null;
-    public BorderPane borderPane;
+    private BorderPane borderPane;
+    private Circle circle = new Circle();
+
+
     public MapClickable getCurrentSelection(){
         return currentSelection;
     }
@@ -24,6 +26,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
     public MapClickListener (BorderPane borderPane){
         super();
         this.borderPane = borderPane;
+        PlayScreen.drawing.getChildren().add(circle);
     }
 
     private MapClickable clickedOn(MouseEvent e){    // retourne le mapclickable sur lequel on a cliqué
@@ -52,9 +55,10 @@ public class MapClickListener implements EventHandler<MouseEvent> {
     public void handle(MouseEvent mouseEvent){
         if(mouseEvent.getEventType() == MouseEvent.MOUSE_CLICKED){
             currentSelection = clickedOn(mouseEvent);
+            circle.setStroke(Color.TRANSPARENT);
             if (currentSelection == null){
                 displayShop();
-                System.out.println(mouseEvent.getX()+"      "+mouseEvent.getY());           // test coord souris
+                System.out.println(mouseEvent.getX()+"      "+mouseEvent.getY());          // test coord souris
             }
             else {
                 displayInfo("");
@@ -64,14 +68,29 @@ public class MapClickListener implements EventHandler<MouseEvent> {
     }
 
     //affiche les information et bouton upgrade
-    public void displayInfo(String messUpgrade){     ///+cercle range
+    public void displayInfo(String messUpgrade){
         Info info = currentSelection.getInfo();
+
+
         String infos = info.listString();
         GridPane infoBox = new GridPane();
         infoBox.setPrefWidth(200);
         infoBox.setPadding(new Insets(10,10,10,10));
         infoBox.setVgap(8);
         infoBox.setHgap(10);
+
+        //cercle de range
+
+        if (info instanceof InfoTower){ //dessine le cercle de Range
+            circle.setRadius(((InfoTower) info).getRange());
+            Point centre = ((InfoTower) info).getCentre();
+            circle.setCenterY(centre.getY());
+            circle.setCenterX(centre.getX());
+            circle.setStroke(((InfoTower) info).getColor());
+            circle.setFill(Color.TRANSPARENT);
+        }
+
+
 
 
         Label messageUpgrade = new Label(messUpgrade);    //mess uprgrade supprimable mais bon alz

@@ -85,6 +85,7 @@ public class Game extends Application {
             }
             else {
                 save1.setOnMouseClicked(e -> {
+                    new MapPane(1);//à modifier en fonction de la difficulté
                     player.reset();
                     fileString = "Game" + ii + ".sav";// permet de savoir le nom  du fichier dans lequel save et qu'il soit associable a un bouton
                     window.setScene(scene3);
@@ -92,6 +93,18 @@ public class Game extends Application {
             }
             layout2.getChildren().add(save1);
         }
+        Button editMapButton = new Button("Edit"+" "+"Map");
+        Button endMapEditor=new Button("EditMap");
+        MapEditor mapEditor = new MapEditor(endMapEditor);
+        endMapEditor.setOnMouseClicked(e->{window.setScene(scene3);
+            MapPane.addRoutes(mapEditor.getAllRoutes());
+            player.reset();
+            });
+
+        editMapButton.setOnMouseClicked(e->{
+            window.setScene(new Scene(mapEditor,1000,500));
+        });
+        layout2.getChildren().add(editMapButton);
 
 
 
@@ -111,6 +124,9 @@ public class Game extends Application {
             e.consume();
             closeProgram();
         });
+
+
+
 
         window.show();
 

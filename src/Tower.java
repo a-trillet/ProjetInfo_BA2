@@ -42,8 +42,10 @@ public class Tower implements MapClickable, Runnable, Serializable {
         this.centre = origin;
         level = 1;
     }
+
     public void SetActive(){
-        thread.start();}
+        thread.start();
+    }
 
 
     private Enemy selectTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour
@@ -51,7 +53,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
         Double dist = null;
         for (Enemy e : Game.player.getEnemiesOnMap()) {
             double sepa = this.centre.distance(e.getCentre());
-            if ((target == null || sepa < dist) && sepa <= this.range) {
+            if ((target == null || sepa < dist) && sepa <= this.getRange()) {
                 target = e;
                 dist = sepa;
             }
@@ -68,10 +70,9 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
 
     public boolean isOn(Point p){
-        boolean res= false;
-        if (p.distance(this.centre)<30){res=true;}  //On peut modifier pour pouvoir cliquer sur tt la carré
-        return res;
-    }
+        return (centre.getY() -15< p.getY() && centre.getY() + 15 > p.getY() && centre.getX() -15< p.getX() && centre.getX() + 15 > p.getX());
+        }
+
 
     @Override
     public Point getCentre(){
@@ -88,9 +89,9 @@ public class Tower implements MapClickable, Runnable, Serializable {
         String messageUpgrade;
         if (level <= levelMax) {
             if (Game.player.getGold() >= getUpgradeCost()) {
-
                 Game.player.addGold(-getUpgradeCost());
                 level += 1;
+
                 messageUpgrade = "Upgraded";
             } else {
                 messageUpgrade = "You don't have enough money";
@@ -111,7 +112,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     }
 
     public double getDamage() {
-        return (damage*(uprgradeBase + (level-1)*upgradeMultiplier  ));
+        return (levelMax);
     }
 
     public int getLevel() {
@@ -140,10 +141,12 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     public void shoot(){
         Tower t = this;
+        double degats = this.getDamage();
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                PlayScreen.drawing.drawbullet(new Bullet(damage,t,bulletRange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
+
+                PlayScreen.drawing.draw(new Bullet(degats,t,bulletRange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
             }
         });
     }
@@ -157,7 +160,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
             e.printStackTrace();
         }
         while(active) {
-            if (targetEnemy == null || this.centre.distance(targetEnemy.getCentre()) > range || !targetEnemy.isAlive() ) {
+            if (targetEnemy == null || this.centre.distance(targetEnemy.getCentre()) > this.getRange() || !targetEnemy.isAlive() ) {
                 targetEnemy = selectTarget();
             }
             if (targetEnemy != null) {

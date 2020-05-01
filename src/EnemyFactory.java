@@ -79,7 +79,7 @@ public class EnemyFactory implements Runnable, Serializable {
                         break;
                     }
                     case 2 : {
-                        waveList.add(new BigEnemy(allroute.get(r.nextInt(allroute.size()))));
+                        waveList.add(new BigEnemy(allroute.get(r.nextInt(allroute.size()))));         // nextint permet avoir l'ordre de grand
                         break;
                     }
                     default: {System.out.println("le programme tente de créer autre chose que 0 1 2");}
