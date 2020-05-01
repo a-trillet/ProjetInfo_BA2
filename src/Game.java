@@ -36,7 +36,6 @@ public class Game extends Application {
 
 
         window = stage;
-        System.out.println("Hello");
 
 
         //Button menu
@@ -116,7 +115,7 @@ public class Game extends Application {
 
 
         window.setScene(scene2);
-        window.setTitle("Cool Name To Be Inserted Here!!!");
+        window.setTitle("Debug Fighter 2");
         window.setOnCloseRequest(e -> {
             e.consume();
             closeProgram();
