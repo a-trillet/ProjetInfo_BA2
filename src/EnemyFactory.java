@@ -138,6 +138,7 @@ public class EnemyFactory implements Runnable, Serializable {
                 }
             }
             // le jeu est sauvé quand tous les élément de la wave sont sortis, wave in progress = false
+            Game.save();
 
 
         } catch (Exception e) {

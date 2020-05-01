@@ -10,23 +10,19 @@ public class Player implements Serializable {
     private String name = "john";
     private  int gold = 700;
     private  int lifePoints;
-    private  ArrayList<Enemy> enemiesOnMap = new ArrayList<>();    //creer load methode pour transient
-    private  transient ArrayList<Tower> towerList = new ArrayList<>();
+    private  ArrayList<Enemy> enemiesOnMap = new ArrayList<>();
+    private  ArrayList<Tower> towerList = new ArrayList<>();
     private  int difficulty = 1;
     private  final int[] startingLives = {20, 18, 16, 15};
     private  final int startingGold = 300;
     private  int wave = 0;
-    private  EnemyFactory enemyFactory;
-    private  transient ArrayList<Bullet> bullets=new ArrayList<>();
-    public Tower newTower;
+    private  transient EnemyFactory enemyFactory;
+    private  transient ArrayList<Bullet> bullets = new ArrayList<>();
 
     public Player(){
         PlayScreen.drawing.drawLifeGold();
         new MapPane();
         enemyFactory = new EnemyFactory(difficulty);
-        enemiesOnMap = new ArrayList<>();//test
-        towerList = new ArrayList<>();//test
-        newTower= new FireTower(new Point(200,100));
     }
 
 
@@ -111,8 +107,18 @@ public class Player implements Serializable {
     }
 
     public int getMaxLives(){ return startingLives[difficulty-1];}
+
     public String getName(){return name;}
+
     public void setName(String name){this.name = name;}
+
+    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
+    {
+        aInputStream.defaultReadObject();
+
+        enemyFactory = new EnemyFactory(difficulty);
+        bullets = new ArrayList<>();
+    }
 
 
 

@@ -74,8 +74,7 @@ public class Game extends Application {
                 save1.setText("Game"+ii+".sav");
                 save1.setOnMouseClicked(e-> {
                     try {
-                        player.reset();// temporaire
-                        load1("Game"+ii+".sav");
+                        load("Game"+ii+".sav");
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
@@ -123,35 +122,13 @@ public class Game extends Application {
             window.close();
         }
     }
-    public static void save1() throws Exception{
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileString));
-        oos.writeObject(player.newTower);
-        //oos.writeObject();
-        oos.close();
-        System.out.println("Saving"+player.newTower.getCentre().getX());
-    }
-    public void load1(String filename) throws Exception{
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename));
-        System.out.println("Loading");
-        try {
-            player.newTower = (Tower) ois.readObject();
-            System.out.println("Object loaded: " + player.newTower.getTowerType()+ player.newTower.getCentre().getX());
-        } catch (ClassNotFoundException e1) {
-            e1.printStackTrace();
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        ois.close();
-    }
+
     public static void save() throws Exception{
 
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileString));
         oos.writeObject(player);
-        //oos.writeObject();
         oos.close();
-        System.out.println("Saving");
+        System.out.println("Saving"+player.getLives());
     }
     public void load(String filename) throws Exception{
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename));
@@ -159,12 +136,8 @@ public class Game extends Application {
         try {
             player = (Player) ois.readObject();
             System.out.println("Object loaded: " + player.getName());
-        } catch (ClassNotFoundException e1) {
+        } catch (ClassNotFoundException | IOException e1) {
             e1.printStackTrace();
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         ois.close();
     }

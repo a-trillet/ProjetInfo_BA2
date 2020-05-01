@@ -150,6 +150,12 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     @Override
     public void run() {
+        //le premier thread.sleep est important pour que le run ne se lance pas avant que tout soit loaded
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         while(active) {
             if (targetEnemy == null || this.centre.distance(targetEnemy.getCentre()) > range || !targetEnemy.isAlive() ) {
                 targetEnemy = selectTarget();

@@ -51,21 +51,21 @@ public class PlayScreen{
         map.setOnMouseClicked(mapClickListener);
 
         // bouton test
-        Button testButton = new Button("test");
+        Button testButton = new Button("Save");
         testButton.setOnMouseClicked(e-> {
             try {
-                Game.save1();
+                Game.save();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
-        Button testButton2 = new Button("test222");
+       /* Button testButton2 = new Button("test222");
         testButton2.relocate(15,200);
         testButton2.setOnMouseClicked(e-> {
             Game.player.newTower.SetActive();
             drawing.drawSquare(Game.player.newTower.getCentre(),new Color(0, 1,0,1));
-        });
-        map.getChildren().addAll(testButton,testButton2);
+        });*/
+        map.getChildren().addAll(testButton);
 
         //intégration d'images test (je savais pas ou mettre)
         //final ImageView selectedImage = new ImageView();
