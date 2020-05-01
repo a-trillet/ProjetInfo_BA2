@@ -20,7 +20,6 @@ public class Player implements Serializable {
 
     public Player(){
         PlayScreen.drawing.drawLifeGold();
-        enemyFactory = new EnemyFactory(difficulty);
     }
 
 
@@ -29,7 +28,7 @@ public class Player implements Serializable {
         gold = startingGold;
         towerList = new ArrayList<>();
         enemiesOnMap = new ArrayList<>();
-        new MapPane();
+        new MapPane(0);
         enemyFactory = new EnemyFactory(difficulty);
         PlayScreen.drawing.drawLifeGold();
 
@@ -106,7 +105,7 @@ public class Player implements Serializable {
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
     {
         aInputStream.defaultReadObject();
-        new MapPane();
+        new MapPane(0);
         enemyFactory = new EnemyFactory(difficulty);
     }
 

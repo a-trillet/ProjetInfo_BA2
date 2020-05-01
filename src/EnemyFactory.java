@@ -135,6 +135,7 @@ public class EnemyFactory implements Runnable, Serializable {
                 } else {
                     System.out.println("ennemi speed..."+activeWave.get(indice).getLifePoints()+": enemyfactoryrun");      //test
                     activeWave.get(indice).setAlive();
+                    Game.player.addEnemy(activeWave.get(indice));
                 }
             }
             // le jeu est sauvé quand tous les élément de la wave sont sortis, wave in progress = false
