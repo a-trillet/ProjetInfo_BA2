@@ -1,3 +1,5 @@
+import javafx.scene.paint.Color;
+
 public class FireTower extends Tower{
 
     private static int fireTowerCost = 150;

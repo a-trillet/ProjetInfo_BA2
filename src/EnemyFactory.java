@@ -1,3 +1,6 @@
+import javafx.application.Platform;
+import javafx.scene.paint.Color;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -132,12 +135,14 @@ public class EnemyFactory implements Runnable, Serializable {
                 } else {
                     System.out.println("ennemi speed..."+activeWave.get(indice).getLifePoints()+": enemyfactoryrun");      //test
                     activeWave.get(indice).setAlive();
-
-
                     Game.player.addEnemy(activeWave.get(indice));
                 }
             }
-        } catch (InterruptedException e) {
+            // le jeu est sauvé quand tous les élément de la wave sont sortis, wave in progress = false
+            Game.save();
+
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

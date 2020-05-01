@@ -1,5 +1,8 @@
 import javafx.application.Platform;
+import javafx.scene.paint.Color;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -33,7 +36,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     private int numberOfKill;  //l'idée serait de permettre  l'amélioration des tourelles
                                 // que si elle a suffisament tué( + possibilité de rajouter une valeur à chaque classe de ennemi)
-    private Thread thread = new Thread(this);
+    private transient Thread thread = new Thread(this);
 
     public Tower(Point origin){
         this.centre = origin;
@@ -150,6 +153,12 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     @Override
     public void run() {
+        //le premier thread.sleep est important pour que le run ne se lance pas avant que tout soit loaded
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         while(active) {
             if (targetEnemy == null || this.centre.distance(targetEnemy.getCentre()) > this.getRange() || !targetEnemy.isAlive() ) {
                 targetEnemy = selectTarget();
@@ -174,6 +183,13 @@ public class Tower implements MapClickable, Runnable, Serializable {
             }
         }
 
+    }
+    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
+    {
+        aInputStream.defaultReadObject();
+        PlayScreen.drawing.drawSquare(this.centre, TowerMaker.getColor(towerType));
+        thread = new Thread(this);
+        this.SetActive();
     }
 
 

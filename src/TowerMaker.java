@@ -53,4 +53,22 @@ public class TowerMaker {
         }
         return res;
     }
+    public static Color getColor(String towerType){
+        Color color = new Color(0,0,0,0);
+        switch (towerType) {
+            case "Fire tower":
+                color = new Color(1,0,0,1);
+                break;
+            case "Ice tower":
+                color =new Color(0,0.1,1,0.7);
+                break;
+            case "Basic tower":
+                color = new Color(0, 1,0,1);
+                break;
+            case "Sniper tower":
+                color = new Color(1,0,1,0.3);
+                break;
+        }
+        return color;
+    }
 }

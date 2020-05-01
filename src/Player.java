@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -13,21 +16,19 @@ public class Player implements Serializable {
     private  final int[] startingLives = {20, 18, 16, 15};
     private  final int startingGold = 300;
     private  int wave = 0;
-    private  EnemyFactory enemyFactory;
+    private  transient EnemyFactory enemyFactory;
 
     public Player(){
         PlayScreen.drawing.drawLifeGold();
     }
 
 
-    public void loadProfile(String saveFile) {
-    }    // futur alternative à reset
-
-    public void reset() {                            // (re)initialisation de la partie, à completer en remettant vagues à 0,ect; si on veut vraiment pouvoir reset, plutot la completer  faire dans une autre fonction
+    public void reset() {
         lifePoints = startingLives[difficulty - 1];
         gold = startingGold;
         towerList = new ArrayList<>();
         enemiesOnMap = new ArrayList<>();
+        new MapPane(0);
         enemyFactory = new EnemyFactory(difficulty);
         PlayScreen.drawing.drawLifeGold();
 
@@ -96,8 +97,22 @@ public class Player implements Serializable {
     }
 
     public int getMaxLives(){ return startingLives[difficulty-1];}
+
     public String getName(){return name;}
+
     public void setName(String name){this.name = name;}
+
+    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
+    {
+        aInputStream.defaultReadObject();
+        new MapPane(0);
+        enemyFactory = new EnemyFactory(difficulty);
+    }
+
+
+
+
+
 
 
 

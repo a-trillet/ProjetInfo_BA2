@@ -16,12 +16,13 @@ import static java.lang.Integer.sum;
 
 public class Game extends Application {
 
-
+    PlayScreen playscreen = new PlayScreen();
     Stage window;
     Scene scene1, scene2, scene3;
     //public static Drawing drawing= new Drawing();
     public static Player player= new Player();
     public static String fileString;
+
 
 
 
@@ -107,10 +108,12 @@ public class Game extends Application {
 
 
 
+        // Layout 2.5 choix des options avant de lancer sa game, plus sauvergarder les choix
+
 
         //Layout 3
 
-        PlayScreen playscreen = new PlayScreen();
+
         scene3 =new Scene(playscreen.sceneView(),1000,500);
 
 
@@ -132,21 +135,15 @@ public class Game extends Application {
         boolean answer = ConfirmBox.display("Warning", "Are you sure you want to exit?");
         if (answer){
             window.close();
-            try {
-                save();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
+
     public static void save() throws Exception{
 
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileString));
         oos.writeObject(player);
-        //oos.writeObject();
-        oos.flush();
         oos.close();
-        System.out.println("Saving");
+        System.out.println("Saving"+player.getLives());
     }
     public void load(String filename) throws Exception{
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename));
@@ -154,12 +151,8 @@ public class Game extends Application {
         try {
             player = (Player) ois.readObject();
             System.out.println("Object loaded: " + player.getName());
-        } catch (ClassNotFoundException e1) {
+        } catch (ClassNotFoundException | IOException e1) {
             e1.printStackTrace();
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         ois.close();
     }
