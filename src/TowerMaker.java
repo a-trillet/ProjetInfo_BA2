@@ -27,7 +27,7 @@ public class TowerMaker {
         }
         if (t != null && CheckTowerOk(t)) {
             Game.player.addTower(t);
-            drawing.drawSquare(p,color);
+            drawing.drawSquare(p,color,30);
             Game.player.addGold(-t.getCost());  //peut etre à bouger
             t.SetActive();//tower commence à tirer
 
