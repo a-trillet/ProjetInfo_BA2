@@ -1,51 +1,58 @@
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.*;
   /// pas definitif, juste un test de deuxieme fenetre
-public class ParameterWindow {
+public class ParameterScene {
 
-      public static void display(String title, String message){ // message peut diférer si on change les parametrtre depuis le muenu ou le jeu par exemple,: avant de commencer la partie, choisissez les parametre
-        Stage parameterWindow = new Stage();                    // peut aussi etre fait dans la meme window avec une nouvelle scene. donc à discuter. MAis cette classe peut se renommer display parameter ou un brol du genre
+      public static void display( String message, Stage window, Scene futurScene){ // message peut diférer si on change les parametrtre depuis le muenu ou le jeu par exemple,: avant de commencer la partie, choisissez les parametre
 
-        parameterWindow.initModality(Modality.APPLICATION_MODAL); // empeche de toucher à la fenetre de base avant d'avoir coupé cette page . utile pendant qu'on change les parametres
-        parameterWindow.setTitle(title);
-        parameterWindow.setMinWidth(300);
+        //mise en place du nom du joueur
+        TextField nameInput = new TextField();
+
+        //message d'erreur
+        Label labelError1 = new Label();
+        labelError1.setText("");
 
 
-        // creation bouton sélection de difficulté
-        ComboBox<String> difficultySelection = new ComboBox<String>();
+          // creation bouton sélection de difficulté
+        ComboBox<String> difficultySelection = new ComboBox<>();
         difficultySelection.getItems().addAll(
                 "Easy",
                 "Normal",
                 "Hard",
                 "Insane"
         );
-        difficultySelection.setValue(difficultyString(Game.player.getDifficulty()));
-
-
         Label label = new Label();
         label.setText(message);
         Button closeButton = new Button("Apply and close");
         closeButton.setOnAction(e -> {
-                  Game.player.setDifficulty(getDifficulty(difficultySelection));
-                  Game.player.reset();
-                  parameterWindow.close();});
+          if (nameInput.getText() == "" || difficultySelection.getValue() == null){
+            labelError1.setText("Error, enter a name"+"\n"+ "and choose difficulty" );
+          }
+          else{
+            Game.player.setName(nameInput.getText());
+            Game.player.setDifficulty(getDifficulty(difficultySelection));
+            new MapPane(getDifficulty(difficultySelection));
+            window.setScene(futurScene);
+          }
+        });
 
 
-
-        //creation Page avec close button and label
-        VBox layout = new VBox(10);                           //// Vbox met les element à la vertical, H box à l'horizontale
-        layout.getChildren().addAll(label,closeButton, difficultySelection);
+        VBox layout = new VBox(20);
+        layout.setPadding(new Insets(20,100,20,100));
+        layout.getChildren().addAll(label, nameInput, difficultySelection,closeButton,labelError1);
         layout.setAlignment(Pos.CENTER);
 
 
+
         Scene scene = new Scene(layout, 400, 300);
-        parameterWindow.setScene(scene);
-        parameterWindow.showAndWait();
+        window.setScene(scene);
 
     }
     private static String difficultyString(int diff){

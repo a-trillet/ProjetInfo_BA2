@@ -39,28 +39,6 @@ public class Game extends Application {
 
         window = stage;
 
-
-        //Button menu
-        Button menuButton = new Button("Return to Menu");
-        menuButton.setOnAction(e -> window.setScene(scene1));
-
-        // Button setting
-        Button settingButton = new Button("Settings");
-        settingButton.setOnAction(e -> {
-            ParameterWindow.display("Setting box","Modify preferences here...");});
-        //Button play
-        Button playButton = new Button("Play");
-        playButton.setOnAction(e->{
-            window.setScene(scene2);
-        });
-
-        //Layout 1, menu
-        VBox layout1 = new VBox();
-        layout1.getChildren().addAll(playButton,settingButton,menuButton);
-        layout1.setAlignment(Pos.CENTER);
-        scene1 = new Scene(layout1, 600, 300);
-
-
         //Layout 2 choice of save file
         HBox layout2 = new HBox(20);
         layout2.setAlignment(Pos.CENTER);
@@ -85,10 +63,11 @@ public class Game extends Application {
             }
             else {
                 save1.setOnMouseClicked(e -> {
-                    new MapPane(1);//à modifier en fonction de la difficulté
-                    player.reset();
+
                     fileString = "Game" + ii + ".sav";// permet de savoir le nom  du fichier dans lequel save et qu'il soit associable a un bouton
-                    window.setScene(scene3);
+                    ParameterScene.display("Set your name and choose difficulty", window,scene3); //ajoute a window 1 première scene avec choix de diff puis
+                        // a la fin associe scene 3 a window (creer aussi un mapPAne avec la bonne difficultée
+
                 });
             }
             layout2.getChildren().add(save1);
@@ -96,7 +75,8 @@ public class Game extends Application {
         Button editMapButton = new Button("Edit"+" "+"Map");
         Button endMapEditor=new Button("EditMap");
         MapEditor mapEditor = new MapEditor(endMapEditor);
-        endMapEditor.setOnMouseClicked(e->{window.setScene(scene3);
+        endMapEditor.setOnMouseClicked(e->{
+            window.setScene(scene3);
             MapPane.addRoutes(mapEditor.getAllRoutes());
             fileString = "Game3.sav";
             player.reset();
