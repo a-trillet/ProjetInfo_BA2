@@ -47,7 +47,7 @@ public class Game extends Application {
         // Button setting
         Button settingButton = new Button("Settings");
         settingButton.setOnAction(e -> {
-              ParameterWindow.display("Setting box","Modify preferences here...");});
+            ParameterWindow.display("Setting box","Modify preferences here...");});
         //Button play
         Button playButton = new Button("Play");
         playButton.setOnAction(e->{
@@ -99,7 +99,7 @@ public class Game extends Application {
         endMapEditor.setOnMouseClicked(e->{window.setScene(scene3);
             MapPane.addRoutes(mapEditor.getAllRoutes());
             player.reset();
-            });
+        });
 
         editMapButton.setOnMouseClicked(e->{
             window.setScene(new Scene(mapEditor,1000,500));
@@ -158,9 +158,9 @@ public class Game extends Application {
         ois.close();
     }
 
-   public static boolean checkFileExists(String s){
+    public static boolean checkFileExists(String s){
         return new File(s).isFile();
-   }
+    }
 
 
 }

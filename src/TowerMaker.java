@@ -2,11 +2,11 @@ import javafx.scene.paint.Color;
 
 public class TowerMaker {
     private Drawing drawing;
+    private Color color;
 
     public TowerMaker(Drawing d, String type, Point p) {
         this.drawing = d;
-        Color color = new Color(0,0,0,0);
-        Tower t = null;  //à vérifier
+        Tower t = null;
         switch (type) {
             case "FIRE":
                 t = new FireTower(p);
@@ -27,15 +27,10 @@ public class TowerMaker {
         }
         if (t != null && CheckTowerOk(t)) {
             Game.player.addTower(t);
-            drawing.drawSquare(p,color,30);
+            drawing.drawSquare(p,color,30); //à changer par image
             Game.player.addGold(-t.getCost());  //peut etre à bouger
-            t.SetActive();//tower commence à tirer
-
-            //}
+            t.SetActive(); //tower commence à tirer
         }
-
-
-
     }
 
     public boolean CheckTowerOk(Tower to) {
@@ -49,7 +44,6 @@ public class TowerMaker {
             }}
         if (!MapPane.isOn(to.getCentre())){ //vérifie si la tour touche le chemin
             res=false;
-            System.out.println("trop proche du chemin");
         }
         return res;
     }

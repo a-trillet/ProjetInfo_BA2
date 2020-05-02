@@ -12,15 +12,15 @@ public class MapEditor extends BorderPane {
     private Button editMap;
     private ArrayList<ArrayList<Point>> allRoutes=new ArrayList<>();
     private ArrayList<Point>route =new ArrayList<>();
-    private Drawing drawing= new Drawing();
+    private Drawing drawing=new Drawing();
 
     public MapEditor(Button endMapEditor) {
         super();
         editMap=endMapEditor;
+        //this.drawing=drawing;
         TilePane buttonPane = new TilePane();
         buttonPane.getChildren().add(addTrack);
         buttonPane.getChildren().add(endTrack);
-        buttonPane.getChildren().add(editMap);
         this.setBottom(buttonPane);
         drawing.setBackground(new Background(new BackgroundFill(Color.rgb(40, 40, 40), CornerRadii.EMPTY, Insets.EMPTY)));
         this.setCenter(drawing);
@@ -35,9 +35,11 @@ public class MapEditor extends BorderPane {
                 PlayScreen.drawing.drawRoute(route);
                 allRoutes.add(route);
                 route = new ArrayList<>();
-                System.out.println(allRoutes);
+                if(allRoutes.size()==1){buttonPane.getChildren().add(editMap);}
             }});
-        this.setOnMouseClicked(e->route.add(new Point(e.getX(),e.getY())));
+        this.setOnMouseClicked(e->{
+            route.add(new Point(e.getX(),e.getY()));
+        });
     }
     public ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
 
