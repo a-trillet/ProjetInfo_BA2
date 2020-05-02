@@ -8,7 +8,7 @@ import javafx.stage.*;
   /// pas definitif, juste un test de deuxieme fenetre
 public class ParameterScene {
 
-      public static void display( String message, Stage window, Scene futurScene,Player player){ // message peut diférer si on change les parametrtre depuis le muenu ou le jeu par exemple,: avant de commencer la partie, choisissez les parametre
+      public static void display( String message, Stage window, Scene futurScene){ // message peut diférer si on change les parametrtre depuis le muenu ou le jeu par exemple,: avant de commencer la partie, choisissez les parametre
 
 
 
