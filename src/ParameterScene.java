@@ -1,8 +1,10 @@
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.*;
   /// pas definitif, juste un test de deuxieme fenetre
@@ -10,9 +12,15 @@ public class ParameterScene {
 
       public static void display( String message, Stage window, Scene futurScene){ // message peut diférer si on change les parametrtre depuis le muenu ou le jeu par exemple,: avant de commencer la partie, choisissez les parametre
 
+        //mise en place du nom du joueur
+        TextField nameInput = new TextField();
+
+        //message d'erreur
+        Label labelError1 = new Label();
+        labelError1.setText("");
 
 
-        // creation bouton sélection de difficulté
+          // creation bouton sélection de difficulté
         ComboBox<String> difficultySelection = new ComboBox<>();
         difficultySelection.getItems().addAll(
                 "Easy",
@@ -24,16 +32,21 @@ public class ParameterScene {
         label.setText(message);
         Button closeButton = new Button("Apply and close");
         closeButton.setOnAction(e -> {
-                  Game.player.setDifficulty(getDifficulty(difficultySelection));
-                  new MapPane(getDifficulty(difficultySelection));
-                  window.setScene(futurScene);
+          if (nameInput.getText() == "" || difficultySelection.getValue() == null){
+            labelError1.setText("Error, enter a name"+"\n"+ "and choose difficulty" );
+          }
+          else{
+            Game.player.setName(nameInput.getText());
+            Game.player.setDifficulty(getDifficulty(difficultySelection));
+            new MapPane(getDifficulty(difficultySelection));
+            window.setScene(futurScene);
+          }
         });
 
 
-
-        //creation Page avec close button and label
-        VBox layout = new VBox(10);                           //// Vbox met les element à la vertical, H box à l'horizontale
-        layout.getChildren().addAll(label,closeButton, difficultySelection);
+        VBox layout = new VBox(20);
+        layout.setPadding(new Insets(20,100,20,100));
+        layout.getChildren().addAll(label, nameInput, difficultySelection,closeButton,labelError1);
         layout.setAlignment(Pos.CENTER);
 
 
