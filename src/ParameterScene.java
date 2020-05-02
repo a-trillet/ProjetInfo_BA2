@@ -7,10 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.*;
-  /// pas definitif, juste un test de deuxieme fenetre
 public class ParameterScene {
 
-      public static void display( String message, Stage window, Scene futurScene){ // message peut diférer si on change les parametrtre depuis le muenu ou le jeu par exemple,: avant de commencer la partie, choisissez les parametre
+      public static void display( String message, Stage window, Scene futurScene){
 
         //mise en place du nom du joueur
         TextField nameInput = new TextField();
@@ -39,6 +38,7 @@ public class ParameterScene {
             Game.player.setName(nameInput.getText());
             Game.player.setDifficulty(getDifficulty(difficultySelection));
             new MapPane(getDifficulty(difficultySelection));
+            Game.player.reset();
             window.setScene(futurScene);
           }
         });

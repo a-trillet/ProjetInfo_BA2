@@ -8,7 +8,7 @@ import java.util.LinkedList;
 public class Player implements Serializable {
     private static final long serialVersionUID = 1L;
     private String name = "john";
-    private  int gold = 700;
+    private  int gold =700;
     private  int lifePoints;
     private  ArrayList<Enemy> enemiesOnMap = new ArrayList<>();
     private  ArrayList<Tower> towerList = new ArrayList<>();
