@@ -1,5 +1,6 @@
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
+import javafx.util.converter.BigDecimalStringConverter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,90 +18,59 @@ public class EnemyFactory implements Runnable, Serializable {
     }
 
         // les différentes vagues
-    private static final int[][] easyWaves = {
-            {2,1,0,0,0},
-            {5,2,0,0,0},
-            {6,2,1,0,0},
-            {6,3,2,2,1},
-
-    };
-    private static final int[][] normalWaves = {
-            {2,1,0,0,0},
-            {5,2,0,0,0},
-            {6,2,1,0,0},
-            {6,3,2,2,1},
-            {6,3,3,3,1},
-            {8,4,4,4,1},
+    private static final String[] easyWaves ={
+            "Bug",
+            "Big Error",
+            "Java Exception"
     };
 
-    private static final int[][] hardWaves = {
-            {2, 1, 0, 0, 0},
-            {5, 2, 0, 0, 0},
-            {6, 2, 1, 0, 0},
-            {6, 3, 2, 2, 1},
-            {6, 3, 3, 3, 1},
-            {8, 4, 4, 4, 1},
-            {9, 5, 5, 5, 2},
-            {10, 6, 6, 6, 2},
+
+    private static final String[] normalWaves = {
+            "Bug",
+            "Big Error",
+            "Java Exception"
     };
 
-    private static final int[][] insaneWaves = { //lignes = nb d'unité, colone = type d'ennemi : "normal, fast, big, rien"
-            {2, 1, 0, 0, 0},
-            {5, 2, 0, 0, 0},
-            {6, 2, 1, 0, 0},
-            {6, 3, 2, 2, 1},
-            {6, 3, 3, 3, 1},
-            {8, 4, 4, 4, 1},
-            {9, 5, 5, 5, 2},
-            {10, 6, 6, 6, 2},
-            {12, 6, 6, 7, 2},
-            {15, 6, 8, 8, 2},
-            {16, 6, 9, 9, 3},
-            {20, 8, 10, 10, 3},
+    private static final String[] hardWaves = {
+            "Bug",
+            "Big Error",
+            "Java Exception"
+    };
+
+    private static final String[] insaneWaves = {
+            "Bug",
+            "Big Error",
+            "Java Exception"
 
     };
-    private static final int[][][] wavesDifficulties = {easyWaves, normalWaves, hardWaves, insaneWaves};
 
-    private static LinkedList<Enemy> createWave(int wave, int diff, ArrayList<ArrayList<Point>>allroute){                                   //// ATTENTION index out of bound 6 array
-        LinkedList<Enemy> waveList = new LinkedList<>();
+    private static final String[][] wavesDifficulties = {easyWaves, normalWaves, hardWaves, insaneWaves};
 
 
-        for (int j = 0 ; j<3; j++){                                            //car seulement 3 types de monstres pour le moment
-            for(int i = 1; i <= wavesDifficulties[diff-1][wave-1][j]; i++){
-                Random r =new Random();
+    public static ArrayList<LinkedList<Word>> allWaves = new ArrayList<>();
 
-                switch(j){
-                    case 0 : {
-                        waveList.add(new NormalEnemy(allroute.get(r.nextInt(allroute.size()))));
-                        break;
-                    }
-                    case 1 : {
-                        waveList.add(new FastEnemy(allroute.get(r.nextInt(allroute.size()))));
-                        break;
-                    }
-                    case 2 : {
-                        waveList.add(new BigEnemy(allroute.get(r.nextInt(allroute.size()))));         // nextint permet avoir l'ordre de grand
-                        break;
-                    }
-                    default: {System.out.println("le programme tente de créer autre chose que 0 1 2");}
-                }
-            }
-        }
-        return waveList;
-    }
-
-
-    public static ArrayList<LinkedList<Enemy>> allWaves = new ArrayList<>();
-
-    public static LinkedList<Enemy> activeWave;
+    public static LinkedList<Word> activeWave;
 
     private static boolean waveInProgress = false;
 
+
+    private static LinkedList<Word> buildWave(int wave, int diff, ArrayList<ArrayList<Point>>allroute){
+        LinkedList<Word> sentence =  new LinkedList<>();
+        Point origin = new Point(50,50);
+        Random r =new Random();
+        for (String word : wavesDifficulties[diff-1][wave-1].split(" ")) {
+            sentence.add(new Word(word, new Point(origin.getX(), origin.getY()),MapPane.getAllRoutes().get(r.nextInt(allroute.size()-1))));
+
+            origin.setX(origin.getX()+(7*(1+word.length())));                  //place les mots en lignes, séparés
+        }
+        return sentence;
+    }
+
+
     private static void  loadEnemyWaves(int difficulty){
-        ArrayList<LinkedList<Enemy>> enemyWaves = new ArrayList<>();
+        ArrayList<LinkedList<Word>> enemyWaves = new ArrayList<>();
         for (int i =1; i <= wavesDifficulties[difficulty-1].length ; i++){
-            LinkedList<Enemy> wave = createWave(i, difficulty,MapPane.getAllRoutes());
-            Collections.shuffle(wave);
+            LinkedList<Word> wave = buildWave(i, difficulty,MapPane.getAllRoutes());
             enemyWaves.add(wave);
         }
         allWaves = enemyWaves;
@@ -126,20 +96,26 @@ public class EnemyFactory implements Runnable, Serializable {
     public void run(){
         try {
 
-            for(int indice = 0; indice <=activeWave.size();indice++) {
-                Thread.sleep(1000);            //a faire diminuer quand la wave augmente
-
-                if (indice == activeWave.size()) {
-                    waveInProgress = false;
-                    System.out.println("fin de vague");                //faire en label
-                } else {
-                    System.out.println("ennemi speed..."+activeWave.get(indice).getLifePoints()+": enemyfactoryrun");      //test
-                    activeWave.get(indice).setAlive();
-                    Game.player.addEnemy(activeWave.get(indice));
+            /*for (Word word : activeWave) {
+                word.drawWord();
+            }
+            Thread.sleep(1500);*/
+            for (Word word : activeWave) {
+                for(Enemy e : word.getLettres()){
+                    e.setAlive();
+                    Thread.sleep(20);
                 }
             }
-            // le jeu est sauvé quand tous les élément de la wave sont sortis, wave in progress = false
+            // le jeu est sauvé quand tous les élément de la wave sont sortis
+            Thread.sleep(100);
             Game.save();
+            //PlayScreen.drawing.drawSaving();           // marche pas
+
+            Thread.sleep(10000);   // faire que l'on puisse cliquer sur next wave que quand la wave est suffisament loin
+            waveInProgress = false;
+            System.out.println("fin de vague");
+
+
 
 
         } catch (Exception e) {

@@ -1,6 +1,9 @@
 import javafx.application.Platform;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -19,7 +22,8 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
     private double lifePoints;
     private ArrayList<Tower> targetingTowers = new ArrayList<>(); // les tours qui le cible actuelement
     private transient Thread t;
-    private transient javafx.scene.shape.Circle c;
+    private String lettre;
+    private transient Text lettreText;
     private boolean frozen = false;
     private double freezeStartTime;
     private double freezeDuration;
@@ -32,18 +36,24 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
     protected int enemyPower;     //cbdDeVieRetireraPlayerSiArriveaLaFin
 
 
-    public Enemy(ArrayList<Point> trackPoints, double life, int reward){
+    public Enemy(ArrayList<Point> trackPoints,String lettre, Point origin, double life, int reward){
         this.trackPoints=trackPoints;   //liste de points par lesquels l'ennemi passe (point de changement de direction)
-        this.origin = new Point(trackPoints.get(0).getX(),trackPoints.get(0).getY());
+        this.trackPoints.add(0,origin);
+        this.origin = new Point(origin.getX()+5,origin.getY()+5);
         this.lifePoints = life;
         this.maxLifePoints = life;
         this.reward = reward;
         t = new Thread(this);
-        c= new javafx.scene.shape.Circle(0,40,10,new Color(0,0,1,0.4));
+        this.lettre = lettre;
+        lettreText= createLettre();
 
 
     }
-
+    private Text createLettre(){
+        Text lettre = new Text(origin.getX(),origin.getY(),this.lettre);
+        lettre.setFill(Color.RED);
+        return lettre;
+    }
     public String getEnemyType(){
         return enemyType;
     }
@@ -77,7 +87,8 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
     public void setAlive(){
         this.alive = true;
         this.t.start();
-        Platform.runLater(() -> PlayScreen.drawing.draw(this));
+        Game.player.addEnemy(this);
+        Platform.runLater(() ->PlayScreen.drawing.draw(this));
 
     }
 
@@ -131,7 +142,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
 
 
     public void move(){
-        if (origin.distance(trackPoints.get(nextPoint))>enemySpeed/15){
+        if (origin.distance(trackPoints.get(nextPoint))>enemySpeed){
             double dist = trackPoints.get(nextPoint).distance(trackPoints.get(nextPoint-1));
             int deltaX = (int) (this.trackPoints.get(nextPoint).getX() - this.trackPoints.get(nextPoint-1).getX());
             int deltaY = (int) (this.trackPoints.get(nextPoint).getY() - this.trackPoints.get(nextPoint-1).getY());
@@ -140,7 +151,6 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
             double dy = enemySpeed / 15 * deltaY / dist;
             origin.setX(origin.getX() + dx);
             origin.setY(origin.getY() + dy);
-
 
 
         }
@@ -158,7 +168,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
 
     @Override
     public Node getShape() {
-        return c;
+        return lettreText;
     }
 
 
@@ -171,8 +181,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
 
     public void update(){
         if (alive) {
-            c.setCenterX(this.origin.getX());
-            c.setCenterY(this.origin.getY());
+            lettreText.relocate(this.origin.getX(), this.origin.getY());
         }
         else {PlayScreen.drawing.removeMoveable(this);}
     }
@@ -216,10 +225,74 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
     {
         aInputStream.defaultReadObject();
-        c= new javafx.scene.shape.Circle(0,40,10,new Color(0,0,1,0.4));
+        lettreText = createLettre();
         t = new Thread(this);
         this.setAlive();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

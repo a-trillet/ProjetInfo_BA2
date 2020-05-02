@@ -12,11 +12,11 @@ public class MapPane {
     public static ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
 
     private int[][][] easyTrack= {{
-            {50,50},
+            {400,50},
             {300,50},
             {300,400},
             {550,400}},{
-            {50,400},
+            {400,50},
             {50,200},
             {550,200},
             {550,50}
@@ -27,8 +27,6 @@ public class MapPane {
         loadRoute(easyTrack);  /// changer par un fichier
         for (ArrayList<Point> track : allRoutes) {
             PlayScreen.drawing.drawRoute(track);
-            PlayScreen.drawing.drawSquare(track.get(0),Color.web("483576"));
-            PlayScreen.drawing.drawSquare(track.get(track.size()-1),Color.web("483576"));
         }
     }
     private void loadRoute(int[][][] alltracks){       //lira un fichier, à changer, ou bien créer fonction fichier to int [][] "read track" et garder les tracks par défaut dans le code comme fait là
