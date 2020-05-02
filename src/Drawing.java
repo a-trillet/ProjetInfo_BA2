@@ -46,10 +46,10 @@ public class Drawing extends Pane  {
 
     }
 
-    public void drawSquare(Point centre,Color color) {
-        square = new Rectangle(30, 30, color);
-        square.setX(centre.getX() - 15);
-        square.setY(centre.getY() - 15);
+    public void drawSquare(Point centre,Color color, int size) {
+        square = new Rectangle(size, size, color);
+        square.setX(centre.getX() - size/2);
+        square.setY(centre.getY()-size/2);
         this.getChildren().add(square);
     }
 
@@ -75,18 +75,20 @@ public class Drawing extends Pane  {
         moveTo.setY(route.get(0).getY());
         path.getElements().add(moveTo);
 
-        int it = 0;
+        Color color=Color.web("483576");
 
-        for (Point point : route){
-            if( it !=0) {
+        int it = 0;
+        for (Point point : route){ //trace les chemins
+            if (it==0){this.drawSquare(route.get(0),color,40);}//dessine la base de départ
+            else{
                 LineTo lineTo = new LineTo();
                 lineTo.setX(point.getX());
                 lineTo.setY(point.getY());
-
                 path.getElements().add(lineTo);
             }
             it++;
         }
+        this.drawSquare(route.get(route.size()-1),color,40);//dessine la base d'arrivée
         this.getChildren().add(path);
 
     }
