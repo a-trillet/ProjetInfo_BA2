@@ -106,7 +106,9 @@ public class Player implements Serializable {
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
     {
         aInputStream.defaultReadObject();
-        enemyFactory = new EnemyFactory(difficulty);
+        if(Game.isOnGame){
+            enemyFactory = new EnemyFactory(difficulty);
+        }
     }
 
 

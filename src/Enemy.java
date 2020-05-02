@@ -229,10 +229,13 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
 
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
     {
-        aInputStream.defaultReadObject();
-        createLettre(lettre);
-        t = new Thread(this);
-        this.setAlive();
+        if(Game.isOnGame) {
+            aInputStream.defaultReadObject();
+            createLettre(lettre);
+            t = new Thread(this);
+            this.setAlive();
+        }
+        else{aInputStream.defaultReadObject();}
     }
 }
 
