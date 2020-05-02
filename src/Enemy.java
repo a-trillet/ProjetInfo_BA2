@@ -32,7 +32,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
 
     //attributs venant des s-classe
     protected String enemyType;
-    private double enemySpeed=1;
+    private double enemySpeed=12;
     protected double maxLifePoints;
     protected int reward;
     protected int enemyPower;     //cbdDeVieRetireraPlayerSiArriveaLaFin
@@ -149,8 +149,8 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
             int deltaX = (int) (this.trackPoints.get(nextPoint).getX() - origin.getX());
             int deltaY = (int) (this.trackPoints.get(nextPoint).getY() - origin.getY());
 
-            double dx = enemySpeed  * deltaX / dist;
-            double dy = enemySpeed  * deltaY / dist;
+            double dx = enemySpeed/15  * deltaX / dist;
+            double dy = enemySpeed/15  * deltaY / dist;
             origin.setX(origin.getX() + dx);
             origin.setY(origin.getY() + dy);
 
