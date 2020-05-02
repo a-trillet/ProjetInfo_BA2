@@ -9,8 +9,8 @@ public class BasicTower extends Tower {
     private static int newBulletRange = 10;
     private String type = "Basic tower";
 
-    public BasicTower(Point origin){
-        super(origin);
+    public BasicTower(Point origin,Drawing d){
+        super(origin,d);
         this.cost = basicTowerCost;
         this.range = newRange;
         this.damage = newDamage;

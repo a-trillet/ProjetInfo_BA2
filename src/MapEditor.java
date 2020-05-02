@@ -12,12 +12,12 @@ public class MapEditor extends BorderPane {
     private Button editMap;
     private ArrayList<ArrayList<Point>> allRoutes=new ArrayList<>();
     private ArrayList<Point>route =new ArrayList<>();
-    private Drawing drawing=new Drawing();
+    private Drawing drawing;
 
-    public MapEditor(Button endMapEditor) {
+    public MapEditor(Button endMapEditor,Drawing d) {
         super();
         editMap=endMapEditor;
-        //this.drawing=drawing;
+        drawing=d;
         TilePane buttonPane = new TilePane();
         buttonPane.getChildren().add(addTrack);
         buttonPane.getChildren().add(endTrack);
@@ -32,7 +32,6 @@ public class MapEditor extends BorderPane {
         endTrack.setOnMouseClicked(e->{
             if(route.size()>1) {  //ajouter un message d'erreur si route pas route pas assez longue
                 drawing.drawRoute(route);
-                PlayScreen.drawing.drawRoute(route);
                 allRoutes.add(route);
                 route = new ArrayList<>();
                 if(allRoutes.size()==1){buttonPane.getChildren().add(editMap);}

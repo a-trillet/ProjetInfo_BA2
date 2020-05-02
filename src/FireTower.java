@@ -9,8 +9,8 @@ public class FireTower extends Tower{
     private static int newBulletRange = 15;
     private String type = "Fire tower";
 
-    public FireTower(Point originPoint){
-        super(originPoint);
+    public FireTower(Point originPoint,Drawing d){
+        super(originPoint,d);
         this.cost = fireTowerCost;
         this.range = newRange;
         this.damage = newDamage;

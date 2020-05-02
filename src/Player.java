@@ -17,21 +17,23 @@ public class Player implements Serializable {
     private  final int startingGold = 300;
     private  int wave = 0;
     private  transient EnemyFactory enemyFactory;
+    private transient Drawing drawing;
 
-    public Player(){
-        PlayScreen.drawing.drawLifeGold();
+    public Player(Drawing d){
+
+        this.drawing=d;
+        drawing.drawLifeGold();
 
     }
 
 
     public void reset() {
         lifePoints = startingLives[difficulty - 1];
-        System.out.println(lifePoints);
         gold = startingGold;
         towerList = new ArrayList<>();
         enemiesOnMap = new ArrayList<>();
-        enemyFactory = new EnemyFactory(difficulty);
-        PlayScreen.drawing.drawLifeGold();
+        enemyFactory = new EnemyFactory(difficulty,drawing);
+        drawing.drawLifeGold();
 
     }
 
@@ -57,13 +59,13 @@ public class Player implements Serializable {
 
     public void decreaseLife(int dmg) {
         lifePoints -= dmg;
-        PlayScreen.drawing.drawLifeGold();
+        drawing.drawLifeGold();
         //if (lifePoints<=0){lose()}
     }
 
     public void addGold(int amount) {
         gold += amount;
-        PlayScreen.drawing.drawLifeGold();
+        drawing.drawLifeGold();
 
     }
 
@@ -77,7 +79,7 @@ public class Player implements Serializable {
 
     public void nextWave() {
         wave++;
-        PlayScreen.drawing.drawLifeGold();
+        drawing.drawLifeGold();
     }
 
     public int getLifePoints() {
@@ -107,7 +109,7 @@ public class Player implements Serializable {
     {
         aInputStream.defaultReadObject();
         if(Game.isOnGame){
-            enemyFactory = new EnemyFactory(difficulty);
+            enemyFactory = new EnemyFactory(difficulty,drawing);
         }
     }
 

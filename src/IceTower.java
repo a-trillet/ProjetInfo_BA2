@@ -10,8 +10,8 @@ public class IceTower extends Tower {
     private static double newFreezeTime = 2000;
     private String type = "Ice tower";
 
-    public IceTower(Point origin) {
-        super(origin);
+    public IceTower(Point origin,Drawing d) {
+        super(origin,d);
         this.cost = iceTowercost;
         this.range = newRange;
         this.damage = newDamage;

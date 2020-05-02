@@ -9,8 +9,8 @@ public class SniperTower extends  Tower {
     private static int newBulletRange = 30; //parfois loupe son coup mais jsp si ça correspond bien
     private String type = "Sniper tower";
 
-    public SniperTower(Point origin){
-        super(origin);
+    public SniperTower(Point origin, Drawing d){
+        super(origin,d);
         this.cost = sniperTowercost;
         this.range = newRange;
         this.damage = newDamage;

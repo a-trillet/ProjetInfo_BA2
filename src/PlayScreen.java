@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,11 +15,17 @@ import javafx.scene.image.ImageView;
 import javax.swing.*;
 
 public class PlayScreen{
-    public static Drawing drawing=new Drawing();
+    private Drawing drawing;
     public static BorderPane borderPane = new BorderPane();
     public static String towerType = null;
-    public static MapClickListener mapClickListener = new MapClickListener(borderPane);
-    public static Pane map = new Pane(); // permet de supperposer les différents éléments de la map (image, tours,..)
+    public static MapClickListener mapClickListener;
+    private static Pane map = new Pane(); // permet de supperposer les différents éléments de la map (image, tours,..)
+
+
+    public PlayScreen(Drawing d){
+        this.drawing=d;
+        mapClickListener= new MapClickListener(borderPane,drawing);
+    }
 
     public BorderPane sceneView(){
         //La map

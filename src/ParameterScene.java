@@ -9,8 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.*;
 public class ParameterScene {
 
-      public static void display( String message, Stage window, Scene futurScene){
-
+      public static void display( String message, Stage window, Scene futurScene,Drawing drawing){
         //mise en place du nom du joueur
         TextField nameInput = new TextField();
 
@@ -35,10 +34,10 @@ public class ParameterScene {
             labelError1.setText("Error, enter a name"+"\n"+ "and choose difficulty" );
           }
           else{
-            Game.player.setName(nameInput.getText());
-            Game.player.setDifficulty(getDifficulty(difficultySelection));
-            new MapPane(getDifficulty(difficultySelection));
-            Game.player.reset();
+            Game.getPlayer().setName(nameInput.getText());
+            Game.getPlayer().setDifficulty(getDifficulty(difficultySelection));
+            new MapPane(getDifficulty(difficultySelection),drawing);
+            Game.getPlayer().reset();
             window.setScene(futurScene);
           }
         });

@@ -14,12 +14,7 @@ public class Word implements Runnable{
         }
     }
 
-    public void drawWord(){
-            for (Enemy enemy : lettres){
-                PlayScreen.drawing.draw(enemy);
-            }
 
-    }
     public void launchWord(){
 
         for (Enemy enemy :  lettres){

@@ -12,7 +12,7 @@ import java.math.*;
 import java.util.ArrayList;
 
 public class MapPane {
-
+    private static Drawing drawing;
 
 
     private static ArrayList<ArrayList<Point>> allRoutes=new ArrayList<>() ;                //Path et Track existe en javafx, considérer path pour afficher le chemin
@@ -64,21 +64,21 @@ public class MapPane {
     }
     };
 
-    public MapPane(int difficulty){
+    public MapPane(int difficulty,Drawing d){
         loadRoute(getTrack(difficulty));  /// changer par un fichier
-
+        drawing=d;
         final ImageView selectedImage = new ImageView();
         Image image1 = new Image(MapPane.class.getResourceAsStream("backgroundInteliji.jpg"));
         selectedImage.setImage(image1);
         selectedImage.setFitHeight(700);
         selectedImage.setFitWidth(1165);
-        PlayScreen.drawing.getChildren().add(selectedImage);
+        d.getChildren().add(selectedImage);
         draw();
     }
 
     public static void draw(){
         for (ArrayList<Point> track : allRoutes) {
-            PlayScreen.drawing.drawRoute(track);
+            drawing.drawRoute(track);
         }
     }
     private void loadRoute(int[][][] alltracks){       //lira un fichier, à changer, ou bien créer fonction fichier to int [][] "read track" et garder les tracks par défaut dans le code comme fait là

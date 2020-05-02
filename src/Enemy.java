@@ -89,15 +89,12 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
     public void setAlive(){
         this.alive = true;
         this.t.start();
-        Game.player.addEnemy(this);
-        Platform.runLater(() ->PlayScreen.drawing.draw(this));
-
     }
 
     //prévient toutes les tourelles qui le vise qu'il est mort + die()
     private void killed(){
         die();
-        Game.player.addGold(reward);
+        Game.getPlayer().addGold(reward);
         for(Tower killer: targetingTowers){
             killer.targetIsDead(this);
         }
@@ -109,7 +106,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
         //on peut pas toucher à des element javafx depuis un autre thread
 
         //Platform.runLater(() -> PlayScreen.drawing.getChildren().remove(Moveable));
-        Game.player.getEnemiesOnMap().remove(this);
+        Game.getPlayer().getEnemiesOnMap().remove(this);
 
     }
 
@@ -176,19 +173,19 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
 
     private void reachEndPoint(){
         this.die();
-        Game.player.decreaseLife(this.getEnemyPower());
+        Game.getPlayer().decreaseLife(this.getEnemyPower());
 
     }
 
 
-    public void update(){
+    public void update(Drawing drawing){
         if (alive) {
             lettreText.setX(origin.getX());
             lettreText.setY(origin.getY());
             lettreText.setRotate(angle*360/2/Math.PI);
             if (lifePoints<=maxLifePoints/2){lettreText.setFill(Color.web("FF7B2C"));}
         }
-        else {PlayScreen.drawing.removeMoveable(this);}
+        else {drawing.removeMoveable(this);}
     }
     public boolean isAlive(){
         return alive;
