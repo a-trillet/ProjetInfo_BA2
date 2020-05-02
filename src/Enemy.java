@@ -25,13 +25,14 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
     private transient Thread t;
     private String lettre;
     private transient Text lettreText;
+    private Color color;
     private boolean frozen = false;
     private double freezeStartTime;
     private double freezeDuration;
 
     //attributs venant des s-classe
     protected String enemyType;
-    protected double enemySpeed;
+    private double enemySpeed=12;
     protected double maxLifePoints;
     protected int reward;
     protected int enemyPower;     //cbdDeVieRetireraPlayerSiArriveaLaFin
@@ -46,9 +47,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
         t = new Thread(this);
         this.lettre=lettre;
         createLettre(lettre);
-
-
-
+        angle=Math.atan2((trackPoints.get(nextPoint).getY()-origin.getY()),(trackPoints.get(nextPoint).getX()-origin.getX()));
     }
     private void createLettre(String lettre){
         lettreText=new Text(lettre);
@@ -150,8 +149,8 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
             int deltaX = (int) (this.trackPoints.get(nextPoint).getX() - origin.getX());
             int deltaY = (int) (this.trackPoints.get(nextPoint).getY() - origin.getY());
 
-            double dx = enemySpeed / 15 * deltaX / dist;
-            double dy = enemySpeed / 15 * deltaY / dist;
+            double dx = enemySpeed/15  * deltaX / dist;
+            double dy = enemySpeed/15  * deltaY / dist;
             origin.setX(origin.getX() + dx);
             origin.setY(origin.getY() + dy);
 
@@ -162,7 +161,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
             origin.setY(trackPoints.get(nextPoint).getY());  //nextpoint c'est un int qui definit l'endroitde la liste ou l'element  est un point qu 'il va atteindre
             if (trackPoints.size()-1>nextPoint){
                 nextPoint++;
-
+                angle=Math.atan2((trackPoints.get(nextPoint).getY()-trackPoints.get(nextPoint-1).getY()),(trackPoints.get(nextPoint).getX()-trackPoints.get(nextPoint-1).getX()));
 
             }
             else {reachEndPoint();}
@@ -186,6 +185,8 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
         if (alive) {
             lettreText.setX(origin.getX());
             lettreText.setY(origin.getY());
+            lettreText.setRotate(angle*360/2/Math.PI);
+            if (lifePoints<=maxLifePoints/2){lettreText.setFill(Color.web("FF7B2C"));}
         }
         else {PlayScreen.drawing.removeMoveable(this);}
     }

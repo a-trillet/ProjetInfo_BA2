@@ -99,8 +99,7 @@ public class Drawing extends Pane  {
     }
 
     public void drawSaving(){
-        Platform.runLater(() ->{
-            Text sav = new Text(5,5,"Saving...");
+            Text sav = new Text(100,100,"Saving...");
             sav.setFill(Color.WHITE);
             this.getChildren().add(sav);
             try {
@@ -109,7 +108,6 @@ public class Drawing extends Pane  {
                 e.printStackTrace();
             }
             this.getChildren().remove(sav);
-        });
     }
     public ArrayList<Moveable> getMoveables(){return moveables;}
 
