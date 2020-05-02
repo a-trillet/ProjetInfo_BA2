@@ -39,24 +39,6 @@ public class Game extends Application {
 
         window = stage;
 
-
-        //Button menu
-        //Button menuButton = new Button("Return to Menu");
-        //menuButton.setOnAction(e -> window.setScene(scene1));
-
-        // Button setting
-       // Button settingButton = new Button("Settings");
-        //settingButton.setOnAction(e -> {
-          // ParameterScene.display("Setting box","Modify preferences here...",);});
-        //Button play
-        //Button playButton = new Button("Play");
-        //playButton.setOnAction(e->{
-           // window.setScene(scene2);
-       // });
-
-
-
-
         //Layout 2 choice of save file
         HBox layout2 = new HBox(20);
         layout2.setAlignment(Pos.CENTER);
@@ -82,8 +64,8 @@ public class Game extends Application {
             else {
                 save1.setOnMouseClicked(e -> {
                     fileString = "Game" + ii + ".sav";// permet de savoir le nom  du fichier dans lequel save et qu'il soit associable a un bouton
-                    ParameterScene.display("Modify preferences here...", window,scene3, player); //ajoute a window
-                        // a la fin associe scene 3 a window
+                    ParameterScene.display("Modify preferences here...", window,scene3, player); //ajoute a window 1 première scene avec choix de diff puis
+                        // a la fin associe scene 3 a window (creer aussi un mapPAne avec la bonne difficultée
 
                 });
             }
