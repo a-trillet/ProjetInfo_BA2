@@ -26,11 +26,45 @@ public class MapPane {
             {550,50}
     }
     };
+    private int[][][] normalTrack= {{
+            {400,50},
+            {300,50},
+            {300,400},
+            {550,400}},{
+            {400,50},
+            {50,200},
+            {550,200},
+            {550,50}
+    }
+    };
+    private int[][][] hardTrack= {{
+            {400,50},
+            {300,50},
+            {300,400},
+            {550,400}},{
+            {400,50},
+            {50,200},
+            {550,200},
+            {550,50}
+    }
+    };
+    private int[][][] insaneTrack= {{
+            {400,50},
+            {300,50},
+            {300,400},
+            {550,400}},{
+            {400,50},
+            {50,200},
+            {550,200},
+            {550,50}
+    }
+    };
 
     public MapPane(int difficulty){
-        loadRoute(easyTrack);  /// changer par un fichier
+        loadRoute(getTrack(difficulty));  /// changer par un fichier
         draw();
     }
+
     public static void draw(){
         for (ArrayList<Point> track : allRoutes) {
             PlayScreen.drawing.drawRoute(track);
@@ -106,5 +140,22 @@ public class MapPane {
 
     public static void addRoutes(ArrayList<ArrayList<Point>> newallroutes){allRoutes=newallroutes;System.out.println(allRoutes);}
 
-
+    private  int[][][] getTrack(int difficulty){
+        int[][][] track = null;
+        switch (difficulty){
+            case 1 :
+                track = easyTrack;
+                break;
+            case 2 :
+                track = normalTrack;
+                break;
+            case 3 :
+                track = hardTrack;
+                break;
+            case 4 :
+                track = insaneTrack;
+                break;
+        }
+        return track;
+    }
 }
