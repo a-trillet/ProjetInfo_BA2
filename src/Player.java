@@ -106,7 +106,6 @@ public class Player implements Serializable {
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
     {
         aInputStream.defaultReadObject();
-        new MapPane(difficulty);
         enemyFactory = new EnemyFactory(difficulty);
     }
 

@@ -1,6 +1,10 @@
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.math.*;
 
 import java.util.ArrayList;
@@ -25,6 +29,9 @@ public class MapPane {
 
     public MapPane(int difficulty){
         loadRoute(easyTrack);  /// changer par un fichier
+        draw();
+    }
+    public static void draw(){
         for (ArrayList<Point> track : allRoutes) {
             PlayScreen.drawing.drawRoute(track);
         }

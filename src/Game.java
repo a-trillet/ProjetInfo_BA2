@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import javax.print.DocFlavor;
 import java.io.*;
+import java.util.ArrayList;
 
 import static java.lang.Integer.sum;
 
@@ -98,7 +99,9 @@ public class Game extends Application {
         MapEditor mapEditor = new MapEditor(endMapEditor);
         endMapEditor.setOnMouseClicked(e->{window.setScene(scene3);
             MapPane.addRoutes(mapEditor.getAllRoutes());
+            fileString = "Game3.sav";
             player.reset();
+            PlayScreen.drawing.drawLifeGold();
         });
 
         editMapButton.setOnMouseClicked(e->{
@@ -127,7 +130,6 @@ public class Game extends Application {
 
 
 
-
         window.show();
 
     }
@@ -142,6 +144,7 @@ public class Game extends Application {
     public static void save() throws Exception{
 
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileString));
+        oos.writeObject(MapPane.getAllRoutes());
         oos.writeObject(player);
         oos.close();
         System.out.println("Saving"+player.getLives());
@@ -150,6 +153,10 @@ public class Game extends Application {
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename));
         System.out.println("Loading");
         try {
+            //new MapPane(0);
+            ArrayList<ArrayList<Point>>allRoutes = (ArrayList<ArrayList<Point>>)ois.readObject();
+            MapPane.addRoutes(allRoutes);
+            MapPane.draw();
             player = (Player) ois.readObject();
             System.out.println("Object loaded: " + player.getName());
         } catch (ClassNotFoundException | IOException e1) {
