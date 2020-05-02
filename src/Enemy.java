@@ -8,13 +8,14 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.net.ProtocolFamily;
 import java.util.ArrayList;
 
 
 public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serializable {
     private static final long serialVersionUID = 1L;
     private ArrayList<Point> trackPoints;
-    private int nextPoint=1;
+    private int nextPoint=0;
     private Point origin;
     private double angle;
 
@@ -36,23 +37,25 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
     protected int enemyPower;     //cbdDeVieRetireraPlayerSiArriveaLaFin
 
 
-    public Enemy(ArrayList<Point> trackPoints,String lettre, Point origin, double life, int reward){
+    public Enemy(ArrayList<Point> trackPoints,String lettre ,Point point, double life, int reward){
         this.trackPoints=trackPoints;   //liste de points par lesquels l'ennemi passe (point de changement de direction)
-        this.trackPoints.add(0,origin);
-        this.origin = new Point(origin.getX()+5,origin.getY()+5);
+        origin=new Point(point.getX(),point.getY());
         this.lifePoints = life;
         this.maxLifePoints = life;
         this.reward = reward;
         t = new Thread(this);
-        this.lettre = lettre;
-        lettreText= createLettre();
+        this.lettre=lettre;
+        createLettre(lettre);
+
 
 
     }
-    private Text createLettre(){
-        Text lettre = new Text(origin.getX(),origin.getY(),this.lettre);
-        lettre.setFill(Color.RED);
-        return lettre;
+    private void createLettre(String lettre){
+        lettreText=new Text(lettre);
+        lettreText.setX(origin.getX());
+        lettreText.setY(origin.getY());
+        lettreText.setFill(new Color(1,0,0,1));
+        lettreText.setFont(new Font(15));
     }
     public String getEnemyType(){
         return enemyType;
@@ -143,9 +146,9 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
 
     public void move(){
         if (origin.distance(trackPoints.get(nextPoint))>enemySpeed){
-            double dist = trackPoints.get(nextPoint).distance(trackPoints.get(nextPoint-1));
-            int deltaX = (int) (this.trackPoints.get(nextPoint).getX() - this.trackPoints.get(nextPoint-1).getX());
-            int deltaY = (int) (this.trackPoints.get(nextPoint).getY() - this.trackPoints.get(nextPoint-1).getY());
+            double dist = trackPoints.get(nextPoint).distance(origin);
+            int deltaX = (int) (this.trackPoints.get(nextPoint).getX() - origin.getX());
+            int deltaY = (int) (this.trackPoints.get(nextPoint).getY() - origin.getY());
 
             double dx = enemySpeed / 15 * deltaX / dist;
             double dy = enemySpeed / 15 * deltaY / dist;
@@ -181,7 +184,8 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
 
     public void update(){
         if (alive) {
-            lettreText.relocate(this.origin.getX(), this.origin.getY());
+            lettreText.setX(origin.getX());
+            lettreText.setY(origin.getY());
         }
         else {PlayScreen.drawing.removeMoveable(this);}
     }
@@ -225,7 +229,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
     {
         aInputStream.defaultReadObject();
-        lettreText = createLettre();
+        createLettre(lettre);
         t = new Thread(this);
         this.setAlive();
     }

@@ -59,7 +59,7 @@ public class EnemyFactory implements Runnable, Serializable {
         Point origin = new Point(50,50);
         Random r =new Random();
         for (String word : wavesDifficulties[diff-1][wave-1].split(" ")) {
-            sentence.add(new Word(word, new Point(origin.getX(), origin.getY()),MapPane.getAllRoutes().get(r.nextInt(allroute.size()-1))));
+            sentence.add(new Word(word, new Point(origin.getX(), origin.getY()),MapPane.getAllRoutes().get(r.nextInt(allroute.size()))));
 
             origin.setX(origin.getX()+(7*(1+word.length())));                  //place les mots en lignes, séparés
         }
@@ -103,11 +103,10 @@ public class EnemyFactory implements Runnable, Serializable {
             for (Word word : activeWave) {
                 for(Enemy e : word.getLettres()){
                     e.setAlive();
-                    Thread.sleep(20);
                 }
             }
             // le jeu est sauvé quand tous les élément de la wave sont sortis
-            Thread.sleep(100);
+            Thread.sleep(1000);
             Game.save();
             //PlayScreen.drawing.drawSaving();           // marche pas
 
