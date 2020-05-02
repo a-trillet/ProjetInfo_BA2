@@ -1,3 +1,5 @@
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -12,8 +14,10 @@ import java.util.ArrayList;
 public class MapPane {
 
 
+
     private static ArrayList<ArrayList<Point>> allRoutes=new ArrayList<>() ;                //Path et Track existe en javafx, considérer path pour afficher le chemin
     public static ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
+
 
     private int[][][] easyTrack= {{
             {400,50},
@@ -62,6 +66,13 @@ public class MapPane {
 
     public MapPane(int difficulty){
         loadRoute(getTrack(difficulty));  /// changer par un fichier
+
+        final ImageView selectedImage = new ImageView();
+        Image image1 = new Image(MapPane.class.getResourceAsStream("backgroundInteliji.jpg"));
+        selectedImage.setImage(image1);
+        selectedImage.setFitHeight(700);
+        selectedImage.setFitWidth(1165);
+        PlayScreen.drawing.getChildren().add(selectedImage);
         draw();
     }
 

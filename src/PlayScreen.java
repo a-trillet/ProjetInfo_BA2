@@ -68,10 +68,6 @@ public class PlayScreen{
         });*/
         map.getChildren().addAll(testButton);
 
-        //intégration d'images test (je savais pas ou mettre)
-        //final ImageView selectedImage = new ImageView();
-        //Image image1 = new Image(PlayScreen.class.getResourceAsStream("AntoineBg.jpg"));
-        //selectedImage.setImage(image1);
 
 
 
