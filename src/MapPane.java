@@ -55,9 +55,8 @@ public class MapPane {
 
         for ( int i = 0; i<= allRoutes.size()-1; i++){            //applique ce qui suit à chaque route (i =0,1)
 
-
-
             for ( int j = 0; j <= allRoutes.get(i).size()-2; j++) {     // -2 car comme ça fait le calcul autant de fois qu'il y a de points-1 (càd autant qu'il y a de segment) (j =0,1,2 qd i = 0)
+
                 if (!bol) {
                     break;
                 }
@@ -103,6 +102,8 @@ public class MapPane {
         }
         return bol;
     }
+
+
     public static void addRoutes(ArrayList<ArrayList<Point>> newallroutes){allRoutes=newallroutes;System.out.println(allRoutes);}
 
 

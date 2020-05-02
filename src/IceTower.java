@@ -7,7 +7,7 @@ public class IceTower extends Tower {
     private static  double newDamage = 0;
     private static int newReloadTime = 5000;
     private static int newBulletRange = 40;
-    private static int newFreezeTime = 2000;
+    private static double newFreezeTime = 2000;
     private String type = "Ice tower";
 
     public IceTower(Point origin) {
