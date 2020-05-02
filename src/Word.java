@@ -9,7 +9,7 @@ public class Word implements Runnable{
 
         for (String lettre : s.split("")){
             Enemy enemy = new NormalEnemy(route, new Point(origin.getX(),origin.getY()), lettre); //faire fct qui crée un type d'ennmi selon la lettre
-            origin.setX(origin.getX()+7);
+            origin.setX(origin.getX()+10);
             lettres.add(enemy);
         }
     }
