@@ -20,3 +20,14 @@
     			}
     		}
     	}
+"Les Text"
+    https://www.tutorialspoint.com/javafx/javafx_text.htm
+"fonction son"
+    public void play_audio(){
+    AudioClip note = new AudioClip(this.getClass().getResource('sample.wav').toString());
+
+    note.play();
+    }
+
+    java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
+    java.lang.IllegalStateException: Not on FX application thread; currentThread = Thread-27

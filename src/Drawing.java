@@ -63,6 +63,7 @@ public class Drawing extends Pane  {
 
 
 
+
     public void drawRoute(ArrayList<Point> route){
         //crée une suite de ligne, permet de faire des arcs de cercles ect facilement
         Path path = new Path();
@@ -94,6 +95,21 @@ public class Drawing extends Pane  {
         moveables.remove(moveable);
         this.getChildren().remove(moveable.getShape());
     }
+
+    public void drawSaving(){
+        Platform.runLater(() ->{
+            Text sav = new Text(5,5,"Saving...");
+            sav.setFill(Color.WHITE);
+            this.getChildren().add(sav);
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            this.getChildren().remove(sav);
+        });
+    }
+    public ArrayList<Moveable> getMoveables(){return moveables;}
 
 
         }
