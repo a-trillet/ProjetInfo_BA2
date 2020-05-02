@@ -55,11 +55,12 @@ public class Bullet implements Runnable, Serializable ,Moveable{
     public void explode() {      //hurt les ennemis dont l'origine est dans la range de la bullet
         for(int i=0; i<Game.player.getEnemiesOnMap().size(); i++){
             Enemy enemy=Game.player.getEnemiesOnMap().get(i);
+            if (freezeBullet) {
+                enemy.freeze(this.motherTower);
+            }
             if(enemy.getCentre().distance(this.centre)<range) {
                 enemy.hurt(this);
-                if (freezeBullet) {
-                    enemy.freeze(this.motherTower); // trouve le tps de freeze associé à la tour qui emet la bullet ,permet d'envoyer a enemy que: e est bien frozen, fixe un demarrage et une durée
-                }
+
             }
         }
     }
