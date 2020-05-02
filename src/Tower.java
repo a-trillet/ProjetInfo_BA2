@@ -112,7 +112,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     }
 
     public double getDamage() {
-        return (levelMax);
+        return (damage*(uprgradeBase + (level-1)*upgradeMultiplier));
     }
 
     public int getLevel() {
