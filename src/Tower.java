@@ -9,33 +9,27 @@ import java.util.ArrayList;
 public class Tower implements MapClickable, Runnable, Serializable {
 
     private static final long serialVersionUID = 1L;
+    private static int levelMax = 3;
 
 
     private int frequency = 50;
-
-
-    private int[] upgradeCost = {50, 100, 200};
-    private Point centre;
+    private int upgradeCost = 50;
     private int level;
-    private static int levelMax = 3;
     private Enemy targetEnemy = null;
+    private Point centre;
 
-    protected String towerType;
     protected static int cost;
     protected double damage;
     protected double range;
     protected int reloadTime;
     protected int bulletRange;
-    protected int freezeTime;
+    protected double freezeTime;
+    protected String towerType;
 
     private boolean active = true;
     private double uprgradeBase = 1.0;      // vont servir à augmenter le range et damage
     private double upgradeMultiplier = 0.5; //
-
-
-
-    private int numberOfKill;  //l'idée serait de permettre  l'amélioration des tourelles
-                                // que si elle a suffisament tué( + possibilité de rajouter une valeur à chaque classe de ennemi)
+    private int numberOfKill;
     private transient Thread thread = new Thread(this);
 
     public Tower(Point origin){
@@ -46,7 +40,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
     public void SetActive(){
         thread.start();
     }
-
 
     private Enemy selectTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour
         Enemy target = null;
@@ -63,27 +56,15 @@ public class Tower implements MapClickable, Runnable, Serializable {
         }
         return target;
     }
+
     public void targetIsDead(Enemy enemi){
         numberOfKill += 1;      // modifiable selon valeur du mob
         //targetEnemy = selectTarget();   // change la cible quand le mob meurt( ou sort de la range: RAJOUTER autre part)
     }
 
-
     public boolean isOn(Point p){
         return (centre.getY() -15< p.getY() && centre.getY() + 15 > p.getY() && centre.getX() -15< p.getX() && centre.getX() + 15 > p.getX());
         }
-
-
-    @Override
-    public Point getCentre(){
-        return centre;
-    }
-
-
-    @Override
-    public Info getInfo() {
-        return new InfoTower(this);
-    }
 
     public String upgrade(){
         String messageUpgrade;
@@ -91,6 +72,10 @@ public class Tower implements MapClickable, Runnable, Serializable {
             if (Game.player.getGold() >= getUpgradeCost()) {
                 Game.player.addGold(-getUpgradeCost());
                 level += 1;
+                damage = damage*(uprgradeBase + (level-1)*upgradeMultiplier);
+                range = range *(uprgradeBase + (level-1)*upgradeMultiplier);
+                freezeTime = freezeTime*(uprgradeBase + (level-1)*upgradeMultiplier);
+                upgradeCost = upgradeCost * (level);
 
                 messageUpgrade = "Upgraded";
             } else {
@@ -103,42 +88,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
         return messageUpgrade;
     }   // + retirer argent selon cout de upgrade qui appartiendrait à fire tower. + changer stats damages,...
 
-    public int getFrequency() {
-        return frequency;
-    }
-
-    public static int  getCost() {
-        return cost;
-    }
-
-    public double getDamage() {
-        return (damage*(uprgradeBase + (level-1)*upgradeMultiplier));
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public double getRange() {
-        return (range *(uprgradeBase + (level-1)*upgradeMultiplier)  ); //à chaque level le range est mult par 1.5 puis 2
-    }
-
-    public double getFreezeTime(){
-        return (freezeTime*(uprgradeBase + (level-1)*upgradeMultiplier) );
-    }
-
-    public int getNumberOfKill() {
-        return numberOfKill;
-    }
-
-    public int getUpgradeCost() {
-        return upgradeCost[level-1];
-    }
-
-    public String getTowerType(){
-        return this.towerType;
-    }
-
     public void shoot(){
         Tower t = this;
         double degats = this.getDamage();
@@ -149,6 +98,14 @@ public class Tower implements MapClickable, Runnable, Serializable {
                 PlayScreen.drawing.draw(new Bullet(degats,t,bulletRange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
             }
         });
+    }
+
+    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
+    {
+        aInputStream.defaultReadObject();
+        PlayScreen.drawing.drawSquare(this.centre, TowerMaker.getColor(towerType),30);
+        thread = new Thread(this);
+        this.SetActive();
     }
 
     @Override
@@ -165,7 +122,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
             }
             if (targetEnemy != null) {
                 shoot();
-               // targetEnemy.decreaseLife(damage);
+                // targetEnemy.decreaseLife(damage);
                 System.out.println("shoot"+targetEnemy.getCentre().getY());
                 try {
                     Thread.sleep(reloadTime);
@@ -184,18 +141,54 @@ public class Tower implements MapClickable, Runnable, Serializable {
         }
 
     }
-    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
-    {
-        aInputStream.defaultReadObject();
-        PlayScreen.drawing.drawSquare(this.centre, TowerMaker.getColor(towerType),30);
-        thread = new Thread(this);
-        this.SetActive();
+
+
+    @Override
+    public Point getCentre(){
+        return centre;
+    }
+
+    @Override
+    public Info getInfo() {
+        return new InfoTower(this);
     }
 
 
 
+    public int getFrequency() {
+        return frequency;
+    }
 
+    public static int getCost() {
+        return cost;
+    }
 
+    public double getDamage() {
+        return damage;
+    }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public double getRange() {
+        return range;
+    }
+
+    public double getFreezeTime(){
+        return freezeTime;
+    }
+
+    public int getNumberOfKill() {
+        return numberOfKill;
+    }
+
+    public int getUpgradeCost() {
+        return upgradeCost;
+    }
+
+    public String getTowerType(){
+        return this.towerType;
+    }
 
 }
