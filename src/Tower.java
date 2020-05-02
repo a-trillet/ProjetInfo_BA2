@@ -101,11 +101,13 @@ public class Tower implements MapClickable, Runnable, Serializable {
     }
 
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
-    {
+    {   if (Game.isOnGame) {
         aInputStream.defaultReadObject();
-        PlayScreen.drawing.drawSquare(this.centre, TowerMaker.getColor(towerType),30);
+        PlayScreen.drawing.drawSquare(this.centre, TowerMaker.getColor(towerType), 30);
         thread = new Thread(this);
         this.SetActive();
+    }
+    else{aInputStream.defaultReadObject(); }
     }
 
     @Override

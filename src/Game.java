@@ -23,6 +23,7 @@ public class Game extends Application {
     //public static Drawing drawing= new Drawing();
     public static Player player= new Player();
     public static String fileString;
+    public static boolean isOnGame = false;
 
 
 
@@ -49,8 +50,9 @@ public class Game extends Application {
             String ii = String.valueOf(i);
             Button save1 = new Button("New Game");// si le file existe, alors essayer de mettre le nom de player si possible
             if (checkFileExists("Game"+ii+".sav")){
-                save1.setText("Game"+ii+".sav");
+                save1.setText(loadName("Game"+ii+".sav"));
                 save1.setOnMouseClicked(e-> {
+                    isOnGame=true;
                     try {
                         load("Game"+ii+".sav");
                     } catch (Exception ex) {
@@ -63,7 +65,7 @@ public class Game extends Application {
             }
             else {
                 save1.setOnMouseClicked(e -> {
-
+                    isOnGame=true;
                     fileString = "Game" + ii + ".sav";// permet de savoir le nom  du fichier dans lequel save et qu'il soit associable a un bouton
                     ParameterScene.display("Set your name and choose difficulty", window,scene3); //ajoute a window 1 première scene avec choix de diff puis
                         // a la fin associe scene 3 a window (creer aussi un mapPAne avec la bonne difficultée
@@ -142,6 +144,12 @@ public class Game extends Application {
             e1.printStackTrace();
         }
         ois.close();
+    }
+    private String loadName(String fileName) throws Exception{
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName));
+        ArrayList<ArrayList<Point>>allRoutes1 = (ArrayList<ArrayList<Point>>)ois.readObject();
+        Player player1 = (Player) ois.readObject();
+        return player1.getName();
     }
 
     public static boolean checkFileExists(String s){

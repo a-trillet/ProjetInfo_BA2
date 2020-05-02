@@ -31,3 +31,4 @@
 
     java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
     java.lang.IllegalStateException: Not on FX application thread; currentThread = Thread-27
+    java.lang.reflect.InvocationTargetException
