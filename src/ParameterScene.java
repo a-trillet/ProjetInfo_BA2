@@ -14,33 +14,28 @@ public class ParameterScene {
 
       public static void display( Stage window, Scene futurScene,Drawing drawing){
 
-        StackPane rootPane = new StackPane();
-
-        GridPane gridPane = new GridPane();
-
-        VBox layout = new VBox();
-        layout.setPadding(new Insets(160,20,0,20));
-        layout.setSpacing(30);
-
-
-
+        StackPane stackPane = new StackPane();
         //background
         Image image1 = new Image(PlayScreen.class.getResourceAsStream("ideaFinal.jpg"));
         BackgroundImage backgroundimage = new BackgroundImage(image1, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundimage);
 
+
+
+
+        VBox layout = new VBox();
+        layout.setPadding(new Insets(150,20,0,20));
+        layout.setSpacing(30);
+
+
+
+
+
         //mise en place du nom du joueur
         TextField nameInput = new TextField();
-        nameInput.setPrefColumnCount(2);
+        nameInput.setMaxWidth(120);
 
-        //label pour name / difficulty
-        Label nameLabel = new Label();
-        nameLabel.setText("Name : ");
-        GridPane.setConstraints(nameLabel,5,5);
-        Label difficultyLabel = new Label();
-        difficultyLabel.setText("Difficulty");
-        GridPane.setConstraints(difficultyLabel,10,500);
-        gridPane.getChildren().addAll(nameLabel,difficultyLabel);
+
 
 
           // creation bouton sélection de difficulté
@@ -71,18 +66,27 @@ public class ParameterScene {
           }
         });
 
+        //label pour name / difficulty
 
+        Label nameLabel = new Label();
+        nameLabel.setText("Name : ");
+        nameLabel.relocate(10,20);
+        Label difficultyLabel = new Label();
+        difficultyLabel.setText("Difficulty");
+        nameLabel.relocate(difficultySelection.getLayoutX() -50,difficultySelection.getLayoutY());
+
+        stackPane.setBackground(background);
+        stackPane.getChildren().addAll(difficultyLabel,nameLabel);
         layout.getChildren().addAll( nameInput, difficultySelection,closeButton,labelError1);
-        layout.setAlignment(Pos.CENTER);
-        layout.setBackground(background);
-        rootPane.getChildren().addAll(layout, gridPane);
+        layout.setAlignment(Pos.BOTTOM_CENTER);
+        stackPane.getChildren().addAll(layout);
 
 
 
 
 
 
-        Scene scene = new Scene(rootPane, 641, 402);
+        Scene scene = new Scene(stackPane, 641, 402);
         window.setScene(scene);
 
 

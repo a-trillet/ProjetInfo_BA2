@@ -50,9 +50,13 @@ public class Game extends Application {
 
         //Layout 2 choice of save file
         HBox layout2 = new HBox(20);
-        layout2.setAlignment(Pos.CENTER);
-        layout2.setBackground(background);
-        scene2 = new Scene(layout2 , 641, 402);
+
+
+        StackPane stackPane = new StackPane();
+        stackPane.setBackground(background);
+        stackPane.getChildren().add(layout2);
+        layout2.relocate(320,200);
+        scene2 = new Scene(stackPane , 641, 402);
 
         // buttons for every file
         for (int i =1 ; i<=3 ; i++ ){
