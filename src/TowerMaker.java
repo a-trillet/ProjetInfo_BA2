@@ -42,7 +42,7 @@ public class TowerMaker {
             if (tower.isOn(to.getCentre())) {
                 res = false;
             }}
-        if (!MapPane.isOn(to.getCentre())){ //vérifie si la tour touche le chemin
+        if (!Game.getPlayer().getMapFactory().isOn(to.getCentre())){ //vérifie si la tour touche le chemin
             res=false;
         }
         return res;

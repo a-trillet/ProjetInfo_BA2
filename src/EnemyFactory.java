@@ -11,11 +11,11 @@ import java.util.Random;
 public class EnemyFactory implements Runnable, Serializable {
     private static final long serialVersionUID = 1L;
     private transient Drawing drawing;
+    private ArrayList<ArrayList<Point>> allRoutes;
 
-    public EnemyFactory(int diff,Drawing d){
-        loadEnemyWaves(diff);
+    public EnemyFactory(int diff,Drawing d,ArrayList<ArrayList<Point>> allroutes){
+        loadEnemyWaves(diff,allroutes);
         this.drawing=d;
-
 
     }
 
@@ -56,12 +56,13 @@ public class EnemyFactory implements Runnable, Serializable {
     private static boolean waveInProgress = false;
 
 
-    private static LinkedList<Word> buildWave(int wave, int diff, ArrayList<ArrayList<Point>>allroute){
+    private static LinkedList<Word> buildWave(int wave, int diff,ArrayList<ArrayList<Point>> allRoutes){
+
         LinkedList<Word> sentence =  new LinkedList<>();
         Point origin = new Point(50,50);
         Random r =new Random();
         for (String word : wavesDifficulties[diff-1][wave-1].split(" ")) {
-            sentence.add(new Word(word, new Point(origin.getX(), origin.getY()),MapPane.getAllRoutes().get(r.nextInt(allroute.size()))));
+            sentence.add(new Word(word, new Point(origin.getX(), origin.getY()),allRoutes.get(r.nextInt(allRoutes.size()))));
 
             origin.setX(origin.getX()+(10*(1+word.length())));                  //place les mots en lignes, séparés
         }
@@ -69,10 +70,10 @@ public class EnemyFactory implements Runnable, Serializable {
     }
 
 
-    private static void  loadEnemyWaves(int difficulty){
+    private static void  loadEnemyWaves(int difficulty,ArrayList<ArrayList<Point>> allRoutes){
         ArrayList<LinkedList<Word>> enemyWaves = new ArrayList<>();
         for (int i =1; i <= wavesDifficulties[difficulty-1].length ; i++){
-            LinkedList<Word> wave = buildWave(i, difficulty,MapPane.getAllRoutes());
+            LinkedList<Word> wave = buildWave(i, difficulty,allRoutes);
             enemyWaves.add(wave);
         }
         allWaves = enemyWaves;

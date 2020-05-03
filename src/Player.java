@@ -18,6 +18,7 @@ public class Player implements Serializable {
     private  int wave = 0;
     private  transient EnemyFactory enemyFactory;
     private transient Drawing drawing;
+    private transient MapFactory mapFactory;
 
     public Player(Drawing d){
 
@@ -26,13 +27,13 @@ public class Player implements Serializable {
 
     }
 
-
+    public void  loadMap(MapFactory mapFactory){this.mapFactory=mapFactory;}
     public void reset() {
         lifePoints = startingLives[difficulty - 1];
         gold = startingGold;
         towerList = new ArrayList<>();
         enemiesOnMap = new ArrayList<>();
-        enemyFactory = new EnemyFactory(difficulty,drawing);
+        enemyFactory = new EnemyFactory(difficulty,drawing,mapFactory.getAllRoutes());
         drawing.drawLifeGold();
 
     }
@@ -52,6 +53,10 @@ public class Player implements Serializable {
     public int getGold() {
         return gold;
     }
+
+    public void drawMap(){mapFactory.draw();}
+
+    public MapFactory getMapFactory(){return mapFactory;}
 
     public int getDifficulty() {
         return difficulty;
@@ -109,7 +114,8 @@ public class Player implements Serializable {
     {
         aInputStream.defaultReadObject();
         if(Game.isOnGame){
-            enemyFactory = new EnemyFactory(difficulty,drawing);
+            enemyFactory = new EnemyFactory(difficulty,drawing,mapFactory.getAllRoutes());
+
         }
     }
 

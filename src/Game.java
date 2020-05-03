@@ -92,14 +92,17 @@ public class Game extends Application {
         MapEditor mapEditor = new MapEditor(endMapEditor,drawing);
         endMapEditor.setOnMouseClicked(e->{
             window.setScene(scene3);
-            MapPane.addRoutes(mapEditor.getAllRoutes());
+            MapFactory mapPane=new MapFactory(1,drawing);
+            mapPane.addRoutes(mapEditor.getAllRoutes());
+            player.loadMap(mapPane);
+            player.drawMap();
             fileString = "Game3.sav";
             player.reset();
             drawing.drawLifeGold();
         });
 
         editMapButton.setOnMouseClicked(e->{
-            window.setScene(new Scene(mapEditor,1000,500));
+            window.setScene(new Scene(mapEditor,1350,730));
         });
         layout2.getChildren().add(editMapButton);
 
@@ -138,7 +141,7 @@ public class Game extends Application {
     public static void save() throws Exception{
 
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileString));
-        oos.writeObject(MapPane.getAllRoutes());
+        oos.writeObject(player.getMapFactory().getAllRoutes());
         oos.writeObject(player);
         oos.close();
         System.out.println("Saving"+player.getLives());
@@ -147,11 +150,9 @@ public class Game extends Application {
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename));
         System.out.println("Loading");
         try {
-            new MapPane(1,drawing);
             ArrayList<ArrayList<Point>>allRoutes = (ArrayList<ArrayList<Point>>)ois.readObject();
-            MapPane.addRoutes(allRoutes);
-            MapPane.draw();
             player = (Player) ois.readObject();
+            player.drawMap();
             System.out.println("Object loaded: " + player.getName());
         } catch (ClassNotFoundException | IOException e1) {
             e1.printStackTrace();

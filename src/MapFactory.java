@@ -7,16 +7,17 @@ import javafx.scene.shape.Rectangle;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.math.*;
 
 import java.util.ArrayList;
 
-public class MapPane {
-    private static Drawing drawing;
+public class MapFactory  {
+    private Drawing drawing;
 
 
-    private static ArrayList<ArrayList<Point>> allRoutes=new ArrayList<>() ;                //Path et Track existe en javafx, considérer path pour afficher le chemin
-    public static ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
+    private  ArrayList<ArrayList<Point>> allRoutes=new ArrayList<>() ;                //Path et Track existe en javafx, considérer path pour afficher le chemin
+    public   ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
 
 
     private int[][][] easyTrack= {{
@@ -64,19 +65,12 @@ public class MapPane {
     }
     };
 
-    public MapPane(int difficulty,Drawing d){
+    public MapFactory(int difficulty,Drawing d){
         loadRoute(getTrack(difficulty));  /// changer par un fichier
         drawing=d;
-        final ImageView selectedImage = new ImageView();
-        Image image1 = new Image(MapPane.class.getResourceAsStream("backgroundInteliji.jpg"));
-        selectedImage.setImage(image1);
-        selectedImage.setFitHeight(700);
-        selectedImage.setFitWidth(1165);
-        d.getChildren().add(selectedImage);
-        draw();
     }
 
-    public static void draw(){
+    public void draw(){
         for (ArrayList<Point> track : allRoutes) {
             drawing.drawRoute(track);
         }
@@ -92,7 +86,7 @@ public class MapPane {
 
     }
 
-    public static boolean isOn(Point point){       // renvoi false si point est trop proche du chemin ! fait en fct des dimensions des carrés des tower
+    public boolean isOn(Point point){       // renvoi false si point est trop proche du chemin ! fait en fct des dimensions des carrés des tower
         boolean bol = true;
         double x_C = point.getX();
         double y_C = point.getY();
@@ -149,7 +143,7 @@ public class MapPane {
     }
 
 
-    public static void addRoutes(ArrayList<ArrayList<Point>> newallroutes){allRoutes=newallroutes;System.out.println(allRoutes);}
+    public void addRoutes(ArrayList<ArrayList<Point>> newallroutes){allRoutes=newallroutes;System.out.println(allRoutes);}
 
     private  int[][][] getTrack(int difficulty){
         int[][][] track = null;
