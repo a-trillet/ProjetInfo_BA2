@@ -36,7 +36,8 @@ public class ParameterScene {
           else{
             Game.getPlayer().setName(nameInput.getText());
             Game.getPlayer().setDifficulty(getDifficulty(difficultySelection));
-            new MapPane(getDifficulty(difficultySelection),drawing);
+            Game.getPlayer().loadMap(new MapFactory(getDifficulty(difficultySelection),drawing));
+            Game.getPlayer().drawMap();
             Game.getPlayer().reset();
             window.setScene(futurScene);
           }

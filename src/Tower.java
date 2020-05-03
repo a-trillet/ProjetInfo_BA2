@@ -31,7 +31,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     private double upgradeMultiplier = 0.5; //
     private int numberOfKill;
     private transient Thread thread = new Thread(this);
-    private Drawing drawing;
+    private transient Drawing drawing;
 
     public Tower(Point origin,Drawing d){
         this.centre = origin;

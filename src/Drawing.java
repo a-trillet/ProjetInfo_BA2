@@ -6,6 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -25,13 +27,18 @@ public class Drawing extends Pane  {
 
     public Drawing(){
         super();
+        final ImageView selectedImage = new ImageView();
+        Image image1 = new Image(MapFactory.class.getResourceAsStream("backgroundInteliji.jpg"));
+        selectedImage.setImage(image1);
+        selectedImage.setFitHeight(700);
+        selectedImage.setFitWidth(1165);
+        this.getChildren().add(selectedImage);
         this.getChildren().add(new Tips("Bienvenue cher étudiant...",new Point(20,250),this));
         this.getChildren().add(labelGold);
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(20), event -> {
             for (int i = 0; i < moveables.size(); i++) {
                 moveables.get(i).update(this);
             }
-            //labelGold.setText("Gold : "+Game.player.getGold()+"\nLives : "+Game.player.getLives()+"/"+Game.player.getMaxLives()+"\nWave :"+Game.player.getWave());
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
