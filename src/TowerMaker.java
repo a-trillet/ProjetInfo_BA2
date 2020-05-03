@@ -29,7 +29,7 @@ public class TowerMaker {
             Game.getPlayer().addTower(t);
             drawing.drawSquare(p,color,30); //à changer par image
             Game.getPlayer().addGold(-t.getCost());  //peut etre à bouger
-            t.SetActive(); //tower commence à tirer
+            t.setActive(); //tower commence à tirer
         }
     }
 
