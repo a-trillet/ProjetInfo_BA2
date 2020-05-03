@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -41,10 +42,17 @@ public class Game extends Application {
 
         window = stage;
 
+        //background
+        Image image1 = new Image(PlayScreen.class.getResourceAsStream("ideaFinal.jpg"));
+        BackgroundImage backgroundimage = new BackgroundImage(image1, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        Background background = new Background(backgroundimage);
+
+
         //Layout 2 choice of save file
         HBox layout2 = new HBox(20);
         layout2.setAlignment(Pos.CENTER);
-        scene2 = new Scene(layout2 , 400, 300);
+        layout2.setBackground(background);
+        scene2 = new Scene(layout2 , 641, 402);
 
         // buttons for every file
         for (int i =1 ; i<=3 ; i++ ){
@@ -68,7 +76,7 @@ public class Game extends Application {
                 save1.setOnMouseClicked(e -> {
                     isOnGame=true;
                     fileString = "Game" + ii + ".sav";// permet de savoir le nom  du fichier dans lequel save et qu'il soit associable a un bouton
-                    ParameterScene.display("Set your name and choose difficulty", window,scene3,drawing); //ajoute a window 1 première scene avec choix de diff puis
+                    ParameterScene.display( window,scene3,drawing); //ajoute a window 1 première scene avec choix de diff puis
                         // a la fin associe scene 3 a window (creer aussi un mapPAne avec la bonne difficultée
 
                 });
@@ -107,7 +115,7 @@ public class Game extends Application {
 
 
         window.setScene(scene2);
-        window.setTitle("Debug Fighter 2");
+        window.setTitle("Intellij Fighter ");
         window.setOnCloseRequest(e -> {
             e.consume();
             closeProgram();

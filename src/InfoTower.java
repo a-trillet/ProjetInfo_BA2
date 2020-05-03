@@ -11,6 +11,7 @@ public class InfoTower extends  Info {
     private double range;
     private String towerType;
     private Point centre;
+    private int numberKill;
 
 
     public InfoTower(Tower tower) {
@@ -21,6 +22,7 @@ public class InfoTower extends  Info {
         this.range = tower.getRange();
         this.towerType = tower.getTowerType();
         this.centre = tower.getCentre();
+        this.numberKill = tower.getNumberOfKill();
 
 
     }
@@ -32,8 +34,9 @@ public class InfoTower extends  Info {
         String strDamage = "Damage : " + damage;
         String strFrequency = "Frequency : " + frequency;
         String strRange = "Range : " + range;
+        String strNumberOfKill = "Kill Counter : "+ numberKill;
 
-        return strType + "\n" + strLevel + "\n" + strDamage + "\n" + strFrequency + "\n" + strRange;
+        return strType + "\n" + strLevel + "\n" + strDamage + "\n" + strFrequency + "\n" + strRange + "\n"+ strNumberOfKill;
     }
 
     public double getRange() {

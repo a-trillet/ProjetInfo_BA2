@@ -25,6 +25,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     protected int bulletRange;
     protected double freezeTime;
     protected String towerType;
+    protected boolean powerActive = false;
 
     private boolean active = true;
     private double uprgradeBase = 1.0;      // vont servir à augmenter le range et damage
@@ -39,7 +40,14 @@ public class Tower implements MapClickable, Runnable, Serializable {
         level = 1;
     }
 
-    public void SetActive(){
+    public void powerActivation(){
+        powerActive = true;
+    }
+    public void powerDesactivation(){
+        powerActive = false;
+    }
+
+    public void setActive(){
         thread.start();
     }
 
@@ -88,7 +96,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
             messageUpgrade = "Level is maximal";
         }
         return messageUpgrade;
-    }   // + retirer argent selon cout de upgrade qui appartiendrait à fire tower. + changer stats damages,...
+    }
 
     public void shoot(){
         Tower t = this;
@@ -107,7 +115,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
         aInputStream.defaultReadObject();
         drawing.drawSquare(this.centre, TowerMaker.getColor(towerType), 30);
         thread = new Thread(this);
-        this.SetActive();
+        this.setActive();
     }
     else{aInputStream.defaultReadObject(); }
     }
