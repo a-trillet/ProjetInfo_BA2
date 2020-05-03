@@ -141,8 +141,8 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         GridPane.setConstraints(prix,0,6);
 
         Button basicTowerButton = new Button("Basic tower");
-        basicTowerButton.setOnMouseClicked(e-> {PlayScreen.towerType = "BASIC"; prix.setText(messPrix + String.valueOf(BasicTower.getNewCost()));});
-        basicTowerButton.setOnAction(e -> { if (Game.getPlayer().getGold() < BasicTower.getNewCost()){msgError.setText(messError);}});
+        basicTowerButton.setOnMouseClicked(e-> {PlayScreen.towerType = "BASIC"; prix.setText(messPrix + String.valueOf(StackTower.getNewCost()));});
+        basicTowerButton.setOnAction(e -> { if (Game.getPlayer().getGold() < StackTower.getNewCost()){msgError.setText(messError);}});
         GridPane.setConstraints(basicTowerButton,0,0);
 
 

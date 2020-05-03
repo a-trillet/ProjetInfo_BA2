@@ -1,6 +1,6 @@
 import javafx.scene.paint.Color;
 
-public class BasicTower extends Tower {
+public class StackTower extends Tower {
 
     private static  int basicTowerCost = 100;
     private static  double newRange = 75;
@@ -9,7 +9,7 @@ public class BasicTower extends Tower {
     private static int newBulletRange = 10;
     private String type = "Basic tower";
 
-    public BasicTower(Point origin,Drawing d){
+    public StackTower(Point origin,Drawing d){
         super(origin,d);
         this.cost = basicTowerCost;
         this.range = newRange;

@@ -27,12 +27,6 @@ public class Drawing extends Pane  {
 
     public Drawing(){
         super();
-        final ImageView selectedImage = new ImageView();
-        Image image1 = new Image(MapFactory.class.getResourceAsStream("backgroundInteliji.jpg"));
-        selectedImage.setImage(image1);
-        selectedImage.setFitHeight(700);
-        selectedImage.setFitWidth(1165);
-        this.getChildren().add(selectedImage);
         this.getChildren().add(new Tips("Bienvenue cher étudiant...",new Point(20,250),this));
         this.getChildren().add(labelGold);
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(20), event -> {

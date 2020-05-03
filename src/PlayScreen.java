@@ -24,6 +24,10 @@ public class PlayScreen{
 
     public PlayScreen(Drawing d){
         this.drawing=d;
+        Image image1 = new Image(PlayScreen.class.getResourceAsStream("backgroundInteliji.jpg"));
+        BackgroundImage backgroundimage = new BackgroundImage(image1, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        Background background = new Background(backgroundimage);
+        borderPane.setBackground(background);
         mapClickListener= new MapClickListener(borderPane,drawing);
     }
 
@@ -33,7 +37,7 @@ public class PlayScreen{
         map.getChildren().addAll(drawing);
         //drawing.setOnMouseClicked(e->{if (towerType!=null){new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));}});
         //drawing.setOnMouseReleased(new TowerButtonListener(drawing));
-        map.setBackground(new Background(new BackgroundFill(Color.rgb(40, 40, 40), CornerRadii.EMPTY, Insets.EMPTY)));
+        //map.setBackground(new Background(new BackgroundFill(Color.rgb(40, 40, 40), CornerRadii.EMPTY, Insets.EMPTY)));
         drawing.setOnMouseClicked(e->{
             if ( towerType!=null ) {
                 new TowerMaker(drawing, towerType, new Point(e.getX(), e.getY()));

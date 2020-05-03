@@ -17,7 +17,7 @@ public class TowerMaker {
                 color =new Color(0,0.1,1,0.7);
                 break;
             case "BASIC":
-                t = new BasicTower(p,drawing);
+                t = new StackTower(p,drawing);
                 color = new Color(0, 1,0,1);
                 break;
             case "SNIPER":

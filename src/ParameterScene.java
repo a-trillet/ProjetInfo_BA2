@@ -30,7 +30,7 @@ public class ParameterScene {
 
 
         //mise en place du nom du joueur
-        TextField nameInput = new TextField();
+        TextField nameInput = new TextField("Name");
         nameInput.setMaxWidth(120);
         nameInput.setOnMouseClicked(e -> nameInput.clear());
 
