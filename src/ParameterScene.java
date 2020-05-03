@@ -15,6 +15,7 @@ public class ParameterScene {
       public static void display( Stage window, Scene futurScene,Drawing drawing){
 
         StackPane stackPane = new StackPane();
+        GridPane gridPane = new GridPane();
         //background
         Image image1 = new Image(PlayScreen.class.getResourceAsStream("ideaFinal.jpg"));
         BackgroundImage backgroundimage = new BackgroundImage(image1, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);

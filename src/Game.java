@@ -49,13 +49,21 @@ public class Game extends Application {
 
 
         //Layout 2 choice of save file
-        HBox layout2 = new HBox(20);
-
-
         StackPane stackPane = new StackPane();
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(250,20,20,150));
+        HBox layout2 = new HBox(20);
+        GridPane.setConstraints(layout2,0,0);
+
+        grid.setPrefSize(641,402);
+        grid.isGridLinesVisible();
+
+
+
+        grid.getChildren().add(layout2);
         stackPane.setBackground(background);
-        stackPane.getChildren().add(layout2);
-        layout2.relocate(320,200);
+        stackPane.getChildren().addAll(grid);
+
         scene2 = new Scene(stackPane , 641, 402);
 
         // buttons for every file
