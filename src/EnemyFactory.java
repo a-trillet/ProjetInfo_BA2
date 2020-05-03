@@ -10,9 +10,11 @@ import java.util.Random;
 
 public class EnemyFactory implements Runnable, Serializable {
     private static final long serialVersionUID = 1L;
+    private transient Drawing drawing;
 
-    public EnemyFactory(int diff){
+    public EnemyFactory(int diff,Drawing d){
         loadEnemyWaves(diff);
+        this.drawing=d;
 
 
     }
@@ -77,11 +79,11 @@ public class EnemyFactory implements Runnable, Serializable {
 
     }
     public  void nextWave(){
-        if(Game.player.getWave() <allWaves.size() && !waveInProgress) {
+        if(Game.getPlayer().getWave() <allWaves.size() && !waveInProgress) {
 
-            activeWave = allWaves.get(Game.player.getWave());
-            Game.player.nextWave();
-            System.out.println("Wave " + Game.player.getWave());
+            activeWave = allWaves.get(Game.getPlayer().getWave());
+            Game.getPlayer().nextWave();
+            System.out.println("Wave " + Game.getPlayer().getWave());
             waveInProgress = true;
             launchWave();
         }
@@ -103,10 +105,12 @@ public class EnemyFactory implements Runnable, Serializable {
             for (Word word : activeWave) {
                 for(Enemy e : word.getLettres()){
                     e.setAlive();
+                    Game.getPlayer().addEnemy(e);
+                    Platform.runLater(()->drawing.draw(e));
                 }
             }
             // le jeu est sauvé quand tous les élément de la wave sont sortis
-            Thread.sleep(1000);
+            //Thread.sleep(1000);
             Game.save();
             //Platform.runLater(()-> PlayScreen.drawing.drawSaving());           // marche pas
 

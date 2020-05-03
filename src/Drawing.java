@@ -25,15 +25,14 @@ public class Drawing extends Pane  {
 
     public Drawing(){
         super();
-        this.getChildren().add(new Tips("Bienvenue cher étudiant...",new Point(20,250)));
+        this.getChildren().add(new Tips("Bienvenue cher étudiant...",new Point(20,250),this));
         this.getChildren().add(labelGold);
-        Timeline timer = new Timeline(new KeyFrame(Duration.millis(20), new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                for(int i =0;i< moveables.size();i++){moveables.get(i).update();}
-                //labelGold.setText("Gold : "+Game.player.getGold()+"\nLives : "+Game.player.getLives()+"/"+Game.player.getMaxLives()+"\nWave :"+Game.player.getWave());
-            }}));
+        Timeline timer = new Timeline(new KeyFrame(Duration.millis(20), event -> {
+            for (int i = 0; i < moveables.size(); i++) {
+                moveables.get(i).update(this);
+            }
+            //labelGold.setText("Gold : "+Game.player.getGold()+"\nLives : "+Game.player.getLives()+"/"+Game.player.getMaxLives()+"\nWave :"+Game.player.getWave());
+        }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
     }
@@ -41,7 +40,7 @@ public class Drawing extends Pane  {
         Platform.runLater(() -> {
             labelGold.relocate(20,400);
             labelGold.setTextFill(Color.web("FBF5FF"));
-            labelGold.setText("Gold : "+Game.player.getGold()+"\nLives : "+Game.player.getLives()+"/"+Game.player.getMaxLives()+"\nWave :"+Game.player.getWave());
+            labelGold.setText("Gold : " +Game.getPlayer().getGold()+"\nLives : "+Game.getPlayer().getLives()+"/"+Game.getPlayer().getMaxLives()+"\nWave :"+Game.getPlayer().getWave());
         });
 
 

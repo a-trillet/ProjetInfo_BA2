@@ -53,8 +53,8 @@ public class Bullet implements Runnable, Serializable ,Moveable{
     }
 
     public void explode() {      //hurt les ennemis dont l'origine est dans la range de la bullet
-        for(int i=0; i<Game.player.getEnemiesOnMap().size(); i++){
-            Enemy enemy=Game.player.getEnemiesOnMap().get(i);
+        for(int i=0; i<Game.getPlayer().getEnemiesOnMap().size(); i++){
+            Enemy enemy=Game.getPlayer().getEnemiesOnMap().get(i);
             if (freezeBullet) {
                 enemy.freeze(this.motherTower);
             }
@@ -89,12 +89,13 @@ public class Bullet implements Runnable, Serializable ,Moveable{
         }
 
 
-    public void update(){
+    public void update(Drawing drawing)
+    {
         if (alive) {
             circle.setCenterX(centre.getX());
             circle.setCenterY(centre.getY());
         }
-        else {PlayScreen.drawing.removeMoveable(this);}
+        else {drawing.removeMoveable(this);}
     }
 
 

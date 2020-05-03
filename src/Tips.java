@@ -7,13 +7,15 @@ import javafx.scene.text.Text;
 
 public class Tips extends Pane {
     private boolean disaplayed = false;
+    private Drawing drawing;
     private String[] showStrings={"Mais arrête!!!\n Tu ne penses quand même pas pouvoir venir\n à bout de ce projet sans mon aide",
             "Encore un étudiant qui se croit plus malin\n que les autres,... ",
             "Si tu clique encore une fois,\n je m'en irai pour toujours,\n je serai ... MORT!!! "};
     private int itShow = 0;
     private Text text;
-    public Tips(String text,Point point){
+    public Tips(String text,Point point,Drawing d){
         super();
+        drawing=d;
         this.relocate(point.getX(),point.getY());
 
         final ImageView selectedImage = new ImageView();
@@ -32,7 +34,7 @@ public class Tips extends Pane {
     private void actions(MouseEvent e){
         Point p = new Point(e.getX(),e.getY());
         if(isOnCloseButton(p)){
-            PlayScreen.drawing.getChildren().remove(this);
+            drawing.getChildren().remove(this);
         }
         else if (isOnCLose(p)){
             this.text.setText("Tu veux m'abandonner?\nJe ne t'ai même pas encore expliqué\nà quoi sert la croix 'X' ni 'Show'");
@@ -45,7 +47,7 @@ public class Tips extends Pane {
         }
         else if(isOnShow(p)){
             if(itShow == 3){
-                PlayScreen.drawing.getChildren().remove(this);
+                drawing.getChildren().remove(this);
             }
             else {
                 this.text.setText(showStrings[itShow] + "\n" + (itShow + 1) + "/3)");

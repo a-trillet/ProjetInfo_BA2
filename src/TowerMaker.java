@@ -9,36 +9,36 @@ public class TowerMaker {
         Tower t = null;
         switch (type) {
             case "FIRE":
-                t = new FireTower(p);
+                t = new FireTower(p,drawing);
                 color = new Color(1,0,0,1);
                 break;
             case "ICE":
-                t= new IceTower(p);
+                t= new IceTower(p,drawing);
                 color =new Color(0,0.1,1,0.7);
                 break;
             case "BASIC":
-                t = new BasicTower(p);
+                t = new BasicTower(p,drawing);
                 color = new Color(0, 1,0,1);
                 break;
             case "SNIPER":
-                t = new SniperTower(p);
+                t = new SniperTower(p,drawing);
                 color = new Color(1,0,1,0.3);
                 break;
         }
         if (t != null && CheckTowerOk(t)) {
-            Game.player.addTower(t);
+            Game.getPlayer().addTower(t);
             drawing.drawSquare(p,color,30); //à changer par image
-            Game.player.addGold(-t.getCost());  //peut etre à bouger
-            t.setActive(); //tower commence à tirer
+            Game.getPlayer().addGold(-t.getCost());  //peut etre à bouger
+            t.SetActive(); //tower commence à tirer
         }
     }
 
     public boolean CheckTowerOk(Tower to) {
         boolean res = true;
-        if (Game.player.getGold() < to.getCost()) {  //vérifie si le player a assez d'argent
+        if (Game.getPlayer().getGold() < to.getCost()) {  //vérifie si le player a assez d'argent
             res = false;
         }
-        for (Tower tower : Game.player.getTowerList()){ //vérifie si la tour touche d'autre tours
+        for (Tower tower : Game.getPlayer().getTowerList()){ //vérifie si la tour touche d'autre tours
             if (tower.isOn(to.getCentre())) {
                 res = false;
             }}

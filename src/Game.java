@@ -17,17 +17,18 @@ import static java.lang.Integer.sum;
 
 public class Game extends Application {
 
-    PlayScreen playscreen = new PlayScreen();
     Stage window;
     Scene scene1, scene2, scene3;
-    //public static Drawing drawing= new Drawing();
-    public static Player player= new Player();
-    public static String fileString;
+    private static Drawing drawing= new Drawing();
+    private static PlayScreen playscreen = new PlayScreen(drawing);
+    private static Player player= new Player(drawing);
+    private static String fileString;
     public static boolean isOnGame = false;
 
 
-
-
+    public static Player getPlayer() {
+        return player;
+    }
 
     public static void main(String[] args)  {
         launch(args);
@@ -58,7 +59,7 @@ public class Game extends Application {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                    PlayScreen.drawing.drawLifeGold();
+                    drawing.drawLifeGold();
                     fileString = "Game" + ii + ".sav";// permet de savoir le nom  du fichier dans lequel save et qu'il soit associable a un bouton
                     window.setScene(scene3);
                 });
@@ -67,7 +68,7 @@ public class Game extends Application {
                 save1.setOnMouseClicked(e -> {
                     isOnGame=true;
                     fileString = "Game" + ii + ".sav";// permet de savoir le nom  du fichier dans lequel save et qu'il soit associable a un bouton
-                    ParameterScene.display("Set your name and choose difficulty", window,scene3); //ajoute a window 1 première scene avec choix de diff puis
+                    ParameterScene.display("Set your name and choose difficulty", window,scene3,drawing); //ajoute a window 1 première scene avec choix de diff puis
                         // a la fin associe scene 3 a window (creer aussi un mapPAne avec la bonne difficultée
 
                 });
@@ -76,13 +77,13 @@ public class Game extends Application {
         }
         Button editMapButton = new Button("Edit"+" "+"Map");
         Button endMapEditor=new Button("EditMap");
-        MapEditor mapEditor = new MapEditor(endMapEditor);
+        MapEditor mapEditor = new MapEditor(endMapEditor,drawing);
         endMapEditor.setOnMouseClicked(e->{
             window.setScene(scene3);
             MapPane.addRoutes(mapEditor.getAllRoutes());
             fileString = "Game3.sav";
             player.reset();
-            PlayScreen.drawing.drawLifeGold();
+            drawing.drawLifeGold();
         });
 
         editMapButton.setOnMouseClicked(e->{
@@ -134,7 +135,7 @@ public class Game extends Application {
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename));
         System.out.println("Loading");
         try {
-            //new MapPane(0);
+            new MapPane(1,drawing);
             ArrayList<ArrayList<Point>>allRoutes = (ArrayList<ArrayList<Point>>)ois.readObject();
             MapPane.addRoutes(allRoutes);
             MapPane.draw();

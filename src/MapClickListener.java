@@ -16,6 +16,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
     private MapClickable currentSelection =  null;
     private BorderPane borderPane;
     private Circle circle = new Circle();
+    private Drawing drawing;
 
 
     public MapClickable getCurrentSelection(){
@@ -23,16 +24,16 @@ public class MapClickListener implements EventHandler<MouseEvent> {
     }
 
 
-    public MapClickListener (BorderPane borderPane){
+    public MapClickListener (BorderPane borderPane, Drawing drawing){
         super();
         this.borderPane = borderPane;
-        PlayScreen.drawing.getChildren().add(circle);
+        drawing.getChildren().add(circle);
     }
 
     private MapClickable clickedOn(MouseEvent e){    // retourne le mapclickable sur lequel on a cliqué
 
-        ArrayList<Tower> towers = Game.player.getTowerList();
-        ArrayList<Enemy> enemies = Game.player.getEnemiesOnMap();
+        ArrayList<Tower> towers = Game.getPlayer().getTowerList();
+        ArrayList<Enemy> enemies = Game.getPlayer().getEnemiesOnMap();
         ArrayList<MapClickable> objects = new ArrayList<MapClickable>(towers);
         objects.addAll(enemies);
 
@@ -141,30 +142,30 @@ public class MapClickListener implements EventHandler<MouseEvent> {
 
         Button basicTowerButton = new Button("Basic tower");
         basicTowerButton.setOnMouseClicked(e-> {PlayScreen.towerType = "BASIC"; prix.setText(messPrix + String.valueOf(BasicTower.getNewCost()));});
-        basicTowerButton.setOnAction(e -> { if (Game.player.getGold() < BasicTower.getNewCost()){msgError.setText(messError);}});
+        basicTowerButton.setOnAction(e -> { if (Game.getPlayer().getGold() < BasicTower.getNewCost()){msgError.setText(messError);}});
         GridPane.setConstraints(basicTowerButton,0,0);
 
 
         Button iceTowerButton = new Button("Ice tower");
         iceTowerButton.setOnMouseClicked(e -> {PlayScreen.towerType="ICE" ; prix.setText(messPrix + String.valueOf(IceTower.getNewCost()));});
-        iceTowerButton.setOnAction(e -> {if (Game.player.getGold() < IceTower.getNewCost()){msgError.setText(messError);}});
+        iceTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < IceTower.getNewCost()){msgError.setText(messError);}});
         GridPane.setConstraints(iceTowerButton,1,0);
 
         Button fireTowerButton = new Button("Fire tower");
         fireTowerButton.setOnMouseClicked(e -> {PlayScreen.towerType="FIRE" ; prix.setText(messPrix + String.valueOf(FireTower.getNewCost()));});
-        fireTowerButton.setOnAction(e -> {if (Game.player.getGold() < FireTower.getNewCost()){msgError.setText(messError);}});
+        fireTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < FireTower.getNewCost()){msgError.setText(messError);}});
         GridPane.setConstraints(fireTowerButton,0,1);
 
         Button sniperTowerButton = new Button("Sniper Tower");
         sniperTowerButton.setOnMouseClicked(( e-> {PlayScreen.towerType = "SNIPER" ; prix.setText(messPrix + String.valueOf(SniperTower.getNewCost()));}));
-        sniperTowerButton.setOnAction(e -> {if (Game.player.getGold() < SniperTower.getNewCost()){msgError.setText(messError);}});
+        sniperTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < SniperTower.getNewCost()){msgError.setText(messError);}});
         GridPane.setConstraints(sniperTowerButton,1,1);
 
 
         Button nextWave = new Button("Next Wave");
         GridPane.setConstraints(nextWave, 0,25);
         nextWave.setOnAction(e -> {
-            Game.player.getEnemyFactory().nextWave();
+            Game.getPlayer().getEnemyFactory().nextWave();
         });
 
 

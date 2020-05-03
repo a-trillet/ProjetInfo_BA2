@@ -32,10 +32,11 @@ public class Tower implements MapClickable, Runnable, Serializable {
     private double upgradeMultiplier = 0.5; //
     private int numberOfKill;
     private transient Thread thread = new Thread(this);
+    private Drawing drawing;
 
-
-    public Tower(Point origin){
+    public Tower(Point origin,Drawing d){
         this.centre = origin;
+        drawing=d;
         level = 1;
     }
 
@@ -53,7 +54,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     private Enemy selectTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour
         Enemy target = null;
         Double dist = null;
-        for (Enemy e : Game.player.getEnemiesOnMap()) {
+        for (Enemy e : Game.getPlayer().getEnemiesOnMap()) {
             double sepa = this.centre.distance(e.getCentre());
             if ((target == null || sepa < dist) && sepa <= this.getRange()) {
                 target = e;
@@ -78,8 +79,8 @@ public class Tower implements MapClickable, Runnable, Serializable {
     public String upgrade(){
         String messageUpgrade;
         if (level <= levelMax) {
-            if (Game.player.getGold() >= getUpgradeCost()) {
-                Game.player.addGold(-getUpgradeCost());
+            if (Game.getPlayer().getGold() >= getUpgradeCost()) {
+                Game.getPlayer().addGold(-getUpgradeCost());
                 level += 1;
                 damage = damage*(uprgradeBase + (level-1)*upgradeMultiplier);
                 range = range *(uprgradeBase + (level-1)*upgradeMultiplier);
@@ -104,7 +105,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
             @Override
             public void run() {
 
-                PlayScreen.drawing.draw(new Bullet(degats,t,bulletRange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
+                drawing.draw(new Bullet(degats,t,bulletRange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
             }
         });
     }
@@ -112,7 +113,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
     {   if (Game.isOnGame) {
         aInputStream.defaultReadObject();
-        PlayScreen.drawing.drawSquare(this.centre, TowerMaker.getColor(towerType), 30);
+        drawing.drawSquare(this.centre, TowerMaker.getColor(towerType), 30);
         thread = new Thread(this);
         this.setActive();
     }
