@@ -78,6 +78,7 @@ public class Game extends Application {
                 save1.setOnMouseClicked(e-> {
                     isOnGame=true;
                     try {
+                        loadAndDraw("Game"+ii+".sav");
                         load("Game"+ii+".sav");
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -159,6 +160,13 @@ public class Game extends Application {
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName));
         Player player1 = (Player) ois.readObject();
         return player1.getName();
+    }
+    private void loadAndDraw(String file) throws Exception{
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+        Player player1 = (Player) ois.readObject();
+        for (ArrayList<Point> route : player1.getAllRoutes()){
+            drawing.drawRoute(route);
+        }
     }
 
     public static boolean checkFileExists(String s){

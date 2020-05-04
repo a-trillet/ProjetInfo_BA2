@@ -62,6 +62,8 @@ public class Player implements Serializable {
 
     //public MapFactory getMapFactory(){return mapFactory;}
 
+    public ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
+
     public int getDifficulty() {
         return difficulty;
     }
