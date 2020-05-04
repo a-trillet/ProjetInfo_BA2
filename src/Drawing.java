@@ -111,12 +111,7 @@ public class Drawing extends Pane  {
     public void drawSaving(){
             Text sav = new Text(100,100,"Saving...");
             sav.setFill(Color.WHITE);
-            this.getChildren().add(sav);
-            try {
-                Thread.sleep(4000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
             this.getChildren().remove(sav);
     }
     public ArrayList<Moveable> getMoveables(){return moveables;}

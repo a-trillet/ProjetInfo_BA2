@@ -13,11 +13,10 @@ import java.math.*;
 import java.util.ArrayList;
 
 public class MapFactory  {
-    private Drawing drawing;
 
 
-    private  ArrayList<ArrayList<Point>> allRoutes=new ArrayList<>() ;                //Path et Track existe en javafx, considérer path pour afficher le chemin
-    public   ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
+    private static ArrayList<ArrayList<Point>> allRoutes=new ArrayList<>() ;                //Path et Track existe en javafx, considérer path pour afficher le chemin
+    public static ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
 
 
     private int[][][] easyTrack= {{
@@ -67,12 +66,11 @@ public class MapFactory  {
 
     public MapFactory(int difficulty,Drawing d){
         loadRoute(getTrack(difficulty));  /// changer par un fichier
-        drawing=d;
     }
 
-    public void draw(){
+    public static void draw(){
         for (ArrayList<Point> track : allRoutes) {
-            drawing.drawRoute(track);
+            Game.getDrawing().drawRoute(track);
         }
     }
     private void loadRoute(int[][][] alltracks){       //lira un fichier, à changer, ou bien créer fonction fichier to int [][] "read track" et garder les tracks par défaut dans le code comme fait là
@@ -85,7 +83,7 @@ public class MapFactory  {
          }
 
     }
-    public boolean isOn(Point point){       // renvoi false si point est trop proche du chemin ! fait en fct des dimensions des carrés des tower
+    public static boolean isOn(Point point){       // renvoi false si point est trop proche du chemin ! fait en fct des dimensions des carrés des tower
         boolean bol = true;
         double x_C = point.getX();
         double y_C = point.getY();
@@ -142,7 +140,7 @@ public class MapFactory  {
     }
 
 
-    public void addRoutes(ArrayList<ArrayList<Point>> newallroutes){allRoutes=newallroutes;System.out.println(allRoutes);}
+    public static void addRoutes(ArrayList<ArrayList<Point>> newallroutes){allRoutes=newallroutes;System.out.println(allRoutes);}
 
     private  int[][][] getTrack(int difficulty){
         int[][][] track = null;
