@@ -59,7 +59,7 @@ public class EnemyFactory implements Runnable, Serializable {
     private static LinkedList<Word> buildWave(int wave, int diff,ArrayList<ArrayList<Point>> allRoutes){
 
         LinkedList<Word> sentence =  new LinkedList<>();
-        Point origin = new Point(50,50);
+        Point origin = new Point(80,74);
         Random r =new Random();
         for (String word : wavesDifficulties[diff-1][wave-1].split(" ")) {
             sentence.add(new Word(word, new Point(origin.getX(), origin.getY()),allRoutes.get(r.nextInt(allRoutes.size()))));
