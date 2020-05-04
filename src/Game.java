@@ -26,7 +26,7 @@ public class Game extends Application {
     private static String fileString;
     public static boolean isOnGame = false;
 
-
+    public static Drawing getDrawing(){return drawing;}
     public static Player getPlayer() {
         return player;
     }
@@ -139,7 +139,6 @@ public class Game extends Application {
     public static void save() throws Exception{
 
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileString));
-        oos.writeObject(player.getMapFactory().getAllRoutes());
         oos.writeObject(player);
         oos.close();
         System.out.println("Saving"+player.getLives());
@@ -148,9 +147,8 @@ public class Game extends Application {
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename));
         System.out.println("Loading");
         try {
-            ArrayList<ArrayList<Point>>allRoutes = (ArrayList<ArrayList<Point>>)ois.readObject();
             player = (Player) ois.readObject();
-            player.drawMap();
+
             System.out.println("Object loaded: " + player.getName());
         } catch (ClassNotFoundException | IOException e1) {
             e1.printStackTrace();
@@ -159,7 +157,6 @@ public class Game extends Application {
     }
     private String loadName(String fileName) throws Exception{
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName));
-        ArrayList<ArrayList<Point>>allRoutes1 = (ArrayList<ArrayList<Point>>)ois.readObject();
         Player player1 = (Player) ois.readObject();
         return player1.getName();
     }

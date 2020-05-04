@@ -4,9 +4,10 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class Player implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
     private String name = "john";
     private  int gold =700;
     private  int lifePoints;
@@ -19,7 +20,7 @@ public class Player implements Serializable {
     private  transient EnemyFactory enemyFactory;
     private transient Drawing drawing;
     private transient MapFactory mapFactory;
-
+    private ArrayList<ArrayList<Point>> allRoutes;
     public Player(Drawing d){
 
         this.drawing=d;
@@ -27,7 +28,10 @@ public class Player implements Serializable {
 
     }
 
-    public void  loadMap(MapFactory mapFactory){this.mapFactory=mapFactory;}
+    public void  loadMap(MapFactory mapFactory){
+        this.mapFactory=mapFactory;
+        allRoutes = mapFactory.getAllRoutes();
+    }
     public void reset() {
         lifePoints = startingLives[difficulty - 1];
         gold = startingGold;
@@ -112,10 +116,15 @@ public class Player implements Serializable {
 
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
     {
+
         aInputStream.defaultReadObject();
         if(Game.isOnGame){
+            drawing = Game.getDrawing();
+            mapFactory = new MapFactory(difficulty,drawing);
+            mapFactory.addRoutes(allRoutes);
             enemyFactory = new EnemyFactory(difficulty,drawing,mapFactory.getAllRoutes());
-
+            drawing.drawLifeGold();
+            drawMap();
         }
     }
 
