@@ -123,7 +123,7 @@ public class Game extends Application {
         //Layout 3
 
 
-        scene3 =new Scene(playscreen.sceneView(),1000,500);
+        scene3 =new Scene(playscreen.sceneView(),1128,581);
 
 
         window.setScene(scene2);

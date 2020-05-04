@@ -24,7 +24,7 @@ public class PlayScreen{
 
     public PlayScreen(Drawing d){
         this.drawing=d;
-        Image image1 = new Image(PlayScreen.class.getResourceAsStream("backgroundInteliji.jpg"));
+        Image image1 = new Image(PlayScreen.class.getResourceAsStream("intellij.jpg"));
         BackgroundImage backgroundimage = new BackgroundImage(image1, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundimage);
         borderPane.setBackground(background);
