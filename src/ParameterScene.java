@@ -11,12 +11,16 @@ import javafx.scene.layout.*;
 import javafx.stage.*;
 public class ParameterScene {
 
+      private static MapFactory mapFactory;
+
+      public static void setMapFactory(MapFactory factory){ mapFactory= factory;}
 
       public static void display( Stage window, Scene futurScene,Drawing drawing){
 
+
         StackPane stackPane = new StackPane();
         GridPane gridPane = new GridPane();
-
+        Scene scene = new Scene(stackPane, 641, 402);
 
         //background
         Image image1 = new Image(ParameterScene.class.getResourceAsStream("ideaFinal.jpg"));
@@ -37,6 +41,15 @@ public class ParameterScene {
 
 
 
+        // bouton édition de map
+        MapEditor mapEditor = new MapEditor(drawing, window, scene);
+        Button editMapButton = new Button("Edit your Map");
+        editMapButton.setOnMouseClicked(e->{
+          window.setScene(new Scene(mapEditor,1128,581));
+        });
+
+
+
 
           // creation bouton sélection de difficulté
         ComboBox<String> difficultySelection = new ComboBox<>();
@@ -52,6 +65,7 @@ public class ParameterScene {
         labelError1.setText("");
 
         //close button
+
         Button closeButton = new Button("Apply and close");
         closeButton.setOnAction(e -> {
           if (nameInput.getText() == "" || difficultySelection.getValue() == null){
@@ -60,7 +74,9 @@ public class ParameterScene {
           else{
             Game.getPlayer().setName(nameInput.getText());
             Game.getPlayer().setDifficulty(getDifficulty(difficultySelection));
-            Game.getPlayer().loadMap(new MapFactory(getDifficulty(difficultySelection),drawing));
+            if (mapFactory == null){
+              Game.getPlayer().loadMap(new MapFactory(getDifficulty(difficultySelection),drawing));}
+            else {Game.getPlayer().loadMap(mapFactory);}
             Game.getPlayer().drawMap();
             Game.getPlayer().reset();
             window.setScene(futurScene);
@@ -71,7 +87,7 @@ public class ParameterScene {
 
 
         stackPane.setBackground(background);
-        layout.getChildren().addAll( nameInput, difficultySelection,closeButton,labelError1);
+        layout.getChildren().addAll( nameInput, difficultySelection,editMapButton, closeButton,labelError1);
         layout.setAlignment(Pos.BOTTOM_CENTER);
         stackPane.getChildren().addAll(layout);
 
@@ -80,7 +96,7 @@ public class ParameterScene {
 
 
 
-        Scene scene = new Scene(stackPane, 641, 402);
+
         window.setScene(scene);
 
 

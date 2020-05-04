@@ -27,7 +27,7 @@ public class Drawing extends Pane  {
 
     public Drawing(){
         super();
-        this.getChildren().add(new Tips("Bienvenue cher étudiant...",new Point(20,250),this));
+       // this.getChildren().add(new Tips("Bienvenue cher étudiant...",new Point(20,250),this));
         this.getChildren().add(labelGold);
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(20), event -> {
             for (int i = 0; i < moveables.size(); i++) {
