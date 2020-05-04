@@ -59,7 +59,7 @@ public class EnemyFactory implements Runnable, Serializable {
     private static LinkedList<Word> buildWave(int wave, int diff,ArrayList<ArrayList<Point>> allRoutes){
 
         LinkedList<Word> sentence =  new LinkedList<>();
-        Point origin = new Point(50,50);
+        Point origin = new Point(80,74);
         Random r =new Random();
         for (String word : wavesDifficulties[diff-1][wave-1].split(" ")) {
             sentence.add(new Word(word, new Point(origin.getX(), origin.getY()),allRoutes.get(r.nextInt(allRoutes.size()))));
@@ -113,7 +113,8 @@ public class EnemyFactory implements Runnable, Serializable {
             // le jeu est sauvé quand tous les élément de la wave sont sortis
             //Thread.sleep(1000);
             Game.save();
-            //Platform.runLater(()-> PlayScreen.drawing.drawSaving());           // marche pas
+
+            Platform.runLater(()->{Game.getDrawing().draw(new TemporaryText("Saving",1000,new Point(100,100)));});         // marche pas
 
             Thread.sleep(10000);   // faire que l'on puisse cliquer sur next wave que quand la wave est suffisament loin
             waveInProgress = false;

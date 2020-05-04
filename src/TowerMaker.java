@@ -49,7 +49,7 @@ public class TowerMaker {
             if (tower.isOn(to.getCentre())) {
                 res = false;
             }}
-        if (!Game.getPlayer().getMapFactory().isOn(to.getCentre())){ //vérifie si la tour touche le chemin
+        if (!MapFactory.isOn(to.getCentre())){ //vérifie si la tour touche le chemin
             res=false;
         }
         return res;
@@ -71,5 +71,23 @@ public class TowerMaker {
                 break;
         }
         return color;
+    }
+    public static Image getImage(String towerType){
+        Image image = new Image(TowerMaker.class.getResourceAsStream("stack.jpg"));//par défault
+        switch (towerType) {
+            case "FIRE":
+                image = new Image(TowerMaker.class.getResourceAsStream("raj.jpg"));
+                break;
+            case "Massart tower":
+                image = new Image(TowerMaker.class.getResourceAsStream("massart.jpg"));
+                break;
+            case "Stack Overflow tower":
+                image = new Image(TowerMaker.class.getResourceAsStream("stack.jpg"));
+                break;
+            case "Sycamore tower":
+                image = new Image(TowerMaker.class.getResourceAsStream("sycamore.jpg"));
+                break;
+        }
+        return image;
     }
 }

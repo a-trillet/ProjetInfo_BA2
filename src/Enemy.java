@@ -12,7 +12,7 @@ import java.net.ProtocolFamily;
 import java.util.ArrayList;
 
 
-public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serializable {
+public class Enemy implements Killable, MapClickable, Updatable, Runnable, Serializable {
     private static final long serialVersionUID = 1L;
 
     private ArrayList<Point> trackPoints;
@@ -185,7 +185,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
             lettreText.setRotate(angle*360/2/Math.PI);
             if (lifePoints<=maxLifePoints/2){lettreText.setFill(Color.web("FF7B2C"));}
         }
-        else {drawing.removeMoveable(this);}
+        else {drawing.removeUpdatable(this);}
     }
     public boolean isAlive(){
         return alive;
@@ -232,6 +232,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
         if(Game.isOnGame) {
             aInputStream.defaultReadObject();
             createLettre(lettre);
+            Game.getDrawing().draw(this);
             t = new Thread(this);
             this.setAlive();
         }

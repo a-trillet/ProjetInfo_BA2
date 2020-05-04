@@ -4,9 +4,10 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class Player implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
     private String name = "john";
     private  int gold =700;
     private  int lifePoints;
@@ -18,8 +19,8 @@ public class Player implements Serializable {
     private  int wave = 0;
     private  transient EnemyFactory enemyFactory;
     private transient Drawing drawing;
-    private transient MapFactory mapFactory;
-
+    //private MapFactory mapFactory;
+    private ArrayList<ArrayList<Point>> allRoutes;
     public Player(Drawing d){
 
         this.drawing=d;
@@ -27,13 +28,16 @@ public class Player implements Serializable {
 
     }
 
-    public void  loadMap(MapFactory mapFactory){this.mapFactory=mapFactory;}
+    public void  loadMap(MapFactory mapFactory){
+        //this.mapFactory=mapFactory;
+        allRoutes = mapFactory.getAllRoutes();
+    }
     public void reset() {
         lifePoints = startingLives[difficulty - 1];
         gold = startingGold;
         towerList = new ArrayList<>();
         enemiesOnMap = new ArrayList<>();
-        enemyFactory = new EnemyFactory(difficulty,drawing,mapFactory.getAllRoutes());
+        enemyFactory = new EnemyFactory(difficulty,drawing,allRoutes);
         drawing.drawLifeGold();
 
     }
@@ -54,9 +58,11 @@ public class Player implements Serializable {
         return gold;
     }
 
-    public void drawMap(){mapFactory.draw();}
+    //public void drawMap(){mapFactory.draw();}
 
-    public MapFactory getMapFactory(){return mapFactory;}
+    //public MapFactory getMapFactory(){return mapFactory;}
+
+    public ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
 
     public int getDifficulty() {
         return difficulty;
@@ -112,10 +118,12 @@ public class Player implements Serializable {
 
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
     {
+
         aInputStream.defaultReadObject();
         if(Game.isOnGame){
-            enemyFactory = new EnemyFactory(difficulty,drawing,mapFactory.getAllRoutes());
-
+            drawing = Game.getDrawing();
+            enemyFactory = new EnemyFactory(difficulty,drawing,allRoutes);
+            drawing.drawLifeGold();
         }
     }
 

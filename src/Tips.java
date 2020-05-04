@@ -72,6 +72,9 @@ public class Tips extends Pane {
         Point show = new Point(16,125);
         return p.distance(show)<8;
     }
+    public void setText(String s){
+        text.setText(s);
+    }
 
 }
 

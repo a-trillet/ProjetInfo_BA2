@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 import static java.lang.Math.*;
 
-public class Bullet implements Runnable, Serializable ,Moveable{
+public class Bullet implements Runnable, Serializable ,Updatable{
     private double speed=10;  // choisir si vient de la tour ou meme vitesse pour tt les balles
     private Point centre; // coordonnée
     private double damage;
@@ -85,7 +85,7 @@ public class Bullet implements Runnable, Serializable ,Moveable{
             circle.setCenterX(centre.getX());
             circle.setCenterY(centre.getY());
         }
-        else {drawing.removeMoveable(this);}
+        else {drawing.removeUpdatable(this);}
     }
 
 

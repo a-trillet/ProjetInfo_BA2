@@ -77,7 +77,7 @@ public class ParameterScene {
             if (mapFactory == null){
               Game.getPlayer().loadMap(new MapFactory(getDifficulty(difficultySelection),drawing));}
             else {Game.getPlayer().loadMap(mapFactory);}
-            Game.getPlayer().drawMap();
+            MapFactory.draw();
             Game.getPlayer().reset();
             window.setScene(futurScene);
           }
