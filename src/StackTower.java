@@ -3,12 +3,13 @@ import javafx.scene.paint.Color;
 public class StackTower extends Tower {
 
     private static  int basicTowerCost = 100;
-    private static  double newRange = 75;
+    private static  double newRange = 25;
     private static  double newDamage = 10;
     private static int newReloadTime = 500;
     private static int newBulletRange = 10;
     private String type = "Stack Overflow tower";
     private String newPowerType = "Burst Fire";
+    private double newPowerDuration = 4000;
 
     public StackTower(Point origin,Drawing d){
         super(origin,d);
@@ -19,6 +20,7 @@ public class StackTower extends Tower {
         this.bulletRange = newBulletRange;
         this.towerType = type;
         this.powerType = newPowerType;
+        this.powerDuration = newPowerDuration;
     }
     public static int getNewCost(){
         return basicTowerCost;
@@ -27,6 +29,10 @@ public class StackTower extends Tower {
 
 
     @Override
-    public void powerActivation(){}
+    public void powerActivation(){                      //sert à diminuer le reload time dans le run the tower pour une rafale
+
+        powerStartTime = System.currentTimeMillis();
+        powerActive = true;
+    }
 }
 

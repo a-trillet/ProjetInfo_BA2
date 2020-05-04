@@ -27,6 +27,8 @@ public class Tower implements MapClickable, Runnable, Serializable {
     protected String towerType;
     protected boolean powerActive = false;
     protected String powerType = null;
+    protected double powerDuration;
+    protected double powerStartTime;
 
     private boolean active = true;
     private double uprgradeBase = 1.0;      // vont servir à augmenter le range et damage
@@ -47,7 +49,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     protected void powerActivation(){}
     public String getPowerType(){return powerType;}
     public int getKillPower(){                  //retourne le nombre de kill à faire pour pouvoir activer le power(change en fonction du level
-        int killPower = 5;
+        int killPower = 0;
         killPower = killPower*level;
         return killPower;
     }
@@ -142,7 +144,14 @@ public class Tower implements MapClickable, Runnable, Serializable {
                 // targetEnemy.decreaseLife(damage);
                 System.out.println("shoot"+targetEnemy.getCentre().getY());
                 try {
-                    Thread.sleep(reloadTime);
+                    if (powerActive && towerType == "Stack Overflow tower" && System.currentTimeMillis()< powerDuration+ powerStartTime ){
+                        Thread.sleep(reloadTime-(100*level));
+                    }
+                    else{
+                        if (powerActive){powerActive = false;}
+                        Thread.sleep(reloadTime);
+                    }
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

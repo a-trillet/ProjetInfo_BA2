@@ -117,7 +117,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
 
             Button powerButton = new Button(((Tower) currentSelection).getPowerType());
             powerButton.setOnMouseClicked(e ->{
-                if (((Tower) currentSelection).getNumberOfKill()> ((Tower) currentSelection).getKillPower()) {
+                if (((Tower) currentSelection).getNumberOfKill()>= ((Tower) currentSelection).getKillPower()) {
                     ((Tower)currentSelection).powerActivation();
                 }
                 else{
