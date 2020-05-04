@@ -2,15 +2,15 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-public class TemporaryText implements Moveable, Runnable{
+public class TemporaryText implements Updatable, Runnable{
     private Boolean alive=true;
     private int time;
     private Text text;
     private Thread thread;
 
 
-    public TemporaryText(String text, int time){
-        this.text=new Text(100,100,text);
+    public TemporaryText(String text, int time, Point point){
+        this.text=new Text(point.getX(),point.getY(),text);
         this.text.setFill(Color.WHITE);
         this.time=time;
         this.thread=new Thread(this);
@@ -19,13 +19,10 @@ public class TemporaryText implements Moveable, Runnable{
 
     @Override
     public void update(Drawing d) {
-        if (!alive){d.removeMoveable(this);}
+        if (!alive){d.removeUpdatable(this);}
     }
 
-    @Override
-    public void move() {
 
-    }
 
     @Override
     public Node getShape() {

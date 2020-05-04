@@ -22,7 +22,7 @@ public class Drawing extends Pane  {
     private javafx.scene.shape.Rectangle square ;
     private javafx.scene.shape.Circle circle;
     private Label labelGold = new Label();
-    private ArrayList<Moveable> moveables=new ArrayList<>();
+    private ArrayList<Updatable> updatables=new ArrayList<>();
 
 
     public Drawing(){
@@ -30,8 +30,8 @@ public class Drawing extends Pane  {
        // this.getChildren().add(new Tips("Bienvenue cher étudiant...",new Point(20,250),this));
         this.getChildren().add(labelGold);
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(20), event -> {
-            for (int i = 0; i < moveables.size(); i++) {
-                moveables.get(i).update(this);
+            for (int i = 0; i < updatables.size(); i++) {
+                updatables.get(i).update(this);
             }
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
@@ -56,9 +56,9 @@ public class Drawing extends Pane  {
 
 
 
-    public void draw(Moveable moveable){ // peut etre modifié
-        moveables.add(moveable);
-        this.getChildren().add(moveable.getShape());
+    public void draw(Updatable updatable){ // peut etre modifié
+        updatables.add(updatable);
+        this.getChildren().add(updatable.getShape());
     }
 
     public void setImage(Point centre,Image image, int size ){
@@ -103,9 +103,9 @@ public class Drawing extends Pane  {
 
     }
 
-    public void removeMoveable(Moveable moveable){
-        moveables.remove(moveable);
-        this.getChildren().remove(moveable.getShape());
+    public void removeUpdatable(Updatable updatable){
+        updatables.remove(updatable);
+        this.getChildren().remove(updatable.getShape());
     }
 
     public void drawSaving(){
@@ -114,7 +114,7 @@ public class Drawing extends Pane  {
 
             this.getChildren().remove(sav);
     }
-    public ArrayList<Moveable> getMoveables(){return moveables;}
+    public ArrayList<Updatable> getMoveables(){return updatables;}
 
 
         }
