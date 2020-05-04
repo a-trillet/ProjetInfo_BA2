@@ -76,9 +76,9 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         String infos = info.listString();
         GridPane infoBox = new GridPane();
         infoBox.setPrefWidth(200);
-        infoBox.setPadding(new Insets(10,10,10,10));
+        infoBox.setPadding(new Insets(10,0,0,5));
         infoBox.setVgap(8);
-        infoBox.setHgap(10);
+
 
         //cercle de range
 
@@ -95,7 +95,10 @@ public class MapClickListener implements EventHandler<MouseEvent> {
 
 
         Label messageUpgrade = new Label(messUpgrade);    //mess uprgrade supprimable mais bon alz
-        GridPane.setConstraints(messageUpgrade,0,7);
+        GridPane.setConstraints(messageUpgrade,0,9);
+        Label msgErrPower = new Label();
+        GridPane.setConstraints(msgErrPower,0,7);
+
         if (currentSelection instanceof Tower){
             if(((Tower)currentSelection).getLevel()<=3){
                 Button upgradeButton = new Button("Upgrade for " + ((Tower)currentSelection).getUpgradeCost());
@@ -103,25 +106,50 @@ public class MapClickListener implements EventHandler<MouseEvent> {
                     messageUpgrade.setText(((Tower) currentSelection).upgrade());
                     displayInfo(messageUpgrade.getText());
                 });
-                GridPane.setConstraints(upgradeButton,0,6);
+                GridPane.setConstraints(upgradeButton,0,8);
                 infoBox.getChildren().addAll(upgradeButton);
             }
             else{Button upgradeButton = new Button("Maxed");
                 upgradeButton.setOnAction(e -> messageUpgrade.setText("This tower is at max level"));
-                GridPane.setConstraints(upgradeButton,0,6);
+                GridPane.setConstraints(upgradeButton,0,8);
                 infoBox.getChildren().addAll(upgradeButton);
             }
 
+            Button powerButton = new Button(((Tower) currentSelection).getPowerType());
+            powerButton.setOnMouseClicked(e ->{
+                if (((Tower) currentSelection).getNumberOfKill()> ((Tower) currentSelection).getKillPower()) {
+                    ((Tower)currentSelection).powerActivation();
+                }
+                else{
+                    msgErrPower.setText("Kill "+((Tower) currentSelection).getKillPower()+" ennemies to active "+((Tower) currentSelection).getPowerType());
+                    GridPane.setConstraints(msgErrPower,0,7);
+                    infoBox.getChildren().add(msgErrPower);
+                }
+            });
+            Label label = new Label();
+            label.setText("Power: ");
+            HBox hb = new HBox(10);
+            GridPane.setConstraints(hb,0,6);
+            hb.getChildren().addAll(label,powerButton);
+
+            infoBox.getChildren().add(hb);
+
+
+
+
 
         }
+
+
         Button shopButton = new Button("Shop");
         shopButton.setOnAction(e -> displayShop());
-        GridPane.setConstraints(shopButton,0,8);
+        GridPane.setConstraints(shopButton,0,15);
 
         Label label = new Label(infos);
         GridPane.setConstraints(label, 0,0);
 
         infoBox.getChildren().addAll(label, shopButton, messageUpgrade);
+        infoBox.setGridLinesVisible(true);
         borderPane.setRight(infoBox);
     }
 
@@ -160,6 +188,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         sniperTowerButton.setOnMouseClicked(( e-> {PlayScreen.towerType = "Sycamore tower" ; prix.setText(messPrix + String.valueOf(SycamoreTower.getNewCost()));}));
         sniperTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < SycamoreTower.getNewCost()){msgError.setText(messError);}});
         GridPane.setConstraints(sniperTowerButton,1,1);
+
 
 
         Button nextWave = new Button("Next Wave");

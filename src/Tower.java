@@ -26,6 +26,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     protected double freezeTime;
     protected String towerType;
     protected boolean powerActive = false;
+    protected String powerType = null;
 
     private boolean active = true;
     private double uprgradeBase = 1.0;      // vont servir à augmenter le range et damage
@@ -40,11 +41,15 @@ public class Tower implements MapClickable, Runnable, Serializable {
         level = 1;
     }
 
-    public void powerActivation(){
-        powerActive = true;
+    public void setpowerActivation(boolean bol){
+        powerActive = bol;
     }
-    public void powerDesactivation(){
-        powerActive = false;
+    protected void powerActivation(){}
+    public String getPowerType(){return powerType;}
+    public int getKillPower(){                  //retourne le nombre de kill à faire pour pouvoir activer le power(change en fonction du level
+        int killPower = 5;
+        killPower = killPower*level;
+        return killPower;
     }
 
     public void setActive(){

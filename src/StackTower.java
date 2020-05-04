@@ -8,6 +8,7 @@ public class StackTower extends Tower {
     private static int newReloadTime = 500;
     private static int newBulletRange = 10;
     private String type = "Stack Overflow tower";
+    private String newPowerType = "Burst Fire";
 
     public StackTower(Point origin,Drawing d){
         super(origin,d);
@@ -17,9 +18,15 @@ public class StackTower extends Tower {
         this.reloadTime = newReloadTime;
         this.bulletRange = newBulletRange;
         this.towerType = type;
+        this.powerType = newPowerType;
     }
     public static int getNewCost(){
         return basicTowerCost;
     }
+
+
+
+    @Override
+    public void powerActivation(){}
 }
 
