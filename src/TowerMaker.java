@@ -13,7 +13,7 @@ public class TowerMaker {
             case "FIRE":
                 t = new FireTower(p,drawing);
                 color = new Color(1,0,0,1);
-                 image = new Image(TowerMaker.class.getResourceAsStream("indian.jpg"));
+                 image = new Image(TowerMaker.class.getResourceAsStream("raj.jpg"));
                 break;
             case "Massart tower":
                 t= new MassartTower(p,drawing);
