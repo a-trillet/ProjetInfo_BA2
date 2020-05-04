@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serializable {
     private static final long serialVersionUID = 1L;
+
     private ArrayList<Point> trackPoints;
     private int nextPoint=0;
     private Point origin;
@@ -26,13 +27,21 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
     private String lettre;
     private transient Text lettreText;
     private Color color;
-    private boolean frozen = false;
-    private double freezeStartTime;
-    private double freezeDuration;
+
+    private static double enemyVelocity = 12;
+    private static double freezeDuration;
+    private static double freezeStart;
+    private static boolean frozen = false; //static car pour tt les ennemis en meme temps
+    public static void setFrozen(boolean bol){frozen = bol;}
+    public static void setFreezeDuration(double duration){freezeDuration = duration;}
+    public static void setFreezeStart(double startTime){freezeStart = startTime;}
+    public static void setEnemyVelocity(double velocity){enemyVelocity = velocity;}
+
+
 
     //attributs venant des s-classe
     protected String enemyType;
-    private double enemySpeed=12;
+    private final double enemySpeed = 12;    // ne change jamais alors que enemyvelocity si
     protected double maxLifePoints;
     protected int reward;
     protected int enemyPower;     //cbdDeVieRetireraPlayerSiArriveaLaFin
@@ -77,14 +86,7 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
 
     }
 
-    public void freeze(Tower t){    //freeze(tower t)?
-        this.frozen = true;
-        freezeStartTime = System.currentTimeMillis(); //peut voir ça comme heure de démarrage
-        freezeDuration = t.getFreezeTime();
-    }
-    public void unFreeze(){
-        this.frozen = false;
-    }
+
 
     public void setAlive(){
         this.alive = true;
@@ -122,12 +124,10 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
     }
 
     public double getSpeed() {
-        if (frozen){
-            return 0;
+        if(frozen){
+            enemyVelocity = 0;
         }
-        else{
-            return enemySpeed;
-        }
+        return enemyVelocity;
     }
 
 
@@ -146,8 +146,8 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
             int deltaX = (int) (this.trackPoints.get(nextPoint).getX() - origin.getX());
             int deltaY = (int) (this.trackPoints.get(nextPoint).getY() - origin.getY());
 
-            double dx = enemySpeed/15  * deltaX / dist;
-            double dy = enemySpeed/15  * deltaY / dist;
+            double dx = enemyVelocity/15  * deltaX / dist;
+            double dy = enemyVelocity/15  * deltaY / dist;
             origin.setX(origin.getX() + dx);
             origin.setY(origin.getY() + dy);
 
@@ -207,17 +207,20 @@ public class Enemy implements Killable, MapClickable, Moveable, Runnable, Serial
     public void run() {
         System.out.println("X: "+ this.getCentre().getX()+"enemy object run");
         while (alive) {
-            if (frozen && freezeDuration < System.currentTimeMillis()-freezeStartTime){  //freezetime et freeze duration assocé à tt les eemis frozen
-                unFreeze();
+            if (frozen && System.currentTimeMillis()> freezeStart + freezeDuration){
+                frozen = false;
+                enemyVelocity = enemySpeed;    //revient à sa vitesse de base
             }
-            if (!frozen){this.move();}  //bouge uniquement si pas freeze
+            this.move();
             try {
                 Thread.sleep(20);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
         }
+
+
+
     }
 
     public int getReward() {

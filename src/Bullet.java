@@ -17,8 +17,6 @@ public class Bullet implements Runnable, Serializable ,Moveable{
     private boolean alive=true;
     private javafx.scene.shape.Circle circle;
     private Thread thread;
-    private boolean freezeBullet;
-
 
     public Bullet (double damage, Tower t, double range, Point targetPoint, Point originPoint) {
         this.damage = damage;
@@ -26,12 +24,7 @@ public class Bullet implements Runnable, Serializable ,Moveable{
         this.centre = originPoint;
         this.range = range;
         this.targetPoint = targetPoint;
-        if (t.towerType == "Ice tower"){
-            freezeBullet = true;            //comme ça qd la balle explose, ça active le freeze
-        }
-        else{
-            freezeBullet = false;
-        }
+
         circle = new javafx.scene.shape.Circle();
         circle.setCenterX(centre.getX());
         circle.setCenterY(centre.getY());
@@ -55,9 +48,6 @@ public class Bullet implements Runnable, Serializable ,Moveable{
     public void explode() {      //hurt les ennemis dont l'origine est dans la range de la bullet
         for(int i=0; i<Game.getPlayer().getEnemiesOnMap().size(); i++){
             Enemy enemy=Game.getPlayer().getEnemiesOnMap().get(i);
-            if (freezeBullet) {
-                enemy.freeze(this.motherTower);
-            }
             if(enemy.getCentre().distance(this.centre)<range) {
                 enemy.hurt(this);
 
