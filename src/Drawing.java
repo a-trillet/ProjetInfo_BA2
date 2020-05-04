@@ -58,7 +58,7 @@ public class Drawing extends Pane  {
 
     public void draw(Updatable updatable){ // peut etre modifié
         updatables.add(updatable);
-        this.getChildren().add(updatable.getShape());
+        this.getChildren().addAll(updatable.getShape());
     }
 
     public void setImage(Point centre,Image image, int size ){
@@ -106,6 +106,7 @@ public class Drawing extends Pane  {
     public void removeUpdatable(Updatable updatable){
         updatables.remove(updatable);
         this.getChildren().remove(updatable.getShape());
+
     }
 
     public void drawSaving(){

@@ -12,7 +12,6 @@ public class BigEnemy extends Enemy {
         super(trackPoints,"B",origin, maxLife, reward);
         this.enemyType = type;
         this.enemyPower = power;
-        //this.enemySpeed = speed;
     }
 }
 
