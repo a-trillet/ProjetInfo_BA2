@@ -7,7 +7,7 @@ public class StackTower extends Tower {
     private static  double newDamage = 10;
     private static int newReloadTime = 500;
     private static int newBulletRange = 10;
-    private String type = "Basic tower";
+    private String type = "Stack Overflow tower";
 
     public StackTower(Point origin,Drawing d){
         super(origin,d);

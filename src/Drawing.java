@@ -61,6 +61,15 @@ public class Drawing extends Pane  {
         this.getChildren().add(moveable.getShape());
     }
 
+    public void setImage(Point centre,Image image, int size ){
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(size);
+        imageView.setFitHeight(size);
+        imageView.setX(centre.getX()-size/2);
+        imageView.setY(centre.getY()-size/2);
+        this.getChildren().add(imageView);
+    }
+
 
 
 

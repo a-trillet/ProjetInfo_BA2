@@ -54,13 +54,13 @@ public class InfoTower extends  Info {
     public Color getColor() {
         Color color = new Color(1, 1, 1,1 );
         switch (towerType) {
-            case "Ice tower":
+            case "Massart tower":
                 color = new Color(0, 0.1, 1, 0.7);
                 break;
             case "Fire tower":
                 color = new Color(1, 0, 0, 1);
                 break;
-            case "Basic tower":
+            case "Stack Overflow tower":
                 color = new Color(0, 1, 0, 1);
                 break;
             case "Sniper tower":

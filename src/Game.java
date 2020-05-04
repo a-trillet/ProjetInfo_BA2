@@ -43,7 +43,7 @@ public class Game extends Application {
         window = stage;
 
         //background
-        Image image1 = new Image(PlayScreen.class.getResourceAsStream("ideaFinal.jpg"));
+        Image image1 = new Image(Game.class.getResourceAsStream("ideaFinal.jpg"));
         BackgroundImage backgroundimage = new BackgroundImage(image1, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundimage);
 

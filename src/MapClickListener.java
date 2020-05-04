@@ -140,15 +140,15 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         GridPane.setConstraints(msgError,0,17);
         GridPane.setConstraints(prix,0,6);
 
-        Button basicTowerButton = new Button("Basic tower");
-        basicTowerButton.setOnMouseClicked(e-> {PlayScreen.towerType = "BASIC"; prix.setText(messPrix + String.valueOf(StackTower.getNewCost()));});
+        Button basicTowerButton = new Button("Stack tower");
+        basicTowerButton.setOnMouseClicked(e-> {PlayScreen.towerType = "Stack Overflow tower"; prix.setText(messPrix + String.valueOf(StackTower.getNewCost()));});
         basicTowerButton.setOnAction(e -> { if (Game.getPlayer().getGold() < StackTower.getNewCost()){msgError.setText(messError);}});
         GridPane.setConstraints(basicTowerButton,0,0);
 
 
-        Button iceTowerButton = new Button("Ice tower");
-        iceTowerButton.setOnMouseClicked(e -> {PlayScreen.towerType="ICE" ; prix.setText(messPrix + String.valueOf(IceTower.getNewCost()));});
-        iceTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < IceTower.getNewCost()){msgError.setText(messError);}});
+        Button iceTowerButton = new Button("Massart tower");
+        iceTowerButton.setOnMouseClicked(e -> {PlayScreen.towerType="Massart tower" ; prix.setText(messPrix + String.valueOf(MassartTower.getNewCost()));});
+        iceTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < MassartTower.getNewCost()){msgError.setText(messError);}});
         GridPane.setConstraints(iceTowerButton,1,0);
 
         Button fireTowerButton = new Button("Fire tower");
@@ -156,9 +156,9 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         fireTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < FireTower.getNewCost()){msgError.setText(messError);}});
         GridPane.setConstraints(fireTowerButton,0,1);
 
-        Button sniperTowerButton = new Button("Sniper Tower");
-        sniperTowerButton.setOnMouseClicked(( e-> {PlayScreen.towerType = "SNIPER" ; prix.setText(messPrix + String.valueOf(SniperTower.getNewCost()));}));
-        sniperTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < SniperTower.getNewCost()){msgError.setText(messError);}});
+        Button sniperTowerButton = new Button("Sycamore Tower");
+        sniperTowerButton.setOnMouseClicked(( e-> {PlayScreen.towerType = "Sycamore tower" ; prix.setText(messPrix + String.valueOf(SycamoreTower.getNewCost()));}));
+        sniperTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < SycamoreTower.getNewCost()){msgError.setText(messError);}});
         GridPane.setConstraints(sniperTowerButton,1,1);
 
 

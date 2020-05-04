@@ -1,3 +1,4 @@
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class TowerMaker {
@@ -7,27 +8,33 @@ public class TowerMaker {
     public TowerMaker(Drawing d, String type, Point p) {
         this.drawing = d;
         Tower t = null;
+        Image image = new Image(TowerMaker.class.getResourceAsStream("stack.jpg"));//par défault
         switch (type) {
             case "FIRE":
                 t = new FireTower(p,drawing);
                 color = new Color(1,0,0,1);
+                 image = new Image(TowerMaker.class.getResourceAsStream("indian.jpg"));
                 break;
-            case "ICE":
-                t= new IceTower(p,drawing);
+            case "Massart tower":
+                t= new MassartTower(p,drawing);
                 color =new Color(0,0.1,1,0.7);
+                image = new Image(TowerMaker.class.getResourceAsStream("massart.jpg"));
                 break;
-            case "BASIC":
+            case "Stack Overflow tower":
                 t = new StackTower(p,drawing);
                 color = new Color(0, 1,0,1);
+                image = new Image(TowerMaker.class.getResourceAsStream("stack.jpg"));
                 break;
-            case "SNIPER":
-                t = new SniperTower(p,drawing);
+            case "Sycamore tower":
+                t = new SycamoreTower(p,drawing);
                 color = new Color(1,0,1,0.3);
+                image = new Image(TowerMaker.class.getResourceAsStream("sycamore.jpg"));
                 break;
         }
         if (t != null && CheckTowerOk(t)) {
             Game.getPlayer().addTower(t);
             drawing.drawSquare(p,color,30); //à changer par image
+            drawing.setImage(p,image,30);
             Game.getPlayer().addGold(-t.getCost());  //peut etre à bouger
             t.setActive(); //tower commence à tirer
         }
@@ -53,10 +60,10 @@ public class TowerMaker {
             case "Fire tower":
                 color = new Color(1,0,0,1);
                 break;
-            case "Ice tower":
+            case "Massart tower":
                 color =new Color(0,0.1,1,0.7);
                 break;
-            case "Basic tower":
+            case "Stack Overflow tower":
                 color = new Color(0, 1,0,1);
                 break;
             case "Sniper tower":
