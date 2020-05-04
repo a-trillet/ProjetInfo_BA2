@@ -66,6 +66,9 @@ public class Game extends Application {
 
         scene2 = new Scene(stackPane , 641, 402);
 
+        //bouton pour parameter scene
+
+
         // buttons for every file
         for (int i =1 ; i<=3 ; i++ ){
             String ii = String.valueOf(i);
@@ -95,24 +98,11 @@ public class Game extends Application {
             }
             layout2.getChildren().add(save1);
         }
-        Button editMapButton = new Button("Edit"+" "+"Map");
-        Button endMapEditor=new Button("EditMap");
-        MapEditor mapEditor = new MapEditor(endMapEditor,drawing);
-        endMapEditor.setOnMouseClicked(e->{
-            window.setScene(scene3);
-            MapFactory mapPane=new MapFactory(1,drawing);
-            mapPane.addRoutes(mapEditor.getAllRoutes());
-            player.loadMap(mapPane);
-            player.drawMap();
-            fileString = "Game3.sav";
-            player.reset();
-            drawing.drawLifeGold();
-        });
 
-        editMapButton.setOnMouseClicked(e->{
-            window.setScene(new Scene(mapEditor,1350,730));
-        });
-        layout2.getChildren().add(editMapButton);
+
+
+
+       // layout2.getChildren().add(editMapButton);
 
 
 
