@@ -26,7 +26,7 @@ public class Drawing extends Pane  {
     private ArrayList<Updatable> updatables=new ArrayList<>();
 
     private javafx.scene.shape.Rectangle towerSquare = new Rectangle(30, 30, Color.GREEN);
-    private javafx.scene.shape.Circle towerCircle;
+    private javafx.scene.shape.Circle towerCircle= new Circle(10,Color.TRANSPARENT);
 
     public Drawing(){
         super();
@@ -51,10 +51,10 @@ public class Drawing extends Pane  {
     }
 
     public void creatingTowerSquare(double range){
-        towerCircle = new Circle(range,Color.TRANSPARENT);
+        towerCircle.setRadius(range);
         towerCircle.setStroke(Color.GREEN);
         towerCircle.relocate(300-range,300-range);
-        towerSquare.relocate(300,300);
+        towerSquare.relocate(300-15,300-15);
         this.setOnMouseMoved(e->{
             if (this.isOn(e)) {
                 towerCircle.relocate(e.getX()-(range),e.getY()-(range));
