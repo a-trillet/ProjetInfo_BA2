@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -19,7 +20,9 @@ public class TemporaryText implements Updatable, Runnable{
 
     @Override
     public void update(Drawing d) {
-        if (!alive){d.removeUpdatable(this);}
+        if (!alive){
+            Platform.runLater(()->d.removeUpdatable(this));
+        }
     }
 
 

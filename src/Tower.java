@@ -141,7 +141,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
             }
             if (targetEnemy != null) {
                 shoot();
-                // targetEnemy.decreaseLife(damage);
                 System.out.println("shoot"+targetEnemy.getCentre().getY());
                 try {
                     if (powerActive && towerType == "Stack Overflow tower" && System.currentTimeMillis()< powerDuration+ powerStartTime ){

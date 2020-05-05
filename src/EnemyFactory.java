@@ -30,7 +30,7 @@ public class EnemyFactory implements Runnable, Serializable {
             "Bug",
             "Big Error",
             "Java Exception",
-            "Indice out of bounds"
+            "Indice out of bounds",
             "BOSS"
     };
 
@@ -38,7 +38,7 @@ public class EnemyFactory implements Runnable, Serializable {
             "Bug",
             "Big Error",
             "Java Exception",
-            "Indice out of bounds"
+            "Indice out of bounds",
             "BOSS"
     };
 
