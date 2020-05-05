@@ -22,7 +22,7 @@ public class Game extends Application {
     Scene scene1, scene2, scene3;
     private static Drawing drawing= new Drawing();
     private static PlayScreen playscreen = new PlayScreen(drawing);
-    private static Player player= new Player(drawing);
+    private static Player player= new Player();
     private static String fileString;
     public static boolean isOnGame = false;
 
@@ -152,6 +152,8 @@ public class Game extends Application {
             player = (Player) ois.readObject();
 
             System.out.println("Object loaded: " + player.getName());
+            for(Updatable u: player.getEnemiesOnMap()){System.out.println(u.getShape());}
+
         } catch (ClassNotFoundException | IOException e1) {
             e1.printStackTrace();
         }

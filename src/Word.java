@@ -27,6 +27,7 @@ public class Word implements Runnable{
             enemy.setAlive();
         }
     }
+
     public ArrayList<Enemy> getLettres(){
         return lettres;
     }

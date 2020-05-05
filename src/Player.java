@@ -18,13 +18,10 @@ public class Player implements Serializable {
     private  final int startingGold = 300;
     private  int wave = 0;
     private  transient EnemyFactory enemyFactory;
-    private transient Drawing drawing;
-    //private MapFactory mapFactory;
     private ArrayList<ArrayList<Point>> allRoutes;
-    public Player(Drawing d){
 
-        this.drawing=d;
-        drawing.drawLifeGold();
+    public Player(){
+        Game.getDrawing().drawLifeGold();
 
     }
 
@@ -37,8 +34,8 @@ public class Player implements Serializable {
         gold = startingGold;
         towerList = new ArrayList<>();
         enemiesOnMap = new ArrayList<>();
-        enemyFactory = new EnemyFactory(difficulty,drawing,allRoutes);
-        drawing.drawLifeGold();
+        enemyFactory = new EnemyFactory(difficulty,allRoutes);
+        Game.getDrawing().drawLifeGold();
 
     }
 
@@ -58,10 +55,6 @@ public class Player implements Serializable {
         return gold;
     }
 
-    //public void drawMap(){mapFactory.draw();}
-
-    //public MapFactory getMapFactory(){return mapFactory;}
-
     public ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
 
     public int getDifficulty() {
@@ -70,13 +63,13 @@ public class Player implements Serializable {
 
     public void decreaseLife(int dmg) {
         lifePoints -= dmg;
-        drawing.drawLifeGold();
+        Game.getDrawing().drawLifeGold();
         //if (lifePoints<=0){lose()}
     }
 
     public void addGold(int amount) {
         gold += amount;
-        drawing.drawLifeGold();
+        Game.getDrawing().drawLifeGold();
 
     }
 
@@ -90,7 +83,7 @@ public class Player implements Serializable {
 
     public void nextWave() {
         wave++;
-        drawing.drawLifeGold();
+        Game.getDrawing().drawLifeGold();
     }
 
     public int getLifePoints() {
@@ -121,9 +114,8 @@ public class Player implements Serializable {
 
         aInputStream.defaultReadObject();
         if(Game.isOnGame){
-            drawing = Game.getDrawing();
-            enemyFactory = new EnemyFactory(difficulty,drawing,allRoutes);
-            drawing.drawLifeGold();
+            enemyFactory = new EnemyFactory(difficulty,allRoutes);
+            Game.getDrawing().drawLifeGold();
         }
     }
 
