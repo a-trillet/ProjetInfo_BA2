@@ -4,7 +4,7 @@ public class MassartTower extends Tower {
 
     private static int massartTowercost = 150;
     private static  double newRange = 100;
-    private static  double newDamage =1000;
+    private static  double newDamage =50;
     private static int newReloadTime = 5000;
     private static int newBulletRange = 40;
     private String type = "Massart tower";
@@ -33,7 +33,7 @@ public class MassartTower extends Tower {
         powerStartTime = System.currentTimeMillis();
         powerActive = true;
         numberOfKill = 0;
-        Enemy.setEnemyVelocity(6);
+        Enemy.setEnemyVelocity(6);          //peut choisir la vitesse des enemis durant 'activation du power
         Enemy.setFrozen(true);
         Enemy.setFreezeDuration(newPowerDuration);
         Enemy.setFreezeStart(powerStartTime);

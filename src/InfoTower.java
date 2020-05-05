@@ -57,7 +57,7 @@ public class InfoTower extends  Info {
             case "Massart tower":
                 color = new Color(0, 0.1, 1, 0.7);
                 break;
-            case "Fire tower":
+            case "Raj tower":
                 color = new Color(1, 0, 0, 1);
                 break;
             case "Stack Overflow tower":

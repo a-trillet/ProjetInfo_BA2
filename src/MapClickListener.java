@@ -188,13 +188,13 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         iceTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < MassartTower.getNewCost()){msgError.setText(messError);}});
         GridPane.setConstraints(iceTowerButton,1,0);
 
-        Button fireTowerButton = new Button("Fire tower");
+        Button fireTowerButton = new Button("Raj tower");
         fireTowerButton.setOnMouseClicked(e -> {
-            PlayScreen.towerType="FIRE" ;
-            prix.setText(messPrix + String.valueOf(FireTower.getNewCost()));
-            drawing.creatingTowerSquare(FireTower.getNewRange());
+            PlayScreen.towerType="Raj tower" ;
+            prix.setText(messPrix + String.valueOf(RajTower.getNewCost()));
+            drawing.creatingTowerSquare(RajTower.getNewRange());
         });
-        fireTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < FireTower.getNewCost()){msgError.setText(messError);}});
+        fireTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < RajTower.getNewCost()){msgError.setText(messError);}});
         GridPane.setConstraints(fireTowerButton,0,1);
 
         Button sniperTowerButton = new Button("Sycamore Tower");

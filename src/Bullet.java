@@ -33,14 +33,13 @@ public class Bullet implements Runnable, Serializable ,Updatable{
         circle.setCenterX(centre.getX());
         circle.setCenterY(centre.getY());
         circle.setRadius(4);
-        circle.setFill(new Color(1,1,0,1));
+        circle.setFill(new Color(1, 1, 0, 1));
 
 
-        thread=new Thread(this);
+        thread = new Thread(this);
         thread.start();
 
-    } // on peut ajouter speed si différent pour chaque tour
-
+    }
 
 
     @Override

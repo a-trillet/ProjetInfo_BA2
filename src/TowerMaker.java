@@ -10,8 +10,8 @@ public class TowerMaker {
         Tower t = null;
         Image image = new Image(TowerMaker.class.getResourceAsStream("stack.jpg"));//par défault
         switch (type) {
-            case "FIRE":
-                t = new FireTower(p,drawing);
+            case "Raj tower":
+                t = new RajTower(p,drawing);
                 color = new Color(1,0,0,1);
                  image = new Image(TowerMaker.class.getResourceAsStream("raj.jpg"));
                 break;
@@ -57,7 +57,7 @@ public class TowerMaker {
     public static Color getColor(String towerType){
         Color color = new Color(0,0,0,0);
         switch (towerType) {
-            case "Fire tower":
+            case "Raj tower":
                 color = new Color(1,0,0,1);
                 break;
             case "Massart tower":
@@ -75,7 +75,7 @@ public class TowerMaker {
     public static Image getImage(String towerType){
         Image image = new Image(TowerMaker.class.getResourceAsStream("stack.jpg"));//par défault
         switch (towerType) {
-            case "FIRE":
+            case "Raj tower":
                 image = new Image(TowerMaker.class.getResourceAsStream("raj.jpg"));
                 break;
             case "Massart tower":

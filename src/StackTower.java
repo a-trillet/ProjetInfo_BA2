@@ -2,7 +2,7 @@ import javafx.scene.paint.Color;
 
 public class StackTower extends Tower {
 
-    private static  int basicTowerCost = 100;
+    private static  int stackTowerCost = 100;
     private static  double newRange = 60;
     private static  double newDamage = 10;
     private static int newReloadTime = 500;
@@ -13,7 +13,7 @@ public class StackTower extends Tower {
 
     public StackTower(Point origin,Drawing d){
         super(origin,d);
-        this.cost = basicTowerCost;
+        this.cost = stackTowerCost;
         this.range = newRange;
         this.damage = newDamage;
         this.reloadTime = newReloadTime;
@@ -23,7 +23,7 @@ public class StackTower extends Tower {
         this.powerDuration = newPowerDuration;
     }
     public static int getNewCost(){
-        return basicTowerCost;
+        return stackTowerCost;
     }
     public static double getNewRange(){return newRange;}
 

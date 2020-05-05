@@ -39,6 +39,11 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     public static void setFreezeStart(double startTime){freezeStart = startTime;}
     public static void setEnemyVelocity(double velocity){enemyVelocity = velocity;}
 
+    private static boolean generalHurt = false;
+    private static double tsarBombaDamage = 0;
+    public static void setGeneralHurt(boolean bol){generalHurt = bol;}
+    public static void setTsarBombaDamage(double damage){tsarBombaDamage = damage;}
+
 
 
     //attributs venant des s-classe
@@ -152,29 +157,30 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
 
 
     public void move(){
-        if (origin.distance(trackPoints.get(nextPoint))>enemySpeed){
-            double dist = trackPoints.get(nextPoint).distance(origin);
-            int deltaX = (int) (this.trackPoints.get(nextPoint).getX() - origin.getX());
-            int deltaY = (int) (this.trackPoints.get(nextPoint).getY() - origin.getY());
+            if (origin.distance(trackPoints.get(nextPoint)) > enemySpeed) {
+                double dist = trackPoints.get(nextPoint).distance(origin);
+                int deltaX = (int) (this.trackPoints.get(nextPoint).getX() - origin.getX());
+                int deltaY = (int) (this.trackPoints.get(nextPoint).getY() - origin.getY());
 
-            double dx = enemyVelocity/15  * deltaX / dist;
-            double dy = enemyVelocity/15  * deltaY / dist;
-            origin.setX(origin.getX() + dx);
-            origin.setY(origin.getY() + dy);
+                double dx = enemyVelocity / 15 * deltaX / dist;
+                double dy = enemyVelocity / 15 * deltaY / dist;
+                origin.setX(origin.getX() + dx);
+                origin.setY(origin.getY() + dy);
 
 
-        }
-        else{
-            origin.setX(trackPoints.get(nextPoint).getX());
-            origin.setY(trackPoints.get(nextPoint).getY());  //nextpoint c'est un int qui definit l'endroitde la liste ou l'element  est un point qu 'il va atteindre
-            if (trackPoints.size()-1>nextPoint){
-                nextPoint++;
-                angle=Math.atan2((trackPoints.get(nextPoint).getY()-trackPoints.get(nextPoint-1).getY()),(trackPoints.get(nextPoint).getX()-trackPoints.get(nextPoint-1).getX()));
+            } else {
+                origin.setX(trackPoints.get(nextPoint).getX());
+                origin.setY(trackPoints.get(nextPoint).getY());  //nextpoint c'est un int qui definit l'endroitde la liste ou l'element  est un point qu 'il va atteindre
+                if (trackPoints.size() - 1 > nextPoint) {
+                    nextPoint++;
+                    angle = Math.atan2((trackPoints.get(nextPoint).getY() - trackPoints.get(nextPoint - 1).getY()), (trackPoints.get(nextPoint).getX() - trackPoints.get(nextPoint - 1).getX()));
 
+                } else {
+                    reachEndPoint();
+                }
             }
-            else {reachEndPoint();}
-            }
-        }
+
+    }
 
     @Override
     public Node getShape() {
@@ -214,6 +220,8 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
         }
 
 
+
+
     @Override
     public void run() {
         System.out.println("X: "+ this.getCentre().getX()+"enemy object run");
@@ -222,6 +230,13 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
                 frozen = false;
                 enemyVelocity = enemySpeed;    //revient à sa vitesse de base
             }
+            if(generalHurt){
+                for (Enemy e : Game.getPlayer().getEnemiesOnMap()) {
+                    e.decreaseLife(tsarBombaDamage);
+                }
+                generalHurt = false;
+            }
+
             this.move();
             try {
                 Thread.sleep(20);
