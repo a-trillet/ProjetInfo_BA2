@@ -20,8 +20,9 @@ public class Bullet implements Runnable, Serializable ,Updatable{
     private boolean alive=true;
     private javafx.scene.shape.Circle circle;
     private Thread thread;
-    private Image image;
-    private ImageView imageView;
+
+    protected transient ImageView imageView = new ImageView();
+    protected transient Image image;
 
     public Bullet (double damage, Tower t, double range, Point targetPoint, Point originPoint) {
         this.damage = damage;
@@ -31,32 +32,34 @@ public class Bullet implements Runnable, Serializable ,Updatable{
         this.targetPoint = targetPoint;
 
         circle = new javafx.scene.shape.Circle();
-        circle.setCenterX(centre.getX());
-        circle.setCenterY(centre.getY());
-        circle.setRadius(4);
-        circle.setFill(new Color(1,1,0,1));
-        //if (t.getTowerType() == "Massart tower"){
-         //   image = new Image(Bullet.class.getResourceAsStream("turtle.jpg"));
-          // imageView.setFitHeight(8);
-          //  imageView.setFitHeight(8);
-           // imageView.setX(centre.getX()-4);
-            //imageView.setY(centre.getY()-4);
-        //}
-
-
-
+       // circle.setCenterX(centre.getX());
+       // circle.setCenterY(centre.getY());
+       // circle.setRadius(4);
+       // circle.setFill(new Color(1,1,0,1));
+        createImage();
 
         thread=new Thread(this);
         thread.start();
 
     } // on peut ajouter speed si différent pour chaque tour
 
-    public Node getShape() {
-        return circle;
+    public void createImage(){
+        if (motherTower.getTowerType() == "Massart tower"){
+            image = new Image(Bullet.class.getResourceAsStream("turtle.jpg"));
+            imageView.setFitHeight(8);
+            imageView.setPreserveRatio(true);
+            //imageView.setFitHeight(8);
+            imageView.relocate(centre.getX()-4,centre.getY()-4);
+        }
     }
-    public Node getImage(){
+
+    @Override
+    public Node getShape() {
         return imageView;
     }
+    //public Node getImage(){
+      //  return imageView;
+    //}
 
 
     public double getDamage() {
@@ -101,10 +104,12 @@ public class Bullet implements Runnable, Serializable ,Updatable{
     public void update(Drawing drawing)
     {
         if (alive) {
-           circle.setCenterX(centre.getX());
-           circle.setCenterY(centre.getY());
-            //imageView.setX(centre.getX()-4);
-           // imageView.setY(centre.getY()-4);
+           //circle.setCenterX(centre.getX());
+           //circle.setCenterY(centre.getY());
+            try {
+              imageView.relocate(centre.getX()-4,centre.getY()-4);
+            }
+            catch (Exception e){e.printStackTrace();}
         }
         else {drawing.removeUpdatable(this);}
     }

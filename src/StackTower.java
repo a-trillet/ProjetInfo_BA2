@@ -3,7 +3,7 @@ import javafx.scene.paint.Color;
 public class StackTower extends Tower {
 
     private static  int basicTowerCost = 100;
-    private static  double newRange = 25;
+    private static  double newRange = 60;
     private static  double newDamage = 10;
     private static int newReloadTime = 500;
     private static int newBulletRange = 10;

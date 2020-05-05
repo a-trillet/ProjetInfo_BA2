@@ -24,7 +24,6 @@ public class BossEnemy extends Enemy {
         super(trackPoints,origin, maxLife, reward);
         this.enemyType = type;
         this.enemyPower = power;
-        //this.enemySpeed = speed;
         createImage();
 
     }
