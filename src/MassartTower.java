@@ -7,8 +7,9 @@ public class MassartTower extends Tower {
     private static  double newDamage = 0;
     private static int newReloadTime = 5000;
     private static int newBulletRange = 40;
-    private static double newFreezeTime = 2000;
     private String type = "Massart tower";
+    private String newPowerType = "Total Slow";
+    private double newPowerDuration = 3000;
 
     public MassartTower(Point origin,Drawing d) {
         super(origin,d);
@@ -18,10 +19,25 @@ public class MassartTower extends Tower {
         this.reloadTime = newReloadTime;
         this.bulletRange = newBulletRange;
         this.towerType = type;
-        this.freezeTime = newFreezeTime;
+        this.powerType = newPowerType;
+        this.powerDuration = newPowerDuration;
     }
     public static int getNewCost(){
         return massartTowercost;
     }
 
+    @Override
+    public void powerActivation(){                      //sert à diminuer le reload time dans le run the tower pour une rafale
+
+        powerStartTime = System.currentTimeMillis();
+        powerActive = true;
+        numberOfKill = 0;
+        Enemy.setEnemyVelocity(6);
+        Enemy.setFrozen(true);
+        Enemy.setFreezeDuration(newPowerDuration);
+        Enemy.setFreezeStart(powerStartTime);
+
+
+    }
 }
+

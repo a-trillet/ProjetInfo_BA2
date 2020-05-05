@@ -23,17 +23,16 @@ public class Tower implements MapClickable, Runnable, Serializable {
     protected double range;
     protected int reloadTime;
     protected int bulletRange;
-    protected double freezeTime;
     protected String towerType;
     protected boolean powerActive = false;
     protected String powerType = null;
     protected double powerDuration;
     protected double powerStartTime;
+    protected int numberOfKill;
 
     private boolean active = true;
     private double uprgradeBase = 1.0;      // vont servir à augmenter le range et damage
     private double upgradeMultiplier = 0.5; //
-    private int numberOfKill;
     private transient Thread thread = new Thread(this);
     private transient Drawing drawing;
 
@@ -43,9 +42,10 @@ public class Tower implements MapClickable, Runnable, Serializable {
         level = 1;
     }
 
-    public void setpowerActivation(boolean bol){
+    public void setPowerActivation(boolean bol){
         powerActive = bol;
     }
+
     protected void powerActivation(){}
     public String getPowerType(){return powerType;}
     public int getKillPower(){                  //retourne le nombre de kill à faire pour pouvoir activer le power(change en fonction du level
@@ -91,7 +91,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
                 level += 1;
                 damage = damage*(uprgradeBase + (level-1)*upgradeMultiplier);
                 range = range *(uprgradeBase + (level-1)*upgradeMultiplier);
-                freezeTime = freezeTime*(uprgradeBase + (level-1)*upgradeMultiplier);
                 upgradeCost = upgradeCost * (level);
 
                 messageUpgrade = "Upgraded";
@@ -200,10 +199,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     public double getRange() {
         return range;
-    }
-
-    public double getFreezeTime(){
-        return freezeTime;
     }
 
     public int getNumberOfKill() {

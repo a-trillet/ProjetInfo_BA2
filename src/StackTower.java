@@ -33,6 +33,7 @@ public class StackTower extends Tower {
 
         powerStartTime = System.currentTimeMillis();
         powerActive = true;
+        numberOfKill = 0;
     }
 }
 

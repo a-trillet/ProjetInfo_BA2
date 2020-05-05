@@ -1,13 +1,16 @@
 import javafx.application.Platform;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 
+import java.awt.*;
 import java.io.Serializable;
 
 import static java.lang.Math.*;
 
-public class Bullet implements Runnable, Serializable ,Moveable{
+public class Bullet implements Runnable, Serializable ,Updatable{
     private double speed=10;  // choisir si vient de la tour ou meme vitesse pour tt les balles
     private Point centre; // coordonnée
     private double damage;
@@ -17,8 +20,8 @@ public class Bullet implements Runnable, Serializable ,Moveable{
     private boolean alive=true;
     private javafx.scene.shape.Circle circle;
     private Thread thread;
-    private boolean freezeBullet;
-
+    private Image image;
+    private ImageView imageView;
 
     public Bullet (double damage, Tower t, double range, Point targetPoint, Point originPoint) {
         this.damage = damage;
@@ -26,17 +29,23 @@ public class Bullet implements Runnable, Serializable ,Moveable{
         this.centre = originPoint;
         this.range = range;
         this.targetPoint = targetPoint;
-        if (t.towerType == "Ice tower"){
-            freezeBullet = true;            //comme ça qd la balle explose, ça active le freeze
-        }
-        else{
-            freezeBullet = false;
-        }
+
         circle = new javafx.scene.shape.Circle();
         circle.setCenterX(centre.getX());
         circle.setCenterY(centre.getY());
         circle.setRadius(4);
         circle.setFill(new Color(1,1,0,1));
+        //if (t.getTowerType() == "Massart tower"){
+         //   image = new Image(Bullet.class.getResourceAsStream("turtle.jpg"));
+          // imageView.setFitHeight(8);
+          //  imageView.setFitHeight(8);
+           // imageView.setX(centre.getX()-4);
+            //imageView.setY(centre.getY()-4);
+        //}
+
+
+
+
         thread=new Thread(this);
         thread.start();
 
@@ -44,6 +53,9 @@ public class Bullet implements Runnable, Serializable ,Moveable{
 
     public Node getShape() {
         return circle;
+    }
+    public Node getImage(){
+        return imageView;
     }
 
 
@@ -55,9 +67,6 @@ public class Bullet implements Runnable, Serializable ,Moveable{
     public void explode() {      //hurt les ennemis dont l'origine est dans la range de la bullet
         for(int i=0; i<Game.getPlayer().getEnemiesOnMap().size(); i++){
             Enemy enemy=Game.getPlayer().getEnemiesOnMap().get(i);
-            if (freezeBullet) {
-                enemy.freeze(this.motherTower);
-            }
             if(enemy.getCentre().distance(this.centre)<range) {
                 enemy.hurt(this);
 
@@ -92,10 +101,12 @@ public class Bullet implements Runnable, Serializable ,Moveable{
     public void update(Drawing drawing)
     {
         if (alive) {
-            circle.setCenterX(centre.getX());
-            circle.setCenterY(centre.getY());
+           circle.setCenterX(centre.getX());
+           circle.setCenterY(centre.getY());
+            //imageView.setX(centre.getX()-4);
+           // imageView.setY(centre.getY()-4);
         }
-        else {drawing.removeMoveable(this);}
+        else {drawing.removeUpdatable(this);}
     }
 
 
