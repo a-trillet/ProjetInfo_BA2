@@ -64,7 +64,7 @@ public class MapFactory  {
     }
     };
 
-    public MapFactory(int difficulty,Drawing d){
+    public MapFactory(int difficulty){
         loadRoute(getTrack(difficulty));  /// changer par un fichier
     }
 
@@ -140,7 +140,7 @@ public class MapFactory  {
     }
 
 
-    public static void addRoutes(ArrayList<ArrayList<Point>> newallroutes){allRoutes=newallroutes;System.out.println(allRoutes);}
+    public static void createNewRoutes(ArrayList<ArrayList<Point>> newallroutes){allRoutes=newallroutes;}
 
     private  int[][][] getTrack(int difficulty){
         int[][][] track = null;
