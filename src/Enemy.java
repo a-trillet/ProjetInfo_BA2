@@ -10,7 +10,6 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.net.ProtocolFamily;
 import java.util.ArrayList;
 
 
@@ -22,13 +21,13 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     protected Point origin;
     private double angle;
 
-    protected boolean alive = false;
+    private boolean alive = false;
     private double lifePoints;
     private ArrayList<Tower> targetingTowers = new ArrayList<>(); // les tours qui le cible actuelement
     protected transient Thread t;
     private String lettre;
     private transient Text lettreText;
-    private Color color;
+
 
     private static double enemyVelocity = 12;
     private static double freezeDuration;
@@ -115,12 +114,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
 
     //retire le cercle et retire de ennemies on map dans Player
     private void die() {
-        this.alive = false;
-        //on peut pas toucher à des element javafx depuis un autre thread
-
-        //Platform.runLater(() -> PlayScreen.drawing.getChildren().remove(Moveable));
-        Game.getPlayer().getEnemiesOnMap().remove(this);
-
+        alive = false;
     }
 
     public void addTargetingTower(Tower tower){
@@ -190,14 +184,12 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     }
 
 
-    public void update(Drawing drawing){
-        if (alive) {
-            lettreText.setX(origin.getX());
-            lettreText.setY(origin.getY());
-            lettreText.setRotate(angle*360/2/Math.PI);
-            if (lifePoints<=maxLifePoints/2){lettreText.setFill(Color.web("FF7B2C"));}
-        }
-        else {drawing.removeUpdatable(this);}
+    public void update(){
+        lettreText.setX(origin.getX());
+        lettreText.setY(origin.getY());
+        lettreText.setRotate(angle*360/2/Math.PI);
+        if (lifePoints<=maxLifePoints/2){lettreText.setFill(Color.web("FF7B2C"));}
+
     }
     public boolean isAlive(){
         return alive;

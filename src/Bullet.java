@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import static java.lang.Math.*;
 
@@ -17,12 +18,13 @@ public class Bullet implements Runnable, Serializable ,Updatable{
     private double range;   // distance jusqu'à laquelle on est touché quand la bullet explose
     private Tower motherTower;
     private Point targetPoint;  // point d'arriver de la balle
-    private boolean alive=true;
+    private boolean alive;
     private javafx.scene.shape.Circle circle;
     private Thread thread;
 
 
     public Bullet (double damage, Tower t, double range, Point targetPoint, Point originPoint) {
+        alive=true;
         this.damage = damage;
         this.motherTower = t;
         this.centre = originPoint;
@@ -47,6 +49,10 @@ public class Bullet implements Runnable, Serializable ,Updatable{
         return circle;
     }
 
+    @Override
+    public boolean isAlive() {
+        return alive;
+    }
 
 
     public double getDamage() {
@@ -55,14 +61,19 @@ public class Bullet implements Runnable, Serializable ,Updatable{
     }
 
     public void explode() {      //hurt les ennemis dont l'origine est dans la range de la bullet
-        for(int i=0; i<Game.getPlayer().getEnemiesOnMap().size(); i++){
-            Enemy enemy=Game.getPlayer().getEnemiesOnMap().get(i);
-            if(enemy.getCentre().distance(this.centre)<range) {
-                enemy.hurt(this);
-
+        ArrayList<Enemy> enemiestoremove=new ArrayList<>();
+        for( Enemy e: Game.getPlayer().getEnemiesOnMap()) {
+            if (e.getCentre().distance(this.centre) < range) {
+                e.hurt(this);
+            }
+            if (!e.isAlive()) {
+                enemiestoremove.add(e);
             }
         }
+        for (Enemy enemytoremove : enemiestoremove){Game.getPlayer().removeEnemy(enemytoremove);}
+        enemiestoremove.clear();
     }
+
 
     public Tower getMotherTower() {
         return motherTower;
@@ -88,14 +99,11 @@ public class Bullet implements Runnable, Serializable ,Updatable{
         }
 
 
-    public void update(Drawing drawing)
-    {
-        if (alive) {
-           circle.setCenterX(centre.getX());
-           circle.setCenterY(centre.getY());
+    public void update() {
+        circle.setCenterX(centre.getX());
+        circle.setCenterY(centre.getY());
         }
-        else {drawing.removeUpdatable(this);}
-    }
+
 
 
     public void run(){

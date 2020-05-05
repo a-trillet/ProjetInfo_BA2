@@ -1,5 +1,7 @@
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+
 public class RajTower extends Tower{
 
     private static int rajTowerCost = 150;
@@ -34,9 +36,13 @@ public class RajTower extends Tower{
         powerActive = true;
         numberOfKill = 0;
         //en gros permet de toucher tt les ennemis en meme temps
+        ArrayList<Enemy> enemiestoremove=new ArrayList<>();
         for (Enemy e : Game.getPlayer().getEnemiesOnMap()) {
             e.decreaseLife(damage);
+            if (!e.isAlive()){enemiestoremove.add(e);}
         }
+        for (Enemy enemytoremove : enemiestoremove){Game.getPlayer().removeEnemy(enemytoremove);}
+        enemiestoremove.clear();
         powerActive = false;
     }
 

@@ -100,8 +100,9 @@ public class Player implements Serializable {
 
     public void addEnemy(Enemy e){
         enemiesOnMap.add(e);
-
     }
+
+    public void removeEnemy(Enemy e){enemiesOnMap.remove(e);}
 
     public int getMaxLives(){ return startingLives[difficulty-1];}
 

@@ -33,9 +33,15 @@ public class Drawing extends Pane  {
        // this.getChildren().add(new Tips("Bienvenue cher étudiant...",new Point(20,250),this));
         this.getChildren().add(labelGold);
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(20), event -> {
-            for(int i=0; i<updatables.size(); i++){
-                updatables.get(i).update(this);
+            ArrayList<Updatable> updatablestoremove=new ArrayList<>();
+            for(Updatable updatable:updatables){
+                updatable.update();
+
+                if (!updatable.isAlive()) {
+                    updatablestoremove.add(updatable);
+                }
             }
+            for (Updatable updatabletoremove : updatablestoremove){removeUpdatable(updatabletoremove);}
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();

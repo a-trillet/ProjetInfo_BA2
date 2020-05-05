@@ -33,16 +33,12 @@ public class BossEnemy extends Enemy {
         selectedImage.setPreserveRatio(true);
         selectedImage.relocate(origin.getX(),origin.getY());
     }
-    public void update(Drawing drawing){
-        if (alive) {
-
+    public void update(){
         try {
             selectedImage.relocate(origin.getX()-25,origin.getY()-25);
         }
         catch (Exception e){e.printStackTrace();}
         }
-        else{drawing.removeUpdatable(this);}
-    }
     public Node getShape() {
         return selectedImage;
     }
