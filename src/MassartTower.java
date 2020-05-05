@@ -4,7 +4,7 @@ public class MassartTower extends Tower {
 
     private static int massartTowercost = 150;
     private static  double newRange = 100;
-    private static  double newDamage = 0;
+    private static  double newDamage =1000;
     private static int newReloadTime = 5000;
     private static int newBulletRange = 40;
     private String type = "Massart tower";

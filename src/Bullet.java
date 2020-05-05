@@ -21,8 +21,6 @@ public class Bullet implements Runnable, Serializable ,Updatable{
     private javafx.scene.shape.Circle circle;
     private Thread thread;
 
-    protected transient ImageView imageView = new ImageView();
-    protected transient Image image;
 
     public Bullet (double damage, Tower t, double range, Point targetPoint, Point originPoint) {
         this.damage = damage;
@@ -32,34 +30,24 @@ public class Bullet implements Runnable, Serializable ,Updatable{
         this.targetPoint = targetPoint;
 
         circle = new javafx.scene.shape.Circle();
-       // circle.setCenterX(centre.getX());
-       // circle.setCenterY(centre.getY());
-       // circle.setRadius(4);
-       // circle.setFill(new Color(1,1,0,1));
-        createImage();
+        circle.setCenterX(centre.getX());
+        circle.setCenterY(centre.getY());
+        circle.setRadius(4);
+        circle.setFill(new Color(1,1,0,1));
+
 
         thread=new Thread(this);
         thread.start();
 
     } // on peut ajouter speed si différent pour chaque tour
 
-    public void createImage(){
-        if (motherTower.getTowerType() == "Massart tower"){
-            image = new Image(Bullet.class.getResourceAsStream("turtle.jpg"));
-            imageView.setFitHeight(8);
-            imageView.setPreserveRatio(true);
-            //imageView.setFitHeight(8);
-            imageView.relocate(centre.getX()-4,centre.getY()-4);
-        }
-    }
+
 
     @Override
     public Node getShape() {
-        return imageView;
+        return circle;
     }
-    //public Node getImage(){
-      //  return imageView;
-    //}
+
 
 
     public double getDamage() {
@@ -104,12 +92,8 @@ public class Bullet implements Runnable, Serializable ,Updatable{
     public void update(Drawing drawing)
     {
         if (alive) {
-           //circle.setCenterX(centre.getX());
-           //circle.setCenterY(centre.getY());
-            try {
-              imageView.relocate(centre.getX()-4,centre.getY()-4);
-            }
-            catch (Exception e){e.printStackTrace();}
+           circle.setCenterX(centre.getX());
+           circle.setCenterY(centre.getY());
         }
         else {drawing.removeUpdatable(this);}
     }
