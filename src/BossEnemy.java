@@ -26,7 +26,6 @@ public class BossEnemy extends Enemy {
         this.enemyPower = power;
         //this.enemySpeed = speed;
         createImage();
-        loaded = true;
 
     }
     protected void createImage(){
@@ -43,7 +42,7 @@ public class BossEnemy extends Enemy {
         }
         catch (Exception e){e.printStackTrace();}
         }
-        else if(loaded){drawing.removeMoveable(this);}
+        else{drawing.removeUpdatable(this);}
     }
     public Node getShape() {
         return selectedImage;
