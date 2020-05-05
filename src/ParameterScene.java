@@ -39,18 +39,6 @@ public class ParameterScene {
         nameInput.setOnMouseClicked(e -> nameInput.clear());
 
 
-
-
-        // bouton édition de map
-        MapEditor mapEditor = new MapEditor(drawing, window, scene);
-        Button editMapButton = new Button("Edit your Map");
-        editMapButton.setOnMouseClicked(e->{
-          window.setScene(new Scene(mapEditor,1128,581));
-        });
-
-
-
-
           // creation bouton sélection de difficulté
         ComboBox<String> difficultySelection = new ComboBox<>();
         difficultySelection.getItems().addAll(
@@ -60,6 +48,22 @@ public class ParameterScene {
                 "Insane"
         );
         difficultySelection.setPromptText("Select Difficulty");
+
+        //création sélection de map
+        ComboBox<String> mapSelection = new ComboBox<>();
+        mapSelection.getItems().addAll(
+                "Easy",
+                "Normal",
+                "Hard",
+                "Insane",
+                "create your map"
+        );
+        mapSelection.setPromptText("Select your map");
+        mapSelection.setOnAction(e->getMapSelection(mapSelection,drawing,window,scene));
+
+
+
+
         //message d'erreur
         Label labelError1 = new Label();
         labelError1.setText("");
@@ -74,9 +78,7 @@ public class ParameterScene {
           else{
             Game.getPlayer().setName(nameInput.getText());
             Game.getPlayer().setDifficulty(getDifficulty(difficultySelection));
-            if (mapFactory == null){
-              Game.getPlayer().loadMap(new MapFactory(getDifficulty(difficultySelection),drawing));}
-            else {Game.getPlayer().loadMap(mapFactory);}
+            Game.getPlayer().loadMap();
             MapFactory.draw();
             Game.getPlayer().reset();
             PlayScreen.drawRun();
@@ -88,7 +90,7 @@ public class ParameterScene {
 
 
         stackPane.setBackground(background);
-        layout.getChildren().addAll( nameInput, difficultySelection,editMapButton, closeButton,labelError1);
+        layout.getChildren().addAll( nameInput, difficultySelection,mapSelection, closeButton,labelError1);
         layout.setAlignment(Pos.BOTTOM_CENTER);
         stackPane.getChildren().addAll(layout);
 
@@ -140,4 +142,26 @@ public class ParameterScene {
       }
       return difficulty;
     }
+
+  private static void getMapSelection(ComboBox<String> combobox, Drawing drawing, Stage window,Scene scene){
+    String mapchoice = combobox.getValue();
+    switch(mapchoice) {
+      case "Easy" :
+        new MapFactory(1,drawing);
+        break;
+      case "Normal":
+        new MapFactory(2,drawing);
+        break;
+      case "Hard":
+        new MapFactory(3,drawing);
+        break;
+      case  "Insane" :
+        new MapFactory(4,drawing);
+        break;
+      case "create your map":
+        MapEditor mapEditor = new MapEditor(drawing, window, scene);
+        window.setScene(new Scene(mapEditor,1128,581));
+        break;
+    }
+  }
 }

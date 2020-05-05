@@ -25,9 +25,8 @@ public class Player implements Serializable {
 
     }
 
-    public void  loadMap(MapFactory mapFactory){
-        //this.mapFactory=mapFactory;
-        allRoutes = mapFactory.getAllRoutes();
+    public void  loadMap(){
+        allRoutes = MapFactory.getAllRoutes();
     }
     public void reset() {
         lifePoints = startingLives[difficulty - 1];
