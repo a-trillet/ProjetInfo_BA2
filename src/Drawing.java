@@ -33,8 +33,8 @@ public class Drawing extends Pane  {
        // this.getChildren().add(new Tips("Bienvenue cher étudiant...",new Point(20,250),this));
         this.getChildren().add(labelGold);
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(20), event -> {
-            for (Updatable updatable : updatables) {
-                updatable.update(this);
+            for(int i=0; i<updatables.size(); i++){
+                updatables.get(i).update(this);
             }
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
@@ -57,6 +57,7 @@ public class Drawing extends Pane  {
         towerSquare.relocate(300-15,300-15);
         this.setOnMouseMoved(e->{
             if (this.isOn(e)) {
+                if (PlayScreen.towerType!=null){
                 towerCircle.relocate(e.getX()-(range),e.getY()-(range));
                 towerSquare.relocate(e.getX() - 15, e.getY() - 15);
                 if(TowerMaker.CheckTowerOk(new Tower(new Point(e.getX(),e.getY()),this))){
@@ -66,7 +67,7 @@ public class Drawing extends Pane  {
                 else{
                     towerSquare.setFill(Color.RED);
                     towerCircle.setStroke(Color.RED);
-                }
+                }}
             }
     });
         this.getChildren().addAll(towerCircle,towerSquare);
