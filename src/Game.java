@@ -76,14 +76,15 @@ public class Game extends Application {
             if (checkFileExists("Game"+ii+".sav")){
                 save1.setText(loadName("Game"+ii+".sav"));
                 save1.setOnMouseClicked(e-> {
-                    isOnGame=true;
                     try {
                         loadAndDraw("Game"+ii+".sav");
+                        isOnGame=true;
                         load("Game"+ii+".sav");
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
                     drawing.drawLifeGold();
+                    PlayScreen.drawRun();
                     fileString = "Game" + ii + ".sav";// permet de savoir le nom  du fichier dans lequel save et qu'il soit associable a un bouton
                     window.setScene(scene3);
                 });

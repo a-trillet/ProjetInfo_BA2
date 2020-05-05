@@ -21,28 +21,29 @@ public class EnemyFactory implements Runnable, Serializable {
 
         // les différentes vagues
     private static final String[] easyWaves ={
-            "Bug",
-            "Big Error",
-            "Java Exception"
+                "Bug",
+                "Big Error",
+                "Java Exception",
+                "BOSS"
     };
 
 
     private static final String[] normalWaves = {
             "Bug",
             "Big Error",
-            "Java Exception"
+            "Java Exception",
+            "BOSS"
     };
 
     private static final String[] hardWaves = {
             "Bug",
             "Big Error",
-            "Java Exception"
+            "Java Exception",
+            "BOSS"
     };
 
     private static final String[] insaneWaves = {
-            "Bug",
-            "Big Error",
-            "Java Exception"
+            "BOSS"
 
     };
 
