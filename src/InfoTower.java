@@ -63,7 +63,7 @@ public class InfoTower extends  Info {
             case "Stack Overflow tower":
                 color = new Color(0, 1, 0, 1);
                 break;
-            case "Sniper tower":
+            case "Sycamore tower":
                 color = new Color(1, 0, 1, 0.3);
                 break;
         }
