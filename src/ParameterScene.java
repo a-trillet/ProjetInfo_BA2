@@ -79,6 +79,7 @@ public class ParameterScene {
             else {Game.getPlayer().loadMap(mapFactory);}
             MapFactory.draw();
             Game.getPlayer().reset();
+            PlayScreen.drawRun();
             window.setScene(futurScene);
           }
         });

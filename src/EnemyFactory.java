@@ -19,9 +19,10 @@ public class EnemyFactory implements Runnable, Serializable {
 
         // les différentes vagues
     private static final String[] easyWaves ={
-            "Bug",
-            "Big Error",
-            "Java Exception"
+                "Bug",
+                "Big Error",
+                "Java Exception",
+                "BOSS"
     };
 
 
@@ -30,6 +31,7 @@ public class EnemyFactory implements Runnable, Serializable {
             "Big Error",
             "Java Exception",
             "Indice out of bounds"
+            "BOSS"
     };
 
     private static final String[] hardWaves = {
@@ -37,13 +39,11 @@ public class EnemyFactory implements Runnable, Serializable {
             "Big Error",
             "Java Exception",
             "Indice out of bounds"
+            "BOSS"
     };
 
     private static final String[] insaneWaves = {
-            "Bug",
-            "Big Error",
-            "Java Exception",
-            "Indice out of bounds"
+            "BOSS"
 
     };
 

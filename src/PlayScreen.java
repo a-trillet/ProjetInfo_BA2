@@ -21,6 +21,8 @@ public class PlayScreen{
     public static MapClickListener mapClickListener;
     private static Pane map = new Pane(); // permet de supperposer les différents éléments de la map (image, tours,..)
 
+    private static ImageView selectedImage = new ImageView();
+    private static Image image = new Image(BossEnemy.class.getResourceAsStream("run.jpg"));
 
     public PlayScreen(Drawing d){
         this.drawing=d;
@@ -29,8 +31,18 @@ public class PlayScreen{
         Background background = new Background(backgroundimage);
         map.setBackground(background);
         mapClickListener= new MapClickListener(borderPane,drawing);
+
     }
 
+    public static void drawRun(){
+        selectedImage.setImage(image);
+        selectedImage.setFitHeight(50);
+        selectedImage.setPreserveRatio(true);
+        selectedImage.relocate(600,80);
+
+        selectedImage.setOnMouseClicked(e->Game.getPlayer().getEnemyFactory().nextWave());
+        map.getChildren().add(selectedImage);
+    }
     public BorderPane sceneView(){
         //La map
 

@@ -7,10 +7,16 @@ public class Word implements Runnable{
 
     public Word(String s, Point origin, ArrayList<Point> route){
 
-        for (String lettre : s.split("")){
-            Enemy enemy = new NormalEnemy(route, new Point(origin.getX(),origin.getY()), lettre); //faire fct qui crée un type d'ennmi selon la lettre
-            origin.setX(origin.getX()+10);
+        if (s.equals("BOSS")){
+            Enemy enemy = new BossEnemy(route, new Point(origin.getX(),origin.getY()));
             lettres.add(enemy);
+        }
+        else {
+            for (String lettre : s.split("")) {
+                Enemy enemy = new NormalEnemy(route, new Point(origin.getX(), origin.getY()), lettre); //faire fct qui crée un type d'ennmi selon la lettre
+                origin.setX(origin.getX() + 10);
+                lettres.add(enemy);
+            }
         }
     }
 

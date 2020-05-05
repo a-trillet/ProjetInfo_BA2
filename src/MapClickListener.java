@@ -191,11 +191,11 @@ public class MapClickListener implements EventHandler<MouseEvent> {
 
 
 
-        Button nextWave = new Button("Next Wave");
+        /*Button nextWave = new Button("Next Wave");
         GridPane.setConstraints(nextWave, 0,25);
         nextWave.setOnAction(e -> {
             Game.getPlayer().getEnemyFactory().nextWave();
-        });
+        });*/
 
 
         //intégration d'images test (je savais pas ou mettre)
@@ -208,7 +208,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
 
 
 
-        shop.getChildren().addAll(basicTowerButton, iceTowerButton, fireTowerButton, sniperTowerButton, nextWave, msgError, prix);
+        shop.getChildren().addAll(basicTowerButton, iceTowerButton, fireTowerButton, sniperTowerButton, msgError, prix);
         borderPane.setRight(shop);
 
 

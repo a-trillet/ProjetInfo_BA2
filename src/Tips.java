@@ -71,7 +71,7 @@ public class Tips extends Pane {
     private boolean isOnShow(Point p){
         Point show = new Point(16,125);
         return p.distance(show)<8;
-    }
+}
     public void setText(String s){
         text.setText(s);
     }

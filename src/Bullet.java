@@ -1,8 +1,11 @@
 import javafx.application.Platform;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 
+import java.awt.*;
 import java.io.Serializable;
 
 import static java.lang.Math.*;
@@ -17,6 +20,8 @@ public class Bullet implements Runnable, Serializable ,Updatable{
     private boolean alive=true;
     private javafx.scene.shape.Circle circle;
     private Thread thread;
+    private Image image;
+    private ImageView imageView;
 
     public Bullet (double damage, Tower t, double range, Point targetPoint, Point originPoint) {
         this.damage = damage;
@@ -30,6 +35,17 @@ public class Bullet implements Runnable, Serializable ,Updatable{
         circle.setCenterY(centre.getY());
         circle.setRadius(4);
         circle.setFill(new Color(1,1,0,1));
+        //if (t.getTowerType() == "Massart tower"){
+         //   image = new Image(Bullet.class.getResourceAsStream("turtle.jpg"));
+          // imageView.setFitHeight(8);
+          //  imageView.setFitHeight(8);
+           // imageView.setX(centre.getX()-4);
+            //imageView.setY(centre.getY()-4);
+        //}
+
+
+
+
         thread=new Thread(this);
         thread.start();
 
@@ -37,6 +53,9 @@ public class Bullet implements Runnable, Serializable ,Updatable{
 
     public Node getShape() {
         return circle;
+    }
+    public Node getImage(){
+        return imageView;
     }
 
 
@@ -82,8 +101,10 @@ public class Bullet implements Runnable, Serializable ,Updatable{
     public void update(Drawing drawing)
     {
         if (alive) {
-            circle.setCenterX(centre.getX());
-            circle.setCenterY(centre.getY());
+           circle.setCenterX(centre.getX());
+           circle.setCenterY(centre.getY());
+            //imageView.setX(centre.getX()-4);
+           // imageView.setY(centre.getY()-4);
         }
         else {drawing.removeUpdatable(this);}
     }

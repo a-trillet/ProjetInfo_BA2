@@ -1,6 +1,8 @@
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -17,13 +19,13 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
 
     private ArrayList<Point> trackPoints;
     private int nextPoint=0;
-    private Point origin;
+    protected Point origin;
     private double angle;
 
-    private boolean alive = false;
+    protected boolean alive = false;
     private double lifePoints;
     private ArrayList<Tower> targetingTowers = new ArrayList<>(); // les tours qui le cible actuelement
-    private transient Thread t;
+    protected transient Thread t;
     private String lettre;
     private transient Text lettreText;
     private Color color;
@@ -56,6 +58,15 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
         t = new Thread(this);
         this.lettre=lettre;
         createLettre(lettre);
+        angle=Math.atan2((trackPoints.get(nextPoint).getY()-origin.getY()),(trackPoints.get(nextPoint).getX()-origin.getX()));
+    }
+    public Enemy(ArrayList<Point> trackPoints,Point point, double life, int reward){
+        this.trackPoints=trackPoints;   //liste de points par lesquels l'ennemi passe (point de changement de direction)
+        origin=new Point(point.getX(),point.getY());
+        this.lifePoints = life;
+        this.maxLifePoints = life;
+        this.reward = reward;
+        t = new Thread(this);
         angle=Math.atan2((trackPoints.get(nextPoint).getY()-origin.getY()),(trackPoints.get(nextPoint).getX()-origin.getX()));
     }
     private void createLettre(String lettre){
@@ -230,11 +241,22 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
     {
         if(Game.isOnGame) {
-            aInputStream.defaultReadObject();
-            createLettre(lettre);
-            Game.getDrawing().draw(this);
-            t = new Thread(this);
-            this.setAlive();
+            if (this instanceof BossEnemy){
+                aInputStream.defaultReadObject();
+                ((BossEnemy) this).selectedImage = new ImageView();
+                ((BossEnemy)this).image = new Image(BossEnemy.class.getResourceAsStream("Github.png"));
+                ((BossEnemy)this).createImage();
+                Game.getDrawing().draw(this);
+                t = new Thread(this);
+                this.setAlive();
+            }
+            else {
+                aInputStream.defaultReadObject();
+                createLettre(lettre);
+                Game.getDrawing().draw(this);
+                t = new Thread(this);
+                this.setAlive();
+            }
         }
         else{aInputStream.defaultReadObject();}
     }
