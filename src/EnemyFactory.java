@@ -10,12 +10,10 @@ import java.util.Random;
 
 public class EnemyFactory implements Runnable, Serializable {
     private static final long serialVersionUID = 1L;
-    private transient Drawing drawing;
     private ArrayList<ArrayList<Point>> allRoutes;
 
-    public EnemyFactory(int diff,Drawing d,ArrayList<ArrayList<Point>> allroutes){
+    public EnemyFactory(int diff,ArrayList<ArrayList<Point>> allroutes){
         loadEnemyWaves(diff,allroutes);
-        this.drawing=d;
 
     }
 
@@ -30,19 +28,22 @@ public class EnemyFactory implements Runnable, Serializable {
     private static final String[] normalWaves = {
             "Bug",
             "Big Error",
-            "Java Exception"
+            "Java Exception",
+            "Indice out of bounds"
     };
 
     private static final String[] hardWaves = {
             "Bug",
             "Big Error",
-            "Java Exception"
+            "Java Exception",
+            "Indice out of bounds"
     };
 
     private static final String[] insaneWaves = {
             "Bug",
             "Big Error",
-            "Java Exception"
+            "Java Exception",
+            "Indice out of bounds"
 
     };
 
@@ -107,7 +108,7 @@ public class EnemyFactory implements Runnable, Serializable {
                 for(Enemy e : word.getLettres()){
                     e.setAlive();
                     Game.getPlayer().addEnemy(e);
-                    Platform.runLater(()->drawing.draw(e));
+                    Platform.runLater(()->Game.getDrawing().draw(e));
                 }
             }
             // le jeu est sauvé quand tous les élément de la wave sont sortis
