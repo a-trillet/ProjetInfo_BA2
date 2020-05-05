@@ -25,6 +25,7 @@ public class MassartTower extends Tower {
     public static int getNewCost(){
         return massartTowercost;
     }
+    public static double getNewRange(){return newRange;}
 
     @Override
     public void powerActivation(){                      //sert à diminuer le reload time dans le run the tower pour une rafale

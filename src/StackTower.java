@@ -25,6 +25,7 @@ public class StackTower extends Tower {
     public static int getNewCost(){
         return basicTowerCost;
     }
+    public static double getNewRange(){return newRange;}
 
 
 

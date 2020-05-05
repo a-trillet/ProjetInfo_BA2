@@ -3,11 +3,13 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -20,18 +22,19 @@ import java.util.ArrayList;
 
 public class Drawing extends Pane  {
     private javafx.scene.shape.Rectangle square ;
-    private javafx.scene.shape.Circle circle;
     private Label labelGold = new Label();
     private ArrayList<Updatable> updatables=new ArrayList<>();
 
+    private javafx.scene.shape.Rectangle towerSquare = new Rectangle(30, 30, Color.GREEN);
+    private javafx.scene.shape.Circle towerCircle;
 
     public Drawing(){
         super();
        // this.getChildren().add(new Tips("Bienvenue cher étudiant...",new Point(20,250),this));
         this.getChildren().add(labelGold);
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(20), event -> {
-            for (int i = 0; i < updatables.size(); i++) {
-                updatables.get(i).update(this);
+            for (Updatable updatable : updatables) {
+                updatable.update(this);
             }
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
@@ -47,6 +50,38 @@ public class Drawing extends Pane  {
 
     }
 
+    public void creatingTowerSquare(double range){
+        towerCircle = new Circle(range,Color.TRANSPARENT);
+        towerCircle.setStroke(Color.GREEN);
+        towerCircle.relocate(300-range,300-range);
+        towerSquare.relocate(300,300);
+        this.setOnMouseMoved(e->{
+            if (this.isOn(e)) {
+                towerCircle.relocate(e.getX()-(range),e.getY()-(range));
+                towerSquare.relocate(e.getX() - 15, e.getY() - 15);
+                if(TowerMaker.CheckTowerOk(new Tower(new Point(e.getX(),e.getY()),this))){
+                    towerSquare.setFill(Color.GREEN);
+                    towerCircle.setStroke(Color.GREEN);
+                }
+                else{
+                    towerSquare.setFill(Color.RED);
+                    towerCircle.setStroke(Color.RED);
+                }
+            }
+    });
+        this.getChildren().addAll(towerCircle,towerSquare);
+    }
+
+
+    public void removeCreatingTower(){
+        this.getChildren().removeAll(towerSquare,towerCircle);
+    }
+
+    private boolean isOn(MouseEvent e){
+        double x = e.getX();
+        double y = e.getY();
+        return (x<1100 && x>20 && y>20 && y<600 );
+    }
     public void drawSquare(Point centre,Color color, int size) {
         square = new Rectangle(size, size, color);
         square.setX(centre.getX() - size/2);

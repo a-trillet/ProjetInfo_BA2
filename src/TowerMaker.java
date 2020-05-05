@@ -40,7 +40,7 @@ public class TowerMaker {
         }
     }
 
-    public boolean CheckTowerOk(Tower to) {
+    public static boolean CheckTowerOk(Tower to) {
         boolean res = true;
         if (Game.getPlayer().getGold() < to.getCost()) {  //vérifie si le player a assez d'argent
             res = false;

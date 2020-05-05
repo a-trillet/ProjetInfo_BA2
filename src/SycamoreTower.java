@@ -21,4 +21,5 @@ public class SycamoreTower extends  Tower {
     public static int getNewCost(){
         return sycamoreTowercost;
     }
+    public static double getNewRange(){return newRange;}
 }

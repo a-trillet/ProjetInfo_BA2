@@ -22,6 +22,7 @@ public class FireTower extends Tower{
     public static int getNewCost(){
         return fireTowerCost;
     }
+    public static double getNewRange(){return newRange;}
 
 
 }
