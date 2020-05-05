@@ -34,8 +34,9 @@ public class RajTower extends Tower{
         powerActive = true;
         numberOfKill = 0;
         //en gros permet de toucher tt les ennemis en meme temps
-        Enemy.setTsarBombaDamage(damage);
-        Enemy.setGeneralHurt(true);
+        for (Enemy e : Game.getPlayer().getEnemiesOnMap()) {
+            e.decreaseLife(damage);
+        }
         powerActive = false;
     }
 

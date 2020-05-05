@@ -39,11 +39,6 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     public static void setFreezeStart(double startTime){freezeStart = startTime;}
     public static void setEnemyVelocity(double velocity){enemyVelocity = velocity;}
 
-    private static boolean generalHurt = false;
-    private static double tsarBombaDamage = 0;
-    public static void setGeneralHurt(boolean bol){generalHurt = bol;}
-    public static void setTsarBombaDamage(double damage){tsarBombaDamage = damage;}
-
 
 
     //attributs venant des s-classe
@@ -230,12 +225,8 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
                 frozen = false;
                 enemyVelocity = enemySpeed;    //revient à sa vitesse de base
             }
-            if(generalHurt){
-                for (Enemy e : Game.getPlayer().getEnemiesOnMap()) {
-                    e.decreaseLife(tsarBombaDamage);
-                }
-                generalHurt = false;
-            }
+
+
 
             this.move();
             try {
