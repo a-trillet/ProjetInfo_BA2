@@ -176,5 +176,8 @@ public class Game extends Application {
         return new File(s).isFile();
     }
 
+    public static void lose(){}
+
+    public static void win(){}
 
 }

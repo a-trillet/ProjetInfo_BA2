@@ -76,6 +76,7 @@ public class ParameterScene {
             Game.getPlayer().loadMap();
             Game.getPlayer().reset();
             PlayScreen.drawRun();
+            Game.getDrawing().drawLifeGold();
             window.setScene(futurScene);
           }
         });

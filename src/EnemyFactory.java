@@ -36,6 +36,7 @@ public class EnemyFactory implements Runnable, Serializable {
     };
 
     private static final String[] hardWaves = {
+            "Not on FX application thread",
             "Bug",
             "Big Error",
             "Java Exception",
@@ -83,15 +84,18 @@ public class EnemyFactory implements Runnable, Serializable {
 
     }
     public  void nextWave(){
-        if(Game.getPlayer().getWave() <allWaves.size() && !waveInProgress) {
-
-            activeWave = allWaves.get(Game.getPlayer().getWave());
-            Game.getPlayer().nextWave();
-            System.out.println("Wave " + Game.getPlayer().getWave());
-            waveInProgress = true;
-            launchWave();
+        if(Game.getPlayer().getWave() <allWaves.size()) {
+            if(!waveInProgress){
+                activeWave = allWaves.get(Game.getPlayer().getWave());
+                Game.getPlayer().nextWave();
+                System.out.println("Wave " + Game.getPlayer().getWave());
+                waveInProgress = true;
+                launchWave();
+            }
+            else{ System.out.println("A wave is already in progress or it is the last one");}
         }
-        else{ System.out.println("A wave is already in progress or it is the last one");}
+        else {Game.win();}
+
     }
     public void launchWave(){
         Thread thread = new Thread(this);
