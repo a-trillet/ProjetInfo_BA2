@@ -15,8 +15,8 @@ public class MassartTower extends Tower {
     private static Color newColor = new Color(0, 0.1, 1, 0.7);
     private transient static Image newImageTower = new Image(MassartTower.class.getResourceAsStream("massart.jpg"));
 
-    public MassartTower(Point origin,Drawing d) {
-        super(origin,d);
+    public MassartTower(Point origin) {
+        super(origin);
         this.cost = massartTowercost;
         this.range = newRange;
         this.damage = newDamage;

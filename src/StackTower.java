@@ -15,8 +15,8 @@ public class StackTower extends Tower {
     private static Color newColor = new Color(0, 1, 0, 1);
     private transient static Image newImageTower = new Image(StackTower.class.getResourceAsStream("stack.jpg"));
 
-    public StackTower(Point origin,Drawing d){
-        super(origin,d);
+    public StackTower(Point origin){
+        super(origin);
         this.cost = stackTowerCost;
         this.range = newRange;
         this.damage = newDamage;
