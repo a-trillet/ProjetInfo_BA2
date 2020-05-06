@@ -102,6 +102,12 @@ public class Tower implements MapClickable, Runnable, Serializable {
         }
         return messageUpgrade;
     }
+    public int getSellPrice(){
+        int price=this.getCost()*2/3;
+        for (int i=1;i<=level;i++){price+=upgradeCost*i*2/3;}
+        return price;
+    }
+    public void sell(){active=false;}
 
     public void shoot(){
         Tower t = this;
