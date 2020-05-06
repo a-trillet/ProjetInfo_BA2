@@ -10,12 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 public class ParameterScene {
-
-      private static MapFactory mapFactory;
-
-      public static void setMapFactory(MapFactory factory){ mapFactory= factory;}
-
-      public static void display( Stage window, Scene futurScene,Drawing drawing){
+      public static void display( Stage window, Scene futurScene){
 
 
         StackPane stackPane = new StackPane();
@@ -59,7 +54,7 @@ public class ParameterScene {
                 "create your map"
         );
         mapSelection.setPromptText("Select your map");
-        mapSelection.setOnAction(e->getMapSelection(mapSelection,drawing,window,scene));
+        mapSelection.setOnAction(e->getMapSelection(mapSelection,window,scene));
 
 
 
@@ -143,7 +138,7 @@ public class ParameterScene {
       return difficulty;
     }
 
-  private static void getMapSelection(ComboBox<String> combobox, Drawing drawing, Stage window,Scene scene){
+  private static void getMapSelection(ComboBox<String> combobox, Stage window,Scene scene){
     String mapchoice = combobox.getValue();
     switch(mapchoice) {
       case "Easy" :
@@ -159,7 +154,7 @@ public class ParameterScene {
         new MapFactory(4);
         break;
       case "create your map":
-        MapEditor mapEditor = new MapEditor(drawing, window, scene);
+        MapEditor mapEditor = new MapEditor( window, scene);
         window.setScene(new Scene(mapEditor,1128,581));
         break;
     }

@@ -21,7 +21,7 @@ public class MapEditor extends BorderPane {
     private Drawing drawing=new Drawing();
     private double pathSize = 0;
 
-    public MapEditor( Drawing drawing, Stage window, Scene paramScene) {
+    public MapEditor( Stage window, Scene paramScene) {
         super();
         Image image1 = new Image(PlayScreen.class.getResourceAsStream("intellij.jpg"));
         BackgroundImage backgroundimage = new BackgroundImage(image1, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
