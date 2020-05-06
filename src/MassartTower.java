@@ -1,3 +1,5 @@
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 public class MassartTower extends Tower {
@@ -39,6 +41,17 @@ public class MassartTower extends Tower {
         Enemy.setFreezeStart(powerStartTime);
 
 
+    }
+    @Override
+    public ImageView getImageBullet(Point centre, double angle){
+        double size = 35;
+        image = new Image(Tower.class.getResourceAsStream("turtle2.png"));
+        imageView.setImage(image);
+        imageView.setFitWidth(size);
+        imageView.setPreserveRatio(true);
+        imageView.relocate(centre.getX()-(size/2),centre.getY()-(size/2));
+        imageView.setRotate(0 + angle);// rotate fonctionne dans le sens horlogique par rapport à l'écran
+        return imageView;
     }
 }
 

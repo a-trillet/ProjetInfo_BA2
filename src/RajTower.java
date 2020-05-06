@@ -1,3 +1,5 @@
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -44,6 +46,17 @@ public class RajTower extends Tower{
         for (Enemy enemytoremove : enemiestoremove){Game.getPlayer().removeEnemy(enemytoremove);}
         enemiestoremove.clear();
         powerActive = false;
+    }
+    @Override
+    public ImageView getImageBullet(Point centre,double angle){
+        double size = 20;
+        image = new Image(Tower.class.getResourceAsStream("mouseCursor.png"));
+        imageView.setImage(image);
+        imageView.setFitWidth(size);
+        imageView.setPreserveRatio(true);
+        imageView.relocate(centre.getX()-(size/2),centre.getY()-(size/2));
+        imageView.setRotate(120 + angle); //120 car position initial par rapport à l'image
+        return imageView;
     }
 
 }

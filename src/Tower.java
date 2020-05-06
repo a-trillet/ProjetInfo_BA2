@@ -1,4 +1,6 @@
 import javafx.application.Platform;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
@@ -37,19 +39,21 @@ public class Tower implements MapClickable, Runnable, Serializable {
     private transient Thread thread = new Thread(this);
     private transient Drawing drawing;
 
+    protected ImageView imageView = new ImageView();
+    protected Image image;
+
     public Tower(Point origin,Drawing d){
         this.centre = origin;
         drawing=d;
         level = 1;
     }
 
-    public void setPowerActivation(boolean bol){
-        powerActive = bol;
-    }
 
     protected void powerActivation(){}
 
     public String getPowerType(){return powerType;}
+
+    public ImageView getImageBullet(Point centre, double angle){return imageView;}
 
 
     public int getKillPower(){                  //retourne le nombre de kill à faire pour pouvoir activer le power(change en fonction du level

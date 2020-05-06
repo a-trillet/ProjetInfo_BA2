@@ -21,10 +21,8 @@ public class Bullet implements Runnable, Serializable ,Updatable{
     private boolean alive;
     private javafx.scene.shape.Circle circle;
     private Thread thread;
-    private ImageView imageView = new ImageView();
-    private Image image;
-    double size =  0;
-    double angle = 0;
+    private ImageView imageView;
+    private double size =  0;
 
 
     public Bullet (double damage, Tower t, double range, Point targetPoint, Point originPoint) {
@@ -41,43 +39,8 @@ public class Bullet implements Runnable, Serializable ,Updatable{
         circle.setRadius(4);
         circle.setFill(new Color(1, 1, 0, 1));
 
-        this.angle = angle();
+        imageView = motherTower.getImageBullet(centre, angle());
 
-        if (motherTower.getTowerType() == "Massart tower"){
-            image = new Image(Bullet.class.getResourceAsStream("turtle2.png"));
-            size = 35;
-            imageView.setImage(image);
-            imageView.setFitWidth(size);
-            imageView.setPreserveRatio(true);
-            imageView.relocate(centre.getX()-(size/2),centre.getY()-(size/2));
-            imageView.setRotate(0 + angle);// rotate fonctionne dans le sens horlogique par rapport à l'écran
-        }
-        else if (motherTower.getTowerType() == "Raj tower"){
-            size = 20;
-            image = new Image(Bullet.class.getResourceAsStream("mouseCursor.png"));
-            imageView.setImage(image);
-            imageView.setFitWidth(size);
-            imageView.setPreserveRatio(true);
-            imageView.relocate(centre.getX()-(size/2),centre.getY()-(size/2));
-            imageView.setRotate(120 + angle); //120 car position initial par rapport à l'image
-        }
-        else if (motherTower.getTowerType() == "Sycamore tower"){
-            size = 14;
-            image = new Image(Bullet.class.getResourceAsStream("logoGoogle.png"));
-            imageView.setImage(image);
-            imageView.setFitWidth(size);
-            imageView.setPreserveRatio(true);
-            imageView.relocate(centre.getX()-(size/2),centre.getY()-(size/2));
-        }
-        else if (motherTower.getTowerType() == "Stack Overflow tower"){
-            size = 20;
-            image = new Image(Bullet.class.getResourceAsStream("handCursor.png"));
-            imageView.setImage(image);
-            imageView.setFitWidth(size);
-            imageView.setPreserveRatio(true);
-            imageView.relocate(centre.getX()-(size/2),centre.getY()-(size/2));
-            imageView.setRotate(90 + angle);
-        }
 
 
         thread = new Thread(this);
@@ -86,21 +49,20 @@ public class Bullet implements Runnable, Serializable ,Updatable{
     }
 
     public double angle(){ //calcul angle(en degre) entre horitonal droit et l'ennemi
-        double alpha = 0;
         double y = targetPoint.getY() - motherTower.getCentre().getY();
         double x = targetPoint.getX() - motherTower.getCentre().getX();
-        alpha = Math.atan2( y, x ) ;     //arctg de (y/x)
-        alpha = (alpha / PI) *180;
+        double alpha = Math.atan2( y, x ) ;     //arctg de (y/x)
+        alpha = (alpha / PI) *180;      //passage e degré
         return alpha;
     }
 
 
     @Override
     public Node getShape() {
-        if (image != null && (motherTower.getTowerType() == "Massart tower" ||motherTower.getTowerType() == "Raj tower" ||motherTower.getTowerType() == "Sycamore tower" ||motherTower.getTowerType() == "Stack Overflow tower")){
+        if (imageView != null){
             return imageView;
         }
-        else{       //par défault
+        else{       //par défault si images non dispo
             return circle;
         }
     }

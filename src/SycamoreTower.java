@@ -1,3 +1,5 @@
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 public class SycamoreTower extends  Tower {
@@ -33,5 +35,15 @@ public class SycamoreTower extends  Tower {
         powerStartTime = System.currentTimeMillis();
 
         numberOfKill = 0;
+    }
+    @Override
+    public ImageView getImageBullet(Point centre, double angle){
+        double size = 14;
+        image = new Image(Tower.class.getResourceAsStream("logoGoogle.png"));
+        imageView.setImage(image);
+        imageView.setFitWidth(size);
+        imageView.setPreserveRatio(true);
+        imageView.relocate(centre.getX()-(size/2),centre.getY()-(size/2));
+        return imageView;
     }
 }
