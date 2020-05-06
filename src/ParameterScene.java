@@ -11,6 +11,10 @@ import javafx.scene.layout.*;
 import javafx.stage.*;
 public class ParameterScene {
 
+      private static MapFactory mapFactory;
+
+      public static void setMapFactory(MapFactory factory){ mapFactory= factory;}
+
       public static void display( Stage window, Scene futurScene,Drawing drawing){
 
 
@@ -55,7 +59,7 @@ public class ParameterScene {
                 "create your map"
         );
         mapSelection.setPromptText("Select your map");
-        mapSelection.setOnAction(e->chooseMap(mapSelection,drawing,window,scene));
+        mapSelection.setOnAction(e->getMapSelection(mapSelection,drawing,window,scene));
 
 
 
@@ -68,7 +72,7 @@ public class ParameterScene {
 
         Button closeButton = new Button("Apply and close");
         closeButton.setOnAction(e -> {
-          if (nameInput.getText() == "" || difficultySelection.getValue() == null){
+          if (nameInput.getText() == "" || difficultySelection.getValue() == null || mapSelection.getValue() == null){
             labelError1.setText("Error, enter a name"+"\n"+ "and choose difficulty" );
           }
           else{
@@ -139,23 +143,23 @@ public class ParameterScene {
       return difficulty;
     }
 
-  private static void chooseMap(ComboBox<String> combobox, Drawing drawing, Stage window,Scene scene){
+  private static void getMapSelection(ComboBox<String> combobox, Drawing drawing, Stage window,Scene scene){
     String mapchoice = combobox.getValue();
     switch(mapchoice) {
       case "Easy" :
-        new MapFactory(1);
+        new MapFactory(1,drawing);
         break;
       case "Normal":
-        new MapFactory(2);
+        new MapFactory(2,drawing);
         break;
       case "Hard":
-        new MapFactory(3);
+        new MapFactory(3,drawing);
         break;
       case  "Insane" :
-        new MapFactory(4);
+        new MapFactory(4,drawing);
         break;
       case "create your map":
-        MapEditor mapEditor = new MapEditor( window, scene);
+        MapEditor mapEditor = new MapEditor(drawing, window, scene);
         window.setScene(new Scene(mapEditor,1128,581));
         break;
     }
