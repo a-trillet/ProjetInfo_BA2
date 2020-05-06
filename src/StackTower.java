@@ -3,13 +3,13 @@ import javafx.scene.paint.Color;
 public class StackTower extends Tower {
 
     private static  int stackTowerCost = 100;
-    private static  double newRange = 60;
-    private static  double newDamage = 10;
-    private static int newReloadTime = 500;
+    private static  double newRange = 100;
+    private static  double newDamage = 15;
+    private static int newReloadTime = 750;
     private static int newBulletRange = 10;
     private String type = "Stack Overflow tower";
     private String newPowerType = "Burst Fire";
-    private double newPowerDuration = 4000;
+    private double newPowerDuration = 5000;
 
     public StackTower(Point origin,Drawing d){
         super(origin,d);

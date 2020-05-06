@@ -179,7 +179,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
                 try {
                     if (powerActive && towerType == "Stack Overflow tower" ){
                         if(System.currentTimeMillis()< powerDuration+ powerStartTime){
-                            Thread.sleep(reloadTime-(100*level));
+                            Thread.sleep((int)(reloadTime/(2*level)));
                         }
                         else{
                             powerActive = false;

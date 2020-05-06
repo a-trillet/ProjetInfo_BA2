@@ -5,7 +5,7 @@ public class SycamoreTower extends  Tower {
     private static int sycamoreTowercost = 100;
     private static  double newRange = 75;
     private static  double newDamage = 5;
-    private static int newReloadTime = 3000;
+    private static int newReloadTime = 2000;
     private static int newBulletRange = 13; //parfois loupe son coup mais jsp si ça correspond bien
     private String type = "Sycamore tower";
     private String newPowerType = "Double shoot";
