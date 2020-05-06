@@ -92,7 +92,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     public void targetIsDead(Enemy enemi){
         numberOfKill += 1;      // modifiable selon valeur du mob
-        //targetEnemy = selectTarget();   // change la cible quand le mob meurt( ou sort de la range: RAJOUTER autre part)
     }
 
     public boolean isOn(Point p){

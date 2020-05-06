@@ -1,5 +1,6 @@
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class TemporaryText implements Updatable{
@@ -9,9 +10,10 @@ public class TemporaryText implements Updatable{
 
 
 
-    public TemporaryText(String text, int time, Point point){
+    public TemporaryText(String text, int time, Point point,int size){
         this.text=new Text(point.getX(),point.getY(),text);
         this.text.setFill(Color.WHITE);
+        this.text.setFont(Font.font(size));
         this.time=time;
 
     }

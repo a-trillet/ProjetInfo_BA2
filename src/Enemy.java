@@ -101,6 +101,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     public void setAlive(){
         this.alive = true;
         this.t.start();
+        Platform.runLater(()->Game.getDrawing().draw(this));
     }
 
     //prévient toutes les tourelles qui le vise qu'il est mort + die()
