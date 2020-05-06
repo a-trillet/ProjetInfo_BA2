@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import static java.lang.Math.*;
 
 public class Bullet implements Runnable, Serializable ,Updatable{
-    private double speed=10;  // choisir si vient de la tour ou meme vitesse pour tt les balles
+    private double speed=5;  // choisir si vient de la tour ou meme vitesse pour tt les balles
     private Point centre; // coordonnée
     private double damage;
     private double range;   // distance jusqu'à laquelle on est touché quand la bullet explose
@@ -23,6 +23,8 @@ public class Bullet implements Runnable, Serializable ,Updatable{
     private Thread thread;
     private ImageView imageView = new ImageView();
     private Image image;
+    double size =  0;
+    double angle = 0;
 
 
     public Bullet (double damage, Tower t, double range, Point targetPoint, Point originPoint) {
@@ -39,19 +41,42 @@ public class Bullet implements Runnable, Serializable ,Updatable{
         circle.setRadius(4);
         circle.setFill(new Color(1, 1, 0, 1));
 
+        this.angle = angle();
+
         if (motherTower.getTowerType() == "Massart tower"){
             image = new Image(Bullet.class.getResourceAsStream("turtle2.png"));
+            size = 35;
             imageView.setImage(image);
-            imageView.setFitWidth(35);
+            imageView.setFitWidth(size);
             imageView.setPreserveRatio(true);
-            imageView.relocate(centre.getX(),centre.getY());
+            imageView.relocate(centre.getX()-(size/2),centre.getY()-(size/2));
+            imageView.setRotate(0 + angle);// rotate fonctionne dans le sens horlogique par rapport à l'écran
         }
         else if (motherTower.getTowerType() == "Raj tower"){
+            size = 20;
             image = new Image(Bullet.class.getResourceAsStream("mouseCursor.png"));
             imageView.setImage(image);
-            imageView.setFitWidth(14);
+            imageView.setFitWidth(size);
             imageView.setPreserveRatio(true);
-            imageView.relocate(centre.getX(),centre.getY());
+            imageView.relocate(centre.getX()-(size/2),centre.getY()-(size/2));
+            imageView.setRotate(120 + angle); //120 car position initial par rapport à l'image
+        }
+        else if (motherTower.getTowerType() == "Sycamore tower"){
+            size = 14;
+            image = new Image(Bullet.class.getResourceAsStream("logoGoogle.png"));
+            imageView.setImage(image);
+            imageView.setFitWidth(size);
+            imageView.setPreserveRatio(true);
+            imageView.relocate(centre.getX()-(size/2),centre.getY()-(size/2));
+        }
+        else if (motherTower.getTowerType() == "Stack Overflow tower"){
+            size = 20;
+            image = new Image(Bullet.class.getResourceAsStream("handCursor.png"));
+            imageView.setImage(image);
+            imageView.setFitWidth(size);
+            imageView.setPreserveRatio(true);
+            imageView.relocate(centre.getX()-(size/2),centre.getY()-(size/2));
+            imageView.setRotate(90 + angle);
         }
 
 
@@ -60,13 +85,22 @@ public class Bullet implements Runnable, Serializable ,Updatable{
 
     }
 
+    public double angle(){ //calcul angle(en degre) entre horitonal droit et l'ennemi
+        double alpha = 0;
+        double y = targetPoint.getY() - motherTower.getCentre().getY();
+        double x = targetPoint.getX() - motherTower.getCentre().getX();
+        alpha = Math.atan2( y, x ) ;     //arctg de (y/x)
+        alpha = (alpha / PI) *180;
+        return alpha;
+    }
+
 
     @Override
     public Node getShape() {
-        if (motherTower.getTowerType() == "Massart tower" ||motherTower.getTowerType() == "Raj tower"){
+        if (image != null && (motherTower.getTowerType() == "Massart tower" ||motherTower.getTowerType() == "Raj tower" ||motherTower.getTowerType() == "Sycamore tower" ||motherTower.getTowerType() == "Stack Overflow tower")){
             return imageView;
         }
-        else{
+        else{       //par défault
             return circle;
         }
     }
@@ -127,7 +161,7 @@ public class Bullet implements Runnable, Serializable ,Updatable{
         circle.setCenterX(centre.getX());
         circle.setCenterY(centre.getY());
         if (imageView != null){
-            imageView.relocate(centre.getX(),centre.getY());
+            imageView.relocate(centre.getX()-(size/2),centre.getY()-(size/2));
         }
         }
 
