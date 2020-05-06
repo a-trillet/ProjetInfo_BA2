@@ -13,14 +13,14 @@ public class Tower implements MapClickable, Runnable, Serializable {
     private static final long serialVersionUID = 1L;
     private static int levelMax = 3;
 
-
     private int frequency = 50;
     private int upgradeCost = 50;
-    private int level;
-    private Enemy targetEnemy = null;
-    private Point centre;
+    protected int level;
+    protected Enemy targetEnemy = null;
+    protected Point centre;
 
-    protected static int cost;
+    protected static Color color;
+    protected int cost;
     protected double damage;
     protected double range;
     protected int reloadTime;
@@ -31,16 +31,18 @@ public class Tower implements MapClickable, Runnable, Serializable {
     protected double powerDuration;
     protected double powerStartTime;
     protected int numberOfKill;
-    private Enemy secondTargetEnemy; //reservé pour sycamore tower
+    protected ImageView imageView = new ImageView();
+    protected Image imageBullet;
+    protected Image imageTower;
+
+    protected Enemy secondTargetEnemy; //reservé pour sycamore tower
 
     private boolean active = true;
     private double uprgradeBase = 1.0;      // vont servir à augmenter le range et damage
     private double upgradeMultiplier = 0.5; //
     private transient Thread thread = new Thread(this);
-    private transient Drawing drawing;
+    protected transient Drawing drawing;
 
-    protected ImageView imageView = new ImageView();
-    protected Image image;
 
     public Tower(Point origin,Drawing d){
         this.centre = origin;
@@ -51,20 +53,10 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     protected void powerActivation(){}
 
-    public String getPowerType(){return powerType;}
-
-    public ImageView getImageBullet(Point centre, double angle){return imageView;}
-
-
-    public int getKillPower(){                  //retourne le nombre de kill à faire pour pouvoir activer le power(change en fonction du level
-        int killPower = 0;
-        killPower = killPower*level;
-        return killPower;
+    public int getKillPower(){                  //retourne le nombre de kill à faire pour pouvoir activer le power(change en fonction du level)
+        return 0;
     }
 
-    public void setActive(){
-        thread.start();
-    }
 
     private Enemy selectTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour
         Enemy target = null;
@@ -149,7 +141,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     {   if (Game.isOnGame) {
         aInputStream.defaultReadObject();
         drawing= Game.getDrawing();
-        drawing.setImage(centre,TowerMaker.getImage(towerType),30);
+        drawing.setImage(centre,getImageTower(),30);
         thread = new Thread(this);
         this.setActive();
     }
@@ -210,6 +202,9 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     }
 
+    public void setActive(){
+        thread.start();
+    }
 
     @Override
     public Point getCentre(){
@@ -227,7 +222,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
         return frequency;
     }
 
-    public static int getCost() {
+    public int getCost() {
         return cost;
     }
 
@@ -254,5 +249,13 @@ public class Tower implements MapClickable, Runnable, Serializable {
     public String getTowerType(){
         return this.towerType;
     }
+
+    public Color getColor(){return color;}
+
+    public String getPowerType(){return powerType;}
+
+    public ImageView getImageBullet(Point centre, double angle){return imageView;}
+
+    public Image getImageTower(){return imageTower;}
 
 }

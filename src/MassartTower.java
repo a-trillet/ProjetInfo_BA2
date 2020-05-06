@@ -9,9 +9,11 @@ public class MassartTower extends Tower {
     private static  double newDamage =5;
     private static int newReloadTime = 2000;
     private static int newBulletRange = 40;
-    private String type = "Massart tower";
-    private String newPowerType = "Total Slow";
-    private double newPowerDuration = 4000;
+    private static String type = "Massart tower";
+    private static String newPowerType = "Total Slow";
+    private static double newPowerDuration = 4000;
+    private static Color newColor = new Color(0, 0.1, 1, 0.7);
+    private static Image newImageTower = new Image(MassartTower.class.getResourceAsStream("massart.jpg"));
 
     public MassartTower(Point origin,Drawing d) {
         super(origin,d);
@@ -23,11 +25,9 @@ public class MassartTower extends Tower {
         this.towerType = type;
         this.powerType = newPowerType;
         this.powerDuration = newPowerDuration;
+        this.imageTower = newImageTower;
+        color = newColor;
     }
-    public static int getNewCost(){
-        return massartTowercost;
-    }
-    public static double getNewRange(){return newRange;}
 
     @Override
     public void powerActivation(){                      //sert à diminuer le reload time dans le run the tower pour une rafale
@@ -43,15 +43,27 @@ public class MassartTower extends Tower {
 
     }
     @Override
+    public int getKillPower(){
+        int killPower = 3;
+        killPower += (this.getLevel()-1)*3;
+        return killPower;
+    }
+
+    @Override
     public ImageView getImageBullet(Point centre, double angle){
         double size = 35;
-        image = new Image(Tower.class.getResourceAsStream("turtle2.png"));
-        imageView.setImage(image);
+        imageBullet = new Image(Tower.class.getResourceAsStream("turtle2.png"));
+        imageView.setImage(imageBullet);
         imageView.setFitWidth(size);
         imageView.setPreserveRatio(true);
         imageView.relocate(centre.getX()-(size/2),centre.getY()-(size/2));
         imageView.setRotate(0 + angle);// rotate fonctionne dans le sens horlogique par rapport à l'écran
         return imageView;
     }
+    public static int getNewCost(){
+        return massartTowercost;
+    } //pour infoTower car pas 1 tour en particulier
+
+    public static double getNewRange(){return newRange;}
 }
 

@@ -48,7 +48,7 @@ public class Bullet implements Runnable, Serializable ,Updatable{
 
     }
 
-    public double angle(){ //calcul angle(en degre) entre horitonal droit et l'ennemi
+    private double angle(){ //calcul angle(en degre) entre horitonal droit et l'ennemi
         double y = targetPoint.getY() - motherTower.getCentre().getY();
         double x = targetPoint.getX() - motherTower.getCentre().getX();
         double alpha = Math.atan2( y, x ) ;     //arctg de (y/x)

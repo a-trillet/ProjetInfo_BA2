@@ -12,6 +12,7 @@ public class InfoTower extends  Info {
     private String towerType;
     private Point centre;
     private int numberKill;
+    private Color color;
 
 
     public InfoTower(Tower tower) {
@@ -23,6 +24,7 @@ public class InfoTower extends  Info {
         this.towerType = tower.getTowerType();
         this.centre = tower.getCentre();
         this.numberKill = tower.getNumberOfKill();
+        this.color = tower.getColor();
 
 
     }
@@ -43,32 +45,15 @@ public class InfoTower extends  Info {
         return range;
     }
 
-    ;
+
 
     public Point getCentre() {
         return centre;
     }
 
-    ;
 
-    public Color getColor() {
-        Color color = new Color(1, 1, 1,1 );
-        switch (towerType) {
-            case "Massart tower":
-                color = new Color(0, 0.1, 1, 0.7);
-                break;
-            case "Raj tower":
-                color = new Color(1, 0, 0, 1);
-                break;
-            case "Stack Overflow tower":
-                color = new Color(0, 1, 0, 1);
-                break;
-            case "Sycamore tower":
-                color = new Color(1, 0, 1, 0.3);
-                break;
-        }
-        return color;
-    }
+
+    public Color getColor() { return color; }
 
 
 }

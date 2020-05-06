@@ -8,27 +8,27 @@ public class TowerMaker {
     public TowerMaker(Drawing d, String type, Point p) {
         this.drawing = d;
         Tower t = null;
-        Image image = new Image(TowerMaker.class.getResourceAsStream("stack.jpg"));//par défault
+        Image image = null;
         switch (type) {
             case "Raj tower":
                 t = new RajTower(p,drawing);
-                color = new Color(1,0,0,1);
-                 image = new Image(TowerMaker.class.getResourceAsStream("raj.jpg"));
+                color = t.getColor();
+                 image = t.getImageTower();
                 break;
             case "Massart tower":
                 t= new MassartTower(p,drawing);
-                color =new Color(0,0.1,1,0.7);
-                image = new Image(TowerMaker.class.getResourceAsStream("massart.jpg"));
+                color = t.getColor();
+                image = t.getImageTower();
                 break;
             case "Stack Overflow tower":
                 t = new StackTower(p,drawing);
-                color = new Color(0, 1,0,1);
-                image = new Image(TowerMaker.class.getResourceAsStream("stack.jpg"));
+                color = t.getColor();
+                image = t.getImageTower();
                 break;
             case "Sycamore tower":
                 t = new SycamoreTower(p,drawing);
-                color = new Color(1,0,1,0.3);
-                image = new Image(TowerMaker.class.getResourceAsStream("sycamore.jpg"));
+                color = t.getColor();
+                image = t.getImageTower();
                 break;
         }
         if (t != null && CheckTowerOk(t)) {
@@ -54,40 +54,5 @@ public class TowerMaker {
         }
         return res;
     }
-    public static Color getColor(String towerType){
-        Color color = new Color(0,0,0,0);
-        switch (towerType) {
-            case "Raj tower":
-                color = new Color(1,0,0,1);
-                break;
-            case "Massart tower":
-                color =new Color(0,0.1,1,0.7);
-                break;
-            case "Stack Overflow tower":
-                color = new Color(0, 1,0,1);
-                break;
-            case "Sniper tower":
-                color = new Color(1,0,1,0.3);
-                break;
-        }
-        return color;
-    }
-    public static Image getImage(String towerType){
-        Image image = new Image(TowerMaker.class.getResourceAsStream("stack.jpg"));//par défault
-        switch (towerType) {
-            case "Raj tower":
-                image = new Image(TowerMaker.class.getResourceAsStream("raj.jpg"));
-                break;
-            case "Massart tower":
-                image = new Image(TowerMaker.class.getResourceAsStream("massart.jpg"));
-                break;
-            case "Stack Overflow tower":
-                image = new Image(TowerMaker.class.getResourceAsStream("stack.jpg"));
-                break;
-            case "Sycamore tower":
-                image = new Image(TowerMaker.class.getResourceAsStream("sycamore.jpg"));
-                break;
-        }
-        return image;
-    }
+
 }
