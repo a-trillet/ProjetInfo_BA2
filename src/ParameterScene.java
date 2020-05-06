@@ -70,10 +70,10 @@ public class ParameterScene {
             labelError1.setText("Error, enter a name"+"\n"+ "and choose difficulty" );
           }
           else{
+            Game.getDrawing().drawallRoute();
             Game.getPlayer().setName(nameInput.getText());
             Game.getPlayer().setDifficulty(getDifficulty(difficultySelection));
             Game.getPlayer().loadMap();
-            Game.getDrawing().drawallRoute();
             Game.getPlayer().reset();
             PlayScreen.drawRun();
             window.setScene(futurScene);

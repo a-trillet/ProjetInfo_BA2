@@ -254,7 +254,6 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
             else {
                 aInputStream.defaultReadObject();
                 createLettre(lettre);
-                Game.getDrawing().draw(this);
                 t = new Thread(this);
                 this.setAlive();
             }

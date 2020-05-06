@@ -46,6 +46,12 @@ public class Player implements Serializable {
         return towerList;
     }
 
+    public void removeTower(Tower tower){
+        towerList.remove(tower);
+        gold+=tower.getSellPrice();
+        tower.sell();
+    }
+
     public int getLives() {
         return lifePoints;
     }

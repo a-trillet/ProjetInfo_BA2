@@ -98,7 +98,12 @@ public class MapClickListener implements EventHandler<MouseEvent> {
                     displayInfo(messageUpgrade.getText());
                 });
                 GridPane.setConstraints(upgradeButton,0,8);
-                infoBox.getChildren().addAll(upgradeButton);
+                Button sellButton = new Button("Sell for "+((Tower)currentSelection).getSellPrice());
+                sellButton.setOnMouseClicked((e->{
+                    Game.getPlayer().removeTower((Tower) currentSelection);
+                }));
+                GridPane.setConstraints(sellButton,0,9);
+                infoBox.getChildren().addAll(upgradeButton,sellButton);
             }
             else{Button upgradeButton = new Button("Maxed");
                 upgradeButton.setOnAction(e -> messageUpgrade.setText("This tower is at max level"));

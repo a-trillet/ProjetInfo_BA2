@@ -40,6 +40,7 @@ public class EnemyFactory implements Runnable, Serializable {
             "Big Error",
             "Java Exception",
             "Indice out of bounds",
+            "Not on FX application thread",
             "BOSS"
     };
 
@@ -120,9 +121,6 @@ public class EnemyFactory implements Runnable, Serializable {
             Thread.sleep(10000);   // faire que l'on puisse cliquer sur next wave que quand la wave est suffisament loin
             waveInProgress = false;
             System.out.println("fin de vague");
-
-
-
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -16,8 +16,8 @@ public class SycamoreTower extends  Tower {
     private static Color newColor = new Color(1, 0, 1, 0.3);
     private transient static Image newImageTower = new Image(SycamoreTower.class.getResourceAsStream("sycamore.jpg"));
 
-    public SycamoreTower(Point origin, Drawing d){
-        super(origin,d);
+    public SycamoreTower(Point origin){
+        super(origin);
         this.cost = sycamoreTowercost;
         this.range = newRange;
         this.damage = newDamage;
@@ -63,10 +63,10 @@ public class SycamoreTower extends  Tower {
             @Override
             public void run() {
 
-                drawing.draw(new Bullet(degats,t,bulletRange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
+                Game.getDrawing().draw(new Bullet(degats,t,bulletRange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
                 if (powerActive){
                     if (secondTargetEnemy != null){
-                        drawing.draw(new Bullet(degats,t,bulletRange,secondTargetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
+                        Game.getDrawing().draw(new Bullet(degats,t,bulletRange,secondTargetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
                     }
                 }
             }

@@ -80,7 +80,7 @@ public class MapFactory  {
          }
 
     }
-    public static boolean isOn(Point point){       // renvoi false si point est trop proche du chemin ! fait en fct des dimensions des carrés des tower
+    public static boolean isNotOn(Point point){       // renvoi false si point est trop proche du chemin ! fait en fct des dimensions des carrés des tower
         boolean bol = true;
         double x_C = point.getX();
         double y_C = point.getY();

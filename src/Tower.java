@@ -40,12 +40,10 @@ public class Tower implements MapClickable, Runnable, Serializable {
     private double uprgradeBase = 1.0;      // vont servir à augmenter le range et damage
     private double upgradeMultiplier = 0.5; //
     private transient Thread thread = new Thread(this);
-    protected transient Drawing drawing;
 
 
-    public Tower(Point origin,Drawing d){
+    public Tower(Point origin){
         this.centre = origin;
-        drawing=d;
         level = 1;
     }
 
@@ -102,6 +100,12 @@ public class Tower implements MapClickable, Runnable, Serializable {
         }
         return messageUpgrade;
     }
+    public int getSellPrice(){
+        int price=this.getCost()*2/3;
+        for (int i=1;i<=level;i++){price+=upgradeCost*i*2/3;}
+        return price;
+    }
+    public void sell(){active=false;}
 
     public void shoot(){
         Tower t = this;
@@ -109,8 +113,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-
-                drawing.draw(new Bullet(degats,t,bulletRange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
+                Game.getDrawing().draw(new Bullet(degats,t,bulletRange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
             }
         });
     }
@@ -118,9 +121,8 @@ public class Tower implements MapClickable, Runnable, Serializable {
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
     {   if (Game.isOnGame) {
         aInputStream.defaultReadObject();
-        drawing= Game.getDrawing();
 
-        drawing.setImage(centre,getShape(towerType),30);
+        Game.getDrawing().setImage(centre,getShape(towerType),30);
         thread = new Thread(this);
         this.setActive();
     }
@@ -163,6 +165,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     public void setActive(){
         thread.start();
+        active=true;
     }
 
     @Override

@@ -16,8 +16,8 @@ public class RajTower extends Tower{
     private static Color newColor = new Color(1, 0, 0, 1);
     private transient static Image newImageTower = new Image(RajTower.class.getResourceAsStream("raj.jpg"));
 
-    public RajTower(Point originPoint,Drawing d){
-        super(originPoint,d);
+    public RajTower(Point originPoint){
+        super(originPoint);
         this.cost = rajTowerCost;
         this.range = newRange;
         this.damage = newDamage;

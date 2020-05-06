@@ -66,7 +66,7 @@ public class Drawing extends Pane  {
                 if (PlayScreen.towerType!=null){
                 towerCircle.relocate(e.getX()-(range),e.getY()-(range));
                 towerSquare.relocate(e.getX() - 15, e.getY() - 15);
-                if(TowerMaker.CheckTowerOk(new Tower(new Point(e.getX(),e.getY()),this))){
+                if(TowerMaker.CheckTowerOk(new Tower(new Point(e.getX(),e.getY())))){
                     towerSquare.setFill(Color.GREEN);
                     towerCircle.setStroke(Color.GREEN);
                 }
@@ -118,8 +118,11 @@ public class Drawing extends Pane  {
         for (ArrayList<Point> route : MapFactory.getAllRoutes()){drawRoute(route);}
     }
 
+
     public void drawRoute(ArrayList<Point> route){
+
         //crée une suite de ligne, permet de faire des arcs de cercles ect facilement
+
         Path path = new Path();
         path.setStroke(Color.WHITE);
         MoveTo moveTo = new MoveTo();
