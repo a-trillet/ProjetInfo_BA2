@@ -31,8 +31,8 @@ public class Tower implements MapClickable, Runnable, Serializable {
     protected double powerDuration;
     protected double powerStartTime;
     protected int numberOfKill;
-    protected Image imageBullet;
-    protected Image imageTower;
+    protected transient Image imageBullet;
+    protected transient Image imageTower;
 
     protected Enemy secondTargetEnemy; //reservé pour sycamore tower
 

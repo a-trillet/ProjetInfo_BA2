@@ -12,7 +12,6 @@ import javafx.stage.*;
 public class ParameterScene {
       public static void display( Stage window, Scene futurScene){
 
-
         StackPane stackPane = new StackPane();
         GridPane gridPane = new GridPane();
         Scene scene = new Scene(stackPane, 641, 402);

@@ -7,16 +7,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-
 import java.util.ArrayList;
 
 public class MapClickListener implements EventHandler<MouseEvent> {
 
-
     private MapClickable currentSelection =  null;
     private BorderPane borderPane;
     private Circle circle = new Circle();
-    private Drawing drawing;
+    private PlayScreen playScreen;
 
 
     public MapClickable getCurrentSelection(){
@@ -24,14 +22,14 @@ public class MapClickListener implements EventHandler<MouseEvent> {
     }
 
 
-    public MapClickListener (BorderPane borderPane, Drawing drawing){
+    public MapClickListener (BorderPane borderPane, Drawing drawing, PlayScreen playScreen){
         super();
+        this.playScreen = playScreen;
         this.borderPane = borderPane;
         drawing.getChildren().add(circle);
-        this.drawing = drawing;
     }
 
-    private MapClickable clickedOn(MouseEvent e){    // retourne le mapclickable sur lequel on a cliqué
+    private MapClickable clickedOn(MouseEvent e){
 
         ArrayList<Tower> towers = Game.getPlayer().getTowerList();
         ArrayList<Enemy> enemies = Game.getPlayer().getEnemiesOnMap();
@@ -39,7 +37,6 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         objects.addAll(enemies);
 
         MapClickable selection = null;
-
         for(MapClickable object : objects){
             if(object.isOn(new Point(e.getX(), e.getY()))){
                 if (selection == null){
@@ -52,27 +49,23 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         return selection;
     }
 
-
-
     public void handle(MouseEvent mouseEvent){
         if(mouseEvent.getEventType() == MouseEvent.MOUSE_CLICKED){
             currentSelection = clickedOn(mouseEvent);
             circle.setStroke(Color.TRANSPARENT);
             if (currentSelection == null){
-                displayShop();
+                playScreen.displayShop();
                 System.out.println(mouseEvent.getX()+"      "+mouseEvent.getY());          // test coord souris
             }
             else {
                 displayInfo("");
             }
         }
-
     }
 
     //affiche les information et bouton upgrade
     public void displayInfo(String messUpgrade){
         Info info = currentSelection.getInfo();
-
 
         String infos = info.listString();
         GridPane infoBox = new GridPane();
@@ -91,9 +84,6 @@ public class MapClickListener implements EventHandler<MouseEvent> {
             circle.setStroke(((InfoTower) info).getColor());
             circle.setFill(Color.TRANSPARENT);
         }
-
-
-
 
         Label messageUpgrade = new Label(messUpgrade);    //mess uprgrade supprimable mais bon alz
         GridPane.setConstraints(messageUpgrade,0,9);
@@ -129,21 +119,14 @@ public class MapClickListener implements EventHandler<MouseEvent> {
             });
             Label label = new Label();
             label.setText("Power: ");
-            HBox hb = new HBox(10);
-            GridPane.setConstraints(hb,0,6);
-            hb.getChildren().addAll(label,powerButton);
-
-            infoBox.getChildren().add(hb);
-
-
-
-
-
+            HBox hBox = new HBox(10);
+            GridPane.setConstraints(hBox,0,6);
+            hBox.getChildren().addAll(label,powerButton);
+            infoBox.getChildren().add(hBox);
         }
 
-
         Button shopButton = new Button("Shop");
-        shopButton.setOnAction(e -> displayShop());
+        shopButton.setOnAction(e -> playScreen.displayShop());
         GridPane.setConstraints(shopButton,0,15);
 
         Label label = new Label(infos);
@@ -153,84 +136,4 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         infoBox.setGridLinesVisible(true);
         borderPane.setRight(infoBox);
     }
-
-    public void displayShop(){
-        GridPane shop = new GridPane();
-        String messError = "You don't have enough money";
-        String messPrix = "Prix : ";
-        shop.setPrefWidth(200);
-        shop.setPadding(new Insets(10,10,10,10));
-        shop.setVgap(8);
-        shop.setHgap(10);
-
-
-        Label msgError = new Label();
-        Label prix = new Label();
-        GridPane.setConstraints(msgError,0,17);
-        GridPane.setConstraints(prix,0,6);
-
-        Button basicTowerButton = new Button("Stack tower");
-        basicTowerButton.setOnMouseClicked(e-> {
-            PlayScreen.towerType = "Stack Overflow tower";
-            prix.setText(messPrix + String.valueOf(StackTower.getNewCost()));
-            drawing.creatingTowerSquare(StackTower.getNewRange());
-        });
-        basicTowerButton.setOnAction(e -> { if (Game.getPlayer().getGold() < StackTower.getNewCost()){msgError.setText(messError);}});
-        GridPane.setConstraints(basicTowerButton,0,0);
-
-
-        Button iceTowerButton = new Button("Massart tower");
-        iceTowerButton.setOnMouseClicked(e -> {
-            PlayScreen.towerType="Massart tower" ;
-            prix.setText(messPrix + String.valueOf(MassartTower.getNewCost()));
-            drawing.creatingTowerSquare(MassartTower.getNewRange());
-        });
-        iceTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < MassartTower.getNewCost()){msgError.setText(messError);}});
-        GridPane.setConstraints(iceTowerButton,1,0);
-
-        Button fireTowerButton = new Button("Raj tower");
-        fireTowerButton.setOnMouseClicked(e -> {
-            PlayScreen.towerType="Raj tower" ;
-            prix.setText(messPrix + String.valueOf(RajTower.getNewCost()));
-            drawing.creatingTowerSquare(RajTower.getNewRange());
-        });
-        fireTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < RajTower.getNewCost()){msgError.setText(messError);}});
-        GridPane.setConstraints(fireTowerButton,0,1);
-
-        Button sniperTowerButton = new Button("Sycamore Tower");
-        sniperTowerButton.setOnMouseClicked(( e-> {
-            PlayScreen.towerType = "Sycamore tower" ;
-            prix.setText(messPrix + String.valueOf(SycamoreTower.getNewCost()));
-            drawing.creatingTowerSquare(SycamoreTower.getNewRange());
-        }));
-        sniperTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < SycamoreTower.getNewCost()){msgError.setText(messError);}});
-        GridPane.setConstraints(sniperTowerButton,1,1);
-
-
-
-        /*Button nextWave = new Button("Next Wave");
-        GridPane.setConstraints(nextWave, 0,25);
-        nextWave.setOnAction(e -> {
-            Game.getPlayer().getEnemyFactory().nextWave();
-        });*/
-
-
-        //intégration d'images test (je savais pas ou mettre)
-        //Image image = new Image(getClass().getResourceAsStream("AntoineBg.jpg"));//que qd photo ds répertoire courant
-        //ImageView imageView = new ImageView(image);
-        //imageView.setFitWidth(35);
-        //imageView.setFitHeight(47);
-        //GridPane.setConstraints(imageView, 0,6);
-
-
-
-
-        shop.getChildren().addAll(basicTowerButton, iceTowerButton, fireTowerButton, sniperTowerButton, msgError, prix);
-        borderPane.setRight(shop);
-
-
-
-
-    }
-
 }
