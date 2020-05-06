@@ -13,7 +13,7 @@ public class StackTower extends Tower {
     private static String newPowerType = "Burst Fire";
     private static double newPowerDuration = 5000;
     private static Color newColor = new Color(0, 1, 0, 1);
-    private static Image newImageTower = new Image(StackTower.class.getResourceAsStream("stack.jpg"));
+    private transient static Image newImageTower = new Image(StackTower.class.getResourceAsStream("stack.jpg"));
 
     public StackTower(Point origin,Drawing d){
         super(origin,d);
@@ -101,6 +101,12 @@ public class StackTower extends Tower {
         killPower += (this.getLevel()-1)*5;
         return killPower;
     }
+
+    public static Image getShape(){
+        return newImageTower;
+    }
+
+
 
     public static int getNewCost(){ return stackTowerCost;}
     public static double getNewRange(){return newRange;}

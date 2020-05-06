@@ -120,7 +120,8 @@ public class Tower implements MapClickable, Runnable, Serializable {
     {   if (Game.isOnGame) {
         aInputStream.defaultReadObject();
         drawing= Game.getDrawing();
-        drawing.setImage(centre,getImageTower(),30);
+
+        drawing.setImage(centre,getShape(towerType),30);
         thread = new Thread(this);
         this.setActive();
     }
@@ -173,6 +174,25 @@ public class Tower implements MapClickable, Runnable, Serializable {
     @Override
     public Info getInfo() {
         return new InfoTower(this);
+    }
+
+    public static Image getShape(String towerType){
+        Image image = null;
+        switch(towerType){
+            case "Stack Overflow tower":
+                image =  StackTower.getShape();
+                break;
+            case "Massart tower":
+                image = MassartTower.getShape();
+                break;
+            case "Raj tower":
+                image = RajTower.getShape();
+                break;
+            case "Sycamore":
+                image = SycamoreTower.getShape();
+                break;
+        }
+        return image;
     }
 
 

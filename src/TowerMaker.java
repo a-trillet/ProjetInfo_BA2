@@ -1,9 +1,12 @@
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+
 
 public class TowerMaker {
     private Drawing drawing;
     private Color color;
+    private static ImageView imageView = new ImageView();
 
     public TowerMaker(Drawing d, String type, Point p) {
         this.drawing = d;
@@ -54,5 +57,6 @@ public class TowerMaker {
         }
         return res;
     }
+
 
 }
