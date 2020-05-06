@@ -84,7 +84,7 @@ public class Drawing extends Pane  {
         this.getChildren().removeAll(towerSquare,towerCircle);
     }
 
-    private boolean isOn(MouseEvent e){
+    public boolean isOn(MouseEvent e){
         double x = e.getX();
         double y = e.getY();
         return (x<1100 && x>20 && y>20 && y<600 );
@@ -114,14 +114,14 @@ public class Drawing extends Pane  {
 
 
 
-
+    public void drawallRoute(){
+        for (ArrayList<Point> route : MapFactory.getAllRoutes()){drawRoute(route);}
+    }
 
     public void drawRoute(ArrayList<Point> route){
         //crée une suite de ligne, permet de faire des arcs de cercles ect facilement
         Path path = new Path();
         path.setStroke(Color.WHITE);
-
-
         MoveTo moveTo = new MoveTo();
         moveTo.setX(route.get(0).getX());
         moveTo.setY(route.get(0).getY());
@@ -151,13 +151,7 @@ public class Drawing extends Pane  {
 
     }
 
-    public void drawSaving(){
-            Text sav = new Text(100,100,"Saving...");
-            sav.setFill(Color.WHITE);
-
-            this.getChildren().remove(sav);
-    }
-    public ArrayList<Updatable> getMoveables(){return updatables;}
+    public ArrayList<Updatable> getUpdatables(){return updatables;}
 
 
         }

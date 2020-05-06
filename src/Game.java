@@ -93,7 +93,7 @@ public class Game extends Application {
                 save1.setOnMouseClicked(e -> {
                     isOnGame=true;
                     fileString = "Game" + ii + ".sav";// permet de savoir le nom  du fichier dans lequel save et qu'il soit associable a un bouton
-                    ParameterScene.display( window,scene3,drawing); //ajoute a window 1 première scene avec choix de diff puis
+                    ParameterScene.display(window,scene3); //ajoute a window 1 première scene avec choix de diff puis
                         // a la fin associe scene 3 a window (creer aussi un mapPAne avec la bonne difficultée
 
                 });

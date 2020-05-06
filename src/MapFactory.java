@@ -68,11 +68,6 @@ public class MapFactory  {
         loadRoute(getTrack(difficulty));  /// changer par un fichier
     }
 
-    public static void draw(){
-        for (ArrayList<Point> track : allRoutes) {
-            Game.getDrawing().drawRoute(track);
-        }
-    }
     private void loadRoute(int[][][] alltracks){       //lira un fichier, à changer, ou bien créer fonction fichier to int [][] "read track" et garder les tracks par défaut dans le code comme fait là
          for (int [][] track : alltracks) {
              ArrayList<Point> route = new ArrayList<>();

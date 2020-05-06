@@ -101,7 +101,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         GridPane.setConstraints(msgErrPower,0,7);
 
         if (currentSelection instanceof Tower){
-            if(((Tower)currentSelection).getLevel()<=3){
+            if(((Tower)currentSelection).getLevel()<3){
                 Button upgradeButton = new Button("Upgrade for " + ((Tower)currentSelection).getUpgradeCost());
                 upgradeButton.setOnAction(e ->{
                     messageUpgrade.setText(((Tower) currentSelection).upgrade());
