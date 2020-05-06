@@ -36,7 +36,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     protected Enemy secondTargetEnemy; //reservé pour sycamore tower
 
-    private boolean active = true;
+    protected boolean active = true;
     private double uprgradeBase = 1.0;      // vont servir à augmenter le range et damage
     private double upgradeMultiplier = 0.5; //
     private transient Thread thread = new Thread(this);
@@ -57,7 +57,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     }
 
 
-    private Enemy selectTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour
+    protected Enemy selectTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour
         Enemy target = null;
         Double dist = null;
         for (Enemy e : Game.getPlayer().getEnemiesOnMap()) {
@@ -69,22 +69,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
         }
         if (target != null) {
             target.addTargetingTower(this);
-        }
-        return target;
-    }
-    private Enemy selectSecondTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour, !! et qui n'est pas targetEnnemy
-        Enemy target = null;
-        Double dist = null;
-        for (Enemy e : Game.getPlayer().getEnemiesOnMap()) {
-            double sepa = this.centre.distance(e.getCentre());
-            if ((target == null || sepa < dist) && sepa <= this.getRange() && e!= targetEnemy) {
-                target = e;
-                dist = sepa;
-                break;
-            }
-        }
-        if (target != null) {
-            target.addTargetingTower(this); //faire la meme pour secondtarget
         }
         return target;
     }
@@ -128,11 +112,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
             public void run() {
 
                 drawing.draw(new Bullet(degats,t,bulletRange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
-                if (powerActive && t.getTowerType() == "Sycamore tower"){
-                    if (secondTargetEnemy != null){
-                        drawing.draw(new Bullet(degats,t,bulletRange,secondTargetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
-                    }
-                }
             }
         });
     }
@@ -160,31 +139,11 @@ public class Tower implements MapClickable, Runnable, Serializable {
             if (targetEnemy == null || this.centre.distance(targetEnemy.getCentre()) > this.getRange() || !targetEnemy.isAlive() ) {
                 targetEnemy = selectTarget();
             }
-            if (powerActive && towerType == "Sycamore tower"){
-                if (System.currentTimeMillis()< powerDuration+ powerStartTime){
-                    if (secondTargetEnemy == null || this.centre.distance(secondTargetEnemy.getCentre()) > this.getRange() || !secondTargetEnemy.isAlive() ) {
-                        secondTargetEnemy = selectSecondTarget();
-                    }
-                }
-                else{powerActive = false;}
-            }
-
             if (targetEnemy != null) {
                 shoot();
                 System.out.println("shoot"+targetEnemy.getCentre().getY());
                 try {
-                    if (powerActive && towerType == "Stack Overflow tower" ){
-                        if(System.currentTimeMillis()< powerDuration+ powerStartTime){
-                            Thread.sleep((int)(reloadTime/(2*level)));
-                        }
-                        else{
-                            powerActive = false;
-                            Thread.sleep(reloadTime);
-                        }
-                    }
-                    else{
                         Thread.sleep(reloadTime);
-                    }
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
