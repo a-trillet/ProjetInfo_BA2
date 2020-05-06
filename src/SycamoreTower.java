@@ -14,7 +14,7 @@ public class SycamoreTower extends  Tower {
     private static String newPowerType = "Double shoot";
     private static double newPowerDuration = 6000;
     private static Color newColor = new Color(1, 0, 1, 0.3);
-    private static Image newImageTower = new Image(SycamoreTower.class.getResourceAsStream("sycamore.jpg"));
+    private transient static Image newImageTower = new Image(SycamoreTower.class.getResourceAsStream("sycamore.jpg"));
 
     public SycamoreTower(Point origin, Drawing d){
         super(origin,d);
@@ -138,6 +138,9 @@ public class SycamoreTower extends  Tower {
         int killPower = 5;
         killPower += (this.level-1)*5;
         return 0;
+    }
+    public static Image getShape(){
+        return newImageTower;
     }
     public static int getNewCost(){
         return sycamoreTowercost;

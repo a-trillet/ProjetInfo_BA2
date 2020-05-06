@@ -14,7 +14,7 @@ public class RajTower extends Tower{
     private static String type = "Raj tower";
     private static String newPowerType = "Tsar Bomba";
     private static Color newColor = new Color(1, 0, 0, 1);
-    private static Image newImageTower = new Image(RajTower.class.getResourceAsStream("raj.jpg"));
+    private transient static Image newImageTower = new Image(RajTower.class.getResourceAsStream("raj.jpg"));
 
     public RajTower(Point originPoint,Drawing d){
         super(originPoint,d);
@@ -61,6 +61,9 @@ public class RajTower extends Tower{
         int killPower = 5;
         killPower += (this.getLevel()-1)*5;
         return killPower;
+    }
+    public static Image getShape(){
+        return newImageTower;
     }
     public static int getNewCost(){
         return rajTowerCost;
