@@ -74,7 +74,7 @@ public class ParameterScene {
             Game.getPlayer().setName(nameInput.getText());
             Game.getPlayer().setDifficulty(getDifficulty(difficultySelection));
             Game.getPlayer().loadMap();
-            MapFactory.draw();
+            Game.getDrawing().drawallRoute();
             Game.getPlayer().reset();
             PlayScreen.drawRun();
             window.setScene(futurScene);
