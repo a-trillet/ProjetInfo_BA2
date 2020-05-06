@@ -103,7 +103,7 @@ public class Drawing extends Pane  {
         this.getChildren().addAll(updatable.getShape());
     }
 
-    public void setImage(Point centre,Image image, int size ){
+    public void setImage(Point centre,Image image, int size ){          //utilisé essentiellement pour les images fixes
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(size);
         imageView.setFitHeight(size);
@@ -147,7 +147,7 @@ public class Drawing extends Pane  {
 
     public void removeUpdatable(Updatable updatable){
         updatables.remove(updatable);
-        this.getChildren().remove(updatable.getShape());
+        this.getChildren().removeAll(updatable.getShape());
 
     }
 

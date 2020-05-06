@@ -177,6 +177,8 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     }
 
 
+
+
     private void reachEndPoint(){
         this.die();
         Game.getPlayer().decreaseLife(this.getEnemyPower());

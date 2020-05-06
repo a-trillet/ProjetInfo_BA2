@@ -21,6 +21,8 @@ public class Bullet implements Runnable, Serializable ,Updatable{
     private boolean alive;
     private javafx.scene.shape.Circle circle;
     private Thread thread;
+    private ImageView imageView = new ImageView();
+    private Image image;
 
 
     public Bullet (double damage, Tower t, double range, Point targetPoint, Point originPoint) {
@@ -37,6 +39,21 @@ public class Bullet implements Runnable, Serializable ,Updatable{
         circle.setRadius(4);
         circle.setFill(new Color(1, 1, 0, 1));
 
+        if (motherTower.getTowerType() == "Massart tower"){
+            image = new Image(Bullet.class.getResourceAsStream("turtle2.png"));
+            imageView.setImage(image);
+            imageView.setFitWidth(35);
+            imageView.setPreserveRatio(true);
+            imageView.relocate(centre.getX(),centre.getY());
+        }
+        else if (motherTower.getTowerType() == "Raj tower"){
+            image = new Image(Bullet.class.getResourceAsStream("mouseCursor.png"));
+            imageView.setImage(image);
+            imageView.setFitWidth(14);
+            imageView.setPreserveRatio(true);
+            imageView.relocate(centre.getX(),centre.getY());
+        }
+
 
         thread = new Thread(this);
         thread.start();
@@ -46,8 +63,15 @@ public class Bullet implements Runnable, Serializable ,Updatable{
 
     @Override
     public Node getShape() {
-        return circle;
+        if (motherTower.getTowerType() == "Massart tower" ||motherTower.getTowerType() == "Raj tower"){
+            return imageView;
+        }
+        else{
+            return circle;
+        }
     }
+
+
 
     @Override
     public boolean isAlive() {
@@ -102,6 +126,9 @@ public class Bullet implements Runnable, Serializable ,Updatable{
     public void update() {
         circle.setCenterX(centre.getX());
         circle.setCenterY(centre.getY());
+        if (imageView != null){
+            imageView.relocate(centre.getX(),centre.getY());
+        }
         }
 
 
