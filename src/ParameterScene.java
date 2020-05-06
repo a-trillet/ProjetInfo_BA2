@@ -147,16 +147,16 @@ public class ParameterScene {
     String mapchoice = combobox.getValue();
     switch(mapchoice) {
       case "Easy" :
-        new MapFactory(1,drawing);
+        new MapFactory(1);
         break;
       case "Normal":
-        new MapFactory(2,drawing);
+        new MapFactory(2);
         break;
       case "Hard":
-        new MapFactory(3,drawing);
+        new MapFactory(3);
         break;
       case  "Insane" :
-        new MapFactory(4,drawing);
+        new MapFactory(4);
         break;
       case "create your map":
         MapEditor mapEditor = new MapEditor(drawing, window, scene);
