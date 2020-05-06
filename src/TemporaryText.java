@@ -1,4 +1,3 @@
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;

@@ -31,6 +31,7 @@ public class EnemyFactory implements Runnable, Serializable {
             "Big Error",
             "Java Exception",
             "Indice out of bounds",
+            "Concurent Modification",
             "BOSS"
     };
 
