@@ -31,7 +31,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
     protected double powerDuration;
     protected double powerStartTime;
     protected int numberOfKill;
-    protected ImageView imageView = new ImageView();
     protected Image imageBullet;
     protected Image imageTower;
 
@@ -81,10 +80,11 @@ public class Tower implements MapClickable, Runnable, Serializable {
             if ((target == null || sepa < dist) && sepa <= this.getRange() && e!= targetEnemy) {
                 target = e;
                 dist = sepa;
+                break;
             }
         }
         if (target != null) {
-            target.addTargetingTower(this);
+            target.addTargetingTower(this); //faire la meme pour secondtarget
         }
         return target;
     }
@@ -254,7 +254,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     public String getPowerType(){return powerType;}
 
-    public ImageView getImageBullet(Point centre, double angle){return imageView;}
+    public ImageView getImageBullet(Point centre, double angle){return null;}
 
     public Image getImageTower(){return imageTower;}
 

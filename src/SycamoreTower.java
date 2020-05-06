@@ -6,9 +6,9 @@ import javafx.scene.paint.Color;
 public class SycamoreTower extends  Tower {
 
     private static int sycamoreTowercost = 100;
-    private static  double newRange = 75;
+    private static  double newRange = 100;
     private static  double newDamage = 5;
-    private static int newReloadTime = 2000;
+    private static int newReloadTime = 750;
     private static int newBulletRange = 13; //parfois loupe son coup mais jsp si ça correspond bien
     private static String type = "Sycamore tower";
     private static String newPowerType = "Double shoot";
@@ -40,6 +40,7 @@ public class SycamoreTower extends  Tower {
     @Override
     public ImageView getImageBullet(Point centre, double angle){
         double size = 14;
+        ImageView imageView = new ImageView();
         imageBullet = new Image(Tower.class.getResourceAsStream("logoGoogle.png"));
         imageView.setImage(imageBullet);
         imageView.setFitWidth(size);
@@ -47,6 +48,8 @@ public class SycamoreTower extends  Tower {
         imageView.relocate(centre.getX()-(size/2),centre.getY()-(size/2));
         return imageView;
     }
+
+
 
 
     @Override

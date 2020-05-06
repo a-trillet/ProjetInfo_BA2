@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import static java.lang.Math.*;
 
 public class Bullet implements Runnable, Serializable ,Updatable{
-    private double speed=5;  // choisir si vient de la tour ou meme vitesse pour tt les balles
+    private double speed=3;  // choisir si vient de la tour ou meme vitesse pour tt les balles
     private Point centre; // coordonnée
     private double damage;
     private double range;   // distance jusqu'à laquelle on est touché quand la bullet explose
@@ -39,8 +39,8 @@ public class Bullet implements Runnable, Serializable ,Updatable{
         circle.setRadius(4);
         circle.setFill(new Color(1, 1, 0, 1));
 
-        imageView = motherTower.getImageBullet(centre, angle());
 
+        imageView = motherTower.getImageBullet(centre, angle());
 
 
         thread = new Thread(this);
@@ -120,10 +120,13 @@ public class Bullet implements Runnable, Serializable ,Updatable{
 
 
     public void update() {
-        circle.setCenterX(centre.getX());
-        circle.setCenterY(centre.getY());
         if (imageView != null){
             imageView.relocate(centre.getX()-(size/2),centre.getY()-(size/2));
+        }
+        else{
+
+            circle.setCenterX(centre.getX());
+            circle.setCenterY(centre.getY());
         }
         }
 

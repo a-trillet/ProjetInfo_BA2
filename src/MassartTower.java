@@ -52,6 +52,7 @@ public class MassartTower extends Tower {
     @Override
     public ImageView getImageBullet(Point centre, double angle){
         double size = 35;
+        ImageView imageView = new ImageView();
         imageBullet = new Image(Tower.class.getResourceAsStream("turtle2.png"));
         imageView.setImage(imageBullet);
         imageView.setFitWidth(size);

@@ -46,6 +46,7 @@ public class RajTower extends Tower{
     @Override
     public ImageView getImageBullet(Point centre,double angle){
         double size = 20;
+        ImageView imageView = new ImageView();
         imageBullet = new Image(Tower.class.getResourceAsStream("mouseCursor.png"));
         imageView.setImage(imageBullet);
         imageView.setFitWidth(size);

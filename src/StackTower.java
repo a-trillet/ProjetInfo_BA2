@@ -39,6 +39,7 @@ public class StackTower extends Tower {
 
     @Override
     public ImageView getImageBullet(Point centre, double angle){
+        ImageView imageView = new ImageView();
         double size = 20;
         imageBullet = new Image(Tower.class.getResourceAsStream("handCursor.png"));
         imageView.setImage(imageBullet);
