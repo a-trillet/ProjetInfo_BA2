@@ -85,6 +85,7 @@ public class Game extends Application {
                     }
                     drawing.drawLifeGold();
                     PlayScreen.drawRun();
+                    Game.getDrawing().getChildren().add(new Tips(0,new Point(20,250),Game.getDrawing()));
                     fileString = "Game" + ii + ".sav";// permet de savoir le nom  du fichier dans lequel save et qu'il soit associable a un bouton
                     window.setScene(scene3);
                 });

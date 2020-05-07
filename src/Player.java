@@ -62,6 +62,7 @@ public class Player implements Serializable {
 
     public void decreaseLife(int dmg) {
         lifePoints -= dmg;
+        Game.getDrawing().getChildren().add(new Tips(3,new Point(20,250),Game.getDrawing()));
         Game.getDrawing().drawLifeGold();
         //if (lifePoints<=0){lose()}
     }
