@@ -54,7 +54,7 @@ public class Drawing extends Pane  {
 
     public void drawLifeGold(){
         Platform.runLater(() -> {
-            labelGold.relocate(20,450);
+            labelGold.relocate(775,105);
             labelGold.setTextFill(Color.web("FBF5FF"));
             labelGold.setText("SkillPoints : " +Game.getPlayer().getGold()+"\nMotivation : "+Game.getPlayer().getLives()+"/"+Game.getPlayer().getMaxLives()+"\nWave :"+Game.getPlayer().getWave());
         });
@@ -67,7 +67,7 @@ public class Drawing extends Pane  {
         corbeille.setImage(imageCorbeille);
         corbeille.setFitHeight(50);
         corbeille.setPreserveRatio(true);
-        corbeille.relocate(700,450);
+        corbeille.relocate(830,370);
 
         this.getChildren().add(corbeille);
 

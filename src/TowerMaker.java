@@ -46,7 +46,7 @@ public class TowerMaker {
         if (!MapFactory.isNotOn(to.getCentre())){ //vérifie si la tour touche le chemin
             res=false;
         }
-        if (to.isOn(new Point(725,475))){
+        if (to.isOn(new Point(855,395))){
             res = false;
         }
         return res;

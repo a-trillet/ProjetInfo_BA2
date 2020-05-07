@@ -138,7 +138,7 @@ public class PlayScreen{
         selectedImage.setImage(image);
         selectedImage.setFitHeight(50);
         selectedImage.setPreserveRatio(true);
-        selectedImage.relocate(600,80);
+        selectedImage.relocate(750,40);
 
         selectedImage.setOnMouseClicked(e->Game.getPlayer().getEnemyFactory().nextWave());
         map.getChildren().add(selectedImage);
