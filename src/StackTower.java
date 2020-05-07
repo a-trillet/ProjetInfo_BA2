@@ -1,31 +1,33 @@
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 public class StackTower extends Tower {
 
-    private static  int [] stackTowerCost = {100,170,250};
-    private static  double [] newRange = {100,120,130};
-    private static  double [] newDamage = {15,20,25};
+
+    private static int[] newUpgradeCosts = {50,70,100,0};
+    private static double[] newRanges = {100,150,200};
+    private static double[] newDamages = {15,20, 30};
     private static int newReloadTime = 750;
     private static int newBulletRange = 10;
     private static String type = "Stack Overflow tower";
     private static String newPowerType = "Burst Fire";
-    private static double powerDuration = 5000;
+    private static double[] newPowerDurations = {3500,4500,5000};
     private static Color newColor = new Color(0, 1, 0, 1);
     private transient static Image newImageTower = new Image(StackTower.class.getResourceAsStream("stack.jpg"));
 
 
     public StackTower(Point origin){
         super(origin);
-        this.upgradeCosts = stackTowerCost;
-        this.ranges = newRange;
-        this.damages = newDamage;
+        this.upgradeCosts = newUpgradeCosts;
+        this.ranges = newRanges;
+        this.damages = newDamages;
         this.reloadTime = newReloadTime;
         this.bulletRange = newBulletRange;
         this.towerType = type;
         this.powerType = newPowerType;
+        this.powerDurations = newPowerDurations;
+        this.imageTower = newImageTower;
         color = newColor;
     }
 
@@ -54,7 +56,7 @@ public class StackTower extends Tower {
                 System.out.println("shoot"+targetEnemy.getCentre().getY());
                 try {
                     if (powerActive){
-                        if(System.currentTimeMillis()< powerDuration+ powerStartTime){
+                        if(System.currentTimeMillis()< powerDurations[level-1]+ powerStartTime){
                             Thread.sleep((int)(reloadTime/(2*level)));
                         }
                         else{
@@ -113,7 +115,8 @@ public class StackTower extends Tower {
     }
 
 
-    public static int getNewCost(){ return stackTowerCost[0];}
-    public static double getNewRange(){return newRange[0];}
+
+    public static int getNewCost(){ return newUpgradeCosts[0];}
+    public static double getNewRange(){return newRanges[0];}
 }
 
