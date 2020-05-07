@@ -49,7 +49,7 @@ public class Drawing extends Pane  {
     }
     public void drawLifeGold(){
         Platform.runLater(() -> {
-            labelGold.relocate(20,400);
+            labelGold.relocate(20,450);
             labelGold.setTextFill(Color.web("FBF5FF"));
             labelGold.setText("SkillPoints : " +Game.getPlayer().getGold()+"\nMotivation : "+Game.getPlayer().getLives()+"/"+Game.getPlayer().getMaxLives()+"\nWave :"+Game.getPlayer().getWave());
         });
@@ -82,7 +82,9 @@ public class Drawing extends Pane  {
 
 
     public void removeCreatingTower(){
-        this.getChildren().removeAll(towerSquare,towerCircle);
+        if (this.getChildren().contains(towerSquare) &&this.getChildren().contains(towerCircle) ) {
+            this.getChildren().removeAll(towerSquare, towerCircle);
+        }
     }
 
     public boolean isOn(MouseEvent e){

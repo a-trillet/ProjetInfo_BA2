@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -23,7 +24,7 @@ public class Tips extends Pane {
 
             {
                 "Regardez, résoudre une lettre de ce bug vous à rapporté des SkillPoints,\n Par contre si un bug atteint la sortie, vous perdrez en motivation\nRésolvez en plus et vous pourrez vous offrir l'aide d'autres tours",
-                 "L'indien est très fort mais coute très cher en comprehension,\nSycamore est capable de tirer deux balles en même temps,\nStackOverflow tire en rafale d'inforamtions, l'efficace et accesible à tous "
+                 "L'indien est très fort mais coute très cher en comprehension,\nSycamore est capable de tirer deux balles en même temps,\nStackOverflow tire en rafale d'inforamtions, l'efficacité accesible à tous "
             },
             {
                 "Ho non, un bug n'a pas été résolu... \nVous commencer à perdre patience",
@@ -34,7 +35,7 @@ public class Tips extends Pane {
                  "Stack Overflow : tir en rafale\nRaj, l'indien: peut lancer une tsar bomba et atomiser tout le monde \nSycamore tower: tire deux balles en même temps\nMassart tower: Ralentis tous les bugs"
             },
             {
-                "Incroyable, votre code marche parfaitement\nHonnêtement, jamais je ne l'aurais cru avec vos 200 SkillPoints de débutant\nSnif, vous allez me manquer..."
+                "Incroyable, votre code marche parfaitement\nHonnêtement, jamais je ne l'aurais cru\n avec vos 200 SkillPoints de débutant\nSnif, vous allez me manquer..."
             },
             {"ATTENTION ce n'est pas fini,\nil faut encore push tout ca sur Github..."}
 
@@ -65,6 +66,7 @@ public class Tips extends Pane {
             this.text.setText(textStrings[textNumber][0]);
             this.getChildren().add(this.text);
             this.setOnMouseClicked(this::actions);
+            this.setViewOrder(-1);
         }
     }
 
@@ -89,10 +91,10 @@ public class Tips extends Pane {
     private void actions(MouseEvent e){
         Point p = new Point(e.getX(),e.getY());
         if(isOnCloseButton(p)){
-            drawing.getChildren().remove(this);
+            Platform.runLater(()->drawing.getChildren().remove(this));
         }
         else if (isOnCLose(p)){
-            this.text.setText("Tu veux m'abandonner?\nJe ne t'ai même pas encore expliqué\nà quoi sert la croix 'X' ni 'Show'");
+            Platform.runLater(()->drawing.getChildren().remove(this));
         }
         else if (isOnNext(p)){
             if (textNumber != -1 && itText+1<textStrings[textNumber].length){

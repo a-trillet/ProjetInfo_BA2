@@ -58,13 +58,13 @@ public class MapClickListener implements EventHandler<MouseEvent> {
                 System.out.println(mouseEvent.getX()+"      "+mouseEvent.getY());          // test coord souris
             }
             else {
-                displayInfo("");
+                displayInfo();
             }
         }
     }
 
     //affiche les information et bouton upgrade
-    public void displayInfo(String messUpgrade){
+    public void displayInfo(){
         Info info = currentSelection.getInfo();
 
         String infos = info.listString();
@@ -85,8 +85,6 @@ public class MapClickListener implements EventHandler<MouseEvent> {
             circle.setFill(Color.TRANSPARENT);
         }
 
-        Label messageUpgrade = new Label(messUpgrade);    //mess uprgrade supprimable mais bon alz
-        GridPane.setConstraints(messageUpgrade,0,9);
         Label msgErrPower = new Label();
         GridPane.setConstraints(msgErrPower,0,7);
 
@@ -102,15 +100,14 @@ public class MapClickListener implements EventHandler<MouseEvent> {
             if(((Tower)currentSelection).getLevel()<3){
                 Button upgradeButton = new Button("Upgrade for " + ((Tower)currentSelection).getUpgradeCost());
                 upgradeButton.setOnAction(e ->{
-                    messageUpgrade.setText(((Tower) currentSelection).upgrade());
-                    displayInfo(messageUpgrade.getText());
+                    ((Tower) currentSelection).upgrade();
+                    displayInfo();
                 });
                 GridPane.setConstraints(upgradeButton,0,8);
 
                 infoBox.getChildren().addAll(upgradeButton);
             }
             else{Button upgradeButton = new Button("Maxed");
-                upgradeButton.setOnAction(e -> messageUpgrade.setText("This tower is at max level"));
                 GridPane.setConstraints(upgradeButton,0,8);
                 infoBox.getChildren().addAll(upgradeButton);
             }
@@ -141,7 +138,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         Label label = new Label(infos);
         GridPane.setConstraints(label, 0,0);
 
-        infoBox.getChildren().addAll(label, shopButton, messageUpgrade);
+        infoBox.getChildren().addAll(label, shopButton);
         borderPane.setRight(infoBox);
     }
 

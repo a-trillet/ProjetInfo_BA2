@@ -174,7 +174,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
         }
         //met à jour display info display info
         if (PlayScreen.mapClickListener.getCurrentSelection() == this) {
-            Platform.runLater(() -> PlayScreen.mapClickListener.displayInfo(""));
+            Platform.runLater(() -> PlayScreen.mapClickListener.displayInfo());
         }
 
         }
