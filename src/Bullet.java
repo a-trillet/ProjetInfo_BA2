@@ -57,33 +57,10 @@ public class Bullet implements Runnable, Serializable ,Updatable{
     }
 
 
-    @Override
-    public Node getShape() {
-        if (imageView != null){
-            return imageView;
-        }
-        else{       //par défault si images non dispo
-            return circle;
-        }
-    }
-
-
-
-    @Override
-    public boolean isAlive() {
-        return alive;
-    }
-
-
-    public double getDamage() {
-        double damage = this.damage;
-        return damage;
-    }
-
     public void explode() {      //hurt les ennemis dont l'origine est dans la range de la bullet
         ArrayList<Enemy> enemiestoremove=new ArrayList<>();
         for( Enemy e: Game.getPlayer().getEnemiesOnMap()) {
-            if (e.getCentre().distance(this.centre) < range) {
+            if (e.getCentre().distance(this.centre) < range && e.isAlive()) {
                 e.hurt(this);
             }
             if (!e.isAlive()) {
@@ -106,6 +83,7 @@ public class Bullet implements Runnable, Serializable ,Updatable{
         double speed_y = speed * deltaY / dist;
         int dx = (int) round(speed_x);
         int dy = (int) round(speed_y);
+
         if (abs(this.targetPoint.getY() - this.centre.getY()) > abs(dy) && abs(this.targetPoint.getX() - this.centre.getX()) > abs(dx)) {
             centre.setX(centre.getX() + dx);
             centre.setY(centre.getY() + dy);
@@ -113,9 +91,8 @@ public class Bullet implements Runnable, Serializable ,Updatable{
         else {
             alive = false;
             this.explode();
-
         }
-        }
+    }
 
 
     public void update() {
@@ -123,11 +100,10 @@ public class Bullet implements Runnable, Serializable ,Updatable{
             imageView.relocate(centre.getX()-(size/2),centre.getY()-(size/2));
         }
         else{
-
             circle.setCenterX(centre.getX());
             circle.setCenterY(centre.getY());
         }
-        }
+    }
 
 
 
@@ -142,8 +118,25 @@ public class Bullet implements Runnable, Serializable ,Updatable{
         }
     }
 
-    public boolean getAlive() {
+
+    @Override
+    public Node getShape() {
+        if (imageView != null){
+            return imageView;
+        }
+        else{       //par défault si images non dispo
+            return circle;
+        }
+    }
+
+    @Override
+    public boolean isAlive() {
         return alive;
+    }
+
+    public double getDamage() {
+        double damage = this.damage;
+        return damage;
     }
 }
 

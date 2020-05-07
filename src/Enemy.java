@@ -1,6 +1,5 @@
 import javafx.application.Platform;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -93,7 +92,9 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     @Override
     public void hurt(Bullet bullet) {
         decreaseLife(bullet.getDamage());
-
+        if (!targetingTowers.contains(bullet.getMotherTower())){
+        targetingTowers.add(bullet.getMotherTower());
+        }
     }
 
 
@@ -104,48 +105,19 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
         Platform.runLater(()->Game.getDrawing().draw(this));
     }
 
-    //prévient toutes les tourelles qui le vise qu'il est mort + die()
-    private void killed(){
+
+    private void killed(){  //prévient toutes les tourelles qui le vise qu'il est mort + die()
         die();
         Game.getPlayer().addGold(reward);
-        for(Tower killer: targetingTowers){
+        for(Tower killer: targetingTowers) {
             killer.targetIsDead(this);
         }
     }
 
-    //retire le cercle et retire de ennemies on map dans Player
     private void die() {
         Platform.runLater(() -> Game.getDrawing().getChildren().add(new Tips(2,new Point(20,250),Game.getDrawing())));
         alive = false;
     }
-
-    public void addTargetingTower(Tower tower){
-        this.targetingTowers.add(tower);
-    }
-
-    @Override
-    public boolean isOn(Point p){
-        boolean res= false;
-        if (p.distance(this.origin)<30){res=true;}  //On peut modifier pour pouvoir cliquer sur tt la carré
-        return res;
-    }
-
-    public double getSpeed() {
-        if(frozen){
-            enemyVelocity = 0;
-        }
-        return enemyVelocity;
-    }
-
-
-    public double getLifePoints() {
-        return lifePoints;
-    }
-
-    public double getMaxLifePoints() {
-        return maxLifePoints;
-    }
-
 
     public void move(){
             if (origin.distance(trackPoints.get(nextPoint)) > enemyVelocity/15+2) {
@@ -177,9 +149,6 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
         return lettreText;
     }
 
-
-
-
     private void reachEndPoint(){
         this.die();
         Game.getPlayer().decreaseLife(this.getEnemyPower());
@@ -193,9 +162,6 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
         lettreText.setRotate(angle*360/2/Math.PI);
         if (lifePoints<=maxLifePoints/2){lettreText.setFill(Color.web("FF7B2C"));}
 
-    }
-    public boolean isAlive(){
-        return alive;
     }
 
     public void decreaseLife(double dmg){
@@ -221,17 +187,13 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
         }
         System.out.println("X: "+ this.getCentre().getX()+"enemy object run");
         while (alive) {
-            if (this.isOn(trackPoints.get(0))){
+            if (this.isOn(trackPoints.get(0))){  //rend l'ennemi killable quand atteint la première base
                 Game.getPlayer().addEnemy(this);
             }
-            if (frozen && System.currentTimeMillis()> freezeStart + freezeDuration){
+            if (frozen && System.currentTimeMillis()> freezeStart + freezeDuration){  //unfreeeze
                 frozen = false;
                 enemyVelocity = enemySpeed;    //revient à sa vitesse de base
             }
-
-
-
-
             this.move();
             try {
                 Thread.sleep(20);
@@ -239,9 +201,6 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
                     e.printStackTrace();
                 }
         }
-
-
-
     }
 
     public int getReward() {
@@ -268,4 +227,32 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
             }
         }
         else{aInputStream.defaultReadObject();}
-    }}
+    }
+
+    @Override
+    public boolean isOn(Point p){
+        boolean res= false;
+        if (p.distance(this.origin)<30){res=true;}  //On peut modifier pour pouvoir cliquer sur tt la carré
+        return res;
+    }
+
+    public double getSpeed() {
+        if(frozen){
+            enemyVelocity = 0;
+        }
+        return enemyVelocity;
+    }
+
+
+    public double getLifePoints() {
+        return lifePoints;
+    }
+
+    public double getMaxLifePoints() {
+        return maxLifePoints;
+    }
+
+    public boolean isAlive(){
+        return alive;
+    }
+}

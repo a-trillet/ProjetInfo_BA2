@@ -41,9 +41,7 @@ public class SycamoreTower extends  Tower {
                 break;
             }
         }
-        if (target != null) {
-            target.addTargetingTower(this); //faire la meme pour secondtarget
-        }
+
         return target;
     }
 
