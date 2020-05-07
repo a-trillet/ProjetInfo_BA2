@@ -114,7 +114,6 @@ public class EnemyFactory implements Runnable, Serializable {
                         Thread.sleep(1000);
                     }
                     e.setAlive();
-                    Game.getPlayer().addEnemy(e);
                 }
             }
             // le jeu est sauvé quand tous les élément de la wave sont sortis
