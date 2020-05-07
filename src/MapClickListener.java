@@ -90,6 +90,14 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         Label msgErrPower = new Label();
         GridPane.setConstraints(msgErrPower,0,7);
 
+        Button sellButton = new Button("Sell for "+((Tower)currentSelection).getSellPrice());
+        sellButton.setOnMouseClicked((e->{
+            Game.getPlayer().removeTower((Tower) currentSelection);
+            circle.setStroke(Color.TRANSPARENT);
+            playScreen.displayShop();
+        }));
+        GridPane.setConstraints(sellButton,0,9);
+
         if (currentSelection instanceof Tower){
             if(((Tower)currentSelection).getLevel()<3){
                 Button upgradeButton = new Button("Upgrade for " + ((Tower)currentSelection).getUpgradeCost());
@@ -98,13 +106,8 @@ public class MapClickListener implements EventHandler<MouseEvent> {
                     displayInfo(messageUpgrade.getText());
                 });
                 GridPane.setConstraints(upgradeButton,0,8);
-                Button sellButton = new Button("Sell for "+((Tower)currentSelection).getSellPrice());
-                sellButton.setOnMouseClicked((e->{
-                    Game.getPlayer().removeTower((Tower) currentSelection);
-                    circle.setStroke(Color.TRANSPARENT);
-                }));
-                GridPane.setConstraints(sellButton,0,9);
-                infoBox.getChildren().addAll(upgradeButton,sellButton);
+
+                infoBox.getChildren().addAll(upgradeButton);
             }
             else{Button upgradeButton = new Button("Maxed");
                 upgradeButton.setOnAction(e -> messageUpgrade.setText("This tower is at max level"));
@@ -128,7 +131,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
             HBox hBox = new HBox(10);
             GridPane.setConstraints(hBox,0,6);
             hBox.getChildren().addAll(label,powerButton);
-            infoBox.getChildren().add(hBox);
+            infoBox.getChildren().addAll(hBox,sellButton);
         }
 
         Button shopButton = new Button("Shop");

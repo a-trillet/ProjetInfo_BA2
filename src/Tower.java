@@ -22,7 +22,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     protected double[] ranges = {0,0,0};              //change en fct du level
     protected double[] damages = {0,0,0};
     protected double[] powerDurations = {0,0,0};
-    protected static Color color;
+    protected Color color;
     protected int reloadTime;
     protected int bulletRange;
     protected String towerType;
@@ -31,7 +31,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
     protected double powerStartTime;
     protected int numberOfKill;
     protected transient Image imageBullet;
-    protected transient Image imageTower;
     protected transient Node shape;
 
     protected Enemy secondTargetEnemy; // à enlever
@@ -98,9 +97,10 @@ public class Tower implements MapClickable, Runnable, Serializable {
         }
         return messageUpgrade;
     }
+
     public int getSellPrice(){
-        int price= getCost()*2/3;
-        for (int i=1;i<=level;i++){price+=upgradeCosts[level]*i*2/3;}
+        int price =0;
+        for (int i=0;i<=level;i++){price+=upgradeCosts[level]*i*2/3;}
         return price;
     }
     public void sell(){active=false;}
@@ -178,24 +178,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
         return new InfoTower(this);
     }
 
-    public static Image getShape(String towerType){
-        Image image = null;
-        switch(towerType){
-            case "Stack Overflow tower":
-                image =  StackTower.getShape();
-                break;
-            case "Massart tower":
-                image = MassartTower.getShape();
-                break;
-            case "Raj tower":
-                image = RajTower.getShape();
-                break;
-            case "Sycamore":
-                image = SycamoreTower.getShape();
-                break;
-        }
-        return image;
-    }
     public Node getTowerShape(){
         return shape;
     }
@@ -241,6 +223,5 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     public ImageView getImageBullet(Point centre, double angle){return null;}
 
-    public Image getImageTower(){return imageTower;}
 
 }

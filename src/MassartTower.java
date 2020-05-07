@@ -26,7 +26,6 @@ public class MassartTower extends Tower {
         this.towerType = type;
         this.powerType = newPowerType;
         this.powerDurations = newPowerDurations;
-        this.imageTower = newImageTower;
         color = newColor;
     }
 
@@ -73,13 +72,10 @@ public class MassartTower extends Tower {
         imageView.setY(centre.getY()-30/2);
         shape=imageView;
     }
-    public static Image getShape(){
-        return newImageTower;
-    }
+
     public static int getNewCost(){
         return newUpgradeCosts[0];
     } //pour infoTower car pas 1 tour en particulier
-
     public static double getNewRange(){return newRanges[0];}
 }
 

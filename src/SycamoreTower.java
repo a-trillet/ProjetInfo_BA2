@@ -27,7 +27,6 @@ public class SycamoreTower extends  Tower {
         this.towerType = type;
         this.powerType = newPowerType;
         this.powerDurations = newPowerDurations;
-        this.imageTower = newImageTower;
         color = newColor;
     }
 
@@ -147,9 +146,6 @@ public class SycamoreTower extends  Tower {
         int killPower = 5;
         killPower += (this.level-1)*5;
         return 0;
-    }
-    public static Image getShape(){
-        return newImageTower;
     }
     public static int getNewCost(){
         return newUpgradeCosts[0];

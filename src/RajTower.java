@@ -25,7 +25,6 @@ public class RajTower extends Tower{
         this.bulletRange = newBulletRange;
         this.towerType = type;
         this.powerType = newPowerType;
-        this.imageTower = newImageTower;
         color = newColor;
     }
 
@@ -71,9 +70,6 @@ public class RajTower extends Tower{
         imageView.setX(centre.getX()-30/2);
         imageView.setY(centre.getY()-30/2);
         shape= imageView;
-    }
-    public static Image getShape(){
-        return newImageTower;
     }
     public static int getNewCost(){
         return newUpgradeCosts[0];
