@@ -45,7 +45,7 @@ public class MapEditor extends BorderPane {
         });
 
         endMapEditor.setOnMouseClicked(e->{
-            MapFactory.createNewRoutes(allRoutes);
+            new MapFactory(allRoutes);
             window.setScene(paramScene);
         });
 

@@ -1,3 +1,5 @@
+import javafx.application.Platform;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -65,7 +67,7 @@ public class Player implements Serializable {
 
     public void decreaseLife(int dmg) {
         lifePoints -= dmg;
-        Game.getDrawing().getChildren().add(new Tips(3,new Point(20,250),Game.getDrawing()));
+        Platform.runLater(()->Game.getDrawing().getChildren().add(new Tips(3,new Point(20,250),Game.getDrawing())));
         Game.getDrawing().drawLifeGold();
         if (lifePoints<=0){Game.lose();}
     }

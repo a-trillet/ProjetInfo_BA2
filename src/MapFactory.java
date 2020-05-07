@@ -70,6 +70,8 @@ public class MapFactory  {
         loadRoute(getTrack(difficulty));  /// changer par un fichier
     }
 
+    public MapFactory(ArrayList<ArrayList<Point>> allRoutes){this.allRoutes=allRoutes;}
+
     private void loadRoute(int[][][] alltracks){       //lira un fichier, à changer, ou bien créer fonction fichier to int [][] "read track" et garder les tracks par défaut dans le code comme fait là
          for (int [][] track : alltracks) {
              ArrayList<Point> route = new ArrayList<>();
@@ -135,9 +137,6 @@ public class MapFactory  {
         }
         return bol;
     }
-
-
-    public static void createNewRoutes(ArrayList<ArrayList<Point>> newallroutes){allRoutes=newallroutes;}
 
     private  int[][][] getTrack(int difficulty){
         int[][][] track = null;
