@@ -128,7 +128,6 @@ public class MapFactory  {
                     double dist = Math.pow((Math.pow((x_C - x_I), 2) + Math.pow((y_C - y_I), 2)), 0.5);
 
                     if (dist <= distMinimale) {
-                        System.out.println("trop proche de la route");
                         bol = false;
                         break;
                     }

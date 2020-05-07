@@ -27,7 +27,7 @@ public class StackTower extends Tower {
         this.towerType = type;
         this.powerType = newPowerType;
         this.powerDurations = newPowerDurations;
-        this.imageTower = newImageTower;
+        setTowerShape();
         color = newColor;
     }
 
