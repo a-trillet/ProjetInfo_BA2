@@ -90,15 +90,15 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         Label msgErrPower = new Label();
         GridPane.setConstraints(msgErrPower,0,7);
 
-        Button sellButton = new Button("Sell for "+((Tower)currentSelection).getSellPrice());
-        sellButton.setOnMouseClicked((e->{
-            Game.getPlayer().removeTower((Tower) currentSelection);
-            circle.setStroke(Color.TRANSPARENT);
-            playScreen.displayShop();
-        }));
-        GridPane.setConstraints(sellButton,0,9);
 
         if (currentSelection instanceof Tower){
+            Button sellButton = new Button("Sell for "+((Tower)currentSelection).getSellPrice());
+            sellButton.setOnMouseClicked((e->{
+                Game.getPlayer().removeTower((Tower) currentSelection);
+                circle.setStroke(Color.TRANSPARENT);
+                playScreen.displayShop();
+            }));
+            GridPane.setConstraints(sellButton,0,9);
             if(((Tower)currentSelection).getLevel()<3){
                 Button upgradeButton = new Button("Upgrade for " + ((Tower)currentSelection).getUpgradeCost());
                 upgradeButton.setOnAction(e ->{

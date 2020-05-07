@@ -59,6 +59,7 @@ public class Bullet implements Runnable, Serializable ,Updatable{
 
     public void explode() {      //hurt les ennemis dont l'origine est dans la range de la bullet
         ArrayList<Enemy> enemiestoremove=new ArrayList<>();
+        System.out.println(Game.getPlayer().getEnemiesOnMap());
         for( Enemy e: Game.getPlayer().getEnemiesOnMap()) {
             if (e.getCentre().distance(this.centre) < range && e.isAlive()) {
                 e.hurt(this);
@@ -135,7 +136,6 @@ public class Bullet implements Runnable, Serializable ,Updatable{
     }
 
     public double getDamage() {
-        double damage = this.damage;
         return damage;
     }
 }

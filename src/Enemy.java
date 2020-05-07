@@ -92,6 +92,8 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     @Override
     public void hurt(Bullet bullet) {
         decreaseLife(bullet.getDamage());
+        System.out.println(lifePoints);
+        System.out.println(alive);
         if (!targetingTowers.contains(bullet.getMotherTower())){
         targetingTowers.add(bullet.getMotherTower());
         }
@@ -134,6 +136,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
             } else {
                 origin.setX(trackPoints.get(nextPoint).getX());
                 origin.setY(trackPoints.get(nextPoint).getY());  //nextpoint c'est un int qui definit l'endroitde la liste ou l'element  est un point qu 'il va atteindre
+                if (nextPoint==0){Game.getPlayer().addEnemy(this);}
                 if (trackPoints.size() - 1 > nextPoint) {
                     nextPoint++;
                     angle = Math.atan2((trackPoints.get(nextPoint).getY() - trackPoints.get(nextPoint - 1).getY()), (trackPoints.get(nextPoint).getX() - trackPoints.get(nextPoint - 1).getX()));
@@ -187,9 +190,6 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
         }
         System.out.println("X: "+ this.getCentre().getX()+"enemy object run");
         while (alive) {
-            if (this.isOn(trackPoints.get(0))){  //rend l'ennemi killable quand atteint la première base
-                Game.getPlayer().addEnemy(this);
-            }
             if (frozen && System.currentTimeMillis()> freezeStart + freezeDuration){  //unfreeeze
                 frozen = false;
                 enemyVelocity = enemySpeed;    //revient à sa vitesse de base
