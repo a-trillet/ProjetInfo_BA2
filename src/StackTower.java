@@ -118,5 +118,7 @@ public class StackTower extends Tower {
 
     public static int getNewCost(){ return newUpgradeCosts[0];}
     public static double getNewRange(){return newRanges[0];}
+    public static int getNewReloadTime(){return newReloadTime;}
+    public static double getNewDamage(){return newDamages[0];}
 }
 

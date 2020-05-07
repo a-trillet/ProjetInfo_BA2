@@ -142,7 +142,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         GridPane.setConstraints(label, 0,0);
 
         infoBox.getChildren().addAll(label, shopButton, messageUpgrade);
-        infoBox.setGridLinesVisible(true);
         borderPane.setRight(infoBox);
     }
+
 }

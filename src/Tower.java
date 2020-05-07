@@ -181,9 +181,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     public void setTowerShape(){shape=null;}
 
 
-    public int getFrequency() {
-        return frequency;
-    }
+    public int getReloadTime(){return reloadTime;}
 
     public int getCost() {
         System.out.println(upgradeCosts[0]);

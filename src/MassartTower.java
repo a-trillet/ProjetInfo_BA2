@@ -77,5 +77,7 @@ public class MassartTower extends Tower {
         return newUpgradeCosts[0];
     } //pour infoTower car pas 1 tour en particulier
     public static double getNewRange(){return newRanges[0];}
+    public static int getNewReloadTime(){return newReloadTime;}
+    public static double getNewDamage(){return newDamages[0];}
 }
 

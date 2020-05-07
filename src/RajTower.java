@@ -75,4 +75,6 @@ public class RajTower extends Tower{
         return newUpgradeCosts[0];
     }
     public static double getNewRange(){return newRanges[0];}
+    public static int getNewReloadTime(){return newReloadTime;}
+    public static double getNewDamage(){return newDamages[0];}
 }
