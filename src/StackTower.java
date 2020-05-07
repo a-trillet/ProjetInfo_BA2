@@ -16,6 +16,7 @@ public class StackTower extends Tower {
     private static Color newColor = new Color(0, 1, 0, 1);
     private transient static Image newImageTower = new Image(StackTower.class.getResourceAsStream("stack.jpg"));
 
+
     public StackTower(Point origin){
         super(origin);
         this.upgradeCosts = newUpgradeCosts;
@@ -103,8 +104,14 @@ public class StackTower extends Tower {
         return killPower;
     }
 
-    public static Image getShape(){
-        return newImageTower;
+    @Override
+    public void setTowerShape(){
+        ImageView imageView = new ImageView(newImageTower);
+        imageView.setFitWidth(30);
+        imageView.setFitHeight(30);
+        imageView.setX(centre.getX()-30/2);
+        imageView.setY(centre.getY()-30/2);
+        shape=imageView;
     }
 
 

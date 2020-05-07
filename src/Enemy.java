@@ -148,8 +148,8 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
 
 
     public void move(){
-            if (origin.distance(trackPoints.get(nextPoint)) > enemySpeed) {
-                double dist = trackPoints.get(nextPoint).distance(origin);
+            if (origin.distance(trackPoints.get(nextPoint)) > enemyVelocity/15+2) {
+                double dist = trackPoints.get(nextPoint).distance(this.origin);
                 int deltaX = (int) (this.trackPoints.get(nextPoint).getX() - origin.getX());
                 int deltaY = (int) (this.trackPoints.get(nextPoint).getY() - origin.getY());
 
@@ -169,9 +169,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
                 } else {
                     reachEndPoint();
                 }
-
     }
-
     }
 
     @Override

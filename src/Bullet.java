@@ -91,7 +91,6 @@ public class Bullet implements Runnable, Serializable ,Updatable{
             }
         }
         for (Enemy enemytoremove : enemiestoremove){Game.getPlayer().removeEnemy(enemytoremove);}
-        enemiestoremove.clear();
     }
 
 
