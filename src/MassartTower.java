@@ -13,10 +13,10 @@ public class MassartTower extends Tower {
     private static String newPowerType = "Total Slow";
     private static double newPowerDuration = 4000;
     private static Color newColor = new Color(0, 0.1, 1, 0.7);
-    private static Image newImageTower = new Image(MassartTower.class.getResourceAsStream("massart.jpg"));
+    private transient static Image newImageTower = new Image(MassartTower.class.getResourceAsStream("massart.jpg"));
 
-    public MassartTower(Point origin,Drawing d) {
-        super(origin,d);
+    public MassartTower(Point origin) {
+        super(origin);
         this.cost = massartTowercost;
         this.range = newRange;
         this.damage = newDamage;
@@ -49,6 +49,7 @@ public class MassartTower extends Tower {
         return killPower;
     }
 
+
     @Override
     public ImageView getImageBullet(Point centre, double angle){
         double size = 35;
@@ -60,6 +61,10 @@ public class MassartTower extends Tower {
         imageView.relocate(centre.getX()-(size/2),centre.getY()-(size/2));
         imageView.setRotate(0 + angle);// rotate fonctionne dans le sens horlogique par rapport à l'écran
         return imageView;
+    }
+
+    public static Image getShape(){
+        return newImageTower;
     }
     public static int getNewCost(){
         return massartTowercost;

@@ -30,8 +30,66 @@ public class PlayScreen{
         BackgroundImage backgroundimage = new BackgroundImage(image1, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundimage);
         map.setBackground(background);
-        mapClickListener= new MapClickListener(borderPane,drawing);
+        mapClickListener= new MapClickListener(borderPane,drawing,this);
 
+    }
+    public void displayShop(){
+        GridPane shop = new GridPane();
+        String messError = "You don't have enough money";
+        String messPrix = "Prix : ";
+        shop.setPrefWidth(200);
+        shop.setPadding(new Insets(10,10,10,10));
+        shop.setVgap(8);
+        shop.setHgap(10);
+
+
+        Label msgError = new Label();
+        Label prix = new Label();
+        GridPane.setConstraints(msgError,0,17);
+        GridPane.setConstraints(prix,0,6);
+
+        Button stackTowerButton = new Button("Stack tower");
+        stackTowerButton.setOnMouseClicked(e-> {
+            PlayScreen.towerType = "Stack Overflow tower";
+            prix.setText(messPrix + String.valueOf(StackTower.getNewCost()));
+            drawing.creatingTowerSquare(StackTower.getNewRange());
+        });
+        stackTowerButton.setOnAction(e -> { if (Game.getPlayer().getGold() < StackTower.getNewCost()){msgError.setText(messError);}});
+        GridPane.setConstraints(stackTowerButton,0,0);
+
+
+        Button massartTowerButton = new Button("Massart tower");
+        massartTowerButton.setOnMouseClicked(e -> {
+            PlayScreen.towerType="Massart tower" ;
+            prix.setText(messPrix + String.valueOf(MassartTower.getNewCost()));
+            drawing.creatingTowerSquare(MassartTower.getNewRange());
+        });
+
+        massartTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < MassartTower.getNewCost()){msgError.setText(messError);}});
+        GridPane.setConstraints(massartTowerButton,1,0);
+
+        Button rajTowerButton = new Button("Raj tower");
+        rajTowerButton.setOnMouseClicked(e -> {
+            PlayScreen.towerType="Raj tower" ;
+            prix.setText(messPrix + String.valueOf(RajTower.getNewCost()));
+            drawing.creatingTowerSquare(RajTower.getNewRange());
+        });
+
+        rajTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < RajTower.getNewCost()){msgError.setText(messError);}});
+        GridPane.setConstraints(rajTowerButton,0,1);
+
+        Button sycamoreTowerButton = new Button("Sycamore Tower");
+        sycamoreTowerButton.setOnMouseClicked(( e-> {
+            PlayScreen.towerType = "Sycamore tower" ;
+            prix.setText(messPrix + String.valueOf(SycamoreTower.getNewCost()));
+            drawing.creatingTowerSquare(SycamoreTower.getNewRange());
+        }));
+
+        sycamoreTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < SycamoreTower.getNewCost()){msgError.setText(messError);}});
+        GridPane.setConstraints(sycamoreTowerButton,1,1);
+
+        shop.getChildren().addAll(stackTowerButton, massartTowerButton, rajTowerButton, sycamoreTowerButton, msgError, prix);
+        borderPane.setRight(shop);
     }
 
     public static void drawRun(){
@@ -47,9 +105,6 @@ public class PlayScreen{
         //La map
 
         map.getChildren().addAll(drawing);
-        //drawing.setOnMouseClicked(e->{if (towerType!=null){new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));}});
-        //drawing.setOnMouseReleased(new TowerButtonListener(drawing));
-        //map.setBackground(new Background(new BackgroundFill(Color.rgb(40, 40, 40), CornerRadii.EMPTY, Insets.EMPTY)));
         drawing.setOnMouseClicked(e->{
             drawing.removeCreatingTower();
             if ( towerType!=null ) {
@@ -61,13 +116,9 @@ public class PlayScreen{
         });
         drawing.drawLifeGold();
 
-
-
-
-
         //le shop
 
-        mapClickListener.displayShop();
+        displayShop();
         //Info
 
         borderPane.setCenter(map);
@@ -84,27 +135,11 @@ public class PlayScreen{
                 ex.printStackTrace();
             }
         });
-       /* Button testButton2 = new Button("test222");
-        testButton2.relocate(15,200);
-        testButton2.setOnMouseClicked(e-> {
-            Game.player.newTower.SetActive();
-            drawing.drawSquare(Game.player.newTower.getCentre(),new Color(0, 1,0,1));
-        });*/
+
         map.getChildren().addAll(testButton);
-
-
-
 
         return borderPane;
     }
-
-
-
-
-
-
-
-
 }
 
 

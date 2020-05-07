@@ -12,9 +12,9 @@ import javafx.stage.*;
 public class ParameterScene {
       public static void display( Stage window, Scene futurScene){
 
-
         StackPane stackPane = new StackPane();
         GridPane gridPane = new GridPane();
+        gridPane.setPadding(new Insets(300,0,0,60));
         Scene scene = new Scene(stackPane, 641, 402);
 
         //background
@@ -24,8 +24,8 @@ public class ParameterScene {
 
         // box veticales
         VBox layout = new VBox();
-        layout.setPadding(new Insets(150,20,0,20));
-        layout.setSpacing(30);
+        layout.setPadding(new Insets(0,0,10,0));
+        layout.setSpacing(25);
 
 
         //mise en place du nom du joueur
@@ -57,66 +57,37 @@ public class ParameterScene {
         mapSelection.setOnAction(e->getMapSelection(mapSelection,window,scene));
 
 
-
-
         //message d'erreur
         Label labelError1 = new Label();
         labelError1.setText("");
+        GridPane.setConstraints(labelError1,0,0);
+        gridPane.getChildren().add(labelError1);
 
         //close button
-
         Button closeButton = new Button("Apply and close");
         closeButton.setOnAction(e -> {
           if (nameInput.getText() == "" || difficultySelection.getValue() == null || mapSelection.getValue() == null){
-            labelError1.setText("Error, enter a name"+"\n"+ "and choose difficulty" );
+            labelError1.setText("Error, enter a name"+"\n"+ ", choose difficulty and select your map" );
           }
           else{
+            Game.getDrawing().drawallRoute();
             Game.getPlayer().setName(nameInput.getText());
             Game.getPlayer().setDifficulty(getDifficulty(difficultySelection));
             Game.getPlayer().loadMap();
-            Game.getDrawing().drawallRoute();
             Game.getPlayer().reset();
             PlayScreen.drawRun();
+            Game.getDrawing().drawLifeGold();
             window.setScene(futurScene);
           }
         });
 
-
-
-
         stackPane.setBackground(background);
-        layout.getChildren().addAll( nameInput, difficultySelection,mapSelection, closeButton,labelError1);
+        layout.getChildren().addAll( nameInput, difficultySelection,mapSelection, closeButton);
         layout.setAlignment(Pos.BOTTOM_CENTER);
-        stackPane.getChildren().addAll(layout);
-
-
-
-
-
+        stackPane.getChildren().addAll(gridPane,layout);
 
 
         window.setScene(scene);
-
-
-    }
-    private static String difficultyString(int diff){
-      String difficulty = "";
-      switch(diff) {
-        case 1 :
-          difficulty = "Easy";
-          break;
-        case 2:
-          difficulty = "Normal";
-          break;
-        case 3:
-          difficulty = "Hard";
-          break;
-        case  4 :
-          difficulty = "Insane";
-          break;
-      }
-      return difficulty;
-
     }
     private static int getDifficulty(ComboBox<String> difficultySelection){
       String difficultee = difficultySelection.getValue();

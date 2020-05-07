@@ -40,6 +40,7 @@ public class EnemyFactory implements Runnable, Serializable {
             "Big Error",
             "Java Exception",
             "Indice out of bounds",
+            "Not on FX application thread",
             "BOSS"
     };
 
@@ -82,15 +83,18 @@ public class EnemyFactory implements Runnable, Serializable {
 
     }
     public  void nextWave(){
-        if(Game.getPlayer().getWave() <allWaves.size() && !waveInProgress) {
-
-            activeWave = allWaves.get(Game.getPlayer().getWave());
-            Game.getPlayer().nextWave();
-            System.out.println("Wave " + Game.getPlayer().getWave());
-            waveInProgress = true;
-            launchWave();
+        if(Game.getPlayer().getWave() <allWaves.size()) {
+            if(!waveInProgress){
+                activeWave = allWaves.get(Game.getPlayer().getWave());
+                Game.getPlayer().nextWave();
+                System.out.println("Wave " + Game.getPlayer().getWave());
+                waveInProgress = true;
+                launchWave();
+            }
+            else{ System.out.println("A wave is already in progress or it is the last one");}
         }
-        else{ System.out.println("A wave is already in progress or it is the last one");}
+        else {Game.win();}
+
     }
     public void launchWave(){
         Thread thread = new Thread(this);
@@ -110,12 +114,14 @@ public class EnemyFactory implements Runnable, Serializable {
                         Thread.sleep(1000);
                     }
                     e.setAlive();
-                    Platform.runLater(()->Game.getDrawing().draw(e));
+                    Game.getPlayer().addEnemy(e);
                 }
             }
+            // le jeu est sauvé quand tous les élément de la wave sont sortis
+            //Thread.sleep(1000);
             Game.save();
 
-            Platform.runLater(()->{Game.getDrawing().draw(new TemporaryText("Saving",1000,new Point(100,100)));});         // marche pas
+            Platform.runLater(()->{Game.getDrawing().draw(new TemporaryText("Saving",1000,new Point(100,100),30));});         // marche pas
 
             Thread.sleep(10000);   // faire que l'on puisse cliquer sur next wave que quand la wave est suffisament loin
             waveInProgress = false;

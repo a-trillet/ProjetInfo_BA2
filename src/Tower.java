@@ -31,21 +31,19 @@ public class Tower implements MapClickable, Runnable, Serializable {
     protected double powerDuration;
     protected double powerStartTime;
     protected int numberOfKill;
-    protected Image imageBullet;
-    protected Image imageTower;
+    protected transient Image imageBullet;
+    protected transient Image imageTower;
 
     protected Enemy secondTargetEnemy; //reservé pour sycamore tower
 
-    private boolean active = true;
+    protected boolean active = true;
     private double uprgradeBase = 1.0;      // vont servir à augmenter le range et damage
     private double upgradeMultiplier = 0.5; //
     private transient Thread thread = new Thread(this);
-    protected transient Drawing drawing;
 
 
-    public Tower(Point origin,Drawing d){
+    public Tower(Point origin){
         this.centre = origin;
-        drawing=d;
         level = 1;
     }
 
@@ -57,7 +55,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     }
 
 
-    private Enemy selectTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour
+    protected Enemy selectTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour
         Enemy target = null;
         Double dist = null;
         for (Enemy e : Game.getPlayer().getEnemiesOnMap()) {
@@ -72,27 +70,11 @@ public class Tower implements MapClickable, Runnable, Serializable {
         }
         return target;
     }
-    private Enemy selectSecondTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour, !! et qui n'est pas targetEnnemy
-        Enemy target = null;
-        Double dist = null;
-        for (Enemy e : Game.getPlayer().getEnemiesOnMap()) {
-            double sepa = this.centre.distance(e.getCentre());
-            if ((target == null || sepa < dist) && sepa <= this.getRange() && e!= targetEnemy) {
-                target = e;
-                dist = sepa;
-                break;
-            }
-        }
-        if (target != null) {
-            target.addTargetingTower(this); //faire la meme pour secondtarget
-        }
-        return target;
-    }
 
 
     public void targetIsDead(Enemy enemi){
         numberOfKill += 1;      // modifiable selon valeur du mob
-        if(numberOfKill == getKillPower()){Game.getDrawing().getChildren().add(new Tips(4,new Point(20,250),Game.getDrawing()));}
+        if(numberOfKill == this.getKillPower()){Platform.runLater(()->Game.getDrawing().getChildren().add(new Tips(4,new Point(20,250),Game.getDrawing())));}
         //targetEnemy = selectTarget();   // change la cible quand le mob meurt( ou sort de la range: RAJOUTER autre part)
     }
 
@@ -120,6 +102,12 @@ public class Tower implements MapClickable, Runnable, Serializable {
         }
         return messageUpgrade;
     }
+    public int getSellPrice(){
+        int price=this.getCost()*2/3;
+        for (int i=1;i<=level;i++){price+=upgradeCost*i*2/3;}
+        return price;
+    }
+    public void sell(){active=false;}
 
     public void shoot(){
         Tower t = this;
@@ -127,13 +115,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-
-                drawing.draw(new Bullet(degats,t,bulletRange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
-                if (powerActive && t.getTowerType() == "Sycamore tower"){
-                    if (secondTargetEnemy != null){
-                        drawing.draw(new Bullet(degats,t,bulletRange,secondTargetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
-                    }
-                }
+                Game.getDrawing().draw(new Bullet(degats,t,bulletRange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
             }
         });
     }
@@ -141,8 +123,8 @@ public class Tower implements MapClickable, Runnable, Serializable {
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
     {   if (Game.isOnGame) {
         aInputStream.defaultReadObject();
-        drawing = Game.getDrawing();
-        drawing.setImage(centre,getImageTower(),30);
+
+        Game.getDrawing().setImage(centre,getShape(towerType),30);
         thread = new Thread(this);
         this.setActive();
     }
@@ -161,31 +143,11 @@ public class Tower implements MapClickable, Runnable, Serializable {
             if (targetEnemy == null || this.centre.distance(targetEnemy.getCentre()) > this.getRange() || !targetEnemy.isAlive() ) {
                 targetEnemy = selectTarget();
             }
-            if (powerActive && towerType == "Sycamore tower"){
-                if (System.currentTimeMillis()< powerDuration+ powerStartTime){
-                    if (secondTargetEnemy == null || this.centre.distance(secondTargetEnemy.getCentre()) > this.getRange() || !secondTargetEnemy.isAlive() ) {
-                        secondTargetEnemy = selectSecondTarget();
-                    }
-                }
-                else{powerActive = false;}
-            }
-
             if (targetEnemy != null) {
                 shoot();
                 System.out.println("shoot"+targetEnemy.getCentre().getY());
                 try {
-                    if (powerActive && towerType == "Stack Overflow tower" ){
-                        if(System.currentTimeMillis()< powerDuration+ powerStartTime){
-                            Thread.sleep((int)(reloadTime/(2*level)));
-                        }
-                        else{
-                            powerActive = false;
-                            Thread.sleep(reloadTime);
-                        }
-                    }
-                    else{
                         Thread.sleep(reloadTime);
-                    }
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -205,6 +167,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     public void setActive(){
         thread.start();
+        active=true;
     }
 
     @Override
@@ -216,6 +179,27 @@ public class Tower implements MapClickable, Runnable, Serializable {
     public Info getInfo() {
         return new InfoTower(this);
     }
+
+    public static Image getShape(String towerType){
+        Image image = null;
+        switch(towerType){
+            case "Stack Overflow tower":
+                image =  StackTower.getShape();
+                break;
+            case "Massart tower":
+                image = MassartTower.getShape();
+                break;
+            case "Raj tower":
+                image = RajTower.getShape();
+                break;
+            case "Sycamore":
+                image = SycamoreTower.getShape();
+                break;
+        }
+        return image;
+    }
+
+
 
     public int getFrequency() {
         return frequency;

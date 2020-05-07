@@ -1,9 +1,12 @@
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+
 
 public class TowerMaker {
     private Drawing drawing;
     private Color color;
+    private static ImageView imageView = new ImageView();
 
     public TowerMaker(Drawing d, String type, Point p) {
         this.drawing = d;
@@ -11,22 +14,22 @@ public class TowerMaker {
         Image image = null;
         switch (type) {
             case "Raj tower":
-                t = new RajTower(p,drawing);
+                t = new RajTower(p);
                 color = t.getColor();
                  image = t.getImageTower();
                 break;
             case "Massart tower":
-                t= new MassartTower(p,drawing);
+                t= new MassartTower(p);
                 color = t.getColor();
                 image = t.getImageTower();
                 break;
             case "Stack Overflow tower":
-                t = new StackTower(p,drawing);
+                t = new StackTower(p);
                 color = t.getColor();
                 image = t.getImageTower();
                 break;
             case "Sycamore tower":
-                t = new SycamoreTower(p,drawing);
+                t = new SycamoreTower(p);
                 color = t.getColor();
                 image = t.getImageTower();
                 break;
@@ -51,10 +54,11 @@ public class TowerMaker {
             if (tower.isOn(to.getCentre())) {
                 res = false;
             }}
-        if (!MapFactory.isOn(to.getCentre())){ //vérifie si la tour touche le chemin
+        if (!MapFactory.isNotOn(to.getCentre())){ //vérifie si la tour touche le chemin
             res=false;
         }
         return res;
     }
+
 
 }

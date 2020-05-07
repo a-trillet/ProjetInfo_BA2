@@ -21,7 +21,6 @@ public class Player implements Serializable {
     private ArrayList<ArrayList<Point>> allRoutes;
 
     public Player(){
-        Game.getDrawing().drawLifeGold();
 
     }
 
@@ -34,8 +33,6 @@ public class Player implements Serializable {
         towerList = new ArrayList<>();
         enemiesOnMap = new ArrayList<>();
         enemyFactory = new EnemyFactory(difficulty,allRoutes);
-        Game.getDrawing().drawLifeGold();
-
     }
 
     public ArrayList<Enemy> getEnemiesOnMap() {
@@ -44,6 +41,12 @@ public class Player implements Serializable {
 
     public ArrayList<Tower> getTowerList() {
         return towerList;
+    }
+
+    public void removeTower(Tower tower){
+        towerList.remove(tower);
+        gold+=tower.getSellPrice();
+        tower.sell();
     }
 
     public int getLives() {
@@ -64,8 +67,9 @@ public class Player implements Serializable {
         lifePoints -= dmg;
         Game.getDrawing().getChildren().add(new Tips(3,new Point(20,250),Game.getDrawing()));
         Game.getDrawing().drawLifeGold();
-        //if (lifePoints<=0){lose()}
+        if (lifePoints<=0){Game.lose();}
     }
+    private void loose(){}
 
     public void addGold(int amount) {
         gold += amount;

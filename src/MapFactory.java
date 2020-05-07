@@ -20,47 +20,49 @@ public class MapFactory  {
 
 
     private int[][][] easyTrack= {{
-            {400,50},
-            {300,50},
+            {400,74},
+            {300,74},
             {300,400},
             {550,400}},{
-            {400,50},
+            {400,74},
             {50,200},
             {550,200},
             {550,50}
     }
     };
     private int[][][] normalTrack= {{
-            {400,50},
-            {300,50},
-            {300,400},
-            {550,400}},{
-            {400,50},
-            {50,200},
-            {550,200},
-            {550,50}
+            {400,74},
+            {700,74},
+            {50,300},
+            },{
+            {400,74},
+            {700,74},
+            {700,300},
+            {50,74}
     }
     };
     private int[][][] hardTrack= {{
-            {400,50},
-            {300,50},
-            {300,400},
-            {550,400}},{
-            {400,50},
+            {400,74},
+            {600,74},
+            {600,400},
+            {50,400}},{
+            {400,74},
+            {400,100},
+            {50,100},
             {50,200},
-            {550,200},
-            {550,50}
+            {400,200},
+            {400,300},
+            {50,300}
     }
     };
     private int[][][] insaneTrack= {{
-            {400,50},
-            {300,50},
-            {300,400},
-            {550,400}},{
-            {400,50},
-            {50,200},
-            {550,200},
-            {550,50}
+            {400,74},
+            {400,100},
+            {50,100},
+            {50,400}},{
+            {400,74},
+            {400,400},
+            {50,400}
     }
     };
 
@@ -78,7 +80,7 @@ public class MapFactory  {
          }
 
     }
-    public static boolean isOn(Point point){       // renvoi false si point est trop proche du chemin ! fait en fct des dimensions des carrés des tower
+    public static boolean isNotOn(Point point){       // renvoi false si point est trop proche du chemin ! fait en fct des dimensions des carrés des tower
         boolean bol = true;
         double x_C = point.getX();
         double y_C = point.getY();
