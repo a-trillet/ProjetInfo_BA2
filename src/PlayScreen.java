@@ -19,7 +19,7 @@ public class PlayScreen{
     public static BorderPane borderPane = new BorderPane();
     public static String towerType = null;
     public static MapClickListener mapClickListener;
-    private static Pane map = new Pane(); // permet de supperposer les différents éléments de la map (image, tours,..)
+    private static Pane map = new Pane();
 
     private static ImageView selectedImage = new ImageView();
     private static Image image = new Image(BossEnemy.class.getResourceAsStream("run.jpg"));

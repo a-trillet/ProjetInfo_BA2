@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 
 public class TowerMaker {
-    private Drawing drawing;
+    private  Drawing drawing;
 
     public TowerMaker(Drawing d, String type, Point p) {
         this.drawing = d;
@@ -29,7 +29,7 @@ public class TowerMaker {
             drawing.drawTower(t);
             Game.getPlayer().addGold(-t.getCost());  //peut etre à bouger
             t.setActive(); //tower commence à tirer
-            Game.getDrawing().getChildren().add(new Tips(1,new Point(20,250),Game.getDrawing()));
+           Game.getDrawing().getChildren().add(new Tips(1,new Point(20,250),Game.getDrawing()));
         }
     }
 
@@ -45,6 +45,9 @@ public class TowerMaker {
             }}
         if (!MapFactory.isNotOn(to.getCentre())){ //vérifie si la tour touche le chemin
             res=false;
+        }
+        if (to.isOn(new Point(725,475))){
+            res = false;
         }
         return res;
     }
