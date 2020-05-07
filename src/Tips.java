@@ -14,7 +14,7 @@ public class Tips extends Pane {
     private String[][] textStrings = {
             {
                 "Bienvenue cher étudiant , \n Vous vous appretez à passer des heures sur ce projet,\n Il convient donc de faire connaissance.",
-                "Je suis Tip of the day, \n un message automatique qui vous guidera le long de ce projet" ,
+                "Je suis Tip of the day, \nUn message automatique qui vous guidera le long de ce projet" ,
                 "J'ai cru comprendre que vous deviez faire un tower defence, right ?\nJe vois que vous commencez avec quelques skillPoints,\nVous devriez les utiliser pour construire votre première tourelle\nElle vous aidera a résoudre les bugs de votre code",
                 "La 'Massart Tower en coute justement seulement 150,\n vous pourrez même l'améliorer pour 50 de plus,\n Par contre, elle est un peu lente",
             },
