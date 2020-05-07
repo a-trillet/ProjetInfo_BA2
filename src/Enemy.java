@@ -1,6 +1,5 @@
 import javafx.application.Platform;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -93,7 +92,9 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     @Override
     public void hurt(Bullet bullet) {
         decreaseLife(bullet.getDamage());
-
+        if (!targetingTowers.contains(bullet.getMotherTower())){
+        targetingTowers.add(bullet.getMotherTower());
+        }
     }
 
 
@@ -108,20 +109,18 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     private void killed(){
         die();
         Game.getPlayer().addGold(reward);
-        for(Tower killer: targetingTowers){
+        for(Tower killer: targetingTowers) {
             killer.targetIsDead(this);
         }
     }
 
-    //retire le cercle et retire de ennemies on map dans Player
     private void die() {
         Platform.runLater(() -> Game.getDrawing().getChildren().add(new Tips(2,new Point(20,250),Game.getDrawing())));
         alive = false;
     }
 
-    public void addTargetingTower(Tower tower){
-        this.targetingTowers.add(tower);
-    }
+
+
 
     @Override
     public boolean isOn(Point p){

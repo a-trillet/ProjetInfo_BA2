@@ -22,14 +22,14 @@ public class Tower implements MapClickable, Runnable, Serializable {
     protected double[] ranges = {0,0,0};              //change en fct du level
     protected double[] damages = {0,0,0};
     protected double[] powerDurations = {0,0,0};
-    protected Color color;
+    protected transient Color color;
     protected int reloadTime;
     protected int bulletRange;
     protected String towerType;
     protected boolean powerActive = false;
     protected String powerType = null;
     protected double powerStartTime;
-    protected int numberOfKill;
+    protected int numberOfKill=0;
     protected transient Image imageBullet;
     protected transient Node shape;
 
@@ -62,9 +62,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
                 target = e;
                 dist = sepa;
             }
-        }
-        if (target != null) {
-            target.addTargetingTower(this);
         }
         return target;
     }

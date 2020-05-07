@@ -5,29 +5,23 @@ import javafx.scene.paint.Color;
 
 public class TowerMaker {
     private Drawing drawing;
-    private Color color;
-    private static ImageView imageView = new ImageView();
 
     public TowerMaker(Drawing d, String type, Point p) {
         this.drawing = d;
         Tower t = null;
-        Image image = null;
+
         switch (type) {
             case "Raj tower":
                 t = new RajTower(p);
-                color = t.getColor();
                 break;
             case "Massart tower":
                 t= new MassartTower(p);
-                color = t.getColor();
                 break;
             case "Stack Overflow tower":
                 t = new StackTower(p);
-                color = t.getColor();
                 break;
             case "Sycamore tower":
                 t = new SycamoreTower(p);
-                color = t.getColor();
                 break;
         }
         if (t != null && CheckTowerOk(t)) {
