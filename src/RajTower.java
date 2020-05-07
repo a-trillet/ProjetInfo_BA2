@@ -15,6 +15,7 @@ public class RajTower extends Tower{
     private static String newPowerType = "Tsar Bomba";
     private static Color newColor = new Color(1, 0, 0, 1);
     private transient static Image newImageTower = new Image(RajTower.class.getResourceAsStream("raj.jpg"));
+    private transient static Image imageBullet = new Image(Tower.class.getResourceAsStream("mouseCursor.png"));
 
     public RajTower(Point originPoint){
         super(originPoint);
@@ -46,7 +47,6 @@ public class RajTower extends Tower{
     public ImageView getImageBullet(Point centre,double angle){
         double size = 20;
         ImageView imageView = new ImageView();
-        imageBullet = new Image(Tower.class.getResourceAsStream("mouseCursor.png"));
         imageView.setImage(imageBullet);
         imageView.setFitWidth(size);
         imageView.setPreserveRatio(true);

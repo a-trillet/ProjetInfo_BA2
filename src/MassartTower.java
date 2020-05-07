@@ -15,6 +15,7 @@ public class MassartTower extends Tower {
     private static double[] newPowerDurations = {4000,5000,6000};
     private static Color newColor = new Color(0, 0.1, 1, 0.7);
     private transient static Image newImageTower = new Image(MassartTower.class.getResourceAsStream("massart.jpg"));
+    private transient static Image imageBullet = new Image(Tower.class.getResourceAsStream("turtle2.png"));
 
     public MassartTower(Point origin) {
         super(origin);
@@ -54,7 +55,6 @@ public class MassartTower extends Tower {
     public ImageView getImageBullet(Point centre, double angle){
         double size = 35;
         ImageView imageView = new ImageView();
-        imageBullet = new Image(Tower.class.getResourceAsStream("turtle2.png"));
         imageView.setImage(imageBullet);
         imageView.setFitWidth(size);
         imageView.setPreserveRatio(true);
