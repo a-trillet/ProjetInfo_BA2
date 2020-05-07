@@ -31,7 +31,7 @@ public class Drawing extends Pane  {
 
     public Drawing(){
         super();
-       this.getChildren().add(new Tips(0,new Point(20,250),this));
+        this.getChildren().add(new Tips(0,new Point(20,250),this));
         this.getChildren().add(labelGold);
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(20), event -> {
             ArrayList<Updatable> updatablestoremove=new ArrayList<>();
@@ -47,6 +47,7 @@ public class Drawing extends Pane  {
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
     }
+
     public void drawLifeGold(){
         Platform.runLater(() -> {
             labelGold.relocate(20,400);
@@ -85,11 +86,7 @@ public class Drawing extends Pane  {
         this.getChildren().removeAll(towerSquare,towerCircle);
     }
 
-    public boolean isOn(MouseEvent e){
-        double x = e.getX();
-        double y = e.getY();
-        return (x<1100 && x>20 && y>20 && y<600 );
-    }
+
     public void drawSquare(Point centre,Color color, int size) {
         square = new Rectangle(size, size, color);
         square.setX(centre.getX() - size/2);
@@ -99,9 +96,15 @@ public class Drawing extends Pane  {
 
 
 
-    public void draw(Updatable updatable){ // peut etre modifié
+    public void draw(Updatable updatable){ // dessine et ajoute à la liste les updatable
         updatables.add(updatable);
         this.getChildren().add(updatable.getShape());
+    }
+
+    public void removeUpdatable(Updatable updatable){
+        updatables.remove(updatable);
+        this.getChildren().removeAll(updatable.getShape());
+
     }
 
 
@@ -151,13 +154,10 @@ public class Drawing extends Pane  {
 
     }
 
-    public void removeUpdatable(Updatable updatable){
-        updatables.remove(updatable);
-        this.getChildren().removeAll(updatable.getShape());
-
+    public boolean isOn(MouseEvent e){
+        double x = e.getX();
+        double y = e.getY();
+        return (x<1100 && x>20 && y>20 && y<600 );
     }
-
-    public ArrayList<Updatable> getUpdatables(){return updatables;}
-
 
         }

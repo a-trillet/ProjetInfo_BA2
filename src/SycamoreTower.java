@@ -50,7 +50,6 @@ public class SycamoreTower extends  Tower {
     public void powerActivation(){                      //sert à diminuer le reload time dans le run the tower pour une rafale
         powerActive = true;
         powerStartTime = System.currentTimeMillis();
-
         numberOfKill = 0;
     }
 

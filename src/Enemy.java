@@ -67,7 +67,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
         t = new Thread(this);
         angle=Math.atan2((trackPoints.get(nextPoint).getY()-origin.getY()),(trackPoints.get(nextPoint).getX()-origin.getX()));
     }
-    private void createLettre(String lettre){
+    private void createLettre(String lettre){ //créer un Node à partir du string de la lettre
         lettreText=new Text(lettre);
         lettreText.setX(origin.getX()+7);
         lettreText.setY(origin.getY()+7);
@@ -92,8 +92,6 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     @Override
     public void hurt(Bullet bullet) {
         decreaseLife(bullet.getDamage());
-        System.out.println(lifePoints);
-        System.out.println(alive);
         if (!targetingTowers.contains(bullet.getMotherTower())){
         targetingTowers.add(bullet.getMotherTower());
         }
@@ -119,6 +117,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     private void die() {
         Platform.runLater(() -> Game.getDrawing().getChildren().add(new Tips(2,new Point(20,250),Game.getDrawing())));
         alive = false;
+        Game.getPlayer().removeEnemy(this);
     }
 
     public void move(){
@@ -155,6 +154,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     private void reachEndPoint(){
         this.die();
         Game.getPlayer().decreaseLife(this.getEnemyPower());
+
 
     }
 
