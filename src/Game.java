@@ -51,23 +51,15 @@ public class Game extends Application {
         //Layout 2 choice of save file
         StackPane stackPane = new StackPane();
         GridPane grid = new GridPane();
-        grid.setPadding(new Insets(250,20,20,150));
-        HBox layout2 = new HBox(20);
-        GridPane.setConstraints(layout2,0,0);
-
+        grid.setPadding(new Insets(250,20,20,190));
         grid.setPrefSize(641,402);
-        grid.isGridLinesVisible();
 
-
-
-        grid.getChildren().add(layout2);
+        HBox hBox = new HBox(20);
+        GridPane.setConstraints(hBox,0,0);
+        grid.getChildren().add(hBox);
         stackPane.setBackground(background);
         stackPane.getChildren().addAll(grid);
-
         scene2 = new Scene(stackPane , 641, 402);
-
-        //bouton pour parameter scene
-
 
         // buttons for every file
         for (int i =1 ; i<=3 ; i++ ){
@@ -98,25 +90,9 @@ public class Game extends Application {
 
                 });
             }
-            layout2.getChildren().add(save1);
+            hBox.getChildren().add(save1);
         }
-
-
-
-
-       // layout2.getChildren().add(editMapButton);
-
-
-
-
-        // Layout 2.5 choix des options avant de lancer sa game, plus sauvergarder les choix
-
-
-        //Layout 3
-
-
         scene3 =new Scene(playscreen.sceneView(),1128,581);
-
 
         window.setScene(scene2);
         window.setTitle("Intellij Fighter ");
@@ -124,8 +100,6 @@ public class Game extends Application {
             e.consume();
             closeProgram();
         });
-
-
 
         window.show();
 
@@ -175,6 +149,5 @@ public class Game extends Application {
     public static boolean checkFileExists(String s){
         return new File(s).isFile();
     }
-
 
 }

@@ -48,68 +48,48 @@ public class PlayScreen{
         GridPane.setConstraints(msgError,0,17);
         GridPane.setConstraints(prix,0,6);
 
-        Button basicTowerButton = new Button("Stack tower");
-        basicTowerButton.setOnMouseClicked(e-> {
+        Button stackTowerButton = new Button("Stack tower");
+        stackTowerButton.setOnMouseClicked(e-> {
             PlayScreen.towerType = "Stack Overflow tower";
             prix.setText(messPrix + String.valueOf(StackTower.getNewCost()));
             drawing.creatingTowerSquare(StackTower.getNewRange());
         });
-        basicTowerButton.setOnAction(e -> { if (Game.getPlayer().getGold() < StackTower.getNewCost()){msgError.setText(messError);}});
-        GridPane.setConstraints(basicTowerButton,0,0);
+        stackTowerButton.setOnAction(e -> { if (Game.getPlayer().getGold() < StackTower.getNewCost()){msgError.setText(messError);}});
+        GridPane.setConstraints(stackTowerButton,0,0);
 
 
-        Button iceTowerButton = new Button("Massart tower");
-        iceTowerButton.setOnMouseClicked(e -> {
+        Button massartTowerButton = new Button("Massart tower");
+        massartTowerButton.setOnMouseClicked(e -> {
             PlayScreen.towerType="Massart tower" ;
             prix.setText(messPrix + String.valueOf(MassartTower.getNewCost()));
             drawing.creatingTowerSquare(MassartTower.getNewRange());
         });
-        iceTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < MassartTower.getNewCost()){msgError.setText(messError);}});
-        GridPane.setConstraints(iceTowerButton,1,0);
 
-        Button fireTowerButton = new Button("Raj tower");
-        fireTowerButton.setOnMouseClicked(e -> {
+        massartTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < MassartTower.getNewCost()){msgError.setText(messError);}});
+        GridPane.setConstraints(massartTowerButton,1,0);
+
+        Button rajTowerButton = new Button("Raj tower");
+        rajTowerButton.setOnMouseClicked(e -> {
             PlayScreen.towerType="Raj tower" ;
             prix.setText(messPrix + String.valueOf(RajTower.getNewCost()));
             drawing.creatingTowerSquare(RajTower.getNewRange());
         });
-        fireTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < RajTower.getNewCost()){msgError.setText(messError);}});
-        GridPane.setConstraints(fireTowerButton,0,1);
 
-        Button sniperTowerButton = new Button("Sycamore Tower");
-        sniperTowerButton.setOnMouseClicked(( e-> {
+        rajTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < RajTower.getNewCost()){msgError.setText(messError);}});
+        GridPane.setConstraints(rajTowerButton,0,1);
+
+        Button sycamoreTowerButton = new Button("Sycamore Tower");
+        sycamoreTowerButton.setOnMouseClicked(( e-> {
             PlayScreen.towerType = "Sycamore tower" ;
             prix.setText(messPrix + String.valueOf(SycamoreTower.getNewCost()));
             drawing.creatingTowerSquare(SycamoreTower.getNewRange());
         }));
-        sniperTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < SycamoreTower.getNewCost()){msgError.setText(messError);}});
-        GridPane.setConstraints(sniperTowerButton,1,1);
 
+        sycamoreTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < SycamoreTower.getNewCost()){msgError.setText(messError);}});
+        GridPane.setConstraints(sycamoreTowerButton,1,1);
 
-
-        /*Button nextWave = new Button("Next Wave");
-        GridPane.setConstraints(nextWave, 0,25);
-        nextWave.setOnAction(e -> {
-            Game.getPlayer().getEnemyFactory().nextWave();
-        });*/
-
-
-        //intégration d'images test (je savais pas ou mettre)
-        //Image image = new Image(getClass().getResourceAsStream("AntoineBg.jpg"));//que qd photo ds répertoire courant
-        //ImageView imageView = new ImageView(image);
-        //imageView.setFitWidth(35);
-        //imageView.setFitHeight(47);
-        //GridPane.setConstraints(imageView, 0,6);
-
-
-
-
-        shop.getChildren().addAll(basicTowerButton, iceTowerButton, fireTowerButton, sniperTowerButton, msgError, prix);
+        shop.getChildren().addAll(stackTowerButton, massartTowerButton, rajTowerButton, sycamoreTowerButton, msgError, prix);
         borderPane.setRight(shop);
-
-
-
-
     }
 
     public static void drawRun(){
@@ -125,9 +105,6 @@ public class PlayScreen{
         //La map
 
         map.getChildren().addAll(drawing);
-        //drawing.setOnMouseClicked(e->{if (towerType!=null){new TowerMaker(drawing,towerType,new Point(e.getX(),e.getY()));}});
-        //drawing.setOnMouseReleased(new TowerButtonListener(drawing));
-        //map.setBackground(new Background(new BackgroundFill(Color.rgb(40, 40, 40), CornerRadii.EMPTY, Insets.EMPTY)));
         drawing.setOnMouseClicked(e->{
             drawing.removeCreatingTower();
             if ( towerType!=null ) {
@@ -138,10 +115,6 @@ public class PlayScreen{
 
         });
         drawing.drawLifeGold();
-
-
-
-
 
         //le shop
 
@@ -162,27 +135,11 @@ public class PlayScreen{
                 ex.printStackTrace();
             }
         });
-       /* Button testButton2 = new Button("test222");
-        testButton2.relocate(15,200);
-        testButton2.setOnMouseClicked(e-> {
-            Game.player.newTower.SetActive();
-            drawing.drawSquare(Game.player.newTower.getCentre(),new Color(0, 1,0,1));
-        });*/
+
         map.getChildren().addAll(testButton);
-
-
-
 
         return borderPane;
     }
-
-
-
-
-
-
-
-
 }
 
 
