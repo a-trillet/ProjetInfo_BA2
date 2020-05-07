@@ -5,10 +5,9 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 
 public class RajTower extends Tower{
-
-    private static int rajTowerCost = 150;
-    private static  double newRange = 200;
-    private static  double newDamage = 1000;
+    private static int[] newUpgradeCosts = {50,70,100,0};
+    private static double[] newRanges = {100,150,200};
+    private static double[] newDamages = {15,20, 30};
     private static int newReloadTime = 1500;
     private static int newBulletRange = 15;
     private static String type = "Raj tower";
@@ -18,9 +17,9 @@ public class RajTower extends Tower{
 
     public RajTower(Point originPoint){
         super(originPoint);
-        this.cost = rajTowerCost;
-        this.range = newRange;
-        this.damage = newDamage;
+        this.upgradeCosts = newUpgradeCosts;
+        this.ranges = newRanges;
+        this.damages = newDamages;
         this.reloadTime = newReloadTime;
         this.bulletRange = newBulletRange;
         this.towerType = type;
@@ -36,7 +35,7 @@ public class RajTower extends Tower{
         numberOfKill = 0;
         ArrayList<Enemy> enemiestoremove = new ArrayList<>();
         for (Enemy e : Game.getPlayer().getEnemiesOnMap()) {
-            e.decreaseLife(damage);
+            e.decreaseLife(damages[level-1]);
             if (!e.isAlive()){enemiestoremove.add(e);}
         }
         for (Enemy enemytoremove : enemiestoremove){Game.getPlayer().removeEnemy(enemytoremove);}
@@ -66,7 +65,7 @@ public class RajTower extends Tower{
         return newImageTower;
     }
     public static int getNewCost(){
-        return rajTowerCost;
+        return newUpgradeCosts[0];
     }
-    public static double getNewRange(){return newRange;}
+    public static double getNewRange(){return newRanges[0];}
 }

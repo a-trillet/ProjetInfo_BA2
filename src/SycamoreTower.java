@@ -5,27 +5,27 @@ import javafx.scene.paint.Color;
 
 public class SycamoreTower extends  Tower {
 
-    private static int sycamoreTowercost = 100;
-    private static  double newRange = 100;
-    private static  double newDamage = 5;
+    private static int[] newUpgradeCosts = {50,70,100,0};
+    private static double[] newRanges = {100,150,200};
+    private static double[] newDamages = {15,20, 30};
     private static int newReloadTime = 750;
     private static int newBulletRange = 13; //parfois loupe son coup mais jsp si ça correspond bien
     private static String type = "Sycamore tower";
     private static String newPowerType = "Double shoot";
-    private static double newPowerDuration = 6000;
+    private static double[] newPowerDurations = {3500,4500,5500};
     private static Color newColor = new Color(1, 0, 1, 0.3);
     private transient static Image newImageTower = new Image(SycamoreTower.class.getResourceAsStream("sycamore.jpg"));
 
     public SycamoreTower(Point origin){
         super(origin);
-        this.cost = sycamoreTowercost;
-        this.range = newRange;
-        this.damage = newDamage;
+        this.upgradeCosts = newUpgradeCosts;
+        this.ranges = newRanges;
+        this.damages = newDamages;
         this.reloadTime = newReloadTime;
         this.bulletRange = newBulletRange;
         this.towerType = type;
         this.powerType = newPowerType;
-        this.powerDuration = newPowerDuration;
+        this.powerDurations = newPowerDurations;
         this.imageTower = newImageTower;
         color = newColor;
     }
@@ -86,7 +86,7 @@ public class SycamoreTower extends  Tower {
                 targetEnemy = selectTarget();
             }
             if (powerActive){
-                if (System.currentTimeMillis()< powerDuration+ powerStartTime){
+                if (System.currentTimeMillis()< powerDurations[level-1]+ powerStartTime){
                     if (secondTargetEnemy == null || this.centre.distance(secondTargetEnemy.getCentre()) > this.getRange() || !secondTargetEnemy.isAlive() ) {
                         secondTargetEnemy = selectSecondTarget();
                     }
@@ -143,7 +143,7 @@ public class SycamoreTower extends  Tower {
         return newImageTower;
     }
     public static int getNewCost(){
-        return sycamoreTowercost;
+        return newUpgradeCosts[0];
     }
-    public static double getNewRange(){return newRange;}
+    public static double getNewRange(){return newRanges[0];}
 }

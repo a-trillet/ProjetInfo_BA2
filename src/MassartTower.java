@@ -4,27 +4,27 @@ import javafx.scene.paint.Color;
 
 public class MassartTower extends Tower {
 
-    private static int massartTowercost = 150;
-    private static  double newRange = 100;
-    private static  double newDamage =5;
+    private static int[] newUpgradeCosts = {50,70,100,0};
+    private static double[] newRanges = {100,150,200};
+    private static double[] newDamages = {15,20, 30};
     private static int newReloadTime = 2000;
     private static int newBulletRange = 40;
     private static String type = "Massart tower";
     private static String newPowerType = "Total Slow";
-    private static double newPowerDuration = 4000;
+    private static double[] newPowerDurations = {4000,5000,6000};
     private static Color newColor = new Color(0, 0.1, 1, 0.7);
     private transient static Image newImageTower = new Image(MassartTower.class.getResourceAsStream("massart.jpg"));
 
     public MassartTower(Point origin) {
         super(origin);
-        this.cost = massartTowercost;
-        this.range = newRange;
-        this.damage = newDamage;
+        this.upgradeCosts = newUpgradeCosts;
+        this.ranges = newRanges;
+        this.damages = newDamages;
         this.reloadTime = newReloadTime;
         this.bulletRange = newBulletRange;
         this.towerType = type;
         this.powerType = newPowerType;
-        this.powerDuration = newPowerDuration;
+        this.powerDurations = newPowerDurations;
         this.imageTower = newImageTower;
         color = newColor;
     }
@@ -37,7 +37,7 @@ public class MassartTower extends Tower {
         numberOfKill = 0;
         Enemy.setEnemyVelocity(6);          //peut choisir la vitesse des enemis durant 'activation du power
         Enemy.setFrozen(true);
-        Enemy.setFreezeDuration(newPowerDuration);
+        Enemy.setFreezeDuration(powerDurations[level-1]);
         Enemy.setFreezeStart(powerStartTime);
 
 
@@ -67,9 +67,9 @@ public class MassartTower extends Tower {
         return newImageTower;
     }
     public static int getNewCost(){
-        return massartTowercost;
+        return newUpgradeCosts[0];
     } //pour infoTower car pas 1 tour en particulier
 
-    public static double getNewRange(){return newRange;}
+    public static double getNewRange(){return newRanges[0];}
 }
 

@@ -14,37 +14,35 @@ public class Tower implements MapClickable, Runnable, Serializable {
     private static int levelMax = 3;
 
     private int frequency = 50;
-    private int upgradeCost = 50;
     protected int level;
     protected Enemy targetEnemy = null;
     protected Point centre;
 
+    protected int[] upgradeCosts = {0,0,0,0};
+    protected double[] ranges = {0,0,0};              //change en fct du level
+    protected double[] damages = {0,0,0};
+    protected double[] powerDurations = {0,0,0};
     protected static Color color;
-    protected int cost;
-    protected double damage;
-    protected double range;
     protected int reloadTime;
     protected int bulletRange;
     protected String towerType;
     protected boolean powerActive = false;
     protected String powerType = null;
-    protected double powerDuration;
     protected double powerStartTime;
     protected int numberOfKill;
     protected transient Image imageBullet;
     protected transient Image imageTower;
 
-    protected Enemy secondTargetEnemy; //reservé pour sycamore tower
+    protected Enemy secondTargetEnemy;
 
     protected boolean active = true;
-    private double uprgradeBase = 1.0;      // vont servir à augmenter le range et damage
-    private double upgradeMultiplier = 0.5; //
     private transient Thread thread = new Thread(this);
 
 
     public Tower(Point origin){
         this.centre = origin;
         level = 1;
+
     }
 
 
@@ -82,13 +80,10 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     public String upgrade(){
         String messageUpgrade;
-        if (level <= levelMax) {
-            if (Game.getPlayer().getGold() >= getUpgradeCost()) {
-                Game.getPlayer().addGold(-getUpgradeCost());
+        if (level < levelMax) {
+            if (Game.getPlayer().getGold() >= upgradeCosts[level]) {
+                Game.getPlayer().addGold(-upgradeCosts[level]);
                 level += 1;
-                damage = damage*(uprgradeBase + (level-1)*upgradeMultiplier);
-                range = range *(uprgradeBase + (level-1)*upgradeMultiplier);
-                upgradeCost = upgradeCost * (level);
 
                 messageUpgrade = "Upgraded";
             } else {
@@ -101,8 +96,8 @@ public class Tower implements MapClickable, Runnable, Serializable {
         return messageUpgrade;
     }
     public int getSellPrice(){
-        int price=this.getCost()*2/3;
-        for (int i=1;i<=level;i++){price+=upgradeCost*i*2/3;}
+        int price= getCost()*2/3;
+        for (int i=1;i<=level;i++){price+=upgradeCosts[level]*i*2/3;}
         return price;
     }
     public void sell(){active=false;}
@@ -204,11 +199,12 @@ public class Tower implements MapClickable, Runnable, Serializable {
     }
 
     public int getCost() {
-        return cost;
+        System.out.println(upgradeCosts[0]);
+        return upgradeCosts[0];
     }
 
     public double getDamage() {
-        return damage;
+        return damages[level-1];
     }
 
     public int getLevel() {
@@ -216,7 +212,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     }
 
     public double getRange() {
-        return range;
+        return ranges[level-1];
     }
 
     public int getNumberOfKill() {
@@ -224,7 +220,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     }
 
     public int getUpgradeCost() {
-        return upgradeCost;
+        return upgradeCosts[level];
     }
 
     public String getTowerType(){
