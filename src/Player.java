@@ -21,6 +21,7 @@ public class Player implements Serializable {
     private  int wave = 0;
     private  transient EnemyFactory enemyFactory;
     private ArrayList<ArrayList<Point>> allRoutes;
+    private static Object key=new Object();
 
     public Player(){
 

@@ -30,7 +30,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
     protected String powerType = null;
     protected double powerStartTime;
     protected int numberOfKill=0;
-    protected transient Image imageBullet;
     protected transient Node shape;
 
     protected Enemy secondTargetEnemy; // à enlever
@@ -70,7 +69,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
     public void targetIsDead(Enemy enemi){
         numberOfKill += 1;      // modifiable selon valeur du mob
         if(numberOfKill == this.getKillPower()){Platform.runLater(()->Game.getDrawing().getChildren().add(new Tips(4,new Point(20,250),Game.getDrawing())));}
-        //targetEnemy = selectTarget();   // change la cible quand le mob meurt( ou sort de la range: RAJOUTER autre part)
     }
 
     public boolean isOn(Point p){
@@ -100,6 +98,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
         for (int i=0;i<=level;i++){price+=upgradeCosts[level]*i*2/3;}
         return price;
     }
+
     public void sell(){active=false;}
 
     public void shoot(){
@@ -184,7 +183,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
     public int getReloadTime(){return reloadTime;}
 
     public int getCost() {
-        System.out.println(upgradeCosts[0]);
         return upgradeCosts[0];
     }
 

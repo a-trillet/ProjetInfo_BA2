@@ -15,6 +15,7 @@ public class StackTower extends Tower {
     private static double[] newPowerDurations = {3500,4500,5000};
     private static Color newColor = new Color(0, 1, 0, 1);
     private transient static Image newImageTower = new Image(StackTower.class.getResourceAsStream("stack.jpg"));
+    private transient static  Image newimageBullet = new Image(Tower.class.getResourceAsStream("handCursor.png"));
 
 
     public StackTower(Point origin){
@@ -27,7 +28,6 @@ public class StackTower extends Tower {
         this.towerType = type;
         this.powerType = newPowerType;
         this.powerDurations = newPowerDurations;
-        setTowerShape();
         color = newColor;
     }
 
@@ -88,8 +88,7 @@ public class StackTower extends Tower {
     public ImageView getImageBullet(Point centre, double angle){
         ImageView imageView = new ImageView();
         double size = 20;
-        imageBullet = new Image(Tower.class.getResourceAsStream("handCursor.png"));
-        imageView.setImage(imageBullet);
+        imageView.setImage(newimageBullet);
         imageView.setFitWidth(size);
         imageView.setPreserveRatio(true);
         imageView.relocate(centre.getX()-(size/2),centre.getY()-(size/2));

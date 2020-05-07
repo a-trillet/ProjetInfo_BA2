@@ -16,6 +16,7 @@ public class SycamoreTower extends  Tower {
     private static double[] newPowerDurations = {3500,4500,5500};
     private static Color newColor = new Color(1, 0, 1, 0.3);
     private transient static Image newImageTower = new Image(SycamoreTower.class.getResourceAsStream("sycamore.jpg"));
+    private transient static Image imageBullet = new Image(Tower.class.getResourceAsStream("logoGoogle.png"));
 
     public SycamoreTower(Point origin){
         super(origin);
