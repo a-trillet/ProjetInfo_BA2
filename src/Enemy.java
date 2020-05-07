@@ -70,10 +70,10 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     }
     private void createLettre(String lettre){
         lettreText=new Text(lettre);
-        lettreText.setX(origin.getX());
-        lettreText.setY(origin.getY());
+        lettreText.setX(origin.getX()+7);
+        lettreText.setY(origin.getY()+7);
         lettreText.setFill(new Color(1,0,0,1));
-        lettreText.setFont(new Font(15));
+        lettreText.setFont(new Font(14));
     }
     public String getEnemyType(){
         return enemyType;
@@ -188,8 +188,8 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
 
 
     public void update(){
-        lettreText.setX(origin.getX());
-        lettreText.setY(origin.getY());
+        lettreText.setX(origin.getX()+7);
+        lettreText.setY(origin.getY()+7);
         lettreText.setRotate(angle*360/2/Math.PI);
         if (lifePoints<=maxLifePoints/2){lettreText.setFill(Color.web("FF7B2C"));}
 

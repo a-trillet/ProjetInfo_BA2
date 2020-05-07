@@ -21,7 +21,6 @@ public class Player implements Serializable {
     private ArrayList<ArrayList<Point>> allRoutes;
 
     public Player(){
-        Game.getDrawing().drawLifeGold();
 
     }
 
@@ -34,8 +33,6 @@ public class Player implements Serializable {
         towerList = new ArrayList<>();
         enemiesOnMap = new ArrayList<>();
         enemyFactory = new EnemyFactory(difficulty,allRoutes);
-        Game.getDrawing().drawLifeGold();
-
     }
 
     public ArrayList<Enemy> getEnemiesOnMap() {
@@ -69,8 +66,9 @@ public class Player implements Serializable {
     public void decreaseLife(int dmg) {
         lifePoints -= dmg;
         Game.getDrawing().drawLifeGold();
-        //if (lifePoints<=0){lose()}
+        if (lifePoints<=0){Game.lose();}
     }
+    private void loose(){}
 
     public void addGold(int amount) {
         gold += amount;
