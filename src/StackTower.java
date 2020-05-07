@@ -1,30 +1,31 @@
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 public class StackTower extends Tower {
 
-    private static  int stackTowerCost = 100;
-    private static  double newRange = 100;
-    private static  double newDamage = 15;
+    private static  int [] stackTowerCost = {100,170,250};
+    private static  double [] newRange = {100,120,130};
+    private static  double [] newDamage = {15,20,25};
     private static int newReloadTime = 750;
     private static int newBulletRange = 10;
     private static String type = "Stack Overflow tower";
     private static String newPowerType = "Burst Fire";
-    private static double newPowerDuration = 5000;
+    private static double powerDuration = 5000;
     private static Color newColor = new Color(0, 1, 0, 1);
     private transient static Image newImageTower = new Image(StackTower.class.getResourceAsStream("stack.jpg"));
 
+
     public StackTower(Point origin){
         super(origin);
-        this.cost = stackTowerCost;
-        this.range = newRange;
-        this.damage = newDamage;
+        this.upgradeCosts = stackTowerCost;
+        this.ranges = newRange;
+        this.damages = newDamage;
         this.reloadTime = newReloadTime;
         this.bulletRange = newBulletRange;
         this.towerType = type;
         this.powerType = newPowerType;
-        this.powerDuration = newPowerDuration;
         this.imageTower = newImageTower;
         color = newColor;
     }
@@ -102,13 +103,23 @@ public class StackTower extends Tower {
         return killPower;
     }
 
+    @Override
+    public void setTowerShape(){
+        ImageView imageView = new ImageView(newImageTower);
+        imageView.setFitWidth(30);
+        imageView.setFitHeight(30);
+        imageView.setX(centre.getX()-30/2);
+        imageView.setY(centre.getY()-30/2);
+        shape=imageView;
+    }
+
     public static Image getShape(){
         return newImageTower;
     }
 
 
 
-    public static int getNewCost(){ return stackTowerCost;}
-    public static double getNewRange(){return newRange;}
+    public static int getNewCost(){ return stackTowerCost[0];}
+    public static double getNewRange(){return newRange[0];}
 }
 

@@ -36,8 +36,7 @@ public class TowerMaker {
         }
         if (t != null && CheckTowerOk(t)) {
             Game.getPlayer().addTower(t);
-            drawing.drawSquare(p,color,30); //à changer par image
-            drawing.setImage(p,image,30);
+            drawing.drawTower(t);
             Game.getPlayer().addGold(-t.getCost());  //peut etre à bouger
             t.setActive(); //tower commence à tirer
             Game.getDrawing().getChildren().add(new Tips(1,new Point(20,250),Game.getDrawing()));

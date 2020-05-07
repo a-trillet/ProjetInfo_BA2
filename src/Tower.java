@@ -1,4 +1,5 @@
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -6,7 +7,6 @@ import javafx.scene.paint.Color;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Tower implements MapClickable, Runnable, Serializable {
 
@@ -18,7 +18,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     protected Enemy targetEnemy = null;
     protected Point centre;
 
-    protected int[] upgradeCosts = {0,0,0,0};
+    protected int[] upgradeCosts = {0,0,0};
     protected double[] ranges = {0,0,0};              //change en fct du level
     protected double[] damages = {0,0,0};
     protected double[] powerDurations = {0,0,0};
@@ -32,17 +32,18 @@ public class Tower implements MapClickable, Runnable, Serializable {
     protected int numberOfKill;
     protected transient Image imageBullet;
     protected transient Image imageTower;
+    protected transient Node shape;
 
-    protected Enemy secondTargetEnemy;
+    protected Enemy secondTargetEnemy; // à enlever
 
-    protected boolean active = true;
+    protected boolean active=false;
     private transient Thread thread = new Thread(this);
 
 
     public Tower(Point origin){
         this.centre = origin;
         level = 1;
-
+        this.setTowerShape();
     }
 
 
@@ -77,7 +78,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     }
 
     public boolean isOn(Point p){
-        return (centre.getY() -15< p.getY() && centre.getY() + 15 > p.getY() && centre.getX() -15< p.getX() && centre.getX() + 15 > p.getX());
+        return (centre.getY() -30< p.getY() && centre.getY() + 30 > p.getY() && centre.getX() -30< p.getX() && centre.getX() + 30 > p.getX());
         }
 
     public String upgrade(){
@@ -119,7 +120,8 @@ public class Tower implements MapClickable, Runnable, Serializable {
     {   if (Game.isOnGame) {
         aInputStream.defaultReadObject();
 
-        Game.getDrawing().setImage(centre,getShape(towerType),30);
+        this.setTowerShape();
+        Game.getDrawing().drawTower(this);
         thread = new Thread(this);
         this.setActive();
     }
@@ -161,8 +163,9 @@ public class Tower implements MapClickable, Runnable, Serializable {
     }
 
     public void setActive(){
-        thread.start();
         active=true;
+        thread.start();
+
     }
 
     @Override
@@ -193,7 +196,10 @@ public class Tower implements MapClickable, Runnable, Serializable {
         }
         return image;
     }
-
+    public Node getTowerShape(){
+        return shape;
+    }
+    public void setTowerShape(){shape=null;}
 
 
     public int getFrequency() {

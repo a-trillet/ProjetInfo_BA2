@@ -1,4 +1,5 @@
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -130,7 +131,15 @@ public class SycamoreTower extends  Tower {
         return imageView;
     }
 
-
+    @Override
+    public void setTowerShape(){
+        ImageView imageView = new ImageView(newImageTower);
+        imageView.setFitWidth(30);
+        imageView.setFitHeight(30);
+        imageView.setX(centre.getX()-30/2);
+        imageView.setY(centre.getY()-30/2);
+        shape= imageView;
+    }
 
 
     @Override

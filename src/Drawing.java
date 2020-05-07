@@ -24,6 +24,7 @@ public class Drawing extends Pane  {
     private javafx.scene.shape.Rectangle square ;
     private Label labelGold = new Label();
     private ArrayList<Updatable> updatables=new ArrayList<>();
+    private ArrayList<Tower> towers=new ArrayList<>();
 
     private javafx.scene.shape.Rectangle towerSquare = new Rectangle(30, 30, Color.GREEN);
     private javafx.scene.shape.Circle towerCircle= new Circle(10,Color.TRANSPARENT);
@@ -103,13 +104,15 @@ public class Drawing extends Pane  {
         this.getChildren().add(updatable.getShape());
     }
 
-    public void setImage(Point centre,Image image, int size ){          //utilisé essentiellement pour les images fixes
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(size);
-        imageView.setFitHeight(size);
-        imageView.setX(centre.getX()-size/2);
-        imageView.setY(centre.getY()-size/2);
-        this.getChildren().add(imageView);
+
+    public void drawTower(Tower tower){
+        towers.add(tower);
+        this.getChildren().add(tower.getTowerShape());
+    }
+
+    public void removeTower(Tower tower){
+        towers.remove(tower);
+        this.getChildren().remove(tower.getTowerShape());
     }
 
 

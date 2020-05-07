@@ -101,6 +101,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
                 Button sellButton = new Button("Sell for "+((Tower)currentSelection).getSellPrice());
                 sellButton.setOnMouseClicked((e->{
                     Game.getPlayer().removeTower((Tower) currentSelection);
+                    circle.setStroke(Color.TRANSPARENT);
                 }));
                 GridPane.setConstraints(sellButton,0,9);
                 infoBox.getChildren().addAll(upgradeButton,sellButton);

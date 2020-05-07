@@ -1,3 +1,4 @@
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -60,6 +61,16 @@ public class RajTower extends Tower{
         int killPower = 5;
         killPower += (this.getLevel()-1)*5;
         return killPower;
+    }
+
+    @Override
+    public void setTowerShape(){
+        ImageView imageView = new ImageView(newImageTower);
+        imageView.setFitWidth(30);
+        imageView.setFitHeight(30);
+        imageView.setX(centre.getX()-30/2);
+        imageView.setY(centre.getY()-30/2);
+        shape= imageView;
     }
     public static Image getShape(){
         return newImageTower;
