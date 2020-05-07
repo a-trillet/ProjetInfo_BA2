@@ -40,8 +40,10 @@ public class TowerMaker {
             drawing.setImage(p,image,30);
             Game.getPlayer().addGold(-t.getCost());  //peut etre à bouger
             t.setActive(); //tower commence à tirer
+            Game.getDrawing().getChildren().add(new Tips(1,new Point(20,250),Game.getDrawing()));
         }
     }
+
 
     public static boolean CheckTowerOk(Tower to) {
         boolean res = true;

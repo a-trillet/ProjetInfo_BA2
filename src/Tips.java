@@ -6,13 +6,68 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class Tips extends Pane {
-    private boolean disaplayed = false;
     private Drawing drawing;
     private String[] showStrings={"Mais arrête!!!\n Tu ne penses quand même pas pouvoir venir\n à bout de ce projet sans mon aide",
             "Encore un étudiant qui se croit plus malin\n que les autres,... ",
             "Si tu clique encore une fois,\n je m'en irai pour toujours,\n je serai ... MORT!!! "};
+    private String[][] textStrings = {
+            {
+                "Bienvenue cher étudiant , \n Vous vous appretez à passer des heures sur ce projet,\n Il convient donc de faire connaissance.",
+                "Je suis Tip of the day, \n un message automatique qui vous guidera le long de ce projet" ,
+                "J'ai cru comprendre que vous deviez faire un tower defence, right ?\nJe vois que vous commencez avec quelques skillPoints,\nVous devriez les utiliser pour construire votre première tourelle\nElle vous aidera a résoudre les bugs de votre code",
+                "La 'Massart Tower en coute justement seulement 150,\n vous pourrez même l'améliorer pour 50 de plus,\n Par contre, elle est un peu lente",
+            },
+            {
+                "Parfait! Vous vous débrouillez bien pour un étudiant,\nIl est temps de lancer votre début de code\nIl suffit d'appuyer sur le gros bouton RUN"
+            },
+
+            {
+                "Regardez, résoudre une lettre de ce bug vous à rapporté des SkillPoints,\n Par contre si un bug atteint la sortie, vous perdrez en motivation\nRésolvez en plus et vous pourrez vous offrir l'aide d'autres tours",
+                 "L'indien est très fort mais coute très cher en comprehension,\nSycamore est capable de tirer deux balles en même temps,\nStackOverflow tire en rafale d'inforamtions, l'efficace et accesible à tous "
+            },
+            {
+                "Ho non, un bug n'a pas été résolu... \nVous commencer à perdre patience",
+                 "Avec une motivation de 0, 90 pourcent des étudiants Rage-Quit le projet"
+            },
+            {
+                "Le pouvoir d'une de vos tour est chargé\nCliquez dessus pour afficher ses infos et activer son pouvoir spécial ",
+                 "Stack Overflow : tir en rafale\nRaj, l'indien: peut lancer une tsar bomba et atomiser tout le monde \nSycamore tower: tire deux balles en même temps\nMassart tower: Ralentis tous les bugs"
+            },
+            {
+                "Incroyable, votre code marche parfaitement\nHonnêtement, jamais je ne l'aurais cru avec vos 200 SkillPoints de débutant\nSnif, vous allez me manquer..."
+            },
+            {"ATTENTION ce n'est pas fini,\nil faut encore push tout ca sur Github..."}
+
+    };
     private int itShow = 0;
+    private int itText = 0;
+    private int textNumber = -1;
     private Text text;
+    private static boolean[] notSeen = {true,true,true,true,true,true,true,true};
+
+    public Tips(int number,Point point,Drawing d){
+        super();
+        drawing=d;
+        this.relocate(point.getX(),point.getY());
+        if(notSeen[number]) {
+            notSeen[number] = false;
+            final ImageView selectedImage = new ImageView();
+            //Image background = new Image("tipOfTheDay.jpg",200,140,false,false);
+            Image background = new Image("tipOfTheDay.jpg");
+            selectedImage.setImage(background);
+            selectedImage.setFitHeight(160);
+            selectedImage.setPreserveRatio(true);
+            this.getChildren().addAll(selectedImage);
+
+            this.text = new Text(20, 40, "");
+            this.text.setFill(Color.WHITE);
+            textNumber = number;
+            this.text.setText(textStrings[textNumber][0]);
+            this.getChildren().add(this.text);
+            this.setOnMouseClicked(this::actions);
+        }
+    }
+
     public Tips(String text,Point point,Drawing d){
         super();
         drawing=d;
@@ -40,10 +95,16 @@ public class Tips extends Pane {
             this.text.setText("Tu veux m'abandonner?\nJe ne t'ai même pas encore expliqué\nà quoi sert la croix 'X' ni 'Show'");
         }
         else if (isOnNext(p)){
-            this.text.setText("Next Message");
+            if (textNumber != -1 && itText+1<textStrings[textNumber].length){
+                itText++;
+                this.text.setText(textStrings[textNumber][itText]);
+            }
         }
         else if (isOnPrevious(p)){
-            this.text.setText("Previous message");
+            if (textNumber != -1 && itText-1>=0){
+                itText--;
+                this.text.setText(textStrings[textNumber][itText]);
+            }
         }
         else if(isOnShow(p)){
             if(itShow == 3){
@@ -56,20 +117,24 @@ public class Tips extends Pane {
         }
     }
     private boolean isOnCloseButton(Point p){
-        Point closeButton =  new Point(300,5);
+        Point closeButton =  new Point(341,5);
         return p.distance(closeButton)<8;
     }
+
     private boolean isOnCLose(Point p){
-        return (250<p.getX() && p.getX()<302 && p.getY()<135 && 115<p.getY());
+        return (284<p.getX() && p.getX()<369 && p.getY()<155 && 134<p.getY());
     }
+
     private boolean isOnNext(Point p){
-        return (190<p.getX() && p.getX()<242 && p.getY()<135 && 115<p.getY());
+        return (214<p.getX() && p.getX()<276 && p.getY()<155 && 134<p.getY());
     }
+
     private boolean isOnPrevious(Point p){
-        return (116<p.getX() && p.getX()<181 && p.getY()<135 && 115<p.getY());
+        return (132<p.getX() && p.getX()<206 && p.getY()<155 && 134<p.getY());
     }
+
     private boolean isOnShow(Point p){
-        Point show = new Point(16,125);
+        Point show = new Point(17,144);
         return p.distance(show)<8;
 }
     public void setText(String s){

@@ -72,6 +72,8 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     public void targetIsDead(Enemy enemi){
         numberOfKill += 1;      // modifiable selon valeur du mob
+        if(numberOfKill == this.getKillPower()){Platform.runLater(()->Game.getDrawing().getChildren().add(new Tips(4,new Point(20,250),Game.getDrawing())));}
+        //targetEnemy = selectTarget();   // change la cible quand le mob meurt( ou sort de la range: RAJOUTER autre part)
     }
 
     public boolean isOn(Point p){

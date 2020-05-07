@@ -36,7 +36,6 @@ public class EnemyFactory implements Runnable, Serializable {
     };
 
     private static final String[] hardWaves = {
-            "Not on FX application thread",
             "Bug",
             "Big Error",
             "Java Exception",
@@ -106,14 +105,15 @@ public class EnemyFactory implements Runnable, Serializable {
     public void run(){
         try {
 
-            /*for (Word word : activeWave) {
-                word.drawWord();
-            }
-            Thread.sleep(1500);*/
             for (Word word : activeWave) {
                 for(Enemy e : word.getLettres()){
+                    if (e instanceof BossEnemy){
+                        Platform.runLater(()->Game.getDrawing().getChildren().add(new Tips(5,new Point(20,250),Game.getDrawing())));
+                        Thread.sleep(4000);
+                        Platform.runLater(()->Game.getDrawing().getChildren().add(new Tips(6,new Point(20,250),Game.getDrawing())));
+                        Thread.sleep(1000);
+                    }
                     e.setAlive();
-                    Game.getPlayer().addEnemy(e);
                 }
             }
             // le jeu est sauvé quand tous les élément de la wave sont sortis
@@ -125,6 +125,7 @@ public class EnemyFactory implements Runnable, Serializable {
             Thread.sleep(10000);   // faire que l'on puisse cliquer sur next wave que quand la wave est suffisament loin
             waveInProgress = false;
             System.out.println("fin de vague");
+
 
         } catch (Exception e) {
             e.printStackTrace();

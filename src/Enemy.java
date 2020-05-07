@@ -115,6 +115,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
 
     //retire le cercle et retire de ennemies on map dans Player
     private void die() {
+        Platform.runLater(() -> Game.getDrawing().getChildren().add(new Tips(2,new Point(20,250),Game.getDrawing())));
         alive = false;
     }
 
@@ -168,7 +169,8 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
                 } else {
                     reachEndPoint();
                 }
-            }
+
+    }
 
     }
 
@@ -197,6 +199,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     public boolean isAlive(){
         return alive;
     }
+
     public void decreaseLife(double dmg){
         lifePoints -= dmg;
         if(this.lifePoints <= 0){
@@ -211,15 +214,23 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
 
 
 
-
     @Override
     public void run() {
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("X: "+ this.getCentre().getX()+"enemy object run");
         while (alive) {
+            if (this.isOn(trackPoints.get(0))){
+                Game.getPlayer().addEnemy(this);
+            }
             if (frozen && System.currentTimeMillis()> freezeStart + freezeDuration){
                 frozen = false;
                 enemyVelocity = enemySpeed;    //revient à sa vitesse de base
             }
+
 
 
 
@@ -259,5 +270,4 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
             }
         }
         else{aInputStream.defaultReadObject();}
-    }
-}
+    }}
