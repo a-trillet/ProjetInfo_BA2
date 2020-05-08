@@ -73,7 +73,6 @@ public class SycamoreTower extends  Tower {
 
     @Override
     public void run() {
-        //le premier thread.sleep est important pour que le run ne se lance pas avant que tout soit loaded
         try {
             Thread.sleep(200);
         } catch (InterruptedException e) {
