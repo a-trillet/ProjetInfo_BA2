@@ -47,7 +47,7 @@ public class SycamoreTower extends  Tower {
     }
 
     @Override
-    public void powerActivation(){                      //sert à diminuer le reload time dans le run the tower pour une rafale
+    public void powerActivation(){                      //sert à diminuer le reload time dans run pour une rafale
         powerActive = true;
         powerStartTime = System.currentTimeMillis();
         numberOfKill = 0;
@@ -148,8 +148,7 @@ public class SycamoreTower extends  Tower {
     public static int getNewCost(){
         return newUpgradeCosts[0];
     }
-    public static double getNewRange(){
-        return newRanges[0];}
+    public static double getNewRange(){ return newRanges[0];}
     public static int getNewReloadTime(){return newReloadTime;}
     public static double getNewDamage(){return newDamages[0];}
 }

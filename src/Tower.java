@@ -12,14 +12,11 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     private static final long serialVersionUID = 1L;
     private static int levelMax = 3;
-
-    private int frequency = 50;
     protected int level;
     protected Enemy targetEnemy = null;
     protected Point centre;
-
     protected int[] upgradeCosts = {0,0,0};
-    protected double[] ranges = {0,0,0};              //change en fct du level
+    protected double[] ranges = {0,0,0};
     protected double[] damages = {0,0,0};
     protected double[] powerDurations = {0,0,0};
     protected transient Color color;
@@ -30,11 +27,9 @@ public class Tower implements MapClickable, Runnable, Serializable {
     protected String powerType = null;
     protected double powerStartTime;
     protected int numberOfKill=0;
-    protected transient Node shape;
-
-    protected Enemy secondTargetEnemy; // à enlever
-
+    protected Enemy secondTargetEnemy;
     protected boolean active=false;
+    protected transient Node shape;
     private transient Thread thread = new Thread(this);
 
 
@@ -44,8 +39,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
         this.setTowerShape();
     }
 
-
-    protected void powerActivation(){}
+    protected void powerActivation(){}  //méthode reecrite dans les sous classe de tower, activant leur pouvoir respectif
 
     protected Enemy selectTarget(){   //renvoit l'ennemi le plus proche du centre de la tour dans le range
         Enemy target = null;
@@ -60,7 +54,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
         return target;
     }
 
-
     public void targetIsDead(Enemy enemi){
         numberOfKill += 1;
         if(numberOfKill == this.getKillPower()){Platform.runLater(()->Game.getDrawing().getChildren().add(new Tips(4,new Point(20,250),Game.getDrawing())));}
@@ -70,25 +63,16 @@ public class Tower implements MapClickable, Runnable, Serializable {
         return (centre.getY() -30< p.getY() && centre.getY() + 30 > p.getY() && centre.getX() -30< p.getX() && centre.getX() + 30 > p.getX());
         }
 
-    public String upgrade(){
-        String messageUpgrade;
+    public void upgrade(){        //augmente le level de la tower
         if (level < levelMax) {
             if (Game.getPlayer().getGold() >= upgradeCosts[level]) {
                 Game.getPlayer().addGold(-upgradeCosts[level]);
                 level += 1;
-
-                messageUpgrade = "Upgraded";
-            } else {
-                messageUpgrade = "You don't have enough money";
             }
         }
-        else {
-            messageUpgrade = "Level is maximal";
-        }
-        return messageUpgrade;
     }
 
-    public void shoot(){ //créer la balle
+    public void shoot(){                 //creer la balle
         Tower t = this;
         double degats = this.getDamage();
         Platform.runLater(new Runnable() {
@@ -99,8 +83,8 @@ public class Tower implements MapClickable, Runnable, Serializable {
         });
     }
 
-    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
-    {   if (Game.isOnGame) {
+    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException{     //
+        if (Game.isOnGame) {
         aInputStream.defaultReadObject();
         this.setTowerShape();
         Game.getDrawing().drawTower(this);
@@ -112,13 +96,12 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     @Override
     public void run() {
-        //le premier thread.sleep est important pour que le run ne se lance pas avant que tout soit loaded
         try {
             Thread.sleep(200);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        while(active) {
+        while(active) {                      //selectionne une nouvelle target ou continue à tier dessus
             if (targetEnemy == null || this.centre.distance(targetEnemy.getCentre()) > this.getRange() || !targetEnemy.isAlive() ) { //vérifie si la cible est valide
                 targetEnemy = selectTarget();
             }
@@ -159,9 +142,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
         return new InfoTower(this);
     }
 
-    public Node getTowerShape(){
-        return shape;
-    }
+    public Node getTowerShape(){ return shape; }
     public void setTowerShape(){shape=null;}
 
 
@@ -211,7 +192,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     public void sell(){active=false;}
 
-    public int getKillPower(){                  //retourne le nombre de kill à faire pour pouvoir activer le power(change en fonction du level)
+    public int getKillPower(){
         return 0;
     }
 

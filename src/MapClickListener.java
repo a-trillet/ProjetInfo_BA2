@@ -17,11 +17,6 @@ public class MapClickListener implements EventHandler<MouseEvent> {
     private PlayScreen playScreen;
 
 
-    public MapClickable getCurrentSelection(){
-        return currentSelection;
-    }
-
-
     public MapClickListener (BorderPane borderPane, Drawing drawing, PlayScreen playScreen){
         super();
         this.playScreen = playScreen;
@@ -49,13 +44,12 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         return selection;
     }
 
-    public void handle(MouseEvent mouseEvent){
+    public void handle(MouseEvent mouseEvent){                  //affiche displayInfo si on clique sur un ennemi ou une tour, ou le shop par défault
         if(mouseEvent.getEventType() == MouseEvent.MOUSE_CLICKED){
             currentSelection = clickedOn(mouseEvent);
             circle.setStroke(Color.TRANSPARENT);
             if (currentSelection == null){
                 playScreen.displayShop();
-                System.out.println(mouseEvent.getX()+"      "+mouseEvent.getY());          // test coord souris
             }
             else {
                 displayInfo();
@@ -63,7 +57,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         }
     }
 
-    //affiche les information et bouton upgrade
+    //affiche les informations des tours ou des ennemis
     public void displayInfo(){
         Info info = currentSelection.getInfo();
 
@@ -74,9 +68,8 @@ public class MapClickListener implements EventHandler<MouseEvent> {
         infoBox.setVgap(8);
 
 
-        //cercle de range
 
-        if (info instanceof InfoTower){ //dessine le cercle de Range
+        if (info instanceof InfoTower){                     //dessine le cercle de Range
             circle.setRadius(((InfoTower) info).getRange());
             Point centre = ((InfoTower) info).getCentre();
             circle.setCenterY(centre.getY());
@@ -140,6 +133,10 @@ public class MapClickListener implements EventHandler<MouseEvent> {
 
         infoBox.getChildren().addAll(label, shopButton);
         borderPane.setRight(infoBox);
+    }
+
+    public MapClickable getCurrentSelection(){
+        return currentSelection;
     }
 
 }

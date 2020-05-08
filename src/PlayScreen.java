@@ -97,18 +97,18 @@ public class PlayScreen{
             drawing.creatingTowerSquare(SycamoreTower.getNewRange());
             if(!shop.getChildren().contains(characButton)) {
                 shop.getChildren().add(characButton);
-                characButton.setOnMouseClicked(event -> inititalCharacteristics("Sycamore Tower"));
+                characButton.setOnMouseClicked(event -> inititalCharacteristics("Sycamore tower"));
             }
         }));
         sycamoreTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < SycamoreTower.getNewCost()){msgError.setText(messError);}});
 
-        GridPane.setConstraints(characButton,0,23);
+        GridPane.setConstraints(characButton,0,10);
         GridPane.setConstraints(stackTowerButton,0,0);
         GridPane.setConstraints(massartTowerButton,0,1);
         GridPane.setConstraints(rajTowerButton,0,2);
         GridPane.setConstraints(sycamoreTowerButton,0,3);
 
-        GridPane.setConstraints(msgError,0,17);
+        GridPane.setConstraints(msgError,0,15);
         GridPane.setConstraints(price,0,6);
         shop.getChildren().addAll(stackTowerButton,massartTowerButton,rajTowerButton, sycamoreTowerButton,msgError,price);
         borderPane.setRight(shop);
@@ -116,7 +116,7 @@ public class PlayScreen{
     private void inititalCharacteristics(String towerType){
         GridPane infoBox = new GridPane();
         infoBox.setPrefWidth(200);
-        infoBox.setPadding(new Insets(10,10,10,10));
+        infoBox.setPadding(new Insets(10,0,10,10));
         infoBox.setVgap(8);
         infoBox.setHgap(10);
 
