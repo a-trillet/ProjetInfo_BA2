@@ -1,6 +1,7 @@
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 import java.util.ArrayList;
 
 public class BossEnemy extends Enemy {
@@ -12,7 +13,8 @@ public class BossEnemy extends Enemy {
     private static int power = 100;
     private static boolean loaded = false;
     protected transient ImageView selectedImage = new ImageView();
-    protected transient Image image = new Image(BossEnemy.class.getResourceAsStream("Github.png"));
+
+    protected transient Image image = new Image(BossEnemy.class.getResourceAsStream("Images/Github.png"));
 
     public BossEnemy(ArrayList<Point> trackPoints, Point origin) {
         super(trackPoints,origin, maxLife, reward);

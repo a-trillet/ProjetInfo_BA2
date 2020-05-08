@@ -20,7 +20,7 @@ public class Drawing extends Pane {
     private Rectangle towerSquare = new Rectangle(30, 30, Color.GREEN);
     private Circle towerCircle = new Circle(10, Color.TRANSPARENT);
     private static ImageView corbeille = new ImageView();
-    private static Image imageCorbeille = new Image(BossEnemy.class.getResourceAsStream("corbeil.png"));
+    private static Image imageCorbeille = new Image(BossEnemy.class.getResourceAsStream("Images/corbeil.png"));
 
 
     public Drawing() {

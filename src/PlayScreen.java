@@ -14,11 +14,11 @@ public class PlayScreen{
     private static MapClickListener mapClickListener;
     private static Pane map = new Pane();
     private static ImageView selectedImage = new ImageView();
-    private static Image image = new Image(BossEnemy.class.getResourceAsStream("run.jpg"));
+    private static Image image = new Image(BossEnemy.class.getResourceAsStream("Images/run.jpg"));
 
     public PlayScreen(Drawing d){
         this.drawing=d;
-        Image image1 = new Image(PlayScreen.class.getResourceAsStream("intellij.jpg"));
+        Image image1 = new Image(PlayScreen.class.getResourceAsStream("Images/intellij.jpg"));
         BackgroundImage backgroundimage = new BackgroundImage(image1, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundimage);
         map.setBackground(background);

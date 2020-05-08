@@ -1,5 +1,4 @@
 import javafx.application.Platform;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -15,8 +14,8 @@ public class SycamoreTower extends  Tower {
     private static String newPowerType = "Double shoot";
     private static double[] newPowerDurations = {3500,4500,5500};
     private static Color newColor = new Color(1, 0, 1, 0.3);
-    private transient static Image newImageTower = new Image(SycamoreTower.class.getResourceAsStream("sycamore.jpg"));
-    private transient static Image imageBullet = new Image(Tower.class.getResourceAsStream("logoGoogle.png"));
+    private transient static Image newImageTower = new Image(SycamoreTower.class.getResourceAsStream("Images/sycamore.jpg"));
+    private transient static Image imageBullet = new Image(Tower.class.getResourceAsStream("Images/logoGoogle.png"));
 
     public SycamoreTower(Point origin){
         super(origin);
@@ -119,7 +118,7 @@ public class SycamoreTower extends  Tower {
     public ImageView getImageBullet(Point centre, double angle){
         double size = 14;
         ImageView imageView = new ImageView();
-        imageBullet = new Image(Tower.class.getResourceAsStream("logoGoogle.png"));
+        imageBullet = new Image(Tower.class.getResourceAsStream("Images/logoGoogle.png"));
         imageView.setImage(imageBullet);
         imageView.setFitWidth(size);
         imageView.setPreserveRatio(true);

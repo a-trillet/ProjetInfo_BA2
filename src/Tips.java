@@ -65,6 +65,7 @@ public class Tips extends Pane {
             this.text.setText(textStrings[textNumber][0]);
             this.getChildren().add(this.text);
             this.setOnMouseClicked(this::actions);
+            //this.setViewOrder(-number-1);
         }
     }
 

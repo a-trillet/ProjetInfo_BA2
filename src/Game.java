@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Game extends Application {
 
     private static Stage window;
-    private static Scene scene1, scene2;
+    private static Scene scene1, scene2,scene3;
     private static Drawing drawing= new Drawing();
     private static PlayScreen playscreen = new PlayScreen(drawing);
     private static Player player= new Player();
@@ -29,6 +29,7 @@ public class Game extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
 
         window = stage;
 
@@ -48,7 +49,7 @@ public class Game extends Application {
         GridPane.setConstraints(hBox,0,0);
         grid.getChildren().add(hBox);
         stackPane.getChildren().addAll(grid);
-        scene1 = new Scene(stackPane , 641, 402);
+        scene2 = new Scene(stackPane , 641, 402);
 
         // boutons pour chaque fichiers
         for (int i =1 ; i<=3 ; i++ ){
@@ -68,25 +69,23 @@ public class Game extends Application {
                     PlayScreen.drawRun();
                     fileString = "Game" + ii + ".sav";// permet de savoir le nom  du fichier dans lequel save et qu'il soit associable a un bouton
                     Game.getDrawing().getChildren().add(new Tips(0,new Point(20,250),Game.getDrawing()));
-                    window.setScene(scene2);
+                    window.setScene(scene3);
                 });
             }
             else {
                 save1.setOnMouseClicked(e -> {
                     isOnGame=true;
                     fileString = "Game" + ii + ".sav";// permet de savoir le nom  du fichier dans lequel save et qu'il soit associable a un bouton
-                    ParameterScene.display(window, scene2); //ajoute a window 1 première scene avec choix de diff puis
+                    ParameterScene.display(window,scene3); //ajoute a window 1 première scene avec choix de diff puis
                         // a la fin associe scene 3 a window (creer aussi un mapPAne avec la bonne difficultée
 
                 });
             }
             hBox.getChildren().add(save1);
         }
+        scene3 =new Scene(playscreen.sceneView(),1128,581);
 
-
-        scene2 =new Scene(playscreen.sceneView(),1128,581);
-
-        window.setScene(scene1);
+        window.setScene(scene2);
         window.setTitle("Intellij Fighter ");
         window.setOnCloseRequest(e -> {
             e.consume();

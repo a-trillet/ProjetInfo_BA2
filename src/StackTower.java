@@ -14,8 +14,8 @@ public class StackTower extends Tower {
     private static String newPowerType = "Burst Fire";
     private static double[] newPowerDurations = {3500,4500,5000};
     private static Color newColor = new Color(0, 1, 0, 1);
-    private transient static Image newImageTower = new Image(StackTower.class.getResourceAsStream("stack.jpg"));
-    private transient static  Image newimageBullet = new Image(Tower.class.getResourceAsStream("handCursor.png"));
+    private transient static Image newImageTower = new Image(StackTower.class.getResourceAsStream("Images/stack.jpg"));
+    private transient static  Image newimageBullet = new Image(Tower.class.getResourceAsStream("Images/handCursor.png"));
 
 
     public StackTower(Point origin){

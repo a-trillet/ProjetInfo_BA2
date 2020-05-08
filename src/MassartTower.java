@@ -1,4 +1,3 @@
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -14,8 +13,8 @@ public class MassartTower extends Tower {
     private static String newPowerType = "Total Slow";
     private static double[] newPowerDurations = {4000,5000,6000};
     private static Color newColor = new Color(0, 0.1, 1, 0.7);
-    private transient static Image newImageTower = new Image(MassartTower.class.getResourceAsStream("massart.jpg"));
-    private transient static Image imageBullet = new Image(Tower.class.getResourceAsStream("turtle2.png"));
+    private transient static Image newImageTower = new Image(MassartTower.class.getResourceAsStream("Images/massart.jpg"));
+    private transient static Image imageBullet = new Image(Tower.class.getResourceAsStream("Images/turtle2.png"));
 
     public MassartTower(Point origin) {
         super(origin);
@@ -27,12 +26,11 @@ public class MassartTower extends Tower {
         this.towerType = type;
         this.powerType = newPowerType;
         this.powerDurations = newPowerDurations;
-        color = newColor;
+        this.color = newColor;
     }
 
     @Override
     public void powerActivation(){                      //sert à diminuer le reload time dans le run the tower pour une rafale
-
         powerStartTime = System.currentTimeMillis();
         powerActive = true;
         numberOfKill = 0;
