@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -13,7 +14,7 @@ public class Tips extends Pane {
     private String[][] textStrings = {
             {
                 "Bienvenue cher étudiant , \n Vous vous appretez à passer des heures sur ce projet,\n Il convient donc de faire connaissance.",
-                "Je suis Tip of the day, \n un message automatique qui vous guidera le long de ce projet" ,
+                "Je suis Tip of the day, \nUn message automatique qui vous guidera le long de ce projet" ,
                 "J'ai cru comprendre que vous deviez faire un tower defence, right ?\nJe vois que vous commencez avec quelques skillPoints,\nVous devriez les utiliser pour construire votre première tourelle\nElle vous aidera a résoudre les bugs de votre code",
                 "La 'Massart Tower en coute justement seulement 150,\n vous pourrez même l'améliorer pour 50 de plus,\n Par contre, elle est un peu lente",
             },
@@ -23,7 +24,7 @@ public class Tips extends Pane {
 
             {
                 "Regardez, résoudre une lettre de ce bug vous à rapporté des SkillPoints,\n Par contre si un bug atteint la sortie, vous perdrez en motivation\nRésolvez en plus et vous pourrez vous offrir l'aide d'autres tours",
-                 "L'indien est très fort mais coute très cher en comprehension,\nSycamore est capable de tirer deux balles en même temps,\nStackOverflow tire en rafale d'inforamtions, l'efficace et accesible à tous "
+                 "L'indien est très fort mais coute très cher en comprehension,\nSycamore est capable de tirer deux balles en même temps,\nStackOverflow tire en rafale d'inforamtions, l'efficacité accesible à tous "
             },
             {
                 "Ho non, un bug n'a pas été résolu... \nVous commencer à perdre patience",
@@ -34,7 +35,7 @@ public class Tips extends Pane {
                  "Stack Overflow : tir en rafale\nRaj, l'indien: peut lancer une tsar bomba et atomiser tout le monde \nSycamore tower: tire deux balles en même temps\nMassart tower: Ralentis tous les bugs"
             },
             {
-                "Incroyable, votre code marche parfaitement\nHonnêtement, jamais je ne l'aurais cru avec vos 200 SkillPoints de débutant\nSnif, vous allez me manquer..."
+                "Incroyable, votre code marche parfaitement\nHonnêtement, jamais je ne l'aurais cru\n avec vos 200 SkillPoints de débutant\nSnif, vous allez me manquer..."
             },
             {"ATTENTION ce n'est pas fini,\nil faut encore push tout ca sur Github..."}
 
@@ -65,6 +66,7 @@ public class Tips extends Pane {
             this.text.setText(textStrings[textNumber][0]);
             this.getChildren().add(this.text);
             this.setOnMouseClicked(this::actions);
+            //this.setViewOrder(-number-1);
         }
     }
 
@@ -89,10 +91,10 @@ public class Tips extends Pane {
     private void actions(MouseEvent e){
         Point p = new Point(e.getX(),e.getY());
         if(isOnCloseButton(p)){
-            drawing.getChildren().remove(this);
+            Platform.runLater(()->drawing.getChildren().remove(this));
         }
         else if (isOnCLose(p)){
-            this.text.setText("Tu veux m'abandonner?\nJe ne t'ai même pas encore expliqué\nà quoi sert la croix 'X' ni 'Show'");
+            Platform.runLater(()->drawing.getChildren().remove(this));
         }
         else if (isOnNext(p)){
             if (textNumber != -1 && itText+1<textStrings[textNumber].length){

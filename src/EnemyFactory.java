@@ -120,7 +120,7 @@ public class EnemyFactory implements Runnable, Serializable {
             //Thread.sleep(1000);
             Game.save();
 
-            Platform.runLater(()->{Game.getDrawing().draw(new TemporaryText("Saving",1000,new Point(100,100),30));});         // marche pas
+            Platform.runLater(()->{Game.getDrawing().draw(new TemporaryText("Saving...",3000,new Point(790,170),20));});         // marche pas
 
             Thread.sleep(10000);   // faire que l'on puisse cliquer sur next wave que quand la wave est suffisament loin
             waveInProgress = false;

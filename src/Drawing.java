@@ -28,9 +28,13 @@ public class Drawing extends Pane  {
 
     private javafx.scene.shape.Rectangle towerSquare = new Rectangle(30, 30, Color.GREEN);
     private javafx.scene.shape.Circle towerCircle= new Circle(10,Color.TRANSPARENT);
+    private static ImageView corbeille = new ImageView();
+    private static Image imageCorbeille = new Image(BossEnemy.class.getResourceAsStream("corbeil.png"));
+
 
     public Drawing(){
         super();
+        this.setViewOrder(0);
        this.getChildren().add(new Tips(0,new Point(20,250),this));
         this.getChildren().add(labelGold);
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(20), event -> {
@@ -47,9 +51,10 @@ public class Drawing extends Pane  {
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
     }
+
     public void drawLifeGold(){
         Platform.runLater(() -> {
-            labelGold.relocate(20,400);
+            labelGold.relocate(775,105);
             labelGold.setTextFill(Color.web("FBF5FF"));
             labelGold.setText("SkillPoints : " +Game.getPlayer().getGold()+"\nMotivation : "+Game.getPlayer().getLives()+"/"+Game.getPlayer().getMaxLives()+"\nWave :"+Game.getPlayer().getWave());
         });
@@ -58,6 +63,14 @@ public class Drawing extends Pane  {
     }
 
     public void creatingTowerSquare(double range){
+        //creation de l'image de la corbeille
+        corbeille.setImage(imageCorbeille);
+        corbeille.setFitHeight(50);
+        corbeille.setPreserveRatio(true);
+        corbeille.relocate(830,370);
+
+        this.getChildren().add(corbeille);
+
         towerCircle.setRadius(range);
         towerCircle.setStroke(Color.GREEN);
         towerCircle.relocate(300-range,300-range);
@@ -82,14 +95,12 @@ public class Drawing extends Pane  {
 
 
     public void removeCreatingTower(){
-        this.getChildren().removeAll(towerSquare,towerCircle);
+        if (this.getChildren().contains(towerSquare) &&this.getChildren().contains(towerCircle) && this.getChildren().contains(towerCircle)) {
+            this.getChildren().removeAll(towerSquare, towerCircle, corbeille);
+        }
     }
 
-    public boolean isOn(MouseEvent e){
-        double x = e.getX();
-        double y = e.getY();
-        return (x<1100 && x>20 && y>20 && y<600 );
-    }
+
     public void drawSquare(Point centre,Color color, int size) {
         square = new Rectangle(size, size, color);
         square.setX(centre.getX() - size/2);
@@ -99,9 +110,15 @@ public class Drawing extends Pane  {
 
 
 
-    public void draw(Updatable updatable){ // peut etre modifié
+    public void draw(Updatable updatable){ // dessine et ajoute à la liste les updatable
         updatables.add(updatable);
         this.getChildren().add(updatable.getShape());
+    }
+
+    public void removeUpdatable(Updatable updatable){
+        updatables.remove(updatable);
+        this.getChildren().removeAll(updatable.getShape());
+
     }
 
 
@@ -151,13 +168,12 @@ public class Drawing extends Pane  {
 
     }
 
-    public void removeUpdatable(Updatable updatable){
-        updatables.remove(updatable);
-        this.getChildren().removeAll(updatable.getShape());
-
+    public boolean isOn(MouseEvent e){
+        double x = e.getX();
+        double y = e.getY();
+        return (x<1100 && x>20 && y>20 && y<600 );
     }
 
-    public ArrayList<Updatable> getUpdatables(){return updatables;}
-
-
+    public static ImageView getCorbeille(){return corbeille;}
         }
+

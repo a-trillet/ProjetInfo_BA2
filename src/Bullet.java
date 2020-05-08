@@ -67,7 +67,9 @@ public class Bullet implements Runnable, Serializable ,Updatable{
                 enemiestoremove.add(e);
             }
         }
-        for (Enemy enemytoremove : enemiestoremove){Game.getPlayer().removeEnemy(enemytoremove);}
+        for (Enemy enemytoremove : enemiestoremove){
+            Game.getPlayer().removeEnemy(enemytoremove);
+        }
     }
 
 
@@ -135,7 +137,6 @@ public class Bullet implements Runnable, Serializable ,Updatable{
     }
 
     public double getDamage() {
-        double damage = this.damage;
         return damage;
     }
 }

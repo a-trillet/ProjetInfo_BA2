@@ -21,7 +21,6 @@ public class Player implements Serializable {
     private  int wave = 0;
     private  transient EnemyFactory enemyFactory;
     private ArrayList<ArrayList<Point>> allRoutes;
-    private static Object key=new Object();
 
     public Player(){
 
@@ -53,6 +52,7 @@ public class Player implements Serializable {
         Platform.runLater(()->Game.getDrawing().removeTower(tower));
     }
 
+
     public int getLives() {
         return lifePoints;
     }
@@ -63,17 +63,12 @@ public class Player implements Serializable {
 
     public ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
 
-    public int getDifficulty() {
-        return difficulty;
-    }
-
     public void decreaseLife(int dmg) {
         lifePoints -= dmg;
+        if (lifePoints<=0){Game.lose();}
         Platform.runLater(()->Game.getDrawing().getChildren().add(new Tips(3,new Point(20,250),Game.getDrawing())));
         Game.getDrawing().drawLifeGold();
-        if (lifePoints<=0){Game.lose();}
     }
-    private void loose(){}
 
     public void addGold(int amount) {
         gold += amount;
@@ -110,7 +105,9 @@ public class Player implements Serializable {
         enemiesOnMap.add(e);
     }
 
-    public void removeEnemy(Enemy e){enemiesOnMap.remove(e);}
+    public void removeEnemy(Enemy e){
+        enemiesOnMap.remove(e);
+    }
 
     public int getMaxLives(){ return startingLives[difficulty-1];}
 

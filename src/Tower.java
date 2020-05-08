@@ -47,12 +47,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     protected void powerActivation(){}
 
-    public int getKillPower(){                  //retourne le nombre de kill à faire pour pouvoir activer le power(change en fonction du level)
-        return 0;
-    }
-
-
-    protected Enemy selectTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour
+    protected Enemy selectTarget(){   //renvoit l'ennemi le plus proche du centre de la tour dans le range
         Enemy target = null;
         Double dist = null;
         for (Enemy e : Game.getPlayer().getEnemiesOnMap()) {
@@ -67,7 +62,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
 
     public void targetIsDead(Enemy enemi){
-        numberOfKill += 1;      // modifiable selon valeur du mob
+        numberOfKill += 1;
         if(numberOfKill == this.getKillPower()){Platform.runLater(()->Game.getDrawing().getChildren().add(new Tips(4,new Point(20,250),Game.getDrawing())));}
     }
 
@@ -93,15 +88,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
         return messageUpgrade;
     }
 
-    public int getSellPrice(){
-        int price =0;
-        for (int i=0;i<=level;i++){price+=upgradeCosts[level]*i*2/3;}
-        return price;
-    }
-
-    public void sell(){active=false;}
-
-    public void shoot(){
+    public void shoot(){ //créer la balle
         Tower t = this;
         double degats = this.getDamage();
         Platform.runLater(new Runnable() {
@@ -115,7 +102,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
     {   if (Game.isOnGame) {
         aInputStream.defaultReadObject();
-
         this.setTowerShape();
         Game.getDrawing().drawTower(this);
         thread = new Thread(this);
@@ -133,7 +119,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
             e.printStackTrace();
         }
         while(active) {
-            if (targetEnemy == null || this.centre.distance(targetEnemy.getCentre()) > this.getRange() || !targetEnemy.isAlive() ) {
+            if (targetEnemy == null || this.centre.distance(targetEnemy.getCentre()) > this.getRange() || !targetEnemy.isAlive() ) { //vérifie si la cible est valide
                 targetEnemy = selectTarget();
             }
             if (targetEnemy != null) {
@@ -161,7 +147,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
     public void setActive(){
         active=true;
         thread.start();
-
     }
 
     @Override
@@ -215,6 +200,20 @@ public class Tower implements MapClickable, Runnable, Serializable {
     public String getPowerType(){return powerType;}
 
     public ImageView getImageBullet(Point centre, double angle){return null;}
+
+    public int getSellPrice(){
+        int price =0;
+        for (int i=0;i<level;i++){
+            price+=upgradeCosts[i]*2/3;
+        }
+        return price;
+    }
+
+    public void sell(){active=false;}
+
+    public int getKillPower(){                  //retourne le nombre de kill à faire pour pouvoir activer le power(change en fonction du level)
+        return 0;
+    }
 
 
 }

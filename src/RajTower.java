@@ -26,7 +26,7 @@ public class RajTower extends Tower{
         this.bulletRange = newBulletRange;
         this.towerType = type;
         this.powerType = newPowerType;
-        color = newColor;
+        this.color = newColor;
     }
 
     @Override

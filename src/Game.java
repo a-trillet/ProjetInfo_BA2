@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -7,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -18,8 +20,8 @@ import static java.lang.Integer.sum;
 
 public class Game extends Application {
 
-    Stage window;
-    Scene scene1, scene2, scene3;
+    private static Stage window;
+    private static Scene scene1, scene2, scene3;
     private static Drawing drawing= new Drawing();
     private static PlayScreen playscreen = new PlayScreen(drawing);
     private static Player player= new Player();
@@ -77,8 +79,8 @@ public class Game extends Application {
                     }
                     drawing.drawLifeGold();
                     PlayScreen.drawRun();
-                    Game.getDrawing().getChildren().add(new Tips(0,new Point(20,250),Game.getDrawing()));
                     fileString = "Game" + ii + ".sav";// permet de savoir le nom  du fichier dans lequel save et qu'il soit associable a un bouton
+                    Game.getDrawing().getChildren().add(new Tips(0,new Point(20,250),Game.getDrawing()));
                     window.setScene(scene3);
                 });
             }
@@ -151,7 +153,21 @@ public class Game extends Application {
         return new File(s).isFile();
     }
 
-    public static void lose(){}
+    public static void lose(){
+        Pane pane = new Pane();
+        pane.relocate(400,200);
+        Text text = new Text("Game Over");
+        text.setFill(Color.RED);
+        text.relocate(50,0);
+        Button menu = new Button("Back Menu");
+        menu.relocate(0,150);
+        menu.setOnMouseClicked(e->window.setScene(scene2));
+        Button goOn = new Button("Continue");
+        goOn.relocate(150,150);
+        goOn.setOnMouseClicked(e->Platform.runLater(()->drawing.getChildren().remove(pane)));
+        pane.getChildren().addAll(menu,goOn,text);
+        Platform.runLater(()->drawing.getChildren().add(pane));
+    }
 
     public static void win(){}
 
