@@ -203,7 +203,9 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     public int getSellPrice(){
         int price =0;
-        for (int i=0;i<=level;i++){price+=upgradeCosts[level]*i*2/3;}
+        for (int i=0;i<level;i++){
+            price+=upgradeCosts[i]*2/3;
+        }
         return price;
     }
 

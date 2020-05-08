@@ -93,7 +93,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     public void hurt(Bullet bullet) {
         decreaseLife(bullet.getDamage());
         if (!targetingTowers.contains(bullet.getMotherTower())){
-        targetingTowers.add(bullet.getMotherTower());
+            targetingTowers.add(bullet.getMotherTower());
         }
     }
 
@@ -117,7 +117,6 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     private void die() {
         Platform.runLater(() -> Game.getDrawing().getChildren().add(new Tips(2,new Point(20,250),Game.getDrawing())));
         alive = false;
-        Game.getPlayer().removeEnemy(this);
     }
 
     public void move(){
