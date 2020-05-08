@@ -22,7 +22,7 @@ public class MapEditor extends BorderPane {
 
     public MapEditor( Stage window, Scene paramScene) {
         super();
-        Image image1 = new Image(PlayScreen.class.getResourceAsStream("intellij.jpg"));
+        Image image1 = new Image(PlayScreen.class.getResourceAsStream("Images/intellij.jpg"));
         BackgroundImage backgroundimage = new BackgroundImage(image1, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundimage);
         this.setBackground(background);

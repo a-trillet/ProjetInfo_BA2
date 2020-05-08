@@ -1,11 +1,8 @@
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -13,11 +10,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javax.print.DocFlavor;
 import java.io.*;
 import java.util.ArrayList;
-
-import static java.lang.Integer.sum;
 
 public class Game extends Application {
 
@@ -46,7 +40,7 @@ public class Game extends Application {
         window = stage;
 
         //background
-        Image image1 = new Image(Game.class.getResourceAsStream("ideaFinal.jpg"));
+        Image image1 = new Image(Game.class.getResourceAsStream("Images/ideaFinal.jpg"));
         BackgroundImage backgroundimage = new BackgroundImage(image1, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundimage);
 

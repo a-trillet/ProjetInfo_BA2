@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Tower implements MapClickable, Runnable, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static int levelMax = 3;
+    private static final int levelMax = 3;
     protected int level;
     protected Enemy targetEnemy = null;
     protected Point centre;

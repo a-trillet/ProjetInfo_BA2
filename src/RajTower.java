@@ -1,4 +1,3 @@
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -14,8 +13,8 @@ public class RajTower extends Tower{
     private static String type = "Raj tower";
     private static String newPowerType = "Tsar Bomba";
     private static Color newColor = new Color(1, 0, 0, 1);
-    private transient static Image newImageTower = new Image(RajTower.class.getResourceAsStream("raj.jpg"));
-    private transient static Image imageBullet = new Image(Tower.class.getResourceAsStream("mouseCursor.png"));
+    private transient static Image newImageTower = new Image(RajTower.class.getResourceAsStream("Images/raj.jpg"));
+    private transient static Image imageBullet = new Image(Tower.class.getResourceAsStream("Images/mouseCursor.png"));
 
     public RajTower(Point originPoint){
         super(originPoint);

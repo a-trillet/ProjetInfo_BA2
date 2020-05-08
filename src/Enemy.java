@@ -211,7 +211,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
             if (this instanceof BossEnemy){
                 aInputStream.defaultReadObject();
                 ((BossEnemy) this).selectedImage = new ImageView();
-                ((BossEnemy)this).image = new Image(BossEnemy.class.getResourceAsStream("Github.png"));
+                ((BossEnemy)this).image = new Image(BossEnemy.class.getResourceAsStream("Images/Github.png"));
                 ((BossEnemy)this).createImage();
                 Game.getDrawing().draw(this);
                 t = new Thread(this);

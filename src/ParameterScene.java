@@ -6,7 +6,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 public class ParameterScene {
@@ -18,7 +17,7 @@ public class ParameterScene {
         Scene scene = new Scene(stackPane, 641, 402);
 
         //background
-        Image image1 = new Image(ParameterScene.class.getResourceAsStream("ideaFinal.jpg"));
+        Image image1 = new Image(ParameterScene.class.getResourceAsStream("Images/ideaFinal.jpg"));
         BackgroundImage backgroundimage = new BackgroundImage(image1, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundimage);
 

@@ -1,20 +1,12 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.property.StringProperty;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.geometry.HPos;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.scene.control.Label;
 
@@ -29,7 +21,7 @@ public class Drawing extends Pane  {
     private javafx.scene.shape.Rectangle towerSquare = new Rectangle(30, 30, Color.GREEN);
     private javafx.scene.shape.Circle towerCircle= new Circle(10,Color.TRANSPARENT);
     private static ImageView corbeille = new ImageView();
-    private static Image imageCorbeille = new Image(BossEnemy.class.getResourceAsStream("corbeil.png"));
+    private static Image imageCorbeille = new Image(BossEnemy.class.getResourceAsStream("Images/corbeil.png"));
 
 
     public Drawing(){
