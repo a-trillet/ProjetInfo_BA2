@@ -23,7 +23,6 @@ public class Player implements Serializable {
     private ArrayList<ArrayList<Point>> allRoutes;
 
     public Player(){
-
     }
 
     public void  loadMap(){
