@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.*;
@@ -140,26 +141,61 @@ public class Game extends Application {
 
     public static void lose(){
         Pane pane = new Pane();
-        pane.relocate(400,200);
+        pane.relocate(395,200);
+        pane.setPrefSize(215,170);
+        pane.setBackground(new Background(new BackgroundFill(Color.GRAY, CornerRadii.EMPTY, Insets.EMPTY)));
         Text text = new Text("Game Over");
+        text.setFont(Font.font(40));
         text.setFill(Color.RED);
-        text.relocate(50,0);
-        Button menu = new Button("Back Menu");
-        menu.relocate(0,150);
-        menu.setOnMouseClicked(e->window.setScene(scene1));
+        text.relocate(5,0);
+        Button endGame= new Button("EndGame");
+        endGame.setOnMouseClicked(e->window.setScene(new Scene(scene4(),600,200)));
+        endGame.relocate(140,140);
         Button goOn = new Button("Continue");
-        goOn.relocate(150,150);
+        goOn.relocate(10,140);
         goOn.setOnMouseClicked(e->Platform.runLater(()->drawing.getChildren().remove(pane)));
-        pane.getChildren().addAll(menu,goOn,text);
+        pane.getChildren().addAll(goOn,text,endGame);
         Platform.runLater(()->drawing.getChildren().add(pane));
     }
 
+    public static void win(){
+        Pane pane = new Pane();
+        pane.setPrefSize(215,170);
+        pane.relocate(395,200);
+        pane.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+        Text text = new Text("You Win !!!");
+        text.setFont(Font.font(40));
+        text.setFill(Color.RED);
+        text.relocate(5,0);
+        Button endGame= new Button("EndGame");
+        endGame.setOnMouseClicked(e->window.setScene(new Scene(scene4(),600,200)));
+        endGame.relocate(140,140);
+        Button goOn = new Button("Continue");
+        goOn.relocate(10,140);
+        goOn.setOnMouseClicked(e->Platform.runLater(()->drawing.getChildren().remove(pane)));
+        pane.getChildren().addAll(goOn,text,endGame);
+        Platform.runLater(()->drawing.getChildren().add(pane));
+    }
+
+    private static Pane scene4(){
+        Pane endScene = new Pane();
+        endScene.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+        Text endText = new Text("Thanks for playing!");
+        endText.setFill(Color.WHITE);
+        endText.setFont(Font.font(20));
+        endText.relocate(50,50);
+        Text credit = new Text("An original game by Dumont Jules && Thomas Vray && Trillet Antoine.");
+        credit.setFill(Color.WHITE);
+        credit.setFont(Font.font(15));
+        credit.relocate(50,120);
+
+        endScene.getChildren().addAll(credit,endText);
+
+        return endScene;
+    }
     public static boolean checkFileExists(String s){
         return new File(s).isFile();
     }
-    public static void win(){}
-    public static Drawing getDrawing(){return drawing;}
-    public static Player getPlayer() {
-        return player;
-    }
+
 }
+

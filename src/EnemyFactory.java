@@ -45,20 +45,21 @@ public class EnemyFactory implements Runnable, Serializable {
     @Override
     public void run(){
         try {
+
             for (Word word : activeWave) {
                 for(Enemy e : word.getLettres()){
                     if (e instanceof BossEnemy){
                         Platform.runLater(()->Game.getDrawing().getChildren().add(new Tips(5,new Point(20,250),Game.getDrawing())));
-                        Thread.sleep(4000);
+                        Thread.sleep(7000);
                         Platform.runLater(()->Game.getDrawing().getChildren().add(new Tips(6,new Point(20,250),Game.getDrawing())));
-                        Thread.sleep(1000);
                     }
                     e.setAlive();
                 }
             }
+            // le jeu est sauvé quand tous les élément de la wave sont sortis
             Game.save();
 
-            Platform.runLater(()-> Game.getDrawing().draw(new TemporaryText("Saving...",3000,new Point(790,170),20)));         // marche pas
+            Platform.runLater(()->{Game.getDrawing().draw(new TemporaryText("Saving...",3000,new Point(790,170),20));});         // marche pas
 
             Thread.sleep(10000);   // faire que l'on puisse cliquer sur next wave que quand la wave est suffisament loin
             waveInProgress = false;
