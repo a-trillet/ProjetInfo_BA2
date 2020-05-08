@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import static java.lang.Math.*;
 
 public class Bullet implements Runnable, Serializable ,Updatable{
-    private double speed=3;  // choisir si vient de la tour ou meme vitesse pour tt les balles
-    private Point centre; // coordonnée
+    private double speed = 3;
+    private Point centre;
     private double damage;
-    private double range;   // distance jusqu'à laquelle on est touché quand la bullet explose
+    private double range;
     private Tower motherTower;
-    private Point targetPoint;  // point d'arriver de la balle
+    private Point targetPoint;
     private boolean alive;
     private javafx.scene.shape.Circle circle;
     private Thread thread;
@@ -39,16 +39,13 @@ public class Bullet implements Runnable, Serializable ,Updatable{
         circle.setRadius(4);
         circle.setFill(new Color(1, 1, 0, 1));
 
-
         imageView = motherTower.getImageBullet(centre, angle());
-
 
         thread = new Thread(this);
         thread.start();
-
     }
 
-    private double angle(){ //calcul angle(en degre) entre horitonal droit et l'ennemi
+    private double angle(){         //calcul angle(en degre) entre la motherTower et l'ennemi
         double y = targetPoint.getY() - motherTower.getCentre().getY();
         double x = targetPoint.getX() - motherTower.getCentre().getX();
         double alpha = Math.atan2( y, x ) ;     //arctg de (y/x)
@@ -72,10 +69,6 @@ public class Bullet implements Runnable, Serializable ,Updatable{
         }
     }
 
-
-    public Tower getMotherTower() {
-        return motherTower;
-    }
 
     public void move() {
         double dist = targetPoint.distance(this.motherTower.getCentre());
@@ -126,7 +119,7 @@ public class Bullet implements Runnable, Serializable ,Updatable{
         if (imageView != null){
             return imageView;
         }
-        else{       //par défault si images non dispo
+        else{
             return circle;
         }
     }
@@ -138,6 +131,10 @@ public class Bullet implements Runnable, Serializable ,Updatable{
 
     public double getDamage() {
         return damage;
+    }
+
+    public Tower getMotherTower() {
+        return motherTower;
     }
 }
 

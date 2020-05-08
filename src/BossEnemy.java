@@ -17,7 +17,6 @@ public class BossEnemy extends Enemy {
     private static int power = 100;
     private static boolean loaded = false;
     protected transient ImageView selectedImage = new ImageView();
-
     protected transient Image image = new Image(BossEnemy.class.getResourceAsStream("Github.png"));
 
     public BossEnemy(ArrayList<Point> trackPoints, Point origin) {
