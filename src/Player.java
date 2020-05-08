@@ -2,13 +2,11 @@ import javafx.application.Platform;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Map;
 
 public class Player implements Serializable {
+
     private static final long serialVersionUID = 2L;
     private String name = "john";
     private  int gold =700;
@@ -22,13 +20,12 @@ public class Player implements Serializable {
     private  transient EnemyFactory enemyFactory;
     private ArrayList<ArrayList<Point>> allRoutes;
 
-    public Player(){
-
-    }
+    public Player(){}
 
     public void  loadMap(){
         allRoutes = MapFactory.getAllRoutes();
     }
+
     public void reset() {
         lifePoints = startingLives[difficulty - 1];
         gold = startingGold;
@@ -37,12 +34,13 @@ public class Player implements Serializable {
         enemyFactory = new EnemyFactory(difficulty,allRoutes);
     }
 
-    public ArrayList<Enemy> getEnemiesOnMap() {
-        return enemiesOnMap;
-    }
-
-    public ArrayList<Tower> getTowerList() {
-        return towerList;
+    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
+    {
+        aInputStream.defaultReadObject();
+        if(Game.isOnGame){
+            enemyFactory = new EnemyFactory(difficulty,allRoutes);
+            Game.getDrawing().drawLifeGold();
+        }
     }
 
     public void removeTower(Tower tower){
@@ -51,17 +49,6 @@ public class Player implements Serializable {
         tower.sell();
         Platform.runLater(()->Game.getDrawing().removeTower(tower));
     }
-
-
-    public int getLives() {
-        return lifePoints;
-    }
-
-    public int getGold() {
-        return gold;
-    }
-
-    public ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
 
     public void decreaseLife(int dmg) {
         lifePoints -= dmg;
@@ -76,10 +63,6 @@ public class Player implements Serializable {
 
     }
 
-    public void setDifficulty(int diff) {
-        difficulty = diff;
-    }
-
     public void addTower(Tower tower) {
         towerList.add(tower);
     }
@@ -87,18 +70,6 @@ public class Player implements Serializable {
     public void nextWave() {
         wave++;
         Game.getDrawing().drawLifeGold();
-    }
-
-    public int getLifePoints() {
-        return lifePoints;
-    }
-
-    public int getWave() {
-        return wave;
-    }
-
-    public EnemyFactory getEnemyFactory() {
-        return enemyFactory;
     }
 
     public void addEnemy(Enemy e){
@@ -109,27 +80,40 @@ public class Player implements Serializable {
         enemiesOnMap.remove(e);
     }
 
+
+    public int getLives() {
+        return lifePoints;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public ArrayList<Enemy> getEnemiesOnMap() {
+        return enemiesOnMap;
+    }
+
+    public ArrayList<Tower> getTowerList() {
+        return towerList;
+    }
+
+    public ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
+
+    public int getWave() {
+        return wave;
+    }
+
+    public EnemyFactory getEnemyFactory() {
+        return enemyFactory;
+    }
+
     public int getMaxLives(){ return startingLives[difficulty-1];}
 
     public String getName(){return name;}
 
     public void setName(String name){this.name = name;}
 
-    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
-    {
-
-        aInputStream.defaultReadObject();
-        if(Game.isOnGame){
-            enemyFactory = new EnemyFactory(difficulty,allRoutes);
-            Game.getDrawing().drawLifeGold();
-        }
+    public void setDifficulty(int diff) {
+        difficulty = diff;
     }
-
-
-
-
-
-
-
-
 }

@@ -1,11 +1,6 @@
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class BossEnemy extends Enemy {

@@ -1,11 +1,6 @@
-import javafx.application.Platform;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-
-
-import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 

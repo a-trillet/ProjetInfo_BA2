@@ -1,26 +1,18 @@
-import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import javax.swing.*;
-
 public class PlayScreen{
     private Drawing drawing;
-    public static BorderPane borderPane = new BorderPane();
-    public static String towerType = null;
-    public static MapClickListener mapClickListener;
+    private static BorderPane borderPane = new BorderPane();
+    private static String towerType = null;
+    private static MapClickListener mapClickListener;
     private static Pane map = new Pane();
-
     private static ImageView selectedImage = new ImageView();
     private static Image image = new Image(BossEnemy.class.getResourceAsStream("run.jpg"));
 
@@ -171,6 +163,9 @@ public class PlayScreen{
 
         return borderPane;
     }
+
+    public static MapClickListener getMapClickListener(){return mapClickListener;}
+    public static String getTowerType(){return towerType;}
 }
 
 

@@ -1,10 +1,6 @@
-import javax.swing.*;
-
 import static java.lang.Math.round;
 
-
 public class InfoEnemy extends Info {
-    //info pour les enemis
     private int speed;
     private double life;
     private double lifeMax;
@@ -31,8 +27,6 @@ public class InfoEnemy extends Info {
         String strPower = "Power : " + power;
         String strReward = "Reward : " + reward;
 
-        return strType + "\n" + strLife + "\n" + strLifeMax + "\n" + strSpeed;
+        return strType + "\n" + strLife + "\n" + strLifeMax + "\n" + strSpeed + "\n" + strPower + "\n"+ strReward;
     }
-
-
 }

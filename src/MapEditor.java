@@ -4,17 +4,15 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
-
 import static java.lang.StrictMath.round;
 
-
 public class MapEditor extends BorderPane {
+
     private Button addTrack = new Button("Begin"+" "+"Track");
     private Button endTrack=new Button("End"+" "+"Track");
     private Button clear = new Button("Reset");
-    Button endMapEditor=new Button("Confirm Map");
+    private Button endMapEditor=new Button("Confirm Map");
     private ArrayList<ArrayList<Point>> allRoutes=new ArrayList<>();
     private ArrayList<Point>route =new ArrayList<>();
     private Drawing drawing=new Drawing();
@@ -26,6 +24,8 @@ public class MapEditor extends BorderPane {
         BackgroundImage backgroundimage = new BackgroundImage(image1, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundimage);
         this.setBackground(background);
+
+        // tuto dans mapEditor
         Tips tip = new Tips("On conseil entre .. et .. de distance de chemin\nDistance: "+round(pathSize),new Point(600,80),drawing);
         this.getChildren().add(tip);
 
@@ -41,7 +41,6 @@ public class MapEditor extends BorderPane {
         // listenners
         clear.setOnMouseClicked(e->{
             allRoutes.clear();
-            //
         });
 
         endMapEditor.setOnMouseClicked(e->{
@@ -56,7 +55,7 @@ public class MapEditor extends BorderPane {
         });
 
         endTrack.setOnMouseClicked(e->{
-            if(route.size()>1) {  //ajouter un message d'erreur si route pas route pas assez longue
+            if(route.size()>1) {
                 allRoutes.add(route);
                 drawing.drawRoute(route);
                 route = new ArrayList<>();
@@ -71,8 +70,6 @@ public class MapEditor extends BorderPane {
             tip.setText("On conseil entre .. et .. de distance de chemin\nDistance: "+round(pathSize));}
         });
     }
-    public ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
-
 }
 
 

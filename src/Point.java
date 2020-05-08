@@ -1,12 +1,9 @@
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-
 import java.io.Serializable;
 
 public class Point implements Serializable {
     private static final long serialVersionUID = 1L;
-    public double x ;
-    public double y;
+    private double x ;
+    private double y;
 
     public  Point (double x, double y){
         this.x = x;

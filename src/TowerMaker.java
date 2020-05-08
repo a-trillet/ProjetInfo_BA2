@@ -1,7 +1,3 @@
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-
 
 public class TowerMaker {
     private  Drawing drawing;
@@ -27,30 +23,28 @@ public class TowerMaker {
         if (t != null && CheckTowerOk(t)) {
             Game.getPlayer().addTower(t);
             drawing.drawTower(t);
-            Game.getPlayer().addGold(-t.getCost());  //peut etre à bouger
-            t.setActive(); //tower commence à tirer
+            Game.getPlayer().addGold(-t.getCost());
+            t.setActive();
            Game.getDrawing().getChildren().add(new Tips(1,new Point(20,250),Game.getDrawing()));
         }
     }
 
 
-    public static boolean CheckTowerOk(Tower to) {
+    public static boolean CheckTowerOk(Tower to) {      //vérifié si le joueur a assez d'argent, que le tour n'estnpas sur le chemin ou sur la poubelle
         boolean res = true;
-        if (Game.getPlayer().getGold() < to.getCost()) {  //vérifie si le player a assez d'argent
+        if (Game.getPlayer().getGold() < to.getCost()) {
             res = false;
         }
-        for (Tower tower : Game.getPlayer().getTowerList()){ //vérifie si la tour touche d'autre tours
+        for (Tower tower : Game.getPlayer().getTowerList()){
             if (tower.isOn(to.getCentre())) {
                 res = false;
             }}
-        if (!MapFactory.isNotOn(to.getCentre())){ //vérifie si la tour touche le chemin
+        if (!MapFactory.isNotOn(to.getCentre())){
             res=false;
         }
-        if (to.isOn(new Point(855,395))){//vérifie que la tour ne soit pas sur la poubelle
+        if (to.isOn(new Point(855,395))){
             res = false;
         }
         return res;
     }
-
-
 }

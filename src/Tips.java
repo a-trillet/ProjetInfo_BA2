@@ -53,7 +53,6 @@ public class Tips extends Pane {
         if(notSeen[number]) {
             notSeen[number] = false;
             final ImageView selectedImage = new ImageView();
-            //Image background = new Image("tipOfTheDay.jpg",200,140,false,false);
             Image background = new Image("tipOfTheDay.jpg");
             selectedImage.setImage(background);
             selectedImage.setFitHeight(160);
@@ -66,7 +65,6 @@ public class Tips extends Pane {
             this.text.setText(textStrings[textNumber][0]);
             this.getChildren().add(this.text);
             this.setOnMouseClicked(this::actions);
-            //this.setViewOrder(-number-1);
         }
     }
 
@@ -76,7 +74,6 @@ public class Tips extends Pane {
         this.relocate(point.getX(),point.getY());
 
         final ImageView selectedImage = new ImageView();
-        //Image background = new Image("tipOfTheDay.jpg",200,140,false,false);
         Image background = new Image("tipOfTheDay.jpg");
         selectedImage.setImage(background);
         selectedImage.setFitHeight(140);
