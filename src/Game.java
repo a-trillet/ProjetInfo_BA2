@@ -196,6 +196,8 @@ public class Game extends Application {
     public static boolean checkFileExists(String s){
         return new File(s).isFile();
     }
+    public static Drawing getDrawing(){return drawing;}
+    public static Player getPlayer(){return player;}
 
 }
 
