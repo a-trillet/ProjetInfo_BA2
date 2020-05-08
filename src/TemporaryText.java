@@ -8,14 +8,11 @@ public class TemporaryText implements Updatable{
     private int time;
     private Text text;
 
-
-
     public TemporaryText(String text, int time, Point point,int size){
         this.text=new Text(point.getX(),point.getY(),text);
         this.text.setFill(Color.WHITE);
         this.text.setFont(Font.font(size));
         this.time=time;
-
     }
 
     @Override
@@ -23,8 +20,6 @@ public class TemporaryText implements Updatable{
         time-=50;
         if (time<=0){alive=false;}
     }
-
-
 
     @Override
     public Node getShape() {

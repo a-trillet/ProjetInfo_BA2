@@ -9,11 +9,10 @@ import javafx.scene.image.ImageView;
 
 public class PlayScreen{
     private Drawing drawing;
-    public static BorderPane borderPane = new BorderPane();
-    public static String towerType = null;
-    public static MapClickListener mapClickListener;
+    private static BorderPane borderPane = new BorderPane();
+    private static String towerType = null;
+    private static MapClickListener mapClickListener;
     private static Pane map = new Pane();
-
     private static ImageView selectedImage = new ImageView();
     private static Image image = new Image(BossEnemy.class.getResourceAsStream("Images/run.jpg"));
 
@@ -164,6 +163,9 @@ public class PlayScreen{
 
         return borderPane;
     }
+
+    public static MapClickListener getMapClickListener(){return mapClickListener;}
+    public static String getTowerType(){return towerType;}
 }
 
 

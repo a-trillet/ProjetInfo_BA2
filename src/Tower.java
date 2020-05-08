@@ -84,7 +84,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
         });
     }
 
-    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException{     //
+    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException{
         if (Game.isOnGame) {
         aInputStream.defaultReadObject();
         this.setTowerShape();

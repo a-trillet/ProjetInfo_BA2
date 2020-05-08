@@ -16,7 +16,6 @@ public class MapClickListener implements EventHandler<MouseEvent> {
     private Circle circle = new Circle();
     private PlayScreen playScreen;
 
-
     public MapClickListener (BorderPane borderPane, Drawing drawing, PlayScreen playScreen){
         super();
         this.playScreen = playScreen;

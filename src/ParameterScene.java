@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 public class ParameterScene {
+
       public static void display( Stage window, Scene futurScene){
 
         StackPane stackPane = new StackPane();
@@ -88,6 +89,7 @@ public class ParameterScene {
 
         window.setScene(scene);
     }
+
     private static int getDifficulty(ComboBox<String> difficultySelection){
       String difficultee = difficultySelection.getValue();
       int difficulty = 2;
@@ -109,8 +111,8 @@ public class ParameterScene {
     }
 
   private static void getMapSelection(ComboBox<String> combobox, Stage window,Scene scene){
-    String mapchoice = combobox.getValue();
-    switch(mapchoice) {
+    String mapChoice = combobox.getValue();
+    switch(mapChoice) {
       case "Easy" :
         new MapFactory(1);
         break;

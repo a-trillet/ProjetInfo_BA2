@@ -1,23 +1,10 @@
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.math.*;
 
 import java.util.ArrayList;
 
 public class MapFactory  {
 
-
-    private static ArrayList<ArrayList<Point>> allRoutes=new ArrayList<>() ;                //Path et Track existe en javafx, considérer path pour afficher le chemin
+    private static ArrayList<ArrayList<Point>> allRoutes=new ArrayList<>() ;
     public static ArrayList<ArrayList<Point>> getAllRoutes(){return allRoutes;}
-
 
     private int[][][] easyTrack= {{
             {400,74},
@@ -67,12 +54,12 @@ public class MapFactory  {
     };
 
     public MapFactory(int difficulty){
-        loadRoute(getTrack(difficulty));  /// changer par un fichier
+        loadRoute(getTrack(difficulty));
     }
 
     public MapFactory(ArrayList<ArrayList<Point>> allRoutes){this.allRoutes=allRoutes;}
 
-    private void loadRoute(int[][][] alltracks){       //lira un fichier, à changer, ou bien créer fonction fichier to int [][] "read track" et garder les tracks par défaut dans le code comme fait là
+    private void loadRoute(int[][][] alltracks){
          for (int [][] track : alltracks) {
              ArrayList<Point> route = new ArrayList<>();
              for (int[] point : track) {
@@ -82,15 +69,15 @@ public class MapFactory  {
          }
 
     }
-    public static boolean isNotOn(Point point){       // renvoi false si point est trop proche du chemin ! fait en fct des dimensions des carrés des tower
+    public static boolean isNotOn(Point point){       // renvoi false si point trop proche du chemin
         boolean bol = true;
         double x_C = point.getX();
         double y_C = point.getY();
-        double distMinimale = 30 / Math.pow(2, 0.5);      //demi-hypothénuse des carrés des tower
+        double distMinimale = 30 / Math.pow(2, 0.5);
 
-        for ( int i = 0; i<= allRoutes.size()-1; i++){            //applique ce qui suit à chaque route (i =0,1)
+        for ( int i = 0; i<= allRoutes.size()-1; i++){
 
-            for ( int j = 0; j <= allRoutes.get(i).size()-2; j++) {     // -2 car comme ça fait le calcul autant de fois qu'il y a de points-1 (càd autant qu'il y a de segment) (j =0,1,2 qd i = 0)
+            for ( int j = 0; j <= allRoutes.get(i).size()-2; j++) {
 
                 if (!bol) {
                     break;
@@ -108,7 +95,6 @@ public class MapFactory  {
                     }
                 }
                 else {
-                    //calcul du point d'intersection                    remarque : le point d'intersection est le point du chemin le plus proche de tower
                     double x_I =0;
                     double y_I=0;
                     if (y_A != y_B && x_A != x_B){

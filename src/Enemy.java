@@ -17,34 +17,23 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
 
     private ArrayList<Point> trackPoints;
     private int nextPoint=0;
-    protected Point origin;
     private double angle;
-
     private boolean alive = false;
     private double lifePoints;
-    private ArrayList<Tower> targetingTowers = new ArrayList<>(); // les tours qui le cible actuelement
+    private ArrayList<Tower> targetingTowers = new ArrayList<>();
     protected transient Thread t;
     private String lettre;
     private transient Text lettreText;
-
-
-    protected static double enemyVelocity = 12;
+    private static double enemyVelocity = 12;//enemivelocity change alors que speed non
     private static double freezeDuration;
     private static double freezeStart;
-    private static boolean frozen = false; //static car pour tt les ennemis en meme temps
-    public static void setFrozen(boolean bol){frozen = bol;}
-    public static void setFreezeDuration(double duration){freezeDuration = duration;}
-    public static void setFreezeStart(double startTime){freezeStart = startTime;}
-    public static void setEnemyVelocity(double velocity){enemyVelocity = velocity;}
-
-
-
-    //attributs venant des s-classe
+    private static boolean frozen = false;
+    protected Point origin;
     protected String enemyType;
-    private double enemySpeed = 12;    // ne change jamais alors que enemyvelocity si
+    private double enemySpeed = 12;
     protected double maxLifePoints;
     protected int reward;
-    protected int enemyPower;     //cbdDeVieRetireraPlayerSiArriveaLaFin
+    protected int enemyPower;
 
 
     public Enemy(ArrayList<Point> trackPoints,String lettre ,Point point, double life, int reward){
@@ -59,7 +48,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
         angle=Math.atan2((trackPoints.get(nextPoint).getY()-origin.getY()),(trackPoints.get(nextPoint).getX()-origin.getX()));
     }
     public Enemy(ArrayList<Point> trackPoints,Point point, double life, int reward){
-        this.trackPoints=trackPoints;   //liste de points par lesquels l'ennemi passe (point de changement de direction)
+        this.trackPoints=trackPoints;
         origin=new Point(point.getX(),point.getY());
         this.lifePoints = life;
         this.maxLifePoints = life;
@@ -67,117 +56,31 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
         t = new Thread(this);
         angle=Math.atan2((trackPoints.get(nextPoint).getY()-origin.getY()),(trackPoints.get(nextPoint).getX()-origin.getX()));
     }
-    private void createLettre(String lettre){ //créer un Node à partir du string de la lettre
-        lettreText=new Text(lettre);
-        lettreText.setX(origin.getX()+7);
-        lettreText.setY(origin.getY()+7);
-        lettreText.setFill(new Color(1,0,0,1));
-        lettreText.setFont(new Font(14));
-    }
-    public String getEnemyType(){
-        return enemyType;
-    }
-
-    public int getEnemyPower(){
-        return enemyPower;
-    }
-
-    public Point getCentre(){ return this.origin; }
-
-    @Override
-    public Info getInfo() {
-        return new InfoEnemy(this);
-    }
-
-    @Override
-    public void hurt(Bullet bullet) {
-        decreaseLife(bullet.getDamage());
-        if (!targetingTowers.contains(bullet.getMotherTower())){
-            targetingTowers.add(bullet.getMotherTower());
-        }
-    }
-
-
-
-    public void setAlive(){
-        this.alive = true;
-        this.t.start();
-        Platform.runLater(()->Game.getDrawing().draw(this));
-    }
-
-
-    private void killed(){  //prévient toutes les tourelles qui le vise qu'il est mort + die()
-        die();
-        Game.getPlayer().addGold(reward);
-        for(Tower killer: targetingTowers) {
-            killer.targetIsDead(this);
-        }
-    }
-
-    private void die() {
-        alive = false;
-    }
 
     public void move(){
-            if (origin.distance(trackPoints.get(nextPoint)) > enemyVelocity/15+2) {
-                double dist = trackPoints.get(nextPoint).distance(this.origin);
-                int deltaX = (int) (this.trackPoints.get(nextPoint).getX() - origin.getX());
-                int deltaY = (int) (this.trackPoints.get(nextPoint).getY() - origin.getY());
+        if (origin.distance(trackPoints.get(nextPoint)) > enemyVelocity/15+2) {
+            double dist = trackPoints.get(nextPoint).distance(this.origin);
+            int deltaX = (int) (this.trackPoints.get(nextPoint).getX() - origin.getX());
+            int deltaY = (int) (this.trackPoints.get(nextPoint).getY() - origin.getY());
 
-                double dx = enemyVelocity / 15 * deltaX / dist;
-                double dy = enemyVelocity / 15 * deltaY / dist;
-                origin.setX(origin.getX() + dx);
-                origin.setY(origin.getY() + dy);
-
-
-            } else {
-                origin.setX(trackPoints.get(nextPoint).getX());
-                origin.setY(trackPoints.get(nextPoint).getY());  //nextpoint c'est un int qui definit l'endroitde la liste ou l'element  est un point qu 'il va atteindre
-                if (nextPoint==0){Game.getPlayer().addEnemy(this);}
-                if (trackPoints.size() - 1 > nextPoint) {
-                    nextPoint++;
-                    angle = Math.atan2((trackPoints.get(nextPoint).getY() - trackPoints.get(nextPoint - 1).getY()), (trackPoints.get(nextPoint).getX() - trackPoints.get(nextPoint - 1).getX()));
-
-                } else {
-                    reachEndPoint();
-                }
-    }
-    }
-
-    @Override
-    public Node getShape() {
-        return lettreText;
-    }
-
-    private void reachEndPoint(){
-        this.die();
-        Game.getPlayer().decreaseLife(this.getEnemyPower());
-
-
-    }
-
-
-    public void update(){
-        lettreText.setX(origin.getX()+7);
-        lettreText.setY(origin.getY()+7);
-        lettreText.setRotate(angle*360/2/Math.PI);
-        if (lifePoints<=maxLifePoints/2){lettreText.setFill(Color.web("FF7B2C"));}
-
-    }
-
-    public void decreaseLife(double dmg){
-        lifePoints -= dmg;
-        if(this.lifePoints <= 0){
-            this.killed();
+            double dx = enemyVelocity / 15 * deltaX / dist;
+            double dy = enemyVelocity / 15 * deltaY / dist;
+            origin.setX(origin.getX() + dx);
+            origin.setY(origin.getY() + dy);
         }
-        //met à jour display info display info
-        if (PlayScreen.mapClickListener.getCurrentSelection() == this) {
-            Platform.runLater(() -> PlayScreen.mapClickListener.displayInfo());
+        else {
+            origin.setX(trackPoints.get(nextPoint).getX());
+            origin.setY(trackPoints.get(nextPoint).getY());  //nextpoint c'est un int qui definit l'endroitde la liste ou l'element  est un point qu 'il va atteindre
+            if (nextPoint==0){Game.getPlayer().addEnemy(this);}
+            if (trackPoints.size() - 1 > nextPoint) {
+                nextPoint++;
+                angle = Math.atan2((trackPoints.get(nextPoint).getY() - trackPoints.get(nextPoint - 1).getY()), (trackPoints.get(nextPoint).getX() - trackPoints.get(nextPoint - 1).getX()));
+            }
+            else {
+                reachEndPoint();
+            }
         }
-
-        }
-
-
+    }
 
     @Override
     public void run() {
@@ -195,23 +98,34 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
             this.move();
             try {
                 Thread.sleep(20);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public int getReward() {
-        return reward;
+    private void createLettre(String lettre){ //créer un Node à partir du string de la lettre
+        lettreText=new Text(lettre);
+        lettreText.setX(origin.getX()+7);
+        lettreText.setY(origin.getY()+7);
+        lettreText.setFill(new Color(1,0,0,1));
+        lettreText.setFont(new Font(14));
     }
 
-    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException
-    {
+    @Override
+    public void hurt(Bullet bullet) {
+        decreaseLife(bullet.getDamage());
+        if (!targetingTowers.contains(bullet.getMotherTower())){
+            targetingTowers.add(bullet.getMotherTower());
+        }
+    }
+
+    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException{
         if(Game.isOnGame) {
             if (this instanceof BossEnemy){
                 aInputStream.defaultReadObject();
                 ((BossEnemy) this).selectedImage = new ImageView();
-                ((BossEnemy)this).image = new Image(BossEnemy.class.getResourceAsStream("Images/Github.png"));
+                ((BossEnemy)this).image = new Image(BossEnemy.class.getResourceAsStream("Github.png"));
                 ((BossEnemy)this).createImage();
                 Game.getDrawing().draw(this);
                 t = new Thread(this);
@@ -234,6 +148,53 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
         return res;
     }
 
+    private void killed(){  //prévient toutes les tourelles qui le vise qu'il est mort + die()
+        die();
+        Game.getPlayer().addGold(reward);
+        for(Tower killer: targetingTowers) {
+            killer.targetIsDead(this);
+        }
+    }
+
+    private void die() {
+        Platform.runLater(() -> Game.getDrawing().getChildren().add(new Tips(2,new Point(20,250),Game.getDrawing())));
+        alive = false;
+    }
+
+    private void reachEndPoint(){
+        this.die();
+        Game.getPlayer().decreaseLife(this.getEnemyPower());
+    }
+
+    public void update(){
+        lettreText.setX(origin.getX()+7);
+        lettreText.setY(origin.getY()+7);
+        lettreText.setRotate(angle*360/2/Math.PI);
+        if (lifePoints<=maxLifePoints/2){lettreText.setFill(Color.web("FF7B2C"));}
+
+    }
+
+    public void decreaseLife(double dmg){
+        lifePoints -= dmg;
+        if(this.lifePoints <= 0){
+            this.killed();
+        }
+        //met à jour display info
+        if (PlayScreen.getMapClickListener().getCurrentSelection() == this) {
+            Platform.runLater(() -> PlayScreen.getMapClickListener().displayInfo());
+        }
+    }
+
+    @Override
+    public Info getInfo() {
+        return new InfoEnemy(this);
+    }
+
+    @Override
+    public Node getShape() {
+        return lettreText;
+    }
+
     public double getSpeed() {
         if(frozen){
             enemyVelocity = 0;
@@ -241,6 +202,9 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
         return enemyVelocity;
     }
 
+    public int getReward() {
+        return reward;
+    }
 
     public double getLifePoints() {
         return lifePoints;
@@ -253,4 +217,28 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     public boolean isAlive(){
         return alive;
     }
+
+    public String getEnemyType(){
+        return enemyType;
+    }
+
+    public int getEnemyPower(){
+        return enemyPower;
+    }
+
+    public Point getCentre(){ return this.origin; }
+
+    public void setAlive(){
+        this.alive = true;
+        this.t.start();
+        Platform.runLater(()->Game.getDrawing().draw(this));
+    }
+
+    public static void setFrozen(boolean bol){frozen = bol;}
+
+    public static void setFreezeDuration(double duration){freezeDuration = duration;}
+
+    public static void setFreezeStart(double startTime){freezeStart = startTime;}
+
+    public static void setEnemyVelocity(double velocity){enemyVelocity = velocity;}
 }

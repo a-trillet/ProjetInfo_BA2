@@ -1,5 +1,3 @@
-import javafx.application.Platform;
-
 import java.util.ArrayList;
 
 public class Word implements Runnable{
@@ -20,13 +18,6 @@ public class Word implements Runnable{
         }
     }
 
-
-    public void launchWord(){
-
-        for (Enemy enemy :  lettres){
-            enemy.setAlive();
-        }
-    }
 
     public ArrayList<Enemy> getLettres(){
         return lettres;

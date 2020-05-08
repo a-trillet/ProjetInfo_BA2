@@ -1,10 +1,6 @@
 import javafx.scene.paint.Color;
-import jdk.jfr.Frequency;
-
-import java.util.ArrayList;
 
 public class InfoTower extends  Info {
-    //infos pour les tours
     private double damage;
     private int level;
     private int reloadTime;
@@ -14,10 +10,9 @@ public class InfoTower extends  Info {
     private int numberKill;
     private Color color;
 
-
     public InfoTower(Tower tower) {
         super(tower);
-        this.damage = tower.getDamage();   /// changer pour bullet type
+        this.damage = tower.getDamage();
         this.level = tower.getLevel();
         this.reloadTime = tower.getReloadTime();
         this.range = tower.getRange();
@@ -25,8 +20,6 @@ public class InfoTower extends  Info {
         this.centre = tower.getCentre();
         this.numberKill = tower.getNumberOfKill();
         this.color = tower.getColor();
-
-
     }
 
     @Override
@@ -41,7 +34,7 @@ public class InfoTower extends  Info {
         return strType + "\n" + strLevel + "\n" + strDamage + "\n" + strFrequency + "\n" + strRange + "\n"+ strNumberOfKill;
     }
 
-    public static String initialList(String towerType){
+    public static String initialList(String towerType){     //renvoi les caractecteristique intitiale des tours
         double damage = 0;
         int reloadTime = 0;
         double range = 0;
@@ -85,15 +78,10 @@ public class InfoTower extends  Info {
         return range;
     }
 
-
-
     public Point getCentre() {
         return centre;
     }
 
-
-
     public Color getColor() { return color; }
-
 
 }
