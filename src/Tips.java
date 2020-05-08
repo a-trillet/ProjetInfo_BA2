@@ -110,6 +110,9 @@ public class Tips extends Pane {
         }
         else if(isOnShow(p)){
             if(itShow == 3){
+                for(int i = 0;i < 8;i++){
+                    notSeen[i]=false;
+                }
                 drawing.getChildren().remove(this);
             }
             else {

@@ -28,7 +28,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     private transient Text lettreText;
 
 
-    private static double enemyVelocity = 12;
+    protected static double enemyVelocity = 12;
     private static double freezeDuration;
     private static double freezeStart;
     private static boolean frozen = false; //static car pour tt les ennemis en meme temps
@@ -41,7 +41,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
 
     //attributs venant des s-classe
     protected String enemyType;
-    private final double enemySpeed = 12;    // ne change jamais alors que enemyvelocity si
+    private double enemySpeed = 12;    // ne change jamais alors que enemyvelocity si
     protected double maxLifePoints;
     protected int reward;
     protected int enemyPower;     //cbdDeVieRetireraPlayerSiArriveaLaFin
@@ -115,7 +115,6 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     }
 
     private void die() {
-        Platform.runLater(() -> Game.getDrawing().getChildren().add(new Tips(2,new Point(20,250),Game.getDrawing())));
         alive = false;
     }
 

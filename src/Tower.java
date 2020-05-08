@@ -56,6 +56,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
 
     public void targetIsDead(Enemy enemi){
         numberOfKill += 1;
+        Platform.runLater(() -> Game.getDrawing().getChildren().add(new Tips(2,new Point(20,250),Game.getDrawing())));
         if(numberOfKill == this.getKillPower()){Platform.runLater(()->Game.getDrawing().getChildren().add(new Tips(4,new Point(20,250),Game.getDrawing())));}
     }
 

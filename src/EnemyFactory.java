@@ -109,15 +109,13 @@ public class EnemyFactory implements Runnable, Serializable {
                 for(Enemy e : word.getLettres()){
                     if (e instanceof BossEnemy){
                         Platform.runLater(()->Game.getDrawing().getChildren().add(new Tips(5,new Point(20,250),Game.getDrawing())));
-                        Thread.sleep(4000);
+                        Thread.sleep(7000);
                         Platform.runLater(()->Game.getDrawing().getChildren().add(new Tips(6,new Point(20,250),Game.getDrawing())));
-                        Thread.sleep(1000);
                     }
                     e.setAlive();
                 }
             }
             // le jeu est sauvé quand tous les élément de la wave sont sortis
-            //Thread.sleep(1000);
             Game.save();
 
             Platform.runLater(()->{Game.getDrawing().draw(new TemporaryText("Saving...",3000,new Point(790,170),20));});         // marche pas

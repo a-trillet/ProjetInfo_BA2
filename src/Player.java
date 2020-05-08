@@ -53,6 +53,7 @@ public class Player implements Serializable {
     }
 
 
+
     public int getLives() {
         return lifePoints;
     }
