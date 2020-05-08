@@ -159,6 +159,9 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     private void die() {
         Platform.runLater(() -> Game.getDrawing().getChildren().add(new Tips(2,new Point(20,250),Game.getDrawing())));
         alive = false;
+        if(this instanceof BossEnemy){
+            Game.win();
+        }
     }
 
     private void reachEndPoint(){

@@ -53,7 +53,7 @@ public class Tips extends Pane {
         if(notSeen[number]) {
             notSeen[number] = false;
             final ImageView selectedImage = new ImageView();
-            Image background = new Image("tipOfTheDay.jpg");
+            Image background = new Image("Images/tipOfTheDay.jpg");
             selectedImage.setImage(background);
             selectedImage.setFitHeight(160);
             selectedImage.setPreserveRatio(true);

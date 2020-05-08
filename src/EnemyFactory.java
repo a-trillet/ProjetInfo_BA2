@@ -26,6 +26,7 @@ public class EnemyFactory implements Runnable, Serializable {
             "Java Exception",
             "Indice out of bounds",
             "Not on FX application thread",
+            "Reflect Invocation target exception",
             "BOSS"
     };
     private static final String[] insaneWaves = {
@@ -113,8 +114,5 @@ public class EnemyFactory implements Runnable, Serializable {
         Thread thread = new Thread(this);
         thread.start();
     }
-
-
-
 
 }
