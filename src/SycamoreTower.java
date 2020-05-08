@@ -144,12 +144,13 @@ public class SycamoreTower extends  Tower {
     public int getKillPower(){
         int killPower = 5;
         killPower += (this.level-1)*5;
-        return 0;
+        return killPower;
     }
     public static int getNewCost(){
         return newUpgradeCosts[0];
     }
-    public static double getNewRange(){return newRanges[0];}
+    public static double getNewRange(){
+        return newRanges[0];}
     public static int getNewReloadTime(){return newReloadTime;}
     public static double getNewDamage(){return newDamages[0];}
 }

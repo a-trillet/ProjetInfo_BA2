@@ -52,10 +52,10 @@ public class PlayScreen{
         Button stackTowerButton = new Button("Stack tower");
         stackTowerButton.setOnMouseClicked(e-> {
             PlayScreen.towerType = "Stack Overflow tower";
-            price.setText(messPrix + StackTower.getNewCost());
-            drawing.creatingTowerSquare(StackTower.getNewRange());
             shop.getChildren().add(characButton);
             characButton.setOnMouseClicked(event-> inititalCharacteristics("Stack Overflow tower"));
+            price.setText(messPrix + StackTower.getNewCost());
+            drawing.creatingTowerSquare(StackTower.getNewRange());
         });
         stackTowerButton.setOnAction(e -> { if (Game.getPlayer().getGold() < StackTower.getNewCost()){msgError.setText(messError);}});
 
@@ -63,30 +63,30 @@ public class PlayScreen{
         Button massartTowerButton = new Button("Massart tower");
         massartTowerButton.setOnMouseClicked(e -> {
             PlayScreen.towerType="Massart tower" ;
-            price.setText(messPrix + MassartTower.getNewCost());
-            drawing.creatingTowerSquare(MassartTower.getNewRange());
             shop.getChildren().add(characButton);
             characButton.setOnMouseClicked(event-> inititalCharacteristics("Massart tower"));
+            price.setText(messPrix + MassartTower.getNewCost());
+            drawing.creatingTowerSquare(MassartTower.getNewRange());
         });
         massartTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < MassartTower.getNewCost()){msgError.setText(messError);}});
 
         Button rajTowerButton = new Button("Raj tower");
         rajTowerButton.setOnMouseClicked(e -> {
             PlayScreen.towerType="Raj tower" ;
-            price.setText(messPrix + RajTower.getNewCost());
-            drawing.creatingTowerSquare(RajTower.getNewRange());
             shop.getChildren().add(characButton);
             characButton.setOnMouseClicked(event-> inititalCharacteristics("Raj tower"));
+            price.setText(messPrix + RajTower.getNewCost());
+            drawing.creatingTowerSquare(RajTower.getNewRange());
         });
         rajTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < RajTower.getNewCost()){msgError.setText(messError);}});
 
         Button sycamoreTowerButton = new Button("Sycamore Tower");
         sycamoreTowerButton.setOnMouseClicked(( e-> {
             PlayScreen.towerType = "Sycamore tower" ;
+            shop.getChildren().add(characButton);
+            characButton.setOnMouseClicked(event-> inititalCharacteristics("Sycamore tower"));
             price.setText(messPrix + SycamoreTower.getNewCost());
             drawing.creatingTowerSquare(SycamoreTower.getNewRange());
-            shop.getChildren().add(characButton);
-            characButton.setOnMouseClicked(event-> inititalCharacteristics("Sycamore Tower"));
         }));
         sycamoreTowerButton.setOnAction(e -> {if (Game.getPlayer().getGold() < SycamoreTower.getNewCost()){msgError.setText(messError);}});
 

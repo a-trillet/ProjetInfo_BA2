@@ -66,7 +66,6 @@ public class InfoTower extends  Info {
                 reloadTime = SycamoreTower.getNewReloadTime();
                 range = SycamoreTower.getNewRange();
                 break;
-
         }
         String strType = towerType;
         String strDamage = "Damage : " + (int)damage;
