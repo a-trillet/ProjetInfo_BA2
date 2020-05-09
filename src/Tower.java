@@ -143,6 +143,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
     }
 
     public Node getTowerShape(){ return shape; }
+
     public void setTowerShape(){shape=null;}
 
 

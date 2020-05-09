@@ -87,7 +87,6 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     @Override
     public void run() {
 
-        System.out.println("X: "+ this.getCentre().getX()+"enemy object run");
         while (alive) {
             if (frozen && System.currentTimeMillis()> freezeStart + freezeDuration){  //unfreeeze
                 frozen = false;
