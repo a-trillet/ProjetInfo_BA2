@@ -246,5 +246,6 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     public static void setFreezeStart(double startTime){freezeStart = startTime;}
 
     public static void setEnemyVelocity(double velocity){enemyVelocity = velocity;}
+
     public boolean isOnTrack(){return isOnTrack;}
 }

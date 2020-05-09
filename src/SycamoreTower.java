@@ -79,7 +79,7 @@ public class SycamoreTower extends  Tower {
             e.printStackTrace();
         }
         while(active) {
-            if (targetEnemy == null || this.centre.distance(targetEnemy.getCentre()) > this.getRange() || !targetEnemy.isAlive() ) {
+            if (targetEnemy == null || this.centre.distance(targetEnemy.getCentre()) > this.getRange() || !targetEnemy.isOnTrack() ) {
                 targetEnemy = selectTarget();
             }
             if (powerActive){

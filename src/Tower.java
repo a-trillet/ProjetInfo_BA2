@@ -103,7 +103,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
             e.printStackTrace();
         }
         while(active) {                      //selectionne une nouvelle target ou continue à tier dessus
-            if (targetEnemy == null || this.centre.distance(targetEnemy.getCentre()) > this.getRange() || !targetEnemy.isAlive() ) { //vérifie si la cible est valide
+            if (targetEnemy == null || this.centre.distance(targetEnemy.getCentre()) > this.getRange() || !targetEnemy.isOnTrack() ) { //vérifie si la cible est valide
                 targetEnemy = selectTarget();
             }
             if (targetEnemy != null) {
