@@ -73,13 +73,13 @@ public class Tower implements MapClickable, Runnable, Serializable {
         }
     }
 
-    public void shoot(){                 //creer la balle
+    public void shoot(Point point){                 //creer la balle
         Tower t = this;
         double degats = this.getDamage();
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                Game.getDrawing().draw(new Bullet(degats,t,bulletRange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
+                Game.getDrawing().draw(new Bullet(degats,t,bulletRange,point,new Point(centre.getX(),centre.getY())));
             }
         });
     }
@@ -107,8 +107,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
                 targetEnemy = selectTarget();
             }
             if (targetEnemy != null) {
-                shoot();
-                System.out.println("shoot"+targetEnemy.getCentre().getY());
+                shoot(targetEnemy.getCentre());
                 try {
                         Thread.sleep(reloadTime);
 
@@ -191,7 +190,11 @@ public class Tower implements MapClickable, Runnable, Serializable {
         return price;
     }
 
-    public void sell(){active=false;}
+    public int sell(){
+        active=false;
+        Platform.runLater(()->Game.getDrawing().removeTower(this));
+        return getSellPrice();
+    }
 
     public int getKillPower(){
         return 0;
