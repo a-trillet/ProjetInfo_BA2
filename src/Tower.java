@@ -79,7 +79,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                Game.getDrawing().draw(new Bullet(degats,t,bulletRange,point,new Point(centre.getX(),centre.getY())));
+                Game.getDrawing().draw(new NormalBullet(degats,t,bulletRange,point,new Point(centre.getX(),centre.getY())));
             }
         });
     }
