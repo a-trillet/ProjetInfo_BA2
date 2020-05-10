@@ -18,6 +18,7 @@ public class TowerTest {
         tower.setActive();
         assertEquals(tower.active,true);
     }
+
     @Test
     public void testUpgrade(){
         Tower tower = new Tower(new Point(40,30));
