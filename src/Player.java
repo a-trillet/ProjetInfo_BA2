@@ -9,13 +9,13 @@ public class Player implements Serializable {
 
     private static final long serialVersionUID = 2L;
     private String name = "john";
-    private  int gold =300;
+    private  int gold =150;
     private  int lifePoints;
     private  ArrayList<Enemy> enemiesOnMap = new ArrayList<>();
     private  ArrayList<Tower> towerList = new ArrayList<>();
     private  int difficulty = 1;
-    private  final int[] startingLives = {20, 18, 16, 15};
-    private  final int startingGold = 300;
+    private  final int[] startingLives = {20, 18, 16, 14};
+    private  final int startingGold = 150;
     private  int wave = 0;
     private  transient EnemyFactory enemyFactory;
     private ArrayList<ArrayList<Point>> allRoutes;
@@ -80,9 +80,7 @@ public class Player implements Serializable {
     }
 
 
-    public int getLives() {
-        return lifePoints;
-    }
+    public int getLives() { return lifePoints; }
 
     public int getGold() {
         return gold;

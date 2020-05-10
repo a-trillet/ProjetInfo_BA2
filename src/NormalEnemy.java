@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class NormalEnemy extends Enemy  {
     private static double maxLife = 50;
-    private static int reward = 10;
+    private static int reward = 5;
     private static String type = "Normal enemy";
     private static int power = 1;
     private static int speed=15;
