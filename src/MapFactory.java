@@ -17,6 +17,7 @@ public class MapFactory  {
             {550,50}
     }
     };
+
     private int[][][] normalTrack= {{
             {400,74},
             {700,74},
@@ -28,6 +29,7 @@ public class MapFactory  {
             {50,74}
     }
     };
+
     private int[][][] hardTrack= {{
             {400,74},
             {600,74},
@@ -42,6 +44,7 @@ public class MapFactory  {
             {50,300}
     }
     };
+
     private int[][][] insaneTrack= {{
             {400,74},
             {400,100},
