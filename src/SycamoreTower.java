@@ -124,7 +124,7 @@ public class SycamoreTower extends  Tower {
 
     @Override
     public int getKillPower(){
-        int killPower = 5;
+        int killPower = 10;
         killPower += (this.level-1)*5;
         return killPower;
     }
