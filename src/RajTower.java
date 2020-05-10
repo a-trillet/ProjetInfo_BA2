@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class RajTower extends Tower{
     private static int[] newUpgradeCosts = {50,70,100,0};
     private static double[] newRanges = {100,150,200};
-    private static double[] newDamages = {15,20, 30};
+    private static double[] newDamages = {25,35, 50};
     private static int newReloadTime = 1500;
     private static int newBulletRange = 15;
     private static String type = "Raj tower";

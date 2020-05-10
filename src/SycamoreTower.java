@@ -7,7 +7,7 @@ public class SycamoreTower extends  Tower {
 
     private static int[] newUpgradeCosts = {50,70,100,0};
     private static double[] newRanges = {90,110,130};
-    private static double[] newDamages = {15,20, 25};
+    private static double[] newDamages = {20,25, 30};
     private static int newReloadTime = 750;
     private static int newBulletRange = 13; //parfois loupe son coup mais jsp si ça correspond bien
     private static String type = "Sycamore tower";
