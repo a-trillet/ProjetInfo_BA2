@@ -26,6 +26,7 @@ public class EnemyFactory implements Runnable, Serializable {
             "Java Exception",
             "Indice out of bounds",
             "Not on FX application thread",
+            "Reflect Invocation target exception",
             "BOSS"
     };
     private static final String[] insaneWaves = {
@@ -53,15 +54,16 @@ public class EnemyFactory implements Runnable, Serializable {
                         Thread.sleep(7000);
                         Platform.runLater(()->Game.getDrawing().getChildren().add(new Tips(6,new Point(20,250),Game.getDrawing())));
                     }
+                    Game.getPlayer().addEnemy(e);
                     e.setAlive();
                 }
             }
             // le jeu est sauvé quand tous les élément de la wave sont sortis
+            Thread.sleep(500);
             Game.save();
 
-            Platform.runLater(()->{Game.getDrawing().draw(new TemporaryText("Saving...",3000,new Point(790,170),20));});         // marche pas
-
-            Thread.sleep(10000);   // faire que l'on puisse cliquer sur next wave que quand la wave est suffisament loin
+            Platform.runLater(()->{Game.getDrawing().draw(new TemporaryText("Saving...",3000,new Point(790,170),20));});
+            Thread.sleep(8000);   // faire que l'on puisse cliquer sur next wave que quand la wave est suffisament loin
             waveInProgress = false;
             System.out.println("fin de vague");
 
@@ -105,7 +107,6 @@ public class EnemyFactory implements Runnable, Serializable {
             }
             else{ System.out.println("A wave is already in progress or it is the last one");}
         }
-        else {Game.win();}
 
     }
 
@@ -113,8 +114,5 @@ public class EnemyFactory implements Runnable, Serializable {
         Thread thread = new Thread(this);
         thread.start();
     }
-
-
-
 
 }

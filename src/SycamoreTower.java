@@ -27,7 +27,7 @@ public class SycamoreTower extends  Tower {
         this.towerType = type;
         this.powerType = newPowerType;
         this.powerDurations = newPowerDurations;
-        color = newColor;
+        this.color = newColor;
     }
 
     private Enemy selectSecondTarget(){   //Cette fonction renvoit l'ennemi, en range, le plus proche du centre de la tour, !! et qui n'est pas targetEnnemy
@@ -52,23 +52,6 @@ public class SycamoreTower extends  Tower {
         numberOfKill = 0;
     }
 
-    @Override
-    public void shoot(){
-        Tower t = this;
-        double degats = this.getDamage();
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-
-                Game.getDrawing().draw(new Bullet(degats,t,bulletRange,targetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
-                if (powerActive){
-                    if (secondTargetEnemy != null){
-                        Game.getDrawing().draw(new Bullet(degats,t,bulletRange,secondTargetEnemy.getCentre(),new Point(centre.getX(),centre.getY())));
-                    }
-                }
-            }
-        });
-    }
 
     @Override
     public void run() {
@@ -78,7 +61,7 @@ public class SycamoreTower extends  Tower {
             e.printStackTrace();
         }
         while(active) {
-            if (targetEnemy == null || this.centre.distance(targetEnemy.getCentre()) > this.getRange() || !targetEnemy.isAlive() ) {
+            if (targetEnemy == null || this.centre.distance(targetEnemy.getCentre()) > this.getRange() || !targetEnemy.isOnTrack() ) {
                 targetEnemy = selectTarget();
             }
             if (powerActive){
@@ -86,12 +69,13 @@ public class SycamoreTower extends  Tower {
                     if (secondTargetEnemy == null || this.centre.distance(secondTargetEnemy.getCentre()) > this.getRange() || !secondTargetEnemy.isAlive() ) {
                         secondTargetEnemy = selectSecondTarget();
                     }
+                    if (secondTargetEnemy != null){shoot(secondTargetEnemy.getCentre());}
                 }
                 else{powerActive = false;}
             }
 
             if (targetEnemy != null) {
-                shoot();
+                shoot(targetEnemy.getCentre());
                 System.out.println("shoot"+targetEnemy.getCentre().getY());
                 try {
                         Thread.sleep(reloadTime);

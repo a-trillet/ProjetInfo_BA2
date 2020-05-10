@@ -110,7 +110,7 @@ public class MapClickListener implements EventHandler<MouseEvent> {
                     ((Tower)currentSelection).powerActivation();
                 }
                 else{
-                    msgErrPower.setText("Kill "+((Tower) currentSelection).getKillPower()+" ennemies to active "+((Tower) currentSelection).getPowerType());
+                    msgErrPower.setText("Kill "+((Tower) currentSelection).getKillPower()+" ennemies to activate "+((Tower) currentSelection).getPowerType());
                     GridPane.setConstraints(msgErrPower,0,7);
                     infoBox.getChildren().add(msgErrPower);
                 }

@@ -11,7 +11,8 @@ public class Word implements Runnable{
         }
         else {
             for (String lettre : s.split("")) {
-                Enemy enemy = new NormalEnemy(route, new Point(origin.getX(), origin.getY()), lettre); //faire fct qui crée un type d'ennmi selon la lettre
+                //les enmemis sont créés avec une origine décallée pour former un mot
+                Enemy enemy = new NormalEnemy(route, new Point(origin.getX(), origin.getY()), lettre);
                 origin.setX(origin.getX() + 10);
                 lettres.add(enemy);
             }

@@ -9,7 +9,7 @@ public class Player implements Serializable {
 
     private static final long serialVersionUID = 2L;
     private String name = "john";
-    private  int gold =700;
+    private  int gold =300;
     private  int lifePoints;
     private  ArrayList<Enemy> enemiesOnMap = new ArrayList<>();
     private  ArrayList<Tower> towerList = new ArrayList<>();
@@ -45,9 +45,8 @@ public class Player implements Serializable {
 
     public void removeTower(Tower tower){
         towerList.remove(tower);
-        gold+=tower.getSellPrice();
-        tower.sell();
-        Platform.runLater(()->Game.getDrawing().removeTower(tower));
+        int sellPrice=tower.sell();
+        this.addGold(sellPrice);
     }
 
     public void decreaseLife(int dmg) {

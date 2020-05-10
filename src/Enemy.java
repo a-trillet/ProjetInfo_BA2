@@ -34,6 +34,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     protected double maxLifePoints;
     protected int reward;
     protected int enemyPower;
+    private boolean isOnTrack=false;
 
 
     public Enemy(ArrayList<Point> trackPoints,String lettre ,Point point, double life, int reward){
@@ -58,6 +59,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     }
 
     public void move(){
+        //se déplace dans la direction du prochain point de la liste trackPoint, et change de Point quand la distance entre l'ennemi et le point est petite
         if (origin.distance(trackPoints.get(nextPoint)) > enemyVelocity/15+2) {
             double dist = trackPoints.get(nextPoint).distance(this.origin);
             int deltaX = (int) (this.trackPoints.get(nextPoint).getX() - origin.getX());
@@ -71,7 +73,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
         else {
             origin.setX(trackPoints.get(nextPoint).getX());
             origin.setY(trackPoints.get(nextPoint).getY());  //nextpoint c'est un int qui definit l'endroitde la liste ou l'element  est un point qu 'il va atteindre
-            if (nextPoint==0){Game.getPlayer().addEnemy(this);}
+            if (nextPoint==0){isOnTrack=true;}
             if (trackPoints.size() - 1 > nextPoint) {
                 nextPoint++;
                 angle = Math.atan2((trackPoints.get(nextPoint).getY() - trackPoints.get(nextPoint - 1).getY()), (trackPoints.get(nextPoint).getX() - trackPoints.get(nextPoint - 1).getX()));
@@ -84,12 +86,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
 
     @Override
     public void run() {
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("X: "+ this.getCentre().getX()+"enemy object run");
+
         while (alive) {
             if (frozen && System.currentTimeMillis()> freezeStart + freezeDuration){  //unfreeeze
                 frozen = false;
@@ -125,15 +122,18 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
             if (this instanceof BossEnemy){
                 aInputStream.defaultReadObject();
                 ((BossEnemy) this).selectedImage = new ImageView();
-                ((BossEnemy)this).image = new Image(BossEnemy.class.getResourceAsStream("Github.png"));
+                enemyVelocity = 12;
+                frozen = false;
+                ((BossEnemy)this).image = new Image(BossEnemy.class.getResourceAsStream("Images/Github.png"));
                 ((BossEnemy)this).createImage();
-                Game.getDrawing().draw(this);
                 t = new Thread(this);
                 this.setAlive();
             }
             else {
                 aInputStream.defaultReadObject();
                 createLettre(lettre);
+                enemyVelocity = 12;
+                frozen = false;
                 t = new Thread(this);
                 this.setAlive();
             }
@@ -159,6 +159,10 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     private void die() {
         Platform.runLater(() -> Game.getDrawing().getChildren().add(new Tips(2,new Point(20,250),Game.getDrawing())));
         alive = false;
+        isOnTrack = false;
+        if(this instanceof BossEnemy){
+            Game.win();
+        }
     }
 
     private void reachEndPoint(){
@@ -241,4 +245,6 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     public static void setFreezeStart(double startTime){freezeStart = startTime;}
 
     public static void setEnemyVelocity(double velocity){enemyVelocity = velocity;}
+
+    public boolean isOnTrack(){return isOnTrack;}
 }

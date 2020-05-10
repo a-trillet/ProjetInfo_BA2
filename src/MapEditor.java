@@ -63,11 +63,12 @@ public class MapEditor extends BorderPane {
             }});
 
         drawing.setOnMouseClicked(e->{
-            if (drawing.isOn(e)){
+            if (e.getX()<920 && e.getY()>0 &&e.getY()<500){
             Point  p = new Point(e.getX(),e.getY());
             pathSize += p.distance(route.get(route.size()-1));
             route.add(p);
-            tip.setText("On conseil entre .. et .. de distance de chemin\nDistance: "+round(pathSize));}
+            tip.setText("On conseil entre .. et .. de distance de chemin\nDistance: "+round(pathSize));
+            System.out.println(p.getY());}
         });
     }
 }

@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -69,6 +70,18 @@ public class MassartTower extends Tower {
         imageView.setX(centre.getX()-30/2);
         imageView.setY(centre.getY()-30/2);
         shape=imageView;
+    }
+
+    @Override
+    public void shoot(Point point){
+        Tower t = this;
+        double degats = this.getDamage();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Game.getDrawing().draw(new ZoneBullet(degats,t,bulletRange,point,new Point(centre.getX(),centre.getY())));
+            }
+        });
     }
 
     public static int getNewCost(){

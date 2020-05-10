@@ -39,7 +39,7 @@ public class Game extends Application {
         grid.setPrefSize(641,402);
 
         //background
-        Image image1 = new Image(Game.class.getResourceAsStream("ideaFinal.jpg"));
+        Image image1 = new Image(Game.class.getResourceAsStream("Images/ideaFinal.jpg"));
         BackgroundImage backgroundimage = new BackgroundImage(image1, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundimage);
         stackPane.setBackground(background);
