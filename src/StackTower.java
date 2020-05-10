@@ -52,7 +52,7 @@ public class StackTower extends Tower {
                 targetEnemy = selectTarget();
             }
             if (targetEnemy != null) {
-                shoot();
+                shoot(targetEnemy.getCentre());
                 System.out.println("shoot"+targetEnemy.getCentre().getY());
                 try {
                     if (powerActive){
