@@ -10,34 +10,34 @@ public class Tips extends Pane {
     private Drawing drawing;
     private String[] showStrings={"Mais arrête!!!\n Tu ne penses quand même pas pouvoir venir\n à bout de ce projet sans mon aide",
             "Encore un étudiant qui se croit plus malin\n que les autres,... ",
-            "Si tu clique encore une fois,\n je m'en irai pour toujours,\n je serai ... MORT!!! "};
+            "Si tu cliques encore une fois,\n je m'en irai pour toujours,\n je serai ... MORT!!! "};
     private String[][] textStrings = {
             {
-                "Bienvenue cher étudiant , \n Vous vous appretez à passer des heures sur ce projet,\n Il convient donc de faire connaissance.",
+                "Bienvenue cher étudiant , \n Vous vous apprêtez à passer des heures sur ce projet,\n Il convient donc de faire connaissance.",
                 "Je suis Tip of the day, \nUn message automatique qui vous guidera le long de ce projet" ,
                 "J'ai cru comprendre que vous deviez faire un tower defence, right ?\nJe vois que vous commencez avec quelques skillPoints,\nVous devriez les utiliser pour construire votre première tourelle\nElle vous aidera a résoudre les bugs de votre code",
                 "La 'Massart Tower en coute justement seulement 150,\n vous pourrez même l'améliorer pour 50 de plus,\n Par contre, elle est un peu lente",
             },
             {
-                "Parfait! Vous vous débrouillez bien pour un étudiant,\nIl est temps de lancer votre début de code\nIl suffit d'appuyer sur le gros bouton RUN"
+                "Parfait! Vous vous débrouillez bien pour un étudiant,\nIl est temps de tester votre début de code\nIl suffit d'appuyer sur le gros bouton RUN"
             },
 
             {
                 "Regardez, résoudre une lettre de ce bug vous à rapporté des SkillPoints,\n Par contre si un bug atteint la sortie, vous perdrez en motivation\nRésolvez en plus et vous pourrez vous offrir l'aide d'autres tours",
-                 "L'indien est très fort mais coute très cher en comprehension,\nSycamore est capable de tirer deux balles en même temps,\nStackOverflow tire en rafale d'inforamtions, l'efficacité accesible à tous "
+                 "L'indien est très fort mais coute très cher en compréhension,\nSycamore est capable de tirer deux balles en même temps,\nStackOverflow tire en rafale d'inforamtions, l'efficacité accesible à tous "
             },
             {
                 "Ho non, un bug n'a pas été résolu... \nVous commencer à perdre patience",
-                 "Avec une motivation de 0, 90 pourcent des étudiants Rage-Quit le projet"
+                 "Avec une motivation de 0, 90 pourcent des étudiants abandonne leur projet"
             },
             {
-                "Le pouvoir d'une de vos tour est chargé\nCliquez dessus pour afficher ses infos et activer son pouvoir spécial ",
-                 "Stack Overflow : tir en rafale\nRaj, l'indien: peut lancer une tsar bomba et atomiser tout le monde \nSycamore tower: tire deux balles en même temps\nMassart tower: Ralentis tous les bugs"
+                "Le pouvoir d'une de vos tours est chargé\nCliquez dessus pour afficher ses infos et activer son pouvoir spécial ",
+                 "Stack Overflow : tir en rafale\nRaj, l'indien: peut atomiser tous les ennemis avec sa TSAR Bomba \nSycamore tower: tire deux balles en même temps\nMassart tower: Ralentis les bugs"
             },
             {
-                "Incroyable, votre code marche parfaitement\nHonnêtement, jamais je ne l'aurais cru\n avec vos 200 SkillPoints de débutant\nSnif, vous allez me manquer..."
+                "Incroyable, votre code marche parfaitement\nHonnêtement, je n'y croyais pas du tout\navec vos 200SkillPoints de débutant\nSnif, vous allez me manquer..."
             },
-            {"ATTENTION ce n'est pas fini,\nil faut encore push tout ca sur Github..."}
+            {"ATTENTION ce n'est pas fini,\nil faut encore push le projet sur Github..."}
 
     };
     private int itShow = 0;
