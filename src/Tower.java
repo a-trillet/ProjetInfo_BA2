@@ -73,7 +73,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
         }
     }
 
-    public void shoot(Point point){                 //creer la balle
+    public void shoot(Point point){                 //créer la balle
         Tower t = this;
         double degats = this.getDamage();
         Platform.runLater(new Runnable() {
