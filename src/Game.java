@@ -101,7 +101,7 @@ public class Game extends Application {
             player = (Player) ois.readObject();
 
             System.out.println("Object loaded: " + player.getName());
-            for(Updatable u: player.getEnemiesOnMap()){System.out.println(u.getShape());}
+
 
         } catch (ClassNotFoundException | IOException e1) {
             e1.printStackTrace();
