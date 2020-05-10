@@ -16,7 +16,7 @@ public class Tips extends Pane {
                 "Bienvenue cher étudiant , \n Vous vous apprêtez à passer des heures sur ce projet,\n Il convient donc de faire connaissance.",
                 "Je suis Tip of the day, \nUn message automatique qui vous guidera le long de ce projet" ,
                 "J'ai cru comprendre que vous deviez faire un tower defence, right ?\nJe vois que vous commencez avec quelques skillPoints,\nVous devriez les utiliser pour construire votre première tourelle\nElle vous aidera a résoudre les bugs de votre code",
-                "La 'Massart Tower en coute justement seulement 150,\n vous pourrez même l'améliorer pour 50 de plus,\n Par contre, elle est un peu lente",
+                "La 'Massart Tower en coute justement seulement 50,\n vous pourrez même l'améliorer pour 50 de plus,\n Par contre, elle est un peu lente",
             },
             {
                 "Parfait! Vous vous débrouillez bien pour un étudiant,\nIl est temps de tester votre début de code\nIl suffit d'appuyer sur le gros bouton RUN"
@@ -49,7 +49,7 @@ public class Tips extends Pane {
     public Tips(int number,Point point,Drawing d){
         super();
         drawing=d;
-        this.relocate(point.getX(),point.getY());
+        this.relocate(point.getX(),350);
         if(notSeen[number]) {
             notSeen[number] = false;
             final ImageView selectedImage = new ImageView();

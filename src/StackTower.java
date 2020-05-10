@@ -6,9 +6,9 @@ public class StackTower extends Tower {
 
 
     private static int[] newUpgradeCosts = {50,70,100,0};
-    private static double[] newRanges = {100,150,200};
+    private static double[] newRanges = {100,120,140};
     private static double[] newDamages = {15,20, 30};
-    private static int newReloadTime = 750;
+    private static int newReloadTime = 650;
     private static int newBulletRange = 10;
     private static String type = "Stack Overflow tower";
     private static String newPowerType = "Burst Fire";
