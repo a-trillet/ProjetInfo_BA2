@@ -15,7 +15,7 @@ public class Player implements Serializable {
     private  ArrayList<Tower> towerList = new ArrayList<>();
     private  int difficulty = 1;
     private  final int[] startingLives = {20, 18, 16, 14};
-    private  final int startingGold = 150;
+    private  final int startingGold = 1000;
     private  int wave = 0;
     private  transient EnemyFactory enemyFactory;
     private ArrayList<ArrayList<Point>> allRoutes;
