@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 
 public class RajTower extends Tower{
-    private static int[] newUpgradeCosts = {50,70,100,0};
+    private static int[] newUpgradeCosts = {100,120,150,0};
     private static double[] newRanges = {100,150,200};
     private static double[] newDamages = {25,35, 50};
     private static int newReloadTime = 1500;
