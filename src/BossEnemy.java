@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import java.util.ArrayList;
 
 public class BossEnemy extends Enemy {
-    private static double maxLife = 500;
+    private static double maxLife[] = {500,700,1000,500};
     private static int reward = 500;
     private static String type = "Github BOSS";
     private static int speed = 10;
@@ -15,7 +15,7 @@ public class BossEnemy extends Enemy {
     private static Image image = new Image(BossEnemy.class.getResourceAsStream("Images/Github.png"));
 
     public BossEnemy(ArrayList<Point> trackPoints, Point origin) {
-        super(trackPoints,origin, maxLife, reward,speed,power,type);
+        super(trackPoints,origin, maxLife[Game.getPlayer().getDifficulty()-1], reward,speed,power,type);
         setShape();
 
     }
