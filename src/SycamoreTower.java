@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 
 public class SycamoreTower extends  Tower {
 
-    private static int[] newUpgradeCosts = {50,70,100,0};
+    private static int[] newUpgradeCosts = {70,100,120};
     private static double[] newRanges = {90,110,130};
     private static double[] newDamages = {20,25, 30};
     private static int newReloadTime = 750;

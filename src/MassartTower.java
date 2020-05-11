@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 
 public class MassartTower extends Tower {
 
-    private static int[] newUpgradeCosts = {50,70,100,0};
+    private static int[] newUpgradeCosts = {50,70,100};
     private static double[] newRanges = {120,140,160};
     private static double[] newDamages = {10,15, 20};
     private static int newReloadTime = 2000;
