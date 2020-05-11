@@ -20,24 +20,24 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     private static double freezeStart;
     private static boolean frozen = false;
     private Point origin;
-    protected String enemyType;
+    private String enemyType;
     private double enemySpeed;
     private double maxLifePoints;
     private int reward;
-    protected int enemyPower;
+    private int enemyPower;
     private boolean isOnTrack=false;
-    protected transient Node shape;
-
     protected String lettre;
 
 
-    public Enemy(ArrayList<Point> trackPoints,Point point, double life, int reward,int speed){
+    public Enemy(ArrayList<Point> trackPoints,Point point, double life, int reward,int speed, int power, String enemyType){
         this.enemySpeed=speed;
         this.trackPoints=trackPoints;
         this.origin=new Point(point.getX(),point.getY());
         this.lifePoints = life;
         this.maxLifePoints = life;
         this.reward = reward;
+        this.enemyPower=power;
+        this.enemyType=enemyType;
         t = new Thread(this);
         angle=Math.atan2((trackPoints.get(0).getY()-origin.getY()),(trackPoints.get(0).getX()-origin.getX()));
     }
@@ -156,7 +156,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
 
     @Override
     public Node getShape() {
-        return shape;
+        return null;
     }
 
     public double getSpeed() {
