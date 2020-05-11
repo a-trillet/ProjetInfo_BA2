@@ -73,7 +73,7 @@ public class Tower implements MapClickable, Runnable, Serializable {
         }
     }
 
-    public void shoot(Point point){                 //creer la balle
+    public void shoot(Point point){                 //créer la balle
         Tower t = this;
         double degats = this.getDamage();
         Platform.runLater(new Runnable() {
@@ -130,6 +130,12 @@ public class Tower implements MapClickable, Runnable, Serializable {
     public void setActive(){
         active=true;
         thread.start();
+    }
+
+    public int sell(){
+        active=false;
+        Platform.runLater(()->Game.getDrawing().removeTower(this));
+        return getSellPrice();
     }
 
     @Override
@@ -189,12 +195,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
             price+=upgradeCosts[i]*2/3;
         }
         return price;
-    }
-
-    public int sell(){
-        active=false;
-        Platform.runLater(()->Game.getDrawing().removeTower(this));
-        return getSellPrice();
     }
 
     public int getKillPower(){

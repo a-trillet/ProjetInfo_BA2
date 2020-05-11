@@ -1,11 +1,5 @@
 import javafx.application.Platform;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -14,48 +8,38 @@ import java.util.ArrayList;
 
 public class Enemy implements Killable, MapClickable, Updatable, Runnable, Serializable {
     private static final long serialVersionUID = 1L;
-
     private ArrayList<Point> trackPoints;
     private int nextPoint=0;
-    private double angle;
+    protected double angle;
     private boolean alive = false;
     private double lifePoints;
     private ArrayList<Tower> targetingTowers = new ArrayList<>();
-    protected transient Thread t;
-    private String lettre;
-    private transient Text lettreText;
+    private transient Thread t;
     private static double enemyVelocity = 12;//enemivelocity change alors que speed non
     private static double freezeDuration;
     private static double freezeStart;
     private static boolean frozen = false;
-    protected Point origin;
-    protected String enemyType;
-    private double enemySpeed = 12;
-    protected double maxLifePoints;
-    protected int reward;
-    protected int enemyPower;
+    private Point origin;
+    private String enemyType;
+    private double enemySpeed;
+    private double maxLifePoints;
+    private int reward;
+    private int enemyPower;
     private boolean isOnTrack=false;
+    protected String lettre;
 
 
-    public Enemy(ArrayList<Point> trackPoints,String lettre ,Point point, double life, int reward){
-        this.trackPoints=trackPoints;   //liste de points par lesquels l'ennemi passe (point de changement de direction)
-        origin=new Point(point.getX(),point.getY());
-        this.lifePoints = life;
-        this.maxLifePoints = life;
-        this.reward = reward;
-        t = new Thread(this);
-        this.lettre=lettre;
-        createLettre(lettre);
-        angle=Math.atan2((trackPoints.get(nextPoint).getY()-origin.getY()),(trackPoints.get(nextPoint).getX()-origin.getX()));
-    }
-    public Enemy(ArrayList<Point> trackPoints,Point point, double life, int reward){
+    public Enemy(ArrayList<Point> trackPoints,Point point, double life, int reward,int speed, int power, String enemyType){
+        this.enemySpeed=speed;
         this.trackPoints=trackPoints;
-        origin=new Point(point.getX(),point.getY());
+        this.origin=new Point(point.getX(),point.getY());
         this.lifePoints = life;
         this.maxLifePoints = life;
         this.reward = reward;
+        this.enemyPower=power;
+        this.enemyType=enemyType;
         t = new Thread(this);
-        angle=Math.atan2((trackPoints.get(nextPoint).getY()-origin.getY()),(trackPoints.get(nextPoint).getX()-origin.getX()));
+        angle=Math.atan2((trackPoints.get(0).getY()-origin.getY()),(trackPoints.get(0).getX()-origin.getX()));
     }
 
     public void move(){
@@ -101,13 +85,6 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
         }
     }
 
-    private void createLettre(String lettre){ //créer un Node à partir du string de la lettre
-        lettreText=new Text(lettre);
-        lettreText.setX(origin.getX()+7);
-        lettreText.setY(origin.getY()+7);
-        lettreText.setFill(new Color(1,0,0,1));
-        lettreText.setFont(new Font(14));
-    }
 
     @Override
     public void hurt(Bullet bullet) {
@@ -119,24 +96,12 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
 
     private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException{
         if(Game.isOnGame) {
-            if (this instanceof BossEnemy){
                 aInputStream.defaultReadObject();
-                ((BossEnemy) this).selectedImage = new ImageView();
-                enemyVelocity = 12;
-                frozen = false;
-                ((BossEnemy)this).image = new Image(BossEnemy.class.getResourceAsStream("Images/Github.png"));
-                ((BossEnemy)this).createImage();
-                t = new Thread(this);
-                this.setAlive();
-            }
-            else {
-                aInputStream.defaultReadObject();
-                createLettre(lettre);
+                setShape();
                 enemyVelocity = 12;
                 frozen = false;
                 t = new Thread(this);
                 this.setAlive();
-            }
         }
         else{aInputStream.defaultReadObject();}
     }
@@ -171,11 +136,6 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     }
 
     public void update(){
-        lettreText.setX(origin.getX()+7);
-        lettreText.setY(origin.getY()+7);
-        lettreText.setRotate(angle*360/2/Math.PI);
-        if (lifePoints<=maxLifePoints/2){lettreText.setFill(Color.web("FF7B2C"));}
-
     }
 
     public void decreaseLife(double dmg){
@@ -196,7 +156,7 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
 
     @Override
     public Node getShape() {
-        return lettreText;
+        return null;
     }
 
     public double getSpeed() {
@@ -247,4 +207,8 @@ public class Enemy implements Killable, MapClickable, Updatable, Runnable, Seria
     public static void setEnemyVelocity(double velocity){enemyVelocity = velocity;}
 
     public boolean isOnTrack(){return isOnTrack;}
+
+    public void setShape(){}
+
+
 }

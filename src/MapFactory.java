@@ -17,6 +17,7 @@ public class MapFactory  {
             {550,50}
     }
     };
+
     private int[][][] normalTrack= {{
             {400,74},
             {700,74},
@@ -28,6 +29,7 @@ public class MapFactory  {
             {50,74}
     }
     };
+
     private int[][][] hardTrack= {{
             {400,74},
             {600,74},
@@ -42,6 +44,7 @@ public class MapFactory  {
             {50,300}
     }
     };
+
     private int[][][] insaneTrack= {{
             {400,74},
             {400,100},
@@ -86,7 +89,7 @@ public class MapFactory  {
                 double y_A = allRoutes.get(i).get(j).getY();
                 double x_B = allRoutes.get(i).get(j + 1).getX();
                 double y_B = allRoutes.get(i).get(j + 1).getY();
-                if (((x_C < x_A && x_C < x_B) || (x_C > x_A && x_C > x_B)) && ((y_C < y_A && y_C < y_B) || (y_C > y_A && y_C > y_B))) {       //le point C ne se trouve pas entre les points A et B
+                if (((x_C <= x_A && x_C <= x_B) || (x_C >= x_A && x_C >= x_B)) && ((y_C <= y_A && y_C <= y_B) || (y_C >= y_A && y_C >= y_B))) {       //le point C ne se trouve pas entre les points A et B
                     double distAC = Math.pow((Math.pow((x_C - x_A), 2) + Math.pow((y_C - y_A), 2)), 0.5);
                     double distBC = Math.pow((Math.pow((x_C - x_B), 2) + Math.pow((y_C - y_B), 2)), 0.5);
                     if (distAC <= distMinimale || distBC <= distMinimale) {

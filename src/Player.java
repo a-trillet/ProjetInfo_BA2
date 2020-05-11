@@ -113,4 +113,8 @@ public class Player implements Serializable {
     public void setDifficulty(int diff) {
         difficulty = diff;
     }
+
+    public int getDifficulty(){
+        return difficulty;
+    }
 }

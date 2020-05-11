@@ -11,7 +11,6 @@ public class MapEditor extends BorderPane {
 
     private Button addTrack = new Button("Begin"+" "+"Track");
     private Button endTrack=new Button("End"+" "+"Track");
-    private Button clear = new Button("Reset");
     private Button endMapEditor=new Button("Confirm Map");
     private ArrayList<ArrayList<Point>> allRoutes=new ArrayList<>();
     private ArrayList<Point>route =new ArrayList<>();
@@ -39,10 +38,6 @@ public class MapEditor extends BorderPane {
 
 
         // listenners
-        clear.setOnMouseClicked(e->{
-            allRoutes.clear();
-        });
-
         endMapEditor.setOnMouseClicked(e->{
             new MapFactory(allRoutes);
             window.setScene(paramScene);

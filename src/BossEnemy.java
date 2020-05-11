@@ -6,40 +6,34 @@ import javafx.scene.image.ImageView;
 import java.util.ArrayList;
 
 public class BossEnemy extends Enemy {
-    private static final long serialVersionUID = 1L;
-    private static double maxLife = 500;
+    private static double maxLife[] = {500,700,1000,500};
     private static int reward = 500;
     private static String type = "Github BOSS";
-    private static int speed = 13;
+    private static int speed = 10;
     private static int power = 100;
-    private static boolean loaded = false;
-    protected transient ImageView selectedImage = new ImageView();
-
-    protected transient Image image = new Image(BossEnemy.class.getResourceAsStream("Images/Github.png"));
+    private transient ImageView selectedImage;
+    private static Image image = new Image(BossEnemy.class.getResourceAsStream("Images/Github.png"));
 
     public BossEnemy(ArrayList<Point> trackPoints, Point origin) {
-        super(trackPoints,origin, maxLife, reward);
-        this.enemyType = type;
-        this.enemyPower = power;
-        createImage();
+        super(trackPoints,origin, maxLife[Game.getPlayer().getDifficulty()-1], reward,speed,power,type);
+        setShape();
 
     }
-    protected void createImage(){
+    @Override
+    public void setShape(){
+        selectedImage=new ImageView();
         selectedImage.setImage(image);
         selectedImage.setFitHeight(50);
         selectedImage.setPreserveRatio(true);
-        selectedImage.relocate(origin.getX(),origin.getY());
-    }
+        selectedImage.relocate(this.getCentre().getX(),this.getCentre().getY());
+            }
     public void update(){
         try {
-            selectedImage.relocate(origin.getX()-25,origin.getY()-25);
+            selectedImage.relocate(this.getCentre().getX()-25,this.getCentre().getY()-25);
         }
         catch (Exception e){e.printStackTrace();}
         }
-    public Node getShape() {
-        return selectedImage;
-    }
     
-
+    public Node getShape(){return selectedImage;}
 
 }
