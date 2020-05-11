@@ -40,11 +40,10 @@ public class MassartTower extends Tower {
         Enemy.setFreezeDuration(powerDurations[level-1]);
         Enemy.setFreezeStart(powerStartTime);
 
-
     }
     @Override
     public int getKillPower(){
-        int killPower = 3;
+        int killPower = 7;
         killPower += (this.getLevel()-1)*3;
         return killPower;
     }

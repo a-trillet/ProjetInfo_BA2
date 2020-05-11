@@ -25,7 +25,7 @@ public class MapEditor extends BorderPane {
         this.setBackground(background);
 
         // tuto dans mapEditor
-        Tips tip = new Tips("On conseil entre .. et .. de distance de chemin\nDistance: "+round(pathSize),new Point(600,80),drawing);
+        Tips tip = new Tips("On conseil entre 400 et 500 de distance de chemin\nDistance: "+round(pathSize),new Point(600,80),drawing);
         this.getChildren().add(tip);
 
 
@@ -62,7 +62,7 @@ public class MapEditor extends BorderPane {
             Point  p = new Point(e.getX(),e.getY());
             pathSize += p.distance(route.get(route.size()-1));
             route.add(p);
-            tip.setText("On conseil entre .. et .. de distance de chemin\nDistance: "+round(pathSize));
+            tip.setText("On conseil entre 400 et 500 de distance de chemin\nDistance: "+round(pathSize));
             System.out.println(p.getY());}
         });
     }
