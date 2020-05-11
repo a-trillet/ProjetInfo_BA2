@@ -37,7 +37,6 @@ public class NormalEnemy extends Enemy  {
     }
 
     public Node getShape(){
-        System.out.println("yy");
         return lettreText;
     }
 }
