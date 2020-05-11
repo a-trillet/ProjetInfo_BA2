@@ -6,7 +6,6 @@ import javafx.scene.image.ImageView;
 import java.util.ArrayList;
 
 public class BossEnemy extends Enemy {
-    private static final long serialVersionUID = 1L;
     private static double maxLife = 500;
     private static int reward = 500;
     private static String type = "Github BOSS";

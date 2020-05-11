@@ -132,6 +132,12 @@ public class Tower implements MapClickable, Runnable, Serializable {
         thread.start();
     }
 
+    public int sell(){
+        active=false;
+        Platform.runLater(()->Game.getDrawing().removeTower(this));
+        return getSellPrice();
+    }
+
     @Override
     public Point getCentre(){
         return centre;
@@ -189,12 +195,6 @@ public class Tower implements MapClickable, Runnable, Serializable {
             price+=upgradeCosts[i]*2/3;
         }
         return price;
-    }
-
-    public int sell(){
-        active=false;
-        Platform.runLater(()->Game.getDrawing().removeTower(this));
-        return getSellPrice();
     }
 
     public int getKillPower(){
