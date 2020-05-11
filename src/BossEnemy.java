@@ -11,7 +11,6 @@ public class BossEnemy extends Enemy {
     private static String type = "Github BOSS";
     private static int speed = 10;
     private static int power = 100;
-    private static boolean loaded = false;
     private transient ImageView selectedImage;
     private static Image image = new Image(BossEnemy.class.getResourceAsStream("Images/Github.png"));
 

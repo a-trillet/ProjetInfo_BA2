@@ -29,6 +29,7 @@ public class NormalEnemy extends Enemy  {
         lettreText.setFill(new Color(1,0,0,1));
         lettreText.setFont(new Font(14));
     }
+
     public void update(){
         lettreText.setX(this.getCentre().getX()+7);
         lettreText.setY(this.getCentre().getY()+7);

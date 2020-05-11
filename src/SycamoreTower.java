@@ -76,7 +76,6 @@ public class SycamoreTower extends  Tower {
 
             if (targetEnemy != null) {
                 shoot(targetEnemy.getCentre());
-                System.out.println("shoot"+targetEnemy.getCentre().getY());
                 try {
                         Thread.sleep(reloadTime);
                 }

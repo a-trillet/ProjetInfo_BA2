@@ -53,7 +53,6 @@ public class StackTower extends Tower {
             }
             if (targetEnemy != null) {
                 shoot(targetEnemy.getCentre());
-                System.out.println("shoot"+targetEnemy.getCentre().getY());
                 try {
                     if (powerActive){
                         if(System.currentTimeMillis()< powerDurations[level-1]+ powerStartTime){
